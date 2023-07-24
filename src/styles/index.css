@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+body{
+    margin: 0;
+    padding:0;
+    font-family: "Open Sans", sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mainScroll{overflow: hidden; overflow-y: scroll; margin-left: 25px; padding: 2px; }
+
+.mainScroll::-webkit-scrollbar { width: 7px; }
+
+.mainScroll::-webkit-scrollbar-thumb { border-radius: 10px; background-color: transparent; }
+
+/* .mainScroll:hover { &::-webkit-scrollbar-thumb { border-radius: 10px; background-color: #2DAEC4; opacity: 0.4; } } */
+
+.mainScroll:hover::-webkit-scrollbar-thumb { border-radius: 10px; background-color: #2DAEC4; opacity: 0.4; }
+/* .mainScroll:hover {  border-radius: 10px; background-color: #2DAEC4; opacity: 0.4; } */
