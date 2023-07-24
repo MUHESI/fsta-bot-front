@@ -44,6 +44,12 @@ function ResetPassword() {
         type: StatusToast.DARK,
       });
     }
+    if (formResetPswd.pswd !== formResetPswd.pswdconfirm) {
+      return showToast({
+        msg: `Oops ! les duex mots de passe ne correspondent pas`,
+        type: StatusToast.DARK,
+      });
+    }
     try {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
@@ -91,7 +97,7 @@ function ResetPassword() {
         )
       );
       return showToast({
-        msg: `Mot de passe ou email invalide | ${
+        msg: `Oops ! Something went wrong | ${
           (error as any as unknown as Error).message
         }`,
         type: StatusToast.ERROR,

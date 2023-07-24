@@ -1,7 +1,13 @@
 import Laayout from "./pages/Layout";
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  return <Laayout />;
+  return (
+    <>
+      <Laayout />
+      <ToastContainer />
+    </>
+  );
 }
 
 export default App;

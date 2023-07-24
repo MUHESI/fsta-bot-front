@@ -13,6 +13,7 @@ import { ForgotPswdScreen } from "../../types/commonTypes";
 import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
 import { AuthButton } from "../../components/core/Button";
 import { InputAuth } from "../../components/core/Inputs";
+import { StatusToast, showToast } from "../../components/core/ToastAlert";
 
 function OptForgotPassword() {
   const setForgotPswdScreen = useSetRecoilState(forgotPswdScreenState);
@@ -52,6 +53,8 @@ function OptForgotPassword() {
           )
         );
         const { data } = await postAPI("test_otp", { code: codeOpt });
+        console.clear();
+        console.log("data", data);
         if (data) {
           setInfoLoading(
             HandleFormObject.handleSecondLevel(
@@ -65,7 +68,6 @@ function OptForgotPassword() {
           });
         }
       } catch (error) {
-        console.log("error", error);
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
@@ -73,6 +75,12 @@ function OptForgotPassword() {
             false
           )
         );
+        return showToast({
+          msg: `Il semble que votre code est incorrect | ${
+            (error as any as unknown as Error).message
+          }`,
+          type: StatusToast.ERROR,
+        });
       }
     }
   };

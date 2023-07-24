@@ -36,7 +36,7 @@ function Login() {
   });
 
   const handleSubmitLogin = async () => {
-    if (formLogin.email.trim().length < 4 && formLogin.pswd.trim().length < 4) {
+    if (formLogin.email.trim().length < 4 || formLogin.pswd.trim().length < 4) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../components/hooks/useAuth";
+import { showToast } from "../components/core/ToastAlert";
 
 function Home() {
   const { setUser } = useAuth();
@@ -11,7 +12,17 @@ function Home() {
     navigate("/e-commerce");
     console.log("Deconnected");
   };
-  return <div>Home</div>;
+  return (
+    <div
+      onClick={() => {
+        console.clear();
+        console.log("first>>>");
+        showToast({ msg: "cool", type: "success" });
+      }}
+    >
+      HOMEE
+    </div>
+  );
 }
 
 export default Home;
