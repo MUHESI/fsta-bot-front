@@ -19,9 +19,7 @@ function Home() {
         console.log("first>>>");
         showToast({ msg: "cool", type: "success" });
       }}
-    >
-      HOMEE
-    </div>
+    ></div>
   );
 }
 
