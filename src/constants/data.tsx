@@ -169,9 +169,9 @@ export const Menus = [
         permissions: "",
         subMenus: [
           {
-            label: "Liste",
+            label: "Gestion utilisateurs",
             icon: <FaUsers />,
-            path: "/users/profile/12",
+            path: "/users",
             permissions: "",
           },
           {

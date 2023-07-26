@@ -1,69 +1,89 @@
 /** @type {import('tailwindcss').Config} */
-
-export default {
+module.exports = {
+  darkMode: ["class"],
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
-  darkMode: 'class',
   theme: {
-
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
+      screens: {
+        sm: '500px',
+        md: '768px',
+        lg: '976px',
+        xl: '1440px',
+      },
       colors: {
+        // OWNER
         'main-color': '#5BDCF1',
         'main-color-dark': '#2DAEC4',
         'white-hover': '#F8F8FC',
-        'bgColor': '#F8F8FC'
-      },
-    },
-    screens: {
-      sm: '500px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
-    },
-    fontFamily: {
-      display: ['Open Sans', 'sans-serif'],
-      body: ['Open Sans', 'sans-serif'],
+        'bgColor': '#F8F8FC',
 
-      extend: {
-        fontSize: {
-          14: '14px',
+
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        backgroundColor: {
-          'main-bg': '#F0F8FB',
-          'main-dark-bg': '#20232A',
-          'secondary-dark-bg': '#33373E',
-          'light-gray': '#F7F7F7',
-          'half-transparent': 'rgba(0, 0, 0, 0.5)',
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        borderWidth: {
-          1: '1px',
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        borderColor: {
-          color: 'rgba(0, 0, 0, 0.1)',
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        width: {
-          400: '400px',
-          760: '760px',
-          780: '780px',
-          800: '800px',
-          1000: '1000px',
-          1200: '1200px',
-          1400: '1400px',
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        height: {
-          80: '80px',
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        minHeight: {
-          590: '590px',
-        },
-        backgroundImage: {
-          'hero-pattern':
-            "url('https://demos.wrappixel.com/premium-admin-templates/react/flexy-react/main/static/media/welcome-bg-2x-svg.25338f53.svg')",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
+      borderRadius: {
+        //   lg: "var(--radius)",
+        //   md: "calc(var(--radius) - 2px)",
+        //   sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
     },
-    plugins: [require('tailwind-scrollbar')],
-  }
-};
+  },
+  plugins: [require("tailwindcss-animate")],
+}

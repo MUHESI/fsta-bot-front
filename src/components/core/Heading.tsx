@@ -29,7 +29,7 @@ export function SecondHeading({ title }: any) {
 export function LastHeading({ title }: any) {
   return (
     <ContentTitle>
-      <h4> {title || "Add a title"} </h4>
+      <h4 className="font-bold text-xl"> {title || "Add a title"} </h4>
     </ContentTitle>
   );
 }
@@ -45,7 +45,8 @@ export const ContentTitle = styled.div`
   & h3 {
     font-size: 1.4em;
   }
-  & h4 {
-    font-size: 1.3em;
-  }
+  // & h4 {
+  //   font-size: 0.8em;
+  //   font-weight: 600;
+  // }
 `;

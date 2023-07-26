@@ -1,5 +1,6 @@
 import { keyStorage } from "../services/storage/localSTorageHandler";
 import { IDataStoredLocalStorage } from "../types/storageTypes";
+import { IUser } from '@/types/stateSchema/user'
 
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
@@ -20,3 +21,112 @@ export const baseFormLocaStorage: IDataStoredLocalStorage = {
     type: keyStorage.AFIAGAP_AUTH_USER,
     data: {},
 };
+
+
+export const dataUsers: IUser[] = [
+    {
+        id: 1,
+        full_name: "MUHESI Moises",
+        email: "Sincere@april.biz",
+        address: "Kulas Light",
+        phone: "1-770-736-8031 x56442",
+        status: "active",
+        date_created: '2022-01-01T00:00:00.000Z',
+        roles: [
+            {
+                id: 1,
+                name: "Romaguera-Crona",
+            }
+        ],
+        organization: {
+            id: 1,
+            name: "COSAMED",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets",
+        },
+    },
+    {
+        id: 2,
+        full_name: "Leanne Graham",
+        email: "Sincere@april.biz",
+        address: "Kulas Light",
+        phone: "1-770-736-8031 x56442",
+        status: "active",
+        date_created: '2022-01-01T00:00:00.000Z',
+        roles: [
+            {
+                id: 1,
+                name: "Romaguera-Crona",
+            }
+        ],
+        organization: {
+            id: 1,
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets",
+        },
+    },
+    {
+        id: 3,
+        full_name: "Leanne Graham",
+        email: "Sincere@april.biz",
+        address: "Kulas Light",
+        phone: "1-770-736-8031 x56442",
+        status: "active",
+        date_created: '2022-01-01T00:00:00.000Z',
+        roles: [
+            {
+                id: 1,
+                name: "Romaguera-Crona",
+            }
+        ],
+        organization: {
+            id: 1,
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets",
+        },
+    },
+    {
+        id: 3,
+        full_name: "Leanne Graham",
+        email: "Sincere@april.biz",
+        address: "Kulas Light",
+        phone: "1-770-736-8031 x56442",
+        status: "active",
+        date_created: '2022-01-01T00:00:00.000Z',
+        roles: [
+            {
+                id: 1,
+                name: "Romaguera-Crona",
+            }
+        ],
+        organization: {
+            id: 1,
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets",
+        },
+    },
+    {
+        id: 3,
+        full_name: "Leanne Graham",
+        email: "Sincere@april.biz",
+        address: "Kulas Light",
+        phone: "1-770-736-8031 x56442",
+        status: "active",
+        date_created: '2022-01-01T00:00:00.000Z',
+        roles: [
+            {
+                id: 1,
+                name: "Romaguera-Crona",
+            }
+        ],
+        organization: {
+            id: 1,
+            name: "Romaguera-Crona",
+            catchPhrase: "Multi-layered client-server neural-net",
+            bs: "harness real-time e-markets",
+        },
+    },
+];

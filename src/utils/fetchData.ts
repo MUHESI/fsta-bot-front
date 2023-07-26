@@ -27,6 +27,13 @@ export const getAPI = async (url: string, token?: string) => {
     return res;
 };
 
+export const getAPI_ = async (url: string, token?: string) => {
+    const res = await axios.get(`${'https://jsonplaceholder.typicode.com'}/api/${url}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return res;
+};
 export const patchAPI = async (url: string, post: any) => {
     const res = await axios({
         method: "patch",

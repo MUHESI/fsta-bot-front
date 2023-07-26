@@ -55,7 +55,7 @@ export default function Layout() {
             </div>
           </div>
           <div
-            className={`p-5 bg-light-gray  w-full`}
+            className={`p-5 bg-gray-100  w-full`}
             style={{
               marginTop: "68px",
               marginRight: "1px",

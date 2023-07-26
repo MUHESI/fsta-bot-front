@@ -4,10 +4,11 @@ import Login from "../pages/auth/Login";
 import { RequireAuth } from ".";
 import ForgotPaswdProcess from "../pages/auth/ForgotPaswdProcess";
 import ProfileUser from "../pages/profileUser";
+import ListUsers from "../pages/users/ListUsers";
 
 function GlobalRoutes() {
   return (
-    <div className="bg-slate-50">
+    <div className="bg-white rounded-lg">
       <Routes>
         {/* PUBLIC ROUTES */}
         {/* AUTH ROUTES */}
@@ -17,6 +18,7 @@ function GlobalRoutes() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />} />
           <Route path="/protected" element={<Home />} />
+          <Route path="/users" element={<ListUsers />} />
           <Route path="/users/profile/:id" element={<ProfileUser />} />
         </Route>
       </Routes>
