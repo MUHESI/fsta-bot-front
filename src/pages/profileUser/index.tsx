@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
-import { BiShow, BiSolidShow } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
 import { RiFolderInfoFill } from "react-icons/ri";
 import { CgOrganisation } from "react-icons/cg";
