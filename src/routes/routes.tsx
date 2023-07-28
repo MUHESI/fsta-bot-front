@@ -5,6 +5,7 @@ import { RequireAuth } from ".";
 import ForgotPaswdProcess from "../pages/auth/ForgotPaswdProcess";
 import ProfileUser from "../pages/profileUser";
 import ListUsers from "../pages/users/ListUsers";
+import ListOrganizations from "../pages/organizations/ListOrganizations";
 
 function GlobalRoutes() {
   return (
@@ -20,6 +21,7 @@ function GlobalRoutes() {
           <Route path="/protected" element={<Home />} />
           <Route path="/users" element={<ListUsers />} />
           <Route path="/users/profile/:id" element={<ProfileUser />} />
+          <Route path="/organizations" element={<ListOrganizations />} />
         </Route>
       </Routes>
     </div>

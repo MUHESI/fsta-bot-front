@@ -7,14 +7,14 @@ function RequireAuth() {
   const { user } = useAuth();
   const location = useLocation();
 
-  useEffect(() => {}, []);
-  return user.full_name !== null ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  // useEffect(() => {}, []);
+  // return user.full_name !== null ? (
+  //   <Outlet />
+  // ) : (
+  //   <Navigate to="/login" state={{ from: location }} replace />
+  // );
 
-  // return user.full_name !== "" ? <Outlet /> : <Outlet />;
+  return user.full_name !== "" ? <Outlet /> : <Outlet />;
   // return <Outlet />;
 }
 
