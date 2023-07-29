@@ -11,127 +11,70 @@ import { CgOrganisation } from "react-icons/cg";
 import { MdSettings } from "react-icons/md";
 import { RiDeleteBin2Fill, RiLockPasswordFill } from "react-icons/ri";
 
-function ProfileUser() {
+function CreateOrganization() {
   // TODO: Improve this later
+
   const commonClass = "border rounded-lg my-5 ";
   const commonClassSection = `${commonClass} pb-5`;
-
   const commonClassResume =
     "flex justify-start gap-5 px-5 py-2  cursor-pointer items-center text-base hover:bg-white-hover hover:text-accent-foreground";
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Profile User"} />
+        <LastHeading title={"Creation organisation"} />
       </div>
 
       <div className="flex flex-wrap p-5 gap-2">
         <section className="flex-2 flex-grow-0 flex-shrink-0 w-[30%] h-450 hover:text-scale-110">
-          <div className={commonClass}>
-            <div className={commonClassResume}>
-              <FaUserCircle /> <span> Apercu utilisateur </span>
-            </div>
-            <div className={commonClassResume}>
-              <RiFolderInfoFill /> <span> Informations basiques </span>
-            </div>
-            <div className={commonClassResume}>
-              <CgOrganisation /> <span> Organisations </span>
-            </div>
-            <div className={commonClassResume}>
-              <RiLockPasswordFill /> <span> Changer mot de passe </span>
-            </div>
-            <div className={commonClassResume}>
-              <MdSettings /> <span> Parametres </span>
-            </div>
-            <div className={commonClassResume}>
-              <RiDeleteBin2Fill /> <span> Desactiver le compte </span>
-            </div>
-          </div>
+          <h1> Uplaod LOGO</h1>
         </section>
         <section className="flex-1 flex-grow-3 flex-shrink-0 w-[60%] ">
-          <div className={commonClass}>
-            <div className="flex justify-between px-5 py-2 items-center text-base">
-              <div className="flex gap-5 items-center ">
-                <img
-                  alt="..."
-                  src={`${AG_URL.USER_IMG_PROFILE2}`}
-                  className="w-20 h-20 object-cover"
-                />
-                <div className=" flex flex-col ">
-                  <strong> MUHESI Moise </strong>
-                  <span>Admin </span>
-                </div>
-              </div>
-              <div className="p-5"> Rendre off </div>
-            </div>
-          </div>
           <div className={commonClassSection}>
             <LastHeading title={"Informations basiques"} />
             <div className="flex justify-between px-5 gap-5">
               <InputCommon
                 required={true}
                 label="Nom"
-                pl="eg: Entrer votre nom"
+                pl="eg: Entrer le nom de l'organisation"
                 onChange={() => console.log("first")}
-                value={"MUHESI"}
+                value={""}
               />
               <InputCommon
                 required={true}
-                label="Prenon"
-                pl="eg: Entrer votre nom"
-                onChange={() => console.log("first")}
-                value={"MOSES"}
-              />
-            </div>
-            <div className="flex justify-between px-5  gap-5">
-              <InputCommon
-                required={true}
-                label="Addresse mail"
-                pl="Entrer votre adresse mail"
-                onChange={() => console.log("first")}
-                value={"mvmmuhesi@gmail.com"}
-              />
-              <InputCommon
-                required={true}
-                disabled={true}
-                label="Role"
-                pl="Entrer votre role"
-                onChange={() => console.log("first")}
-                value={"Niveau 1"}
-              />
-            </div>
-            <div className="flex justify-between px-5  gap-5">
-              <InputCommon
-                label="Addresse physique"
-                pl="eg: Q. Himbi ||"
-                onChange={() => console.log("first")}
-                value={"Q. Himbi"}
-              />
-              <InputCommon
                 label="Telephone"
-                pl="Entrer votre numero de telephone"
+                pl="eg:+243 998799306"
                 onChange={() => console.log("first")}
-                value={"+243 998799306"}
+                value={""}
               />
             </div>
-            <div className="btn p-3 flex justify-end ">
-              <Button
-                variant="primary"
-                style={{ border: "1px solid #2DAEC4" }}
-                className="ml-auto  rounded-md"
-              >
-                Enregistrer
-              </Button>
+            <div className="flex justify-between px-5  gap-5">
+              <InputCommon
+                // required={true}
+                label="Addresse mail"
+                pl="eg: cosamed@gmail.com"
+                onChange={() => console.log("first")}
+                value={""}
+              />
+              <InputCommon
+                label="Type d'organisation"
+                pl="eg: ..."
+                disabled={true}
+                required={true}
+                onChange={() => console.log("first")}
+                value={""}
+              />
             </div>
           </div>
           <div className={commonClassSection}>
-            <LastHeading title={"Organisations"} />
+            <LastHeading title={"Adresse de l'organisation"} />
             <div className="flex justify-between py-2 px-5 gap-5">
               <InputCommon
                 required={true}
                 disabled={true}
-                label="Nom"
+                label="Province"
+                pl="Selectionner votre province"
                 onChange={() => console.log("first")}
-                value={"COSAMED"}
+                value={""}
               />
               <InputCommon
                 required={true}
@@ -242,7 +185,7 @@ function ProfileUser() {
   );
 }
 
-export default ProfileUser;
+export default CreateOrganization;
 
 function InputCommon({
   pl,
