@@ -24,7 +24,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   children: React.ReactNode;
-  searchField: string;
+  searchField: keyof TData;
 }
 
 export function DataTable<TData, TValue>({
