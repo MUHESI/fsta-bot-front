@@ -10,6 +10,7 @@ import { RiFolderInfoFill } from "react-icons/ri";
 import { CgOrganisation } from "react-icons/cg";
 import { MdSettings } from "react-icons/md";
 import { RiDeleteBin2Fill, RiLockPasswordFill } from "react-icons/ri";
+import { CustomCombobox } from "@/components/core/select";
 
 function CreateOrganization() {
   // TODO: Improve this later
@@ -55,14 +56,15 @@ function CreateOrganization() {
                 onChange={() => console.log("first")}
                 value={""}
               />
-              <InputCommon
+              {/* <InputCommon
                 label="Type d'organisation"
                 pl="eg: ..."
                 disabled={true}
                 required={true}
                 onChange={() => console.log("first")}
                 value={""}
-              />
+              /> */}
+              <CustomCombobox />
             </div>
           </div>
           <div className={commonClassSection}>
