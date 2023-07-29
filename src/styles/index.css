@@ -20,3 +20,8 @@ body{
 
 .mainScroll:hover::-webkit-scrollbar-thumb { border-radius: 10px; background-color: #2DAEC4; opacity: 0.4; }
 /* .mainScroll:hover {  border-radius: 10px; background-color: #2DAEC4; opacity: 0.4; } */
+
+/* div{
+    justify-content: space-around;
+    
+} */

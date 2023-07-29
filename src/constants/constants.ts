@@ -1,6 +1,8 @@
+import { IOrganization, Type } from "@/types/stateSchema/organization";
 import { keyStorage } from "../services/storage/localSTorageHandler";
 import { IDataStoredLocalStorage } from "../types/storageTypes";
 import { IUser } from '@/types/stateSchema/user'
+import { IDataPagination } from '@/types/commonTypes'
 
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
@@ -130,3 +132,86 @@ export const dataUsers: IUser[] = [
         },
     },
 ];
+
+
+export const dataOrganizations: IOrganization[] = [
+    {
+        name: 'ALT-VIP',
+        status: 'active',
+        email: 'user@gmailcom',
+        address: 'Kulas Light',
+        phone: '1-770-736-8031 x56442',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+        description: '',
+        cityId: 'BUKAVU',
+        communeId: '',
+        quarterId: '',
+        provinceId: '',
+        date_created: '2022-01-01T00:00:00.000Z',
+        type: Type.DPS,
+    },
+    {
+        name: 'COSAMED',
+        status: 'active',
+        email: 'cosamed@gmailcom',
+        address: 'Kulas Light',
+        phone: '1-770-736-8031 x56442',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+        description: '',
+        cityId: 'GOMA',
+        communeId: '',
+        quarterId: '',
+        provinceId: '',
+        date_created: '2022-01-01T00:00:00.000Z',
+        type: Type.DPS,
+    },
+    {
+        name: 'DPS',
+        status: 'active',
+        email: 'cosamed@gmailcom',
+        address: 'Kulas Light',
+        phone: '1-770-736-8031 x56442',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+        description: '',
+        cityId: 'BENI',
+        communeId: '',
+        quarterId: '',
+        provinceId: '',
+        date_created: '2022-01-01T00:00:00.000Z',
+        type: Type.DPS,
+    },
+    {
+        name: 'DPS',
+        status: 'active',
+        email: 'cosamed@gmailcom',
+        address: 'Kulas Light',
+        phone: '1-770-736-8031 x56442',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+        description: '',
+        cityId: 'BENI',
+        communeId: '',
+        quarterId: '',
+        provinceId: '',
+        date_created: '2022-01-01T00:00:00.000Z',
+        type: Type.DPS,
+    }
+]
+
+
+
+export const dataPagination: { data: {}, pagination: IDataPagination } = {
+    data: {},
+    pagination: {
+        count: 20,
+        limit: 10,
+        previousPage: 0,
+        page: 1,
+        nextPage: 2
+
+    }
+
+}

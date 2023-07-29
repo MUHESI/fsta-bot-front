@@ -7,7 +7,6 @@ import {
   //   getPaginationRowModel,
   SortingState,
   getSortedRowModel,
-  ColumnFiltersState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
@@ -19,44 +18,32 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { FiRefreshCcw } from "react-icons/fi";
-import { classPag } from "@/pages/users/ListUsers";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  children: React.ReactNode;
+  searchField: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  searchField,
+  children,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
-      columnFilters,
     },
-    onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
   });
 
@@ -64,46 +51,16 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder="Filter names..."
+          placeholder={`Rechercher par ${searchField} ...`}
           value={
-            (table.getColumn("full_name")?.getFilterValue() as string) ?? ""
+            (table.getColumn(searchField)?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("full_name")?.setFilterValue(event.target.value)
+            table.getColumn(searchField)?.setFilterValue(event.target.value)
           }
           className="max-w-sm rounded-md"
         />
-        <div className="flex  gap-2">
-          <Button variant="outline" className="ml-auto rounded-full">
-            <FiRefreshCcw />
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto rounded-full">
-                Columns
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        <div className="flex  gap-2">{children}</div>
       </div>
       <div className="rounded-md border ">
         <Table>
@@ -155,11 +112,6 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-      </div>
-      <div>
-        <div className="flex items-center justify-end space-x-2 py-4">
-          {/* PAGINATION */}
-        </div>
       </div>
     </div>
   );

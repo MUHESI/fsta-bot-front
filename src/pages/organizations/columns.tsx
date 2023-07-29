@@ -1,9 +1,7 @@
+"use client";
 import React from "react";
-import { LastHeading } from "@/components/core/Heading";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/core/tableTemplate";
-import { dataUsers } from "@/constants/constants";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,33 +10,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IUser } from "@/types/stateSchema/user";
 import { ColumnDef } from "@tanstack/table-core";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import { TooltiCustom } from "@/components/ui/tooltip";
+import { IOrganization } from "@/types/stateSchema/organization";
 
-export const columns: ColumnDef<IUser>[] = [
+export const columnsListOrganizations: ColumnDef<IOrganization>[] = [
   {
-    accessorKey: "full_name",
+    accessorKey: "name",
     header: "NOMS",
   },
   {
-    accessorKey: "organization",
-    header: "ORGANISATION",
-    cell: ({ row }: any) => <div>{row.getValue("organization")?.name} </div>,
+    accessorKey: "cityId",
+    header: "Ville",
+    cell: ({ row }: any) => <div>{row.getValue("cityId")} </div>,
   },
-  // cell: ({ row }) =>  {
-  //   const data = row.getValue("organization");
-  //   return (
-  //     <>
-  //       {data.map((item: any) => (
-  //         <span>
-  //           {item.name} {item.id}
-  //         </span>
-  //       ))}
-  //     </>
-  //   );
-  // },
   {
     accessorKey: "phone",
     header: "PHONE",
@@ -56,6 +40,7 @@ export const columns: ColumnDef<IUser>[] = [
     accessorKey: "ACTIONS",
     id: "actions",
     cell: ({ row }) => {
+      const payment: any = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -68,8 +53,8 @@ export const columns: ColumnDef<IUser>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                // console.clear();
-                // console.log("payment", payment);
+                console.clear();
+                console.log(payment);
                 // navigator.clipboard.writeText(payment.id);
               }}
             >
@@ -84,25 +69,3 @@ export const columns: ColumnDef<IUser>[] = [
     },
   },
 ];
-export const classPag = `cursor-pointer rounded-full border bg-light-gray-100 hover:text-gray-600`;
-function ListUsers() {
-  return (
-    <div>
-      <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Users"} />
-      </div>
-      <div className="p-5">
-        {/* <DataTable columns={columns} data={dataUsers} /> */}
-        <div className="flex justify-end text-text-xl text-gray-400 gap-3">
-          <TooltiCustom
-            title="Previous"
-            child={<MdNavigateBefore className={`${classPag}`} />}
-          />
-          <MdNavigateNext className={`${classPag}`} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default ListUsers;
