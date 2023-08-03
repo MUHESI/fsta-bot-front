@@ -215,3 +215,11 @@ export const dataPagination: { data: {}, pagination: IDataPagination } = {
     }
 
 }
+// TODO: TO improve later
+
+// const resUser = {
+//     id: 1,
+//     permissions: {
+
+//     }
+// }

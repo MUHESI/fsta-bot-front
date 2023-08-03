@@ -115,7 +115,7 @@ export const Menus = [
           {
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
-            path: "/organizations/create-new",
+            path: "/organizations/create",
             permissions: "",
           },
           {

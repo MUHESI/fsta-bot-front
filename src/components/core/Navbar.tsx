@@ -125,7 +125,8 @@ function Navbar() {
             // onClick={() => handleClick("userProfile")}
           >
             <img
-              onClick={logout}
+              onClick={() => navigate("/users/profile/10")}
+              // onClick={logout}
               className="rounded-full w-8 h-8"
               src={AG_URL.USER_IMG_PROFILE2}
               alt="user-profile"

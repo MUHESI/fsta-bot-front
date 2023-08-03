@@ -189,7 +189,7 @@ const Sidebar = () => {
                         subMenuOpen.status === true &&
                         menu?.subMenus?.map((item: any, index_: number) => (
                           <NavLink
-                            to={`${menu.path}`}
+                            to={`${item.path}`}
                             key={index_}
                             className={`cursor-pointer font-normal ${
                               subMenuOpen.labelMenu === menu.label &&
