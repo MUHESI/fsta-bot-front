@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <AuthProvider>
           <Routes>
             <Route path="/*" element={<App />} />
-            {/* <ToastContainer /> */}
           </Routes>
         </AuthProvider>
       </ContextProvider>

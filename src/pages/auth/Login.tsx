@@ -70,7 +70,7 @@ function Login() {
           email: data.data.email,
           full_name: data.data.full_name,
         });
-        navigate("/");
+        // navigate("/");
       }
     } catch (error) {
       setInfoLoading(
@@ -115,6 +115,7 @@ function Login() {
               <div className="bg-gray-100 w-64 ms:w-full p-2 flex items-center mb-3 rounded-lg">
                 <FaRegEnvelope className="text-gray-400 m-2 text-sm" />
                 <InputAuth
+                  data-testid="emailInput"
                   value={formLogin.email}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormLogin({ ...formLogin, email: e.target.value })
@@ -126,6 +127,7 @@ function Login() {
               <div className="bg-gray-100 w-64 ms:w-full p-2 flex items-center mb-3 rounded-lg">
                 <MdLockOutline className="text-gray-400 m-2 text-sm" />
                 <InputAuth
+                  data-testid="passwordInput"
                   value={formLogin?.pswd}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormLogin({ ...formLogin, pswd: e.target.value })
@@ -133,17 +135,24 @@ function Login() {
                   type={`${showPswd ? "text" : "password"}`}
                   pl="Ton mot de passe"
                 />
-                {showPswd ? (
-                  <BiShow
-                    className="text-gray-400 m-2 text-sm cursor-pointer"
-                    onClick={() => setShowPswd(!showPswd)}
-                  />
-                ) : (
-                  <BiSolidShow
-                    className="text-gray-400 m-2 text-sm cursor-pointer"
-                    onClick={() => setShowPswd(!showPswd)}
-                  />
-                )}
+
+                <span
+                  data-testid="eye-icon"
+                  className="text-gray-400 m-2 text-sm cursor-pointer"
+                  onClick={() => setShowPswd(!showPswd)}
+                >
+                  {showPswd ? (
+                    <BiShow
+                    // className="text-gray-400 m-2 text-sm cursor-pointer"
+                    />
+                  ) : (
+                    <BiSolidShow
+                    // data-testid="eye-icon"
+                    // className="text-gray-400 m-2 text-sm cursor-pointer"
+                    // onClick={() => setShowPswd(!showPswd)}
+                    />
+                  )}
+                </span>
               </div>
               <div className="flex justify-between w-64 mb-5 ">
                 <label className="flex items-center text-xs focus:outline-none">
@@ -178,3 +187,6 @@ function Login() {
 }
 
 export default Login;
+
+// expect(btnInputElt).toBeInTheDocument();
+// expect(screen.getByTestId("my-test-id")).toHaveTextContent("some text");
