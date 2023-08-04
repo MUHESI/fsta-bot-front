@@ -8,7 +8,7 @@
         },
         {
             "filter": "\\.(ts|tsx)$",
-            "regex": "console\\.log",
+            "regex": "\\.(log | clear())",
             "message": "You’ve got leftover `console.log`",
             "nonBlocking": false
         },
