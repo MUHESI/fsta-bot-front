@@ -6,4 +6,3 @@ echo ===== PRE-COMMIT CHECKS =====
 # npm test
 # yarn run lint
 npx --no-install git-precommit-checks
-echo  ===== COMMIT SUCCESS =====
