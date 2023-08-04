@@ -1,0 +1,21 @@
+{
+    "rules": [
+        {
+            "filter": "\\.(ts|tsx)$",
+            "regex": "/(?:FIXE|TODO)/i",
+            "message": "You have unfinished tasks",
+            "nonBlocking": true
+        },
+        {
+            "filter": "\\.(ts|tsx)$",
+            "regex": "console\\.log",
+            "message": "You’ve got leftover `console.log`",
+            "nonBlocking": false
+        },
+        {
+            "filter": "\\.(ts|tsx)$",
+            "regex": "/^[<>|=]{4,}/m",
+            "message": "You’ve got leftover conflict markers"
+        }
+    ]
+}

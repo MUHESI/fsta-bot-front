@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo commit in progress
+echo ===== PRE-COMMIT CHECKS =====
 # scripts
 # npm test
 # yarn run lint
-echo commit finished
 npx --no-install git-precommit-checks
+echo  ===== COMMIT SUCCESS =====
