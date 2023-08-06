@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import LocalStorage, {
   keyStorage,
 } from "../services/storage/localSTorageHandler";
-import { AuthUser } from "@/contexts/authContext";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeMenuState, userAuthenticatedState } from "@/globalState/atoms";
+import { IAutherUSer } from "@/types/stateSchema/auth";
 
 export default function Layout() {
   // RECOIL
@@ -14,7 +14,7 @@ export default function Layout() {
   const activeMenu = useRecoilValue(activeMenuState);
 
   const checkAuthUser = () => {
-    const dataSaved = LocalStorage.getItem<{ data: AuthUser }>(
+    const dataSaved = LocalStorage.getItem<{ data: IAutherUSer }>(
       keyStorage.AFIAGAP_AUTH_USER
     );
     if (dataSaved === null) {
