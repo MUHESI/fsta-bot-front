@@ -143,7 +143,7 @@ export const styleTheme = {
 };
 
 /** 
- * todo Styling of action 
+ * 
  * @param {}
  * .widgetLgButton.Approved {
   background-color: #e5faf2;
