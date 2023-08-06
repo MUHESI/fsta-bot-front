@@ -1,11 +1,12 @@
 import { MdOutlineCancel } from "react-icons/md";
 import { IUserProfile, userProfileData } from "../../constants/data";
-import { useStateContext } from "../../contexts/contextPorvider";
-import { Button } from "../core";
 import { AG_URL } from "../../constants/constants";
+import { currentColorState } from "@/globalState/atoms";
+import { useRecoilValue } from "recoil";
+import { Button } from "../core";
 
 const UserProfile = () => {
-  const { currentColor } = useStateContext();
+  const currentColor = useRecoilValue(currentColorState);
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">

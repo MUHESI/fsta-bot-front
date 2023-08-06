@@ -12,8 +12,8 @@ import LocalStorage, {
 import { useSetRecoilState } from "recoil";
 import { forgotPswdScreenState } from "../../globalState/atoms";
 import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
-import { AuthButton } from "../../components/core/Button";
-import { InputAuth } from "../../components/core/Inputs";
+import { AuthButton } from "@/components/core/Button";
+import { InputAuth } from "@/components/core/Inputs";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");

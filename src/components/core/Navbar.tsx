@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { useStateContext } from "../../contexts/contextPorvider";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AG_URL } from "../../constants/constants";
 import { RiNotification3Line } from "react-icons/ri";
@@ -9,11 +8,18 @@ import UserProfile from "../profile/UserProfile";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
-import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import LocalStorage, {
   keyStorage,
 } from "../../services/storage/localSTorageHandler";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  activeMenuState,
+  currentColorState,
+  isCLickedState,
+  screenSizeState,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
 
 type INavButtonProps = {
   customFunc: () => void;
@@ -40,16 +46,12 @@ const NavButton = ({ customFunc, icon, color, dotColor }: INavButtonProps) => (
 function Navbar() {
   const navigate = useNavigate();
 
-  const {
-    currentColor,
-    activeMenu,
-    setActiveMenu,
-    // handleClick,
-    isClicked,
-    setScreenSize,
-    screenSize,
-  } = useStateContext();
-  const { setUser } = useAuth();
+  // RECOIL
+  const setUser = useSetRecoilState(userAuthenticatedState);
+  const currentColor = useRecoilValue(currentColorState);
+  const isClicked = useRecoilValue(isCLickedState);
+  const [activeMenu, setActiveMenu] = useRecoilState(activeMenuState);
+  const [screenSize, setScreenSize] = useRecoilState(screenSizeState);
 
   const logout = () => {
     setUser({ email: null, full_name: null });
@@ -75,7 +77,11 @@ function Navbar() {
     }
   }, [screenSize]);
 
-  const handleActiveMenu = () => setActiveMenu(!activeMenu);
+  const handleActiveMenu = () => {
+    console.clear();
+    console.log("first", activeMenu);
+    setActiveMenu(!activeMenu);
+  };
 
   return (
     <div

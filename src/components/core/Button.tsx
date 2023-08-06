@@ -1,4 +1,8 @@
-import { useStateContext } from "../../contexts/contextPorvider";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  initialState as initialState_,
+  isCLickedState,
+} from "@/globalState/atoms";
 
 const Button = ({
   icon,
@@ -10,7 +14,8 @@ const Button = ({
   borderRadius,
   width,
 }: any) => {
-  const { setIsClicked, initialState } = useStateContext();
+  const setIsClicked = useSetRecoilState(isCLickedState);
+  const initialState = useRecoilValue(initialState_);
 
   return (
     <button

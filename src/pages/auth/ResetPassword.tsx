@@ -8,21 +8,23 @@ import LocalStorage, {
   keyStorage,
 } from "../../services/storage/localSTorageHandler";
 import { useNavigate } from "react-router";
-import { StatusToast, showToast } from "../../components/core/ToastAlert";
+import { StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "../../services/stateHandler/formDataHandler";
 import { postAPI } from "../../utils/fetchData";
 import { handleBaseFormLocalStorage } from "../../services/storage/helpers";
-import useAuth from "../../components/hooks/useAuth";
-import { AuthButton } from "../../components/core/Button";
-import { InputAuth } from "../../components/core/Inputs";
+import { AuthButton } from "@/components/core/Button";
+import { InputAuth } from "@/components/core/Inputs";
 import { BiShow, BiSolidShow } from "react-icons/bi";
+import { useSetRecoilState } from "recoil";
+import { userAuthenticatedState } from "@/globalState/atoms";
 
 function ResetPassword() {
   const navigate = useNavigate();
   const [showPswd, setShowPswd] = useState(true);
   const [showConfirmPswd, setShowConfirmPswd] = useState(false);
 
-  const { setUser } = useAuth();
+  const setUser = useSetRecoilState(userAuthenticatedState);
+
   const [formResetPswd, setFormResetPswd] = useState<IResetPassword>(
     INIT_FORM_RESET_PASSWORD
   );

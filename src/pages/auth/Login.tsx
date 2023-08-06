@@ -4,26 +4,28 @@ import { AG_URL } from "../../constants/constants";
 import { useEffect, useState } from "react";
 import { ILogin } from "../../types/stateSchema/auth";
 import { INIT_FORM_LOGIN } from "../../constants/initForm";
-import { StatusToast, showToast } from "../../components/core/ToastAlert";
+import { StatusToast, showToast } from "@/components/core/ToastAlert";
 import { postAPI } from "../../utils/fetchData";
 import LocalStorage, {
   keyStorage,
 } from "../../services/storage/localSTorageHandler";
-import useAuth from "../../components/hooks/useAuth";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IStateLoading } from "../../types/stateSchema/loading";
 import { HandleFormObject } from "../../services/stateHandler/formDataHandler";
 import { handleBaseFormLocalStorage } from "../../services/storage/helpers";
-import { AuthButton } from "../../components/core/Button";
+import { AuthButton } from "@/components/core/Button";
 import { BiShow, BiSolidShow } from "react-icons/bi";
-import { InputAuth } from "../../components/core/Inputs";
+import { InputAuth } from "@/components/core/Inputs";
+import { useSetRecoilState } from "recoil";
+import { userAuthenticatedState } from "@/globalState/atoms";
 
 function Login() {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  // const [user, setUser] = useRecoilState(userAuthenticatedState);
+  const setUser = useSetRecoilState(userAuthenticatedState);
 
   useEffect(() => {
-    if (user.full_name !== null) return navigate("/");
+    // if (user.full_name !== null) return navigate("/");
   }, []);
 
   const [formLogin, setFormLogin] = useState<ILogin>(INIT_FORM_LOGIN);

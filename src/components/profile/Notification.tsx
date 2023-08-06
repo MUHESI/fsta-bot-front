@@ -1,11 +1,11 @@
 import { MdOutlineCancel } from "react-icons/md";
-
-import { useStateContext } from "../../contexts/contextPorvider";
 import { chatData } from "../../constants/data";
 import { Button } from "../core";
+import { currentColorState } from "@/globalState/atoms";
+import { useRecoilValue } from "recoil";
 
 const Notification = () => {
-  const { currentColor } = useStateContext();
+  const currentColor = useRecoilValue(currentColorState);
 
   return (
     <div className="nav-item absolute right-5 md:right-40 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -43,8 +43,7 @@ const Notification = () => {
             <div>
               <p className="font-semibold dark:text-gray-200">{item.message}</p>
               <p className="text-gray-500 text-sm dark:text-gray-400">
-                {" "}
-                {item.desc}{" "}
+                {item.desc}
               </p>
             </div>
           </div>

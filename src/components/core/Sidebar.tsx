@@ -2,14 +2,22 @@ import { Link, NavLink } from "react-router-dom";
 import { MdChevronRight, MdOutlineCancel } from "react-icons/md";
 import { Menus } from "../../constants/data";
 import { AG_URL } from "../../constants/constants";
-import { useStateContext } from "../../contexts/contextPorvider";
 import { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { motion } from "framer-motion";
+import {
+  activeMenuState,
+  currentColorState,
+  screenSizeState,
+} from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize, currentColor } =
-    useStateContext();
+  // RECOIL
+  const [activeMenu, setActiveMenu] = useRecoilState(activeMenuState);
+  const screenSize = useRecoilValue(screenSizeState);
+  const currentColor = useRecoilValue(currentColorState);
+
   // const [isActive, setIsActive] = useState("");
   const [subMenuOpen, setSubMenuOpen] = useState<{
     labelMenu: string | null;

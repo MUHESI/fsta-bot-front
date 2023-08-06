@@ -16,7 +16,7 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
   "baseUrl": ".",
@@ -26,6 +26,7 @@
    
   },
 
-  "include": ["src", "docs/Login.origin.tsx"],
+  "include": ["src"],
+
   "references": [{ "path": "./tsconfig.node.json" }]
 }

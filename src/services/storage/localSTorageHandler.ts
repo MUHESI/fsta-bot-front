@@ -1,9 +1,8 @@
-import { IDataStoredLocalStorage } from "../../types/storageTypes";
 
 export enum keyStorage {
     AFIAGAP_AUTH_USER = "AFIAGAP::AUTH//AUTH_USER",
     AFIAGAP_FORGORT_PASSWORD = "AFIAGAP::AUTH:://FORGORT_PASSWORD",
-};
+}
 
 export default class LocalStorage {
     static attachChangeDetection = (

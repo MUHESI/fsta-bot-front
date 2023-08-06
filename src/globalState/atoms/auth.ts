@@ -2,12 +2,21 @@ import { atom } from "recoil";
 import { ILogin } from "../../types/stateSchema/auth";
 import { ForgotPswdScreen } from "../../types/commonTypes";
 import { AUTH_KEYS } from "../keys";
+import { AuthUser } from "@/contexts/authContext";
 
 export const loginState = atom<ILogin>({
     key: AUTH_KEYS.LOGIN_STATE,
     default: {
         email: '',
         pswd: ''
+    }
+})
+
+export const userAuthenticatedState = atom<AuthUser>({
+    key: AUTH_KEYS.USER_AUTHENTICATED_STATE,
+    default: {
+        full_name: null,
+        email: null,
     }
 })
 

@@ -1,16 +1,17 @@
-import { useStateContext } from "../contexts/contextPorvider";
-import { Navbar, Sidebar } from "../components/core";
+import { Navbar, Sidebar } from "@/components/core";
 import GlobalRoutes from "../routes/routes";
-import useAuth from "../components/hooks/useAuth";
 import { useEffect } from "react";
 import LocalStorage, {
   keyStorage,
 } from "../services/storage/localSTorageHandler";
 import { AuthUser } from "@/contexts/authContext";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { activeMenuState, userAuthenticatedState } from "@/globalState/atoms";
 
 export default function Layout() {
-  const { activeMenu } = useStateContext();
-  const { user, setUser } = useAuth();
+  // RECOIL
+  const [user, setUser] = useRecoilState(userAuthenticatedState);
+  const activeMenu = useRecoilValue(activeMenuState);
 
   const checkAuthUser = () => {
     const dataSaved = LocalStorage.getItem<{ data: AuthUser }>(

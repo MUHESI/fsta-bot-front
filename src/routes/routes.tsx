@@ -7,6 +7,7 @@ import ProfileUser from "../pages/profileUser";
 import ListUsers from "../pages/users";
 import ListOrganizations from "../pages/organizations";
 import CreateOrganization from "../pages/createOrganization";
+import LoadingPage from "../pages/loading";
 
 function GlobalRoutes() {
   return (
@@ -15,6 +16,7 @@ function GlobalRoutes() {
         {/* PUBLIC ROUTES */}
         {/* AUTH ROUTES */}
         <Route path="/login" element={<Login />} />
+        <Route path="/loading" element={<LoadingPage />} />
         <Route path="/auth/forgot-password" element={<ForgotPaswdProcess />} />
         {/*  PROTECTED ROUTES */}
         <Route element={<RequireAuth />}>
