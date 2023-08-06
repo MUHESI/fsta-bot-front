@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { ILogin, IResetPassword } from "../../types/stateSchema/auth";
+import { ILogin } from "../../types/stateSchema/auth";
 import { ForgotPswdScreen } from "../../types/commonTypes";
 import { AUTH_KEYS } from "../keys";
 

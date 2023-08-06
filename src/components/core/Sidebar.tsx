@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { MdChevronRight, MdOutlineCancel } from "react-icons/md";
-import { ILink, Ilinks, Menus, links } from "../../constants/data";
+import { Menus } from "../../constants/data";
 import { AG_URL } from "../../constants/constants";
 import { useStateContext } from "../../contexts/contextPorvider";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const Sidebar = () => {
   const { activeMenu, setActiveMenu, screenSize, currentColor } =
     useStateContext();
-  const [isActive, setIsActive] = useState("");
+  // const [isActive, setIsActive] = useState("");
   const [subMenuOpen, setSubMenuOpen] = useState<{
     labelMenu: string | null;
     index: number;
@@ -21,8 +21,8 @@ const Sidebar = () => {
     index: 0,
   });
 
-  const handleCloseSideBar = (valueId: string) => {
-    setIsActive(valueId);
+  const handleCloseSideBar = () => {
+    // setIsActive(valueId);
     if (
       activeMenu !== undefined &&
       screenSize !== undefined &&
@@ -57,6 +57,8 @@ const Sidebar = () => {
         margin: "2px",
         marginRight: "1px",
         marginLeft: "0px",
+        // zIndex: 1000,
+        background: "white",
       }}
     >
       <>
@@ -108,7 +110,8 @@ const Sidebar = () => {
                   <div
                     key={index}
                     onClick={() => {
-                      handleCloseSideBar(menu.path);
+                      // handleCloseSideBar(menu.path);
+                      handleCloseSideBar();
                       if (
                         subMenuOpen.labelMenu === menu.label &&
                         subMenuOpen.index === idx &&

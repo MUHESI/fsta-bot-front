@@ -7,22 +7,22 @@ export enum keyStorage {
 
 export default class LocalStorage {
     static attachChangeDetection = (
-        callback: (this: Window, ev: StorageEvent) => any
+        callback: (this: Window, ev: StorageEvent) => void
     ) => {
         window.addEventListener("storage", callback);
     };
 
-    static detachChangeDetection = (
-        callback: (this: Window, ev: StorageEvent) => any
+    static detachChangeDetection = <TRes>(
+        callback: (this: Window, ev: StorageEvent) => TRes | null
     ) => {
         window.removeEventListener("storage", callback);
     };
 
-    static setItem = (storageKey: string, storageValue: any) => {
+    static setItem = <TData>(storageKey: string, storageValue: TData) => {
         localStorage.setItem(storageKey, JSON.stringify(storageValue));
     };
 
-    static getItem = (storageKey: string): IDataStoredLocalStorage | null => {
+    static getItem = <TRes>(storageKey: string): TRes | null => {
         const res: any = localStorage.getItem(storageKey);
         return JSON.parse(res);
         // return JSON.parse(localStorage.getItem(storageKey));

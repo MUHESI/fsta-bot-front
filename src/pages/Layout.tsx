@@ -6,17 +6,20 @@ import { useEffect } from "react";
 import LocalStorage, {
   keyStorage,
 } from "../services/storage/localSTorageHandler";
+import { AuthUser } from "@/contexts/authContext";
 
 export default function Layout() {
   const { activeMenu } = useStateContext();
   const { user, setUser } = useAuth();
 
   const checkAuthUser = () => {
-    const dataSaved = LocalStorage.getItem(keyStorage.AFIAGAP_AUTH_USER);
+    const dataSaved = LocalStorage.getItem<{ data: AuthUser }>(
+      keyStorage.AFIAGAP_AUTH_USER
+    );
     if (dataSaved === null) {
       return;
     } else {
-      const { data, user, date } = dataSaved;
+      const { data } = dataSaved;
 
       setUser({ full_name: data.full_name, email: data.email });
     }

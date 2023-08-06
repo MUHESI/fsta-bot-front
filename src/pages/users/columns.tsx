@@ -21,7 +21,9 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
   {
     accessorKey: "organization",
     header: "ORGANISATION",
-    cell: ({ row }: any) => <div>{row.getValue("organization")?.name} </div>,
+    cell: ({ row }: { row: { [key: string]: any } }) => (
+      <div>{row.getValue("organization")?.name} </div>
+    ),
   },
 
   {
@@ -31,16 +33,17 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
   {
     accessorKey: "status",
     header: "STATUS",
-    cell: ({ row }: any) => (
+    cell: ({ row }: { row: { [key: string]: any } }) => (
       <div className="font-semibold text-green-600">
-        {row.getValue("status")}{" "}
+        {row.getValue("status")}
       </div>
     ),
   },
   {
     accessorKey: "ACTIONS",
     id: "actions",
-    cell: ({ row }) => {
+    // cell: ({ row }) => {
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

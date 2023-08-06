@@ -1,3 +1,4 @@
+import React, { ReactNode } from "react";
 import { useStateContext } from "../../contexts/contextPorvider";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AG_URL } from "../../constants/constants";
@@ -14,7 +15,14 @@ import LocalStorage, {
   keyStorage,
 } from "../../services/storage/localSTorageHandler";
 
-const NavButton = ({ customFunc, icon, color, dotColor }: any) => (
+type INavButtonProps = {
+  customFunc: () => void;
+  icon: ReactNode;
+  color: string;
+  dotColor?: string;
+  title: string;
+};
+const NavButton = ({ customFunc, icon, color, dotColor }: INavButtonProps) => (
   <button
     type="button"
     onClick={() => customFunc()}
@@ -105,7 +113,7 @@ function Navbar() {
           <NavButton
             title="Notification"
             // dotColor="rgb(254, 201, 15)"
-            // customFunc={() => handleClick("notification")}
+            customFunc={() => console.clear()}
             color={currentColor}
             icon={<BiMessageSquareDetail />}
           />
@@ -114,7 +122,7 @@ function Navbar() {
           <NavButton
             title="Notification"
             dotColor="rgb(254, 201, 15)"
-            // customFunc={() => handleClick("notification")}
+            customFunc={() => console.clear()}
             color={currentColor}
             icon={<RiNotification3Line />}
           />
@@ -125,8 +133,8 @@ function Navbar() {
             // onClick={() => handleClick("userProfile")}
           >
             <img
-              onClick={() => navigate("/users/profile/10")}
-              // onClick={logout}
+              // onClick={() => navigate("/users/profile/10")}
+              onClick={logout}
               className="rounded-full w-8 h-8"
               src={AG_URL.USER_IMG_PROFILE2}
               alt="user-profile"
@@ -143,6 +151,7 @@ function Navbar() {
           <NavButton
             title="Notification"
             color={currentColor}
+            customFunc={() => console.clear()}
             icon={<IoMdSettings />}
           />
         </div>
@@ -166,6 +175,7 @@ function Navbar() {
         <div className="border-r border-t p-3">
           <NavButton
             title="Notification"
+            customFunc={() => console.clear()}
             color={currentColor}
             icon={<IoMdSettings />}
           />

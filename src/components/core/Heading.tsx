@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-function MainHeading({ title }: any) {
+type IHeadingProps = {
+  title: string;
+};
+function MainHeading({ title }: IHeadingProps) {
   return (
     <ContentTitle>
       <h1> {title || "Add a title"} </h1>
@@ -10,7 +13,7 @@ function MainHeading({ title }: any) {
 
 export default MainHeading;
 
-export function FirstHeading({ title }: any) {
+export function FirstHeading({ title }: IHeadingProps) {
   return (
     <ContentTitle>
       <h2> {title || ""} </h2>
@@ -18,7 +21,7 @@ export function FirstHeading({ title }: any) {
   );
 }
 
-export function SecondHeading({ title }: any) {
+export function SecondHeading({ title }: IHeadingProps) {
   return (
     <ContentTitle>
       <h3> {title || "Add a title"} </h3>
@@ -26,7 +29,7 @@ export function SecondHeading({ title }: any) {
   );
 }
 
-export function LastHeading({ title }: any) {
+export function LastHeading({ title }: IHeadingProps) {
   return (
     <ContentTitle>
       <h4 className="font-bold text-xl"> {title || "Add a title"} </h4>

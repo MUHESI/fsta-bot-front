@@ -1,6 +1,12 @@
 // AUTH
+type IAuthProps = {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type: string;
+  pl: string;
+};
 
-export function InputAuth({ value, onChange, type, pl }: any) {
+export function InputAuth({ value, onChange, type, pl }: IAuthProps) {
   return (
     <>
       <input

@@ -106,7 +106,9 @@ function ResetPassword() {
   };
 
   const checkEmailSaved = () => {
-    const dataSaved = LocalStorage.getItem(keyStorage.AFIAGAP_FORGORT_PASSWORD);
+    const dataSaved = LocalStorage.getItem<any>(
+      keyStorage.AFIAGAP_FORGORT_PASSWORD
+    );
     if (dataSaved === null) {
       return navigate("/auth/forgot-password");
     } else {

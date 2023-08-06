@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ColumnDef,
   flexRender,
@@ -34,6 +34,7 @@ export function DataTable<TData, TValue>({
   children,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [searchField_, SetSearchField_] = React.useState<string>("");
 
   const table = useReactTable({
     data,
@@ -47,16 +48,20 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  useEffect(() => {
+    SetSearchField_(searchField as string);
+  }, []);
+
   return (
     <div>
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder={`Rechercher par ${searchField} ...`}
+          placeholder={`Rechercher par ${searchField_} ...`}
           value={
-            (table.getColumn(searchField)?.getFilterValue() as string) ?? ""
+            (table.getColumn(searchField_)?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn(searchField)?.setFilterValue(event.target.value)
+            table.getColumn(searchField_)?.setFilterValue(event.target.value)
           }
           className="max-w-sm rounded-md"
         />
@@ -116,3 +121,40 @@ export function DataTable<TData, TValue>({
     </div>
   );
 }
+
+export const styleTheme = {
+  colors: {
+    blueDark: "#2DAEC4",
+    blueLight: " #253f9a",
+    redLight: " #cb0000",
+
+    grayLight: "gray",
+    grayDark: " rgba(0, 0, 0, 0.05)",
+    white: "white",
+    colorTabHover: "#e6e6e6",
+    grayColor: "gray",
+    successDark: "#3bb077",
+    errorDark: "#d95087",
+    grisHover: "#F4F2FA",
+  },
+  borderColors: {
+    mainCOlor: "rgba(0, 0, 0, 0.05)",
+  },
+};
+
+/** 
+ * todo Styling of action 
+ * @param {}
+ * .widgetLgButton.Approved {
+  background-color: #e5faf2;
+  color: #3bb077;
+}
+.widgetLgButton.Declined {
+  background-color: #fff0f1;
+  color: #d95087;
+}
+.widgetLgButton.Pending {
+  background-color: #ebf1fe;
+  color: #2a7ade;
+}
+ */

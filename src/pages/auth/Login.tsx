@@ -96,7 +96,7 @@ function Login() {
         <main
           className={`bg-white rounded-tl-2xl rounded-bl-2xl rounded-tr-2xl rounded-br-2xl   rounder-2xl shadow-2xl flex  max-w-4xl md:w-full`}
         >
-          <div className="rounded-tl-2xl rounded-bl-2xl sm:w-3/5 md:w-full my-2 ">
+          <div className="rounded-tl-2xl rounded-bl-2xl  md:w-full my-2 ">
             <div className="text-center flex justify-center">
               <img
                 src={AG_URL.LOGO_AFIA_GAP}
@@ -106,7 +106,7 @@ function Login() {
               />
             </div>
             <div className="p-0">
-              <h2 className="text-3xl font-bold text-main-color-dark sm-max:text-red-500">
+              <h2 className="text-xl sm:text-3xl font-bold text-main-color-dark ">
                 Connexion
               </h2>
               <div className="border-2 w-10 inline-block mb-2 border-main-color-dark"></div>

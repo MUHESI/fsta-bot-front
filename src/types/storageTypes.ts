@@ -1,6 +1,6 @@
 import { keyStorage } from "../services/storage/localSTorageHandler";
 
-export interface IDataStoredLocalStorage {
+export interface IDataStoredLocalStorage<TData> {
     date: {
         day: number,
         year: number,
@@ -9,6 +9,6 @@ export interface IDataStoredLocalStorage {
     }
     type: keyStorage
     user?: string,
-    data: any,
+    data: TData,
 }
 

@@ -76,7 +76,7 @@ function ForgotPassword() {
         <main
           className={`bg-white rounded-tl-2xl rounded-bl-2xl rounded-tr-2xl rounded-br-2xl   rounder-2xl shadow-2xl flex  max-w-4xl md:w-full`}
         >
-          <div className="rounded-tl-2xl rounded-bl-2xl sm:w-3/5 md:w-full mb-5  ">
+          <div className="rounded-tl-2xl rounded-bl-2xl md:w-full mb-5  ">
             <div className="text-center flex justify-center">
               <img
                 src={AG_URL.LOGO_AFIA_GAP}
@@ -86,7 +86,7 @@ function ForgotPassword() {
               />
             </div>
             <div className="p-0">
-              <h2 className="text-2xl font-bold text-main-color-dark">
+              <h2 className="text-xl sm:text-2xl font-bold text-main-color-dark">
                 Mot de passe oublié ?
               </h2>
               <div className="border-2 w-10 inline-block mb-2 border-main-color-dark"></div>

@@ -12,7 +12,7 @@ export const AG_URL = {
 }
 
 
-export const baseFormLocaStorage: IDataStoredLocalStorage = {
+export const baseFormLocaStorage: IDataStoredLocalStorage<any> = {
     date: {
         day: 0,
         year: 0,

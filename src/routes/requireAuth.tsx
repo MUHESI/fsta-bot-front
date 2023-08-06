@@ -1,12 +1,11 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../components/hooks/useAuth";
-import { useEffect } from "react";
 
 function RequireAuth() {
   const { user } = useAuth();
   const location = useLocation();
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   return user.full_name !== null ? (
     <Outlet />
   ) : (
