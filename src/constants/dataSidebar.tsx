@@ -3,30 +3,12 @@ import {
   AiOutlineCalendar,
   AiOutlineShoppingCart,
   AiTwotoneAlert,
-  // AiOutlineAreaChart,
-  // AiOutlineBarChart,
-  // AiOutlineStock,
 } from "react-icons/ai";
-import {
-  FiShoppingBag,
-  FiCreditCard,
-  // FiEdit,
-  // FiPieChart,
-  // FiBarChart,
-  // FiStar,
-  // FiShoppingCart,
-} from "react-icons/fi";
+import { FiCreditCard } from "react-icons/fi";
 import { BsCurrencyDollar, BsKanban, BsShield } from "react-icons/bs";
-// import { BiColorFill } from "react-icons/bi";
 import { IoMdAnalytics, IoMdContacts } from "react-icons/io";
-// import { RiContactsLine, RiStockLine } from "react-icons/ri";
-// import { MdOutlineSupervisorAccount } from "react-icons/md";
-// import { HiOutlineRefresh } from "react-icons/hi";
-// import { TiTick } from "react-icons/ti";
-// import { GiLouvrePyramid } from "react-icons/gi";
-// import { GrLocation } from "react-icons/gr";
-// import ProductImg from "../../../public/images/product.jpg";
 import { AG_URL } from "./constants";
+import { PERMISSIONS } from "../types/permissions";
 import {
   MdCreateNewFolder,
   MdCrisisAlert,
@@ -35,23 +17,43 @@ import {
 import { FcOrganization } from "react-icons/fc";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
-// import { PiUsersFourFill } from "react-icons/pi";
-// import { IoCreateOutline } from "react-icons/io";
-// MdCreateNewFolder;
 
-export interface Ilinks {
-  // permission: string;
-  link: string;
-  label: string;
+type MainMemnu =
+  | "Dashboard"
+  | "Services"
+  | "ANALYSE"
+  | "UTILISATEURS"
+  | "ORGANISATIONS"
+  | "PYRAMIDE";
+
+type LabelMenus =
+  | "GAPS"
+  | "Organisations"
+  | "Utilisateurs"
+  | "Provinces"
+  | "Territoires"
+  | "Zones de sante"
+  | "Aires de santé";
+
+export interface IMenus {
+  label: LabelMenus;
+  path: string;
   icon: ReactNode;
-}
-export interface ILink {
-  title: string;
-  // role: string;
-  links: Ilinks[];
+  permissions: PERMISSIONS;
+  subMenus: ISubMenus[];
 }
 
-export const Menus = [
+export interface ISubMenus
+  extends Pick<IMenus, "icon" | "path" | "permissions"> {
+  label: string;
+}
+
+export interface IDataMenu {
+  mainIcon: ReactNode | string;
+  mainMenu: MainMemnu;
+  menus: IMenus[];
+}
+export const dataMenus: IDataMenu[] = [
   {
     mainIcon: "",
     mainMemnu: "Dashboard",
@@ -60,26 +62,25 @@ export const Menus = [
         label: "GAPS",
         path: "/gaps",
         icon: <MdOutlineEditLocationAlt />,
-        permissions: "",
-
+        permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion gaps",
             icon: <AiOutlineShoppingCart />,
             path: "/",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
             path: "/",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Update",
             icon: <AiOutlineShoppingCart />,
             path: "/",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -87,202 +88,169 @@ export const Menus = [
         label: "Alerts",
         icon: <MdCrisisAlert />,
         path: "/",
-        permissions: "",
+        permissions: PERMISSIONS.MANAGE_GAP,
       },
       {
         label: "Investigations",
         icon: <MdCrisisAlert />,
         path: "/",
-        permissions: "",
+        permissions: PERMISSIONS.MANAGE_GAP,
       },
     ],
   },
   {
-    mainMemnu: "Services",
+    mainIcon: "",
+    mainMenu: "ORGANISATIONS",
     menus: [
       {
         label: "Organisations",
         icon: <FcOrganization />,
         path: "/",
-        permissions: "",
+        permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion org.",
             icon: <MdCreateNewFolder />,
             path: "/organizations",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
             path: "/organizations/create",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Permissions",
             icon: <AiOutlineShoppingCart />,
             path: "/organizations/permissions",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
     ],
   },
   {
-    mainMemnu: "ANALYSE",
+    mainIcon: "",
+    mainMenu: "ANALYSE",
     menus: [
       {
-        label: "GAPS01",
+        label: "GAPS",
         icon: <AiOutlineShoppingCart />,
         path: "/",
-        permissions: "",
+        permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "analyse gaps1",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/analytics",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "analyse gaps2",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/analytics",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "analyse gaps2",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/analytics",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
     ],
   },
   {
-    mainMemnu: "UTILISATEURS",
+    mainIcon: "",
+    mainMenu: "PYRAMIDE",
     menus: [
       {
-        label: "Ulisateurs-1",
+        label: "Provinces",
         icon: <FaUsers />,
         path: "/",
-        permissions: "",
+        permissions: PERMISSIONS.MANAGE_GAP,
+        subMenus: [
+          {
+            label: "Liste des provinces",
+            icon: <FaUsers />,
+            path: "/users",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Créer",
+            icon: <BiSolidUserPlus />,
+            path: "/users/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+        ],
+      },
+      {
+        label: "Territoires",
+        icon: <FaUsers />,
+        path: "/",
+        permissions: PERMISSIONS.MANAGE_GAP,
+        subMenus: [
+          {
+            label: "Liste des provinces",
+            icon: <FaUsers />,
+            path: "/users",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Créer",
+            icon: <BiSolidUserPlus />,
+            path: "/users/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+        ],
+      },
+      {
+        label: "Aires de santé",
+        icon: <FaUsers />,
+        path: "/",
+        permissions: PERMISSIONS.MANAGE_GAP,
+        subMenus: [
+          {
+            label: "liste",
+            icon: <FaUsers />,
+            path: "/users",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Créer",
+            icon: <BiSolidUserPlus />,
+            path: "/users/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mainIcon: "",
+    mainMenu: "UTILISATEURS",
+    menus: [
+      {
+        label: "Utilisateurs",
+        icon: <FaUsers />,
+        path: "/",
+        permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion utilisateurs",
             icon: <FaUsers />,
             path: "/users",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer",
             icon: <BiSolidUserPlus />,
             path: "/users/create",
-            permissions: "",
+            permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],
-      },
-      {
-        label: "Ulisateurs-2",
-        icon: <FaUsers />,
-        path: "/",
-        permissions: "",
-        subMenus: [
-          {
-            label: "Liste",
-            icon: <FaUsers />,
-            path: "/users/profile/12",
-            permissions: "",
-          },
-          {
-            label: "Créer",
-            icon: <BiSolidUserPlus />,
-            path: "/users/create",
-            permissions: "",
-          },
-        ],
-      },
-    ],
-  },
-];
-
-export const links: ILink[] = [
-  {
-    title: "Dashboard",
-    // role: "",
-    links: [
-      {
-        // permission: "",
-        label: "Gaps",
-        link: "/gaps",
-        icon: <MdOutlineEditLocationAlt />,
-      },
-      {
-        // permission: "",
-        label: "Alerts",
-        link: "/alerts",
-        icon: <MdCrisisAlert />,
-      },
-    ],
-  },
-  {
-    title: "Organisations",
-    links: [
-      {
-        label: "Organisations",
-        link: "/organizations",
-        icon: <FcOrganization />,
-      },
-      {
-        label: "Créer",
-        link: "/organizations/create",
-        icon: <MdCreateNewFolder />,
-      },
-    ],
-  },
-  {
-    title: "Gaps",
-    links: [
-      {
-        label: "Gaps",
-        link: "/gaps2",
-        icon: <AiTwotoneAlert />,
-      },
-      {
-        label: "Créer",
-        link: "/gaps/create",
-        icon: <MdCreateNewFolder />,
-      },
-    ],
-  },
-  {
-    title: "utilisateurs",
-    links: [
-      {
-        label: "Utilisateurs",
-        link: "/users/profile/12",
-        // icon: <PiUsersFourFill />,
-        icon: <FaUsers />,
-      },
-      {
-        label: "Créer",
-        link: "/users/create",
-        icon: <BiSolidUserPlus />,
-      },
-    ],
-  },
-  {
-    title: "ANALYSE",
-    links: [
-      {
-        label: "Gaps",
-        link: "/gaps/analytics",
-        icon: <BsKanban />,
-      },
-      {
-        label: "Alerts",
-        link: "/alerts/analytics",
-        icon: <IoMdAnalytics />,
       },
     ],
   },

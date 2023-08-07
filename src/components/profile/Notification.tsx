@@ -1,5 +1,5 @@
 import { MdOutlineCancel } from "react-icons/md";
-import { chatData } from "../../constants/data";
+import { chatData } from "../../constants/dataSidebar";
 import { Button } from "../core";
 import { currentColorState } from "@/globalState/atoms";
 import { useRecoilValue } from "recoil";

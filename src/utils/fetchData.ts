@@ -7,8 +7,6 @@ export const REACT_MODE = import.meta.env.VITE_REACT_MODE;
 
 // export const BASE_URL_API = REACT_MODE === ModeApp.DEV ?
 //     BASE_URL_API_CLOUD_DEV : BASE_URL_API_CLOUD_PROD
-
-
 const BASE_URL_API = 'https://afiagap.afianetrdc.com'
 
 export const postAPI = async<TData>(url: string, post: TData) => {

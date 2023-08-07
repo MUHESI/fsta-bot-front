@@ -1,6 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import { MdChevronRight, MdOutlineCancel } from "react-icons/md";
-import { Menus } from "../../constants/data";
+import {
+  dataMenus,
+  IDataMenu,
+  IMenus,
+  ISubMenus,
+} from "../../constants/dataSidebar";
 import { AG_URL } from "../../constants/constants";
 import { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
@@ -18,7 +23,6 @@ const Sidebar = () => {
   const screenSize = useRecoilValue(screenSizeState);
   const currentColor = useRecoilValue(currentColorState);
 
-  // const [isActive, setIsActive] = useState("");
   const [subMenuOpen, setSubMenuOpen] = useState<{
     labelMenu: string | null;
     index: number;
@@ -104,16 +108,16 @@ const Sidebar = () => {
         </div>
 
         <div className="mt-10 " style={{ marginTop: "80px" }}>
-          {Menus.map((item: any, index) => (
+          {dataMenus.map((item: IDataMenu, index) => (
             <div key={index}>
               <p
                 className={`text-[0.8rem] text-gray-400 dark:text-gray-400  ml-4 mt-1 mb-2 uppercase
               ${!activeMenu && "scale-0"}
               `}
               >
-                {item.mainMemnu}
+                {item.mainMenu}
               </p>
-              {item.menus.map((menu: any, idx: number) => (
+              {item.menus.map((menu: IMenus, idx: number) => (
                 <>
                   <div
                     key={index}
@@ -198,30 +202,32 @@ const Sidebar = () => {
                     >
                       {subMenuOpen.labelMenu === menu.label &&
                         subMenuOpen.status === true &&
-                        menu?.subMenus?.map((item: any, index_: number) => (
-                          <NavLink
-                            to={`${item.path}`}
-                            key={index_}
-                            className={`cursor-pointer font-normal ${
-                              subMenuOpen.labelMenu === menu.label &&
-                              subMenuOpen.index === idx &&
-                              subMenuOpen.status
-                                ? "duration-300"
-                                : "duration-300"
-                            }`}
-                          >
-                            <p
-                              className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
+                        menu?.subMenus?.map(
+                          (item: ISubMenus, index_: number) => (
+                            <NavLink
+                              to={`${item.path}`}
+                              key={index_}
+                              className={`cursor-pointer font-normal ${
+                                subMenuOpen.labelMenu === menu.label &&
+                                subMenuOpen.index === idx &&
+                                subMenuOpen.status
+                                  ? "duration-300"
+                                  : "duration-300"
+                              }`}
                             >
-                              <span>
-                                <MdChevronRight />
-                              </span>
-                              <span className={`${!activeMenu && "scale-0"}`}>
-                                {item.label}
-                              </span>
-                            </p>
-                          </NavLink>
-                        ))}
+                              <p
+                                className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
+                              >
+                                <span>
+                                  <MdChevronRight />
+                                </span>
+                                <span className={`${!activeMenu && "scale-0"}`}>
+                                  {item.label}
+                                </span>
+                              </p>
+                            </NavLink>
+                          )
+                        )}
                     </motion.div>
                   </div>
                 </>

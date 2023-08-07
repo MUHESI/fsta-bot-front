@@ -1,5 +1,5 @@
 import { MdOutlineCancel } from "react-icons/md";
-import { IUserProfile, userProfileData } from "../../constants/data";
+import { IUserProfile, userProfileData } from "../../constants/dataSidebar";
 import { AG_URL } from "../../constants/constants";
 import { currentColorState } from "@/globalState/atoms";
 import { useRecoilValue } from "recoil";
