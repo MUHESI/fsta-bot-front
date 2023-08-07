@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ModeApp } from '../config/config.env'
+// import { ModeApp } from '../config/config.env'
 
 export const BASE_URL_API_CLOUD_DEV = import.meta.env.VITE_REACT_URL_API_BASE_CLOUD_DEV;
 export const BASE_URL_API_CLOUD_PROD = import.meta.env.VITE_REACT_URL_API_BASE_CLOUD_PROD;

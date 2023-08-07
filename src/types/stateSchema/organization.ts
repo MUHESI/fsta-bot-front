@@ -1,3 +1,5 @@
+import { IBaseInterfaceSchema } from "../commonTypes";
+
 export interface ITypeOrganization {
     name: string;
     nbPersonel: number;
@@ -10,11 +12,9 @@ export enum Type {
     DPS = 'DPS'
 
 }
-
-export type IOrganization = {
-    id?: number;
+export interface IOrganization extends IBaseInterfaceSchema {
+    // id?: number;
     name: string;
-    status: "active" | "blocked" | "deleted";
     email: string;
     description: string;
     address: string;
@@ -24,8 +24,8 @@ export type IOrganization = {
     provinceId: string;
     date_created: string;
     phone: string;
-    createdBy: string
-    dateCreation: string
+    createdBy: string // DELETE ME
+    dateCreation: string // DELETE ME
     type: Type
     metadata?: ITypeOrganization
-};
+}

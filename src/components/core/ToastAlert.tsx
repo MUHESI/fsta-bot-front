@@ -9,6 +9,20 @@ import "react-toastify/dist/ReactToastify.css";
  * @throws Exception
  */
 
+export const AG_Toast = {
+  statusToast: {
+    SUCCESS: "success",
+    ERROR: "error",
+    WARN: "warn",
+    DARK: "dark",
+    INFO: "info",
+  },
+  textPatterns: {
+    SUCCESS_MSG: "a été enregistré avec succès",
+    SOMETHING_WENT_WRONG: "Oops something went wrong",
+  },
+};
+
 export enum StatusToast {
   SUCCESS = "success",
   ERROR = "error",
@@ -16,6 +30,11 @@ export enum StatusToast {
   DARK = "dark",
   INFO = "info",
 }
+
+export const patterns = {
+  SUCCESS_MSG: "été enregistrée avec succès",
+};
+
 interface Imessage {
   msg: string;
   type: string;

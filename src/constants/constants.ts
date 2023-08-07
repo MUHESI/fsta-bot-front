@@ -3,6 +3,7 @@ import { keyStorage } from "../services/storage/localSTorageHandler";
 import { IDataStoredLocalStorage } from "../types/storageTypes";
 import { IUser } from '@/types/stateSchema/user'
 import { IDataPagination } from '@/types/commonTypes'
+import { IProvince } from "@/types/stateSchema/province";
 
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
@@ -136,6 +137,9 @@ export const dataUsers: IUser[] = [
 
 export const dataOrganizations: IOrganization[] = [
     {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
         name: 'ALT-VIP',
         status: 'active',
         email: 'user@gmailcom',
@@ -152,6 +156,9 @@ export const dataOrganizations: IOrganization[] = [
         type: Type.DPS,
     },
     {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
         name: 'COSAMED',
         status: 'active',
         email: 'cosamed@gmailcom',
@@ -168,6 +175,9 @@ export const dataOrganizations: IOrganization[] = [
         type: Type.DPS,
     },
     {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
         name: 'DPS',
         status: 'active',
         email: 'cosamed@gmailcom',
@@ -184,6 +194,9 @@ export const dataOrganizations: IOrganization[] = [
         type: Type.DPS,
     },
     {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
         name: 'DPS',
         status: 'active',
         email: 'cosamed@gmailcom',
@@ -202,6 +215,40 @@ export const dataOrganizations: IOrganization[] = [
 ]
 
 
+export const dataProvices: IProvince[] = [
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'NORD-KIVU',
+        status: 'active',
+
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'SUD-KIVU',
+        status: 'active',
+
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'KATANGA',
+        status: 'active',
+
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'LUBUMBASHI',
+        status: 'active',
+
+    }
+]
 
 export const dataPagination: { data: {}, pagination: IDataPagination } = {
     data: {},

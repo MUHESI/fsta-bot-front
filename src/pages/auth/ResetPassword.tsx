@@ -12,7 +12,7 @@ import { StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "../../services/stateHandler/formDataHandler";
 import { postAPI } from "../../utils/fetchData";
 import { handleBaseFormLocalStorage } from "../../services/storage/helpers";
-import { AuthButton } from "@/components/core/Button";
+import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
 import { BiShow, BiSolidShow } from "react-icons/bi";
 import { useSetRecoilState } from "recoil";
@@ -200,7 +200,7 @@ function ResetPassword() {
               </div>
 
               <div className="">
-                <AuthButton
+                <CustomButton
                   disabled={formResetPswd.pswd !== formResetPswd.pswdconfirm}
                   onClick={handleSubmitResetPswd}
                   label="Envoyer"

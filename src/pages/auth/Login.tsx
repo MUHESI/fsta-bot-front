@@ -13,7 +13,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IStateLoading } from "../../types/stateSchema/loading";
 import { HandleFormObject } from "../../services/stateHandler/formDataHandler";
 import { handleBaseFormLocalStorage } from "../../services/storage/helpers";
-import { AuthButton } from "@/components/core/Button";
+import { CustomButton } from "@/components/core/Button";
 import { BiShow, BiSolidShow } from "react-icons/bi";
 import { InputAuth } from "@/components/core/Inputs";
 import { useSetRecoilState } from "recoil";
@@ -71,7 +71,7 @@ function Login() {
           email: data.data.email,
           full_name: data.data.full_name,
         });
-        // navigate("/");
+        navigate("/");
       }
     } catch (error) {
       setInfoLoading(
@@ -165,7 +165,7 @@ function Login() {
                 </NavLink>
               </div>
               <div className="">
-                <AuthButton
+                <CustomButton
                   onClick={handleSubmitLogin}
                   label="Se connecter"
                   statusLoading={infoLoading.loadingLogin.status}

@@ -12,7 +12,7 @@ import LocalStorage, {
 import { useSetRecoilState } from "recoil";
 import { forgotPswdScreenState } from "../../globalState/atoms";
 import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
-import { AuthButton } from "@/components/core/Button";
+import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
 
 function ForgotPassword() {
@@ -111,7 +111,7 @@ function ForgotPassword() {
               </div>
 
               <div className="">
-                <AuthButton
+                <CustomButton
                   onClick={handleSubmitForgotPwd}
                   label="Envoyer"
                   statusLoading={infoLoading.loadingForgotPwd.status}

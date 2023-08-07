@@ -9,6 +9,7 @@ import ListOrganizations from "../pages/organizations";
 import CreateOrganization from "../pages/createOrganization";
 import LoadingPage from "../pages/loading";
 import CreateProvince from "../pages/createProvince";
+import ListProvinces from "@/pages/provinces";
 
 function GlobalRoutes() {
   return (
@@ -35,7 +36,7 @@ function GlobalRoutes() {
             path="/pyramid/provinces/create"
             element={<CreateProvince />}
           />
-          {/* <Route path="/pyramid/provinces" element={<CreateOrganization />} /> */}
+          <Route path="/pyramid/provinces" element={<ListProvinces />} />
 
           {/* <Route
             path="/pyramid/provinces/:id"

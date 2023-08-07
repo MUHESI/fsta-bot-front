@@ -49,7 +49,7 @@ function InputCommon({
   label: string;
   pl?: string;
   type?: string;
-  onChange: () => void;
+  onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
   value: string | number;
   required?: boolean;
   disabled?: boolean;

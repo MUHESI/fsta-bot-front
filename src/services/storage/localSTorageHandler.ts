@@ -31,7 +31,7 @@ export default class LocalStorage {
         localStorage.removeItem(storageKey);
     };
 
-    static clear = () => { };
+    // static clear = () => { };
 }
 
 

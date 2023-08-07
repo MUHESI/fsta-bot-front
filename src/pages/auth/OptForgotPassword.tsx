@@ -11,7 +11,7 @@ import { forgotPswdScreenState } from "../../globalState/atoms";
 import { useSetRecoilState } from "recoil";
 import { ForgotPswdScreen } from "../../types/commonTypes";
 import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
-import { AuthButton } from "@/components/core/Button";
+import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
 import { StatusToast, showToast } from "@/components/core/ToastAlert";
 
@@ -128,7 +128,7 @@ function OptForgotPassword() {
                 />
               </div>
               <div className="">
-                <AuthButton
+                <CustomButton
                   statusLoading={infoLoading.codeOptForgotPwd.status}
                   onClick={handleSubmit}
                   label="Vérifier"
