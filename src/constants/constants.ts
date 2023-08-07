@@ -4,6 +4,7 @@ import { IDataStoredLocalStorage } from "../types/storageTypes";
 import { IUser } from '@/types/stateSchema/user'
 import { IDataPagination } from '@/types/commonTypes'
 import { IProvince } from "@/types/stateSchema/province";
+import { ITerritory } from "@/types/stateSchema/territory";
 
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
@@ -245,6 +246,42 @@ export const dataProvices: IProvince[] = [
         created_at: "2023-08-03T11:28:32.000000Z",
         updated_at: "2023-08-03T11:28:32.000000Z",
         name: 'LUBUMBASHI',
+        status: 'active',
+
+    }
+]
+
+export const dataTerritories: ITerritory[] = [
+
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'GOMA',
+        status: 'active',
+
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'LUBERO',
+        status: 'active',
+
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'BUTEMBO',
+        status: 'active',
+
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'BENI',
         status: 'active',
 
     }

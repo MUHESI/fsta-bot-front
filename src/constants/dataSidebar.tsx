@@ -183,7 +183,7 @@ export const dataMenus: IDataMenu[] = [
           {
             label: "Liste des territoires",
             icon: <FaUsers />,
-            path: "/users",
+            path: "/pyramid/territories",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
