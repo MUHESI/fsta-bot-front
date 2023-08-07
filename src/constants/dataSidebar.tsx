@@ -56,7 +56,7 @@ export interface IDataMenu {
 export const dataMenus: IDataMenu[] = [
   {
     mainIcon: "",
-    mainMemnu: "Dashboard",
+    mainMenu: "Dashboard",
     menus: [
       {
         label: "GAPS",
@@ -83,18 +83,6 @@ export const dataMenus: IDataMenu[] = [
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],
-      },
-      {
-        label: "Alerts",
-        icon: <MdCrisisAlert />,
-        path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
-      },
-      {
-        label: "Investigations",
-        icon: <MdCrisisAlert />,
-        path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
       },
     ],
   },
