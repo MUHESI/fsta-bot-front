@@ -78,7 +78,7 @@ function CreateProvince() {
   return (
     <div className="min-h-screen">
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Creation de la province"} />
+        <LastHeading title={"Création de la province"} />
       </div>
 
       <Grid container spacing={1}>

@@ -262,11 +262,25 @@ export const dataPagination: { data: {}, pagination: IDataPagination } = {
     }
 
 }
-// TODO: TO improve later
-
-// const resUser = {
-//     id: 1,
-//     permissions: {
-
-//     }
-// }
+export const provinces = [
+    {
+        id: 1,
+        label: "Province",
+        category: "ProvinceValue",
+    },
+    {
+        id: 2,
+        label: "Province2",
+        category: "ProvinceValue2",
+    },
+    {
+        id: 3,
+        label: "Province3",
+        category: "ProvinceValue3",
+    },
+    {
+        id: 4,
+        label: "Province4",
+        category: "ProvinceValue4",
+    },
+];

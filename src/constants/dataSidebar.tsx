@@ -181,7 +181,7 @@ export const dataMenus: IDataMenu[] = [
         permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
-            label: "Liste des provinces",
+            label: "Liste des territoires",
             icon: <FaUsers />,
             path: "/users",
             permissions: PERMISSIONS.MANAGE_GAP,
@@ -189,7 +189,7 @@ export const dataMenus: IDataMenu[] = [
           {
             label: "Créer",
             icon: <BiSolidUserPlus />,
-            path: "/users/create",
+            path: "/pyramid/territories/create",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],

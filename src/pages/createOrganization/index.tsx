@@ -4,29 +4,8 @@ import { Button } from "@/components/ui/button";
 import { SelectCommon } from "@/components/core/select";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
+import { provinces } from "@/constants/constants";
 
-const provinces = [
-  {
-    id: 1,
-    label: "Province",
-    category: "ProvinceValue",
-  },
-  {
-    id: 2,
-    label: "Province2",
-    category: "ProvinceValue2",
-  },
-  {
-    id: 3,
-    label: "Province3",
-    category: "ProvinceValue3",
-  },
-  {
-    id: 4,
-    label: "Province4",
-    category: "ProvinceValue4",
-  },
-];
 function CreateOrganization() {
   // TODO: Improve this later
 
@@ -36,7 +15,7 @@ function CreateOrganization() {
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Creation organisation"} />
+        <LastHeading title={"Créeation de l'organisation"} />
       </div>
 
       <Grid container spacing={1}>

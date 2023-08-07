@@ -1,6 +1,7 @@
 import { ForgotPswdScreen } from "../types/commonTypes";
 import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
+import { ICreateTerritory } from "../types/stateSchema/territory";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -16,8 +17,12 @@ export const INIT_FORM_FORGOT_PSWD_SCREEN: ForgotPswdScreen = {
     resetPswd: false,
     testOpt: false,
 }
-
 export const INIT_FORM_CREATE_PROVINCE: ICreateProvince = {
     name: '',
 }
+export const INIT_FORM_CREATE_TERRITORY: ICreateTerritory = {
+    name: '',
+    provinceId: ''
+}
+
 
