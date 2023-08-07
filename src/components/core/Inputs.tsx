@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from "../ui/input";
 // AUTH
 
 interface IpropsInputAuth {
@@ -36,16 +37,39 @@ interface DataCustomSelectFieldProps {
   data: any[];
   keyObject: string;
 }
-// DataCustomSelectFieldProps<TData, TkeyObject extends keyof TData>
-//<TData, TkeyObject>
+function InputCommon({
+  pl,
+  label,
+  onChange,
+  value,
+  type,
+  required,
+  disabled,
+}: {
+  label: string;
+  pl?: string;
+  type?: string;
+  onChange: () => void;
+  value: string | number;
+  required?: boolean;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="flex-auto p-0 m-0">
+      <label className="text-sm">
+        {label}
+        <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
+      </label>
+      <Input
+        disabled={disabled ? disabled : false}
+        onChange={onChange}
+        placeholder={pl}
+        value={value}
+        type={type || "text"}
+        className=" rounded-md "
+      />
+    </div>
+  );
+}
 
-// import React from 'react'
-
-// function inputs() {
-//   return (
-//     <div>inputs</div>
-//   )
-// }
-// <option key={key}>{` ${item[keyObject]}`}</option>;
-
-// export default inputs
+export { InputCommon };

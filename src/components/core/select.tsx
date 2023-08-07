@@ -1,4 +1,4 @@
-export const CustomSelectField = ({
+const CustomSelectField = ({
   // value,
   disabled,
   // typeByDefault,
@@ -28,3 +28,42 @@ any) => {
     </select>
   );
 };
+
+function SelectCommon({
+  // pl,
+  // type,
+  disabled,
+  label,
+  // onChange,
+  // value,
+  required,
+  data,
+}: {
+  label: string;
+  data: any[];
+  value: string | number;
+  // onChange: (e: any) => void;
+  pl?: string;
+  type?: string;
+  required?: boolean;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="w-full p-0 m-0">
+      <label className="text-sm m-0">
+        {label}
+        <span className="text-red-500 m-0"> {`${required ? "*" : ""}`} </span>
+      </label>
+      <CustomSelectField
+        disabled={disabled}
+        keyObject="label"
+        typeByDefault={{ label: "oook" }}
+        value={"value"}
+        label={"type"}
+        data={data}
+      />
+    </div>
+  );
+}
+
+export { CustomSelectField, SelectCommon };

@@ -2,8 +2,9 @@ import React from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CustomSelectField } from "@/components/core/select";
+import { CustomSelectField, SelectCommon } from "@/components/core/select";
 import { Grid } from "@mui/material";
+import { InputCommon } from "@/components/core/Inputs";
 
 const provinces = [
   {
@@ -177,75 +178,3 @@ function CreateOrganization() {
 }
 
 export default CreateOrganization;
-
-function InputCommon({
-  pl,
-  label,
-  onChange,
-  value,
-  type,
-  required,
-  disabled,
-}: {
-  label: string;
-  pl?: string;
-  type?: string;
-  onChange: () => void;
-  value: string | number;
-  required?: boolean;
-  disabled?: boolean;
-}) {
-  return (
-    <div className="flex-auto p-0 m-0">
-      <label className="text-sm">
-        {label}
-        <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
-      </label>
-      <Input
-        disabled={disabled ? disabled : false}
-        onChange={onChange}
-        placeholder={pl}
-        value={value}
-        type={type || "text"}
-        className=" rounded-md "
-      />
-    </div>
-  );
-}
-
-function SelectCommon({
-  // pl,
-  // type,
-  disabled,
-  label,
-  // onChange,
-  // value,
-  required,
-  data,
-}: {
-  label: string;
-  data: any[];
-  value: string | number;
-  // onChange: (e: any) => void;
-  pl?: string;
-  type?: string;
-  required?: boolean;
-  disabled?: boolean;
-}) {
-  return (
-    <div className="w-full p-0 m-0">
-      <label className="text-sm m-0">
-        {label}
-        <span className="text-red-500 m-0"> {`${required ? "*" : ""}`} </span>
-      </label>
-      <CustomSelectField
-        disabled={disabled}
-        keyObject="label"
-        typeByDefault={{ label: "oook" }}
-        value={"value"}
-        label={"type"}
-        data={data}
-      />
-    </div>
-  );
-}

@@ -8,6 +8,7 @@ import ListUsers from "../pages/users";
 import ListOrganizations from "../pages/organizations";
 import CreateOrganization from "../pages/createOrganization";
 import LoadingPage from "../pages/loading";
+import CreateProvince from "../pages/createProvince";
 
 function GlobalRoutes() {
   return (
@@ -29,6 +30,17 @@ function GlobalRoutes() {
             path="/organizations/create"
             element={<CreateOrganization />}
           />
+          {/* PYRAMIDE */}
+          <Route
+            path="/pyramid/provinces/create"
+            element={<CreateProvince />}
+          />
+          {/* <Route path="/pyramid/provinces" element={<CreateOrganization />} /> */}
+
+          {/* <Route
+            path="/pyramid/provinces/:id"
+            element={<CreateOrganization />}
+          /> */}
         </Route>
       </Routes>
     </div>

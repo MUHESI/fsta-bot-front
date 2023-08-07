@@ -163,13 +163,13 @@ export const dataMenus: IDataMenu[] = [
           {
             label: "Liste des provinces",
             icon: <FaUsers />,
-            path: "/users",
+            path: "/pyramid/provinces/",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer",
             icon: <BiSolidUserPlus />,
-            path: "/users/create",
+            path: "/pyramid/provinces/create",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],

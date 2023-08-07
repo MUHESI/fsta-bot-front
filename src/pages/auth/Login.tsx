@@ -21,7 +21,6 @@ import { userAuthenticatedState } from "@/globalState/atoms";
 
 function Login() {
   const navigate = useNavigate();
-  // const [user, setUser] = useRecoilState(userAuthenticatedState);
   const setUser = useSetRecoilState(userAuthenticatedState);
 
   useEffect(() => {
