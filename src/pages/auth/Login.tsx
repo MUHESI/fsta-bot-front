@@ -2,7 +2,7 @@ import { FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { AG_URL } from "../../constants/constants";
 import { useEffect, useState } from "react";
-import { ILogin } from "../../types/stateSchema/auth";
+import { ICurrentUser, ILogin } from "../../types/stateSchema/auth";
 import { INIT_FORM_LOGIN } from "../../constants/initForm";
 import { StatusToast, showToast } from "@/components/core/ToastAlert";
 import { postAPI } from "../../utils/fetchData";
@@ -18,6 +18,7 @@ import { BiShow, BiSolidShow } from "react-icons/bi";
 import { InputAuth } from "@/components/core/Inputs";
 import { useSetRecoilState } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
+import { IFetchData } from "@/types/commonTypes";
 
 function Login() {
   const navigate = useNavigate();
@@ -51,7 +52,10 @@ function Login() {
           true
         )
       );
-      const { data } = await postAPI<ILogin>("login", formLogin);
+      const { data } = await postAPI<IFetchData<ICurrentUser>, ILogin>(
+        "login",
+        formLogin
+      );
       if (data.status === 1 && data.data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
@@ -60,16 +64,15 @@ function Login() {
             false
           )
         );
-        // LOCAL_STORAGE
-        const dataStorage = handleBaseFormLocalStorage({
-          user: data?.data?.id,
+        keepUserAuthInLocalStorage({
           data: data.data,
-          type: keyStorage.AFIAGAP_AUTH_USER,
+          token: data.token ? data.token : "",
         });
-        LocalStorage.setItem(keyStorage.AFIAGAP_AUTH_USER, dataStorage);
         setUser({
           email: data.data.email,
           full_name: data.data.full_name,
+          token: data.token ? data.token : "",
+          id: data.data.id,
         });
         navigate("/");
       }
@@ -81,7 +84,6 @@ function Login() {
           false
         )
       );
-
       return showToast({
         msg: `Mot de passe ou email invalide | ${
           (error as any as unknown as Error).message
@@ -189,5 +191,19 @@ function Login() {
 
 export default Login;
 
-// expect(btnInputElt).toBeInTheDocument();
-// expect(screen.getByTestId("my-test-id")).toHaveTextContent("some text");
+export const keepUserAuthInLocalStorage = (data: {
+  data: ICurrentUser;
+  token: string;
+}) => {
+  LocalStorage.setItem(
+    keyStorage.AFIAGAP_AUTH_USER,
+    handleBaseFormLocalStorage({
+      user: data.data.id,
+      data: data.data,
+      type: keyStorage.AFIAGAP_AUTH_USER,
+      metadata: {
+        token: data.token,
+      },
+    })
+  );
+};

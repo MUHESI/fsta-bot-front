@@ -10,5 +10,8 @@ export interface IDataStoredLocalStorage<TData> {
     type: keyStorage
     user?: string,
     data: TData,
+    metadata?: { [key: string]: any }
 }
-
+export interface IMetadataAuthUser {
+    token: string
+}

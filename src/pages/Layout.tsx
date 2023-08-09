@@ -7,6 +7,7 @@ import LocalStorage, {
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeMenuState, userAuthenticatedState } from "@/globalState/atoms";
 import { IAutherUSer } from "@/types/stateSchema/auth";
+import { IMetadataAuthUser } from "@/types/storageTypes";
 
 export default function Layout() {
   // RECOIL
@@ -14,15 +15,20 @@ export default function Layout() {
   const activeMenu = useRecoilValue(activeMenuState);
 
   const checkAuthUser = () => {
-    const dataSaved = LocalStorage.getItem<{ data: IAutherUSer }>(
-      keyStorage.AFIAGAP_AUTH_USER
-    );
+    const dataSaved = LocalStorage.getItem<{
+      data: IAutherUSer;
+      metadata: IMetadataAuthUser | null;
+    }>(keyStorage.AFIAGAP_AUTH_USER);
     if (dataSaved === null) {
       return;
     } else {
       const { data } = dataSaved;
-
-      setUser({ full_name: data.full_name, email: data.email });
+      setUser({
+        full_name: data.full_name,
+        email: data.email,
+        id: data.id,
+        token: dataSaved.metadata?.token || "",
+      });
     }
   };
 

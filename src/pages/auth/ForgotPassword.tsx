@@ -14,6 +14,7 @@ import { forgotPswdScreenState } from "../../globalState/atoms";
 import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
 import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
+import { IFetchData } from "@/types/commonTypes";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -35,7 +36,10 @@ function ForgotPassword() {
             true
           )
         );
-        const { data } = await postAPI("ask_otp", { email });
+        const { data } = await postAPI<
+          IFetchData<{ data: any }>,
+          { email: string }
+        >("ask_otp", { email });
         if (data) {
           setInfoLoading(
             HandleFormObject.handleSecondLevel(

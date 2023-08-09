@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Laayout from "./pages/Layout";
 import { ToastContainer } from "react-toastify";
 

@@ -12,6 +12,7 @@ import { postAPI } from "@/utils/fetchData";
 import { SelectCommon } from "@/components/core/select";
 import { provinces } from "@/constants/constants";
 import { ICreateTerritory } from "@/types/stateSchema/territory";
+import { IFetchData } from "@/types/commonTypes";
 
 function CreateTerritory() {
   const commonClass = "border rounded-lg my-5";
@@ -45,7 +46,10 @@ function CreateTerritory() {
         msg: `le territoire ${formTerritory.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
         type: AG_Toast.statusToast.DARK,
       });
-      const { data } = await postAPI<ICreateProvince>("", formTerritory);
+      const { data } = await postAPI<
+        IFetchData<{ data: any }>,
+        ICreateTerritory
+      >("", formTerritory);
       if (data.status === 1 && data.data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(

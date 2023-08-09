@@ -16,3 +16,17 @@ export type IBaseInterfaceSchema = {
     updated_at: Date | string;
     status: "active" | "blocked" | "deleted";
 }
+
+
+export interface IFetchData<TData> {
+    data: {
+        message: string
+        data: TData
+        code: number,
+        status?: number
+        token?: string
+    }
+    // headers
+
+}
+

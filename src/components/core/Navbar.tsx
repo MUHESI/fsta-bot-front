@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { AG_URL } from "../../constants/constants";
+import { AG_URL, defaultStateUserAuth } from "../../constants/constants";
 import { RiNotification3Line } from "react-icons/ri";
 import Notification from "../profile/Notification";
 import { useEffect } from "react";
@@ -54,7 +54,7 @@ function Navbar() {
   const [screenSize, setScreenSize] = useRecoilState(screenSizeState);
 
   const logout = () => {
-    setUser({ email: null, full_name: null });
+    setUser({ ...defaultStateUserAuth });
     LocalStorage.removeItem(keyStorage.AFIAGAP_AUTH_USER);
     navigate("/");
   };

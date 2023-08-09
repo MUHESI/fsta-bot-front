@@ -9,7 +9,7 @@ import LocalStorage, {
 import { AiFillSecurityScan } from "react-icons/ai";
 import { forgotPswdScreenState } from "../../globalState/atoms";
 import { useSetRecoilState } from "recoil";
-import { ForgotPswdScreen } from "../../types/commonTypes";
+import { ForgotPswdScreen, IFetchData } from "../../types/commonTypes";
 import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
 import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
@@ -55,7 +55,10 @@ function OptForgotPassword() {
             true
           )
         );
-        const { data } = await postAPI("test_otp", { code: codeOpt });
+        const { data } = await postAPI<
+          IFetchData<{ data: any }>,
+          { code: string }
+        >("test_otp", { code: codeOpt });
         console.clear();
         console.log("data", data);
         if (data) {

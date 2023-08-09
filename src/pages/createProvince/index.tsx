@@ -9,6 +9,7 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
+import { IFetchData } from "@/types/commonTypes";
 
 function CreateProvince() {
   const commonClass = "border rounded-lg my-5";
@@ -44,7 +45,10 @@ function CreateProvince() {
         msg: `la province ${formProvince.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
         type: AG_Toast.statusToast.DARK,
       });
-      const { data } = await postAPI<ICreateProvince>("login", formProvince);
+      const { data } = await postAPI<
+        IFetchData<{ data: string }>,
+        ICreateProvince
+      >("login", formProvince);
       if (data.status === 1 && data.data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(

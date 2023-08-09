@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { MdLockOutline } from "react-icons/md";
 import { AG_URL } from "../../constants/constants";
 import { IStateLoading } from "../../types/stateSchema/loading";
-import { ILogin, IResetPassword } from "../../types/stateSchema/auth";
+import {
+  ICurrentUser,
+  ILogin,
+  IResetPassword,
+} from "../../types/stateSchema/auth";
 import { INIT_FORM_RESET_PASSWORD } from "../../constants/initForm";
 import LocalStorage, {
   keyStorage,
@@ -11,12 +15,13 @@ import { useNavigate } from "react-router";
 import { StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "../../services/stateHandler/formDataHandler";
 import { postAPI } from "../../utils/fetchData";
-import { handleBaseFormLocalStorage } from "../../services/storage/helpers";
 import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
 import { BiShow, BiSolidShow } from "react-icons/bi";
 import { useSetRecoilState } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
+import { IFetchData } from "@/types/commonTypes";
+import { keepUserAuthInLocalStorage } from "./Login";
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -60,12 +65,18 @@ function ResetPassword() {
           true
         )
       );
-      const res = await postAPI<IResetPassword>("lost_pswd", formResetPswd);
+      const res = await postAPI<IFetchData<IResetPassword>, IResetPassword>(
+        "lost_pswd",
+        formResetPswd
+      );
       if (res.data.code === 200 && res.data) {
-        const { data } = await postAPI<ILogin>("login", {
-          email: formResetPswd.email,
-          pswd: formResetPswd.pswd,
-        });
+        const { data } = await postAPI<IFetchData<ICurrentUser>, ILogin>(
+          "login",
+          {
+            email: formResetPswd.email,
+            pswd: formResetPswd.pswd,
+          }
+        );
         if (data.status === 1 && data.data) {
           setInfoLoading(
             HandleFormObject.handleSecondLevel(
@@ -74,18 +85,16 @@ function ResetPassword() {
               false
             )
           );
-          // LOCAL_STORAGE
-          const dataStorage = handleBaseFormLocalStorage({
-            user: data?.data?.id,
-            data: data.data,
-            type: keyStorage.AFIAGAP_AUTH_USER,
-          });
           LocalStorage.removeItem(keyStorage.AFIAGAP_FORGORT_PASSWORD);
-
-          LocalStorage.setItem(keyStorage.AFIAGAP_AUTH_USER, dataStorage);
+          keepUserAuthInLocalStorage({
+            data: data.data,
+            token: data.token ? data.token : "",
+          });
           setUser({
             email: data.data.email,
             full_name: data.data.full_name,
+            id: data.data.id,
+            token: data.token ? data.token : "",
           });
           navigate("/");
         }

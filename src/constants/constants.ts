@@ -5,6 +5,7 @@ import { IUser } from '@/types/stateSchema/user'
 import { IDataPagination } from '@/types/commonTypes'
 import { IProvince } from "@/types/stateSchema/province";
 import { ITerritory } from "@/types/stateSchema/territory";
+import { IAutherUSer } from "@/types/stateSchema/auth";
 
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
@@ -12,7 +13,13 @@ export const AG_URL = {
     USER_IMG_PROFILE: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1685807109/orgi_2_aotayp-Circle_y112qy.jpg',
     USER_IMG_PROFILE2: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1676725367/porfolio/profile-pic_2_a7jub9.png'
 }
+export const defaultStateUserAuth: IAutherUSer = {
+    full_name: null,
+    email: null,
+    token: '',
+    id: null
 
+}
 
 export const baseFormLocaStorage: IDataStoredLocalStorage<any> = {
     date: {
