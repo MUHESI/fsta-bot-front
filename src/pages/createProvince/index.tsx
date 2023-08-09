@@ -9,9 +9,13 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
-import { IFetchData } from "@/types/commonTypes";
+import { IBaseData, IFetchData } from "@/types/commonTypes";
+import { useRecoilValue } from "recoil";
+import { userAuthenticatedState } from "@/globalState/atoms";
 
 function CreateProvince() {
+  const user = useRecoilValue(userAuthenticatedState);
+
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
@@ -41,15 +45,12 @@ function CreateProvince() {
         )
       );
 
-      return showToast({
-        msg: `la province ${formProvince.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
-        type: AG_Toast.statusToast.DARK,
-      });
-      const { data } = await postAPI<
-        IFetchData<{ data: string }>,
-        ICreateProvince
-      >("login", formProvince);
-      if (data.status === 1 && data.data) {
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateProvince>(
+        "addprov",
+        formProvince,
+        user.token
+      );
+      if (data.code === 200 && data.data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
@@ -57,10 +58,12 @@ function CreateProvince() {
             false
           )
         );
-        return showToast({
+
+        showToast({
           msg: `la province ${formProvince.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
-          type: AG_Toast.statusToast.DARK,
+          type: AG_Toast.statusToast.SUCCESS,
         });
+        setProvince({ ...INIT_FORM_CREATE_PROVINCE });
       }
     } catch (error) {
       setInfoLoading(

@@ -16,7 +16,9 @@ export type IBaseInterfaceSchema = {
     updated_at: Date | string;
     status: "active" | "blocked" | "deleted";
 }
-
+export type IBaseData = {
+    data: any
+}
 
 export interface IFetchData<TData> {
     data: {

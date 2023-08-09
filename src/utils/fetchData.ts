@@ -9,11 +9,12 @@ export const REACT_MODE = import.meta.env.VITE_REACT_MODE;
 //     BASE_URL_API_CLOUD_DEV : BASE_URL_API_CLOUD_PROD
 const BASE_URL_API = 'https://afiagap.afianetrdc.com'
 
-export const postAPI = async<Tfecth, TData>(url: string, post: TData) => {
+export const postAPI = async<Tfecth, TData>(url: string, post: TData, token?: string) => {
     const res: Tfecth = await axios({
         method: "post",
         url: `${BASE_URL_API}/api/${url}`,
         data: post,
+        headers: { Authorization: `Bearer ${token}` },
     });
     return res;
 };
