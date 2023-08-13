@@ -36,7 +36,6 @@ function Login() {
       login: "",
     },
   });
-
   const handleSubmitLogin = async () => {
     if (formLogin.email.trim().length < 4 || formLogin.pswd.trim().length < 4) {
       return showToast({

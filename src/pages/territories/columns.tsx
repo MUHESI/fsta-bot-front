@@ -18,15 +18,15 @@ export const columnsListTerritories: ColumnDef<ITerritory>[] = [
     accessorKey: "name",
     header: "NOMS",
   },
-  {
-    accessorKey: "status",
-    header: "STATUS",
-    cell: ({ row }: any) => (
-      <div className="font-semibold text-green-600">
-        {row.getValue("status")}
-      </div>
-    ),
-  },
+  // {
+  //   accessorKey: "status",
+  //   header: "STATUS",
+  //   cell: ({ row }: any) => (
+  //     <div className="font-semibold text-green-600">
+  //       {row.getValue("status")}
+  //     </div>
+  //   ),
+  // },
   {
     accessorKey: "created_at",
     header: "DATE CREATION",

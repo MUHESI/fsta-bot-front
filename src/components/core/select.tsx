@@ -1,13 +1,25 @@
-const CustomSelectField = ({
-  // value,
+interface IPropsCustomSelectField<TData> {
+  data: TData[];
+  keyObject: keyof TData;
+  disabled?: boolean;
+  value: string | number;
+  onChange: (e: any) => void;
+}
+
+// IPropsCustomSelectField
+function CustomSelectField<TData>({
   disabled,
-  // typeByDefault,
   data,
-}: // label,
-// keyObject,
-any) => {
+  keyObject,
+  onChange,
+}: IPropsCustomSelectField<TData>) {
   return (
     <select
+      onChange={(e) => {
+        console.clear();
+        console.log("first>>>", e.target.value);
+        onChange(e.target.value);
+      }}
       disabled={disabled ? disabled : false}
       className=" flex border w-full 
             ring-offset-background file:border-0     
@@ -21,32 +33,34 @@ any) => {
       {data?.map((item: any, key: number) => (
         <option
           key={key}
-          value=".."
+          value={item.id}
           className="m-0 p-0 "
-        >{` ${item.label}`}</option>
+        >{` ${item[keyObject]}`}</option>
       ))}
     </select>
   );
-};
+}
 
-function SelectCommon({
+function SelectCommon<TData>({
   // pl,
   // type,
+  onChange,
+  // value,
   disabled,
   label,
-  // onChange,
-  // value,
   required,
   data,
+  keyObject,
 }: {
   label: string;
-  data: any[];
+  data: TData[];
   value: string | number;
-  // onChange: (e: any) => void;
   pl?: string;
   type?: string;
   required?: boolean;
   disabled?: boolean;
+  keyObject: keyof TData;
+  onChange: (e: any) => void;
 }) {
   return (
     <div className="w-full p-0 m-0">
@@ -56,11 +70,12 @@ function SelectCommon({
       </label>
       <CustomSelectField
         disabled={disabled}
-        keyObject="label"
-        typeByDefault={{ label: "oook" }}
+        keyObject={keyObject}
         value={"value"}
-        label={"type"}
         data={data}
+        onChange={onChange}
+        // label={"type"}
+        // typeByDefault={{ label: "oook" }}
       />
     </div>
   );

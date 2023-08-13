@@ -222,7 +222,7 @@ export const dataOrganizations: IOrganization[] = [
     }
 ]
 
-
+// TODO: DELETE THIS LATER
 export const dataProvices: IProvince[] = [
     {
         id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
@@ -257,7 +257,7 @@ export const dataProvices: IProvince[] = [
 
     }
 ]
-
+// TODO: DELETE THIS LATER
 export const dataTerritories: ITerritory[] = [
 
     {

@@ -19,4 +19,9 @@ export const getProvincesState = selector({
         }
     },
 });
+export const currentProvinceIDState = atom<string | null>({
+    key: PROVINCE_KEYS.CURRENT_PRONVINCE_ID_STATE,
+    default: null,
+});
+
 

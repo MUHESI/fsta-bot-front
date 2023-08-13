@@ -92,13 +92,13 @@ function CreateTerritory() {
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
               <div className=" px-5">
-                <SelectCommon
+                {/* <SelectCommon
                   data={provinces}
                   label="Choisir la province"
                   required={true}
                   value={"..."}
                   // type=""
-                />
+                /> */}
                 <InputCommon
                   required={true}
                   label="Nom"

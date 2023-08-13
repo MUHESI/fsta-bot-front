@@ -54,39 +54,39 @@ function CreateOrganization() {
                   onChange={() => console.log("first")}
                   value={""}
                 />
-                <SelectCommon
+                {/* <SelectCommon
                   data={provinces}
                   label="Selectionner le type d'org."
                   // onChange={(e) => console.log("e", e)}
                   value={"..."}
                   // type=""
-                />
+                /> */}
               </div>
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Adresse de l'organisation"} />
               <div className="py-2 px-5 gap-5">
-                <SelectCommon
+                {/* <SelectCommon
                   data={provinces}
                   label="Choisir la procince"
                   // onChange={(e) => console.log("e", e)}
                   value={"..."}
                   // type=""
-                />
-                <SelectCommon
+                /> */}
+                {/* <SelectCommon
                   data={provinces}
                   label="Selectionner la ville"
                   // onChange={(e) => console.log("e", e)}
                   value={"..."}
                   // type=""
-                />
-                <SelectCommon
+                /> */}
+                {/* <SelectCommon
                   data={provinces}
                   label="Selectionner le quartier/territoire"
                   // onChange={(e) => console.log("e", e)}
                   value={"..."}
                   // type=""
-                />
+                /> */}
               </div>
             </div>
             <div className={commonClassSection}>
