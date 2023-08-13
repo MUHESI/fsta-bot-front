@@ -10,6 +10,8 @@ import { useRecoilValue } from "recoil";
 import { getProvincesState } from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
 import SkeletonAnimation from "@/components/skeleton";
+import DialogCustom from "@/components/core/DialogCustom";
+import CreateProvince from "../createProvince";
 
 function Provinces() {
   const allProvinces = useRecoilValue(
@@ -23,9 +25,17 @@ function Provinces() {
         columns={columnsListProvinces}
         data={allProvinces || []}
       >
-        <Button variant="outline" className="ml-auto rounded-full">
+        <Button variant="outline" className="ml-auto rounded-md ">
           <FiRefreshCcw />
         </Button>
+        <DialogCustom
+          btnText="Nouvelle province"
+          mainTitle="Création de la nouvelle province"
+          width="sm"
+        >
+          {" "}
+          <CreateProvince />
+        </DialogCustom>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

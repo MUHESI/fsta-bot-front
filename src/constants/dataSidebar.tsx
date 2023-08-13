@@ -166,12 +166,12 @@ export const dataMenus: IDataMenu[] = [
             path: "/pyramid/provinces/",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
-          {
-            label: "Créer",
-            icon: <BiSolidUserPlus />,
-            path: "/pyramid/provinces/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
-          },
+          // {
+          //   label: "Créer",
+          //   icon: <BiSolidUserPlus />,
+          //   path: "/pyramid/provinces/create",
+          //   permissions: PERMISSIONS.MANAGE_GAP,
+          // },
         ],
       },
       {
@@ -186,12 +186,12 @@ export const dataMenus: IDataMenu[] = [
             path: "/pyramid/territories",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
-          {
-            label: "Créer",
-            icon: <BiSolidUserPlus />,
-            path: "/pyramid/territories/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
-          },
+          // {
+          //   label: "Créer",
+          //   icon: <BiSolidUserPlus />,
+          //   path: "/pyramid/territories/create",
+          //   permissions: PERMISSIONS.MANAGE_GAP,
+          // },
         ],
       },
       {

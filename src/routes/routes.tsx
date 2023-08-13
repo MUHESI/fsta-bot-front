@@ -34,10 +34,10 @@ function GlobalRoutes() {
             element={<CreateOrganization />}
           />
           {/* PYRAMIDE */}
-          <Route
+          {/* <Route
             path="/pyramid/provinces/create"
             element={<CreateProvince />}
-          />
+          /> */}
           <Route path="/pyramid/provinces" element={<ListProvinces />} />
           <Route path="/pyramid/territories" element={<ListTerritories />} />
           <Route

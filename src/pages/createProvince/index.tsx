@@ -83,13 +83,13 @@ function CreateProvince() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="p-1 text-main-color-dark">
+    <div className="">
+      {/* <div className="p-1 text-main-color-dark">
         <LastHeading title={"Création de la province"} />
-      </div>
+      </div> */}
 
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
