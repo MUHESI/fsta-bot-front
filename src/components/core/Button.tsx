@@ -33,7 +33,7 @@ export default Button;
 
 // AUTH
 interface IpropsAuthButton {
-  statusLoading: boolean;
+  statusLoading?: boolean;
   onClick: () => void;
   label: string;
   disabled?: boolean;
