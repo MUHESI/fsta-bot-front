@@ -16,8 +16,6 @@ function CustomSelectField<TData>({
   return (
     <select
       onChange={(e) => {
-        console.clear();
-        console.log("first>>>", e.target.value);
         onChange(e.target.value);
       }}
       disabled={disabled ? disabled : false}
@@ -29,7 +27,7 @@ function CustomSelectField<TData>({
 
         disabled:cursor-not-allowed disabled:opacity-50 px-3 py-2 text-sm text-gray-400 rounded h-10 p-2"
     >
-      {/* {typeByDefault && <option value={""}> {typeByDefault.label} </option>} */}
+      <option value={""}> Choisir </option>
       {data?.map((item: any, key: number) => (
         <option
           key={key}

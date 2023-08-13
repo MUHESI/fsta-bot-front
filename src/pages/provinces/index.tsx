@@ -33,7 +33,6 @@ function Provinces() {
           mainTitle="Création de la nouvelle province"
           width="sm"
         >
-          {" "}
           <CreateProvince />
         </DialogCustom>
       </DataTable>

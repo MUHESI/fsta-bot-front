@@ -22,7 +22,7 @@ export const INIT_FORM_CREATE_PROVINCE: ICreateProvince = {
 }
 export const INIT_FORM_CREATE_TERRITORY: ICreateTerritory = {
     name: '',
-    provinceId: ''
+    provinceid: ''
 }
 
 

@@ -78,8 +78,6 @@ function Navbar() {
   }, [screenSize]);
 
   const handleActiveMenu = () => {
-    console.clear();
-    console.log("first", activeMenu);
     setActiveMenu(!activeMenu);
   };
 

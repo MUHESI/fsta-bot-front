@@ -56,8 +56,6 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                // console.clear();
-                // console.log("payment", payment);
                 // navigator.clipboard.writeText(payment.id);
               }}
             >

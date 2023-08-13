@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IAutherUSer, ICurrentUser, ILogin } from "../../types/stateSchema/auth";
+import { IAutherUSer, ILogin } from "../../types/stateSchema/auth";
 import { ForgotPswdScreen } from "../../types/commonTypes";
 import { AUTH_KEYS } from "../keys";
 import { defaultStateUserAuth } from "@/constants/constants";

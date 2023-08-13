@@ -54,8 +54,6 @@ export const columnsListTerritories: ColumnDef<ITerritory>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                console.clear();
-                console.log(payment);
                 // navigator.clipboard.writeText(payment.id);
               }}
             >

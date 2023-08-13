@@ -14,15 +14,12 @@ export const getTerritoriesByProvinceState = selector({
         const { token } = get(userAuthenticatedState)
         if (provinceId === null) return [];
         const res = await getAPI<IFetchData<ITerritory[]> | undefined>(`listterritoir/${provinceId}`, token);
-        // console.clear()
-        console.log('res?.data?', res?.data)
+
         if (res === undefined) {
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {
             return { error: res }
         } else {
-            // console.clear()
-            console.log('res?.data?.data', res?.data?.data)
             return res?.data?.data ?? []
         }
     },

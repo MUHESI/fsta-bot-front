@@ -53,8 +53,6 @@ export const columnsListOrganizations: ColumnDef<IOrganization>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                console.clear();
-                console.log(payment);
                 // navigator.clipboard.writeText(payment.id);
               }}
             >

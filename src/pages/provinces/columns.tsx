@@ -54,8 +54,6 @@ export const columnsListProvinces: ColumnDef<IProvince>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                console.clear();
-                console.log(payment);
                 // navigator.clipboard.writeText(payment.id);
               }}
             >

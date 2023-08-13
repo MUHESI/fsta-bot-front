@@ -3,16 +3,18 @@ import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
 import { INIT_FORM_CREATE_TERRITORY } from "@/constants/initForm";
-import { ICreateProvince } from "@/types/stateSchema/province";
+import { IProvince } from "@/types/stateSchema/province";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
 import { SelectCommon } from "@/components/core/select";
-import { provinces } from "@/constants/constants";
 import { ICreateTerritory } from "@/types/stateSchema/territory";
 import { IFetchData } from "@/types/commonTypes";
+import { useRecoilValue } from "recoil";
+import { getProvincesState, userAuthenticatedState } from "@/globalState/atoms";
+import { IAutherUSer } from "@/types/stateSchema/auth";
 
 function CreateTerritory() {
   const commonClass = "border rounded-lg my-5";
@@ -27,10 +29,21 @@ function CreateTerritory() {
     INIT_FORM_CREATE_TERRITORY
   );
 
+  const { token } = useRecoilValue(
+    userAuthenticatedState
+  ) as unknown as IAutherUSer;
+
+  const allProvinces = useRecoilValue(
+    getProvincesState
+  ) as unknown as IProvince[];
+
   const handleSubmitCreateTerritory = async () => {
-    if (formTerritory.name.trim().length < 2) {
+    if (
+      formTerritory.name.trim().length < 2 &&
+      formTerritory.provinceid.trim().length < 2
+    ) {
       return showToast({
-        msg: `Remplissez tous les champs`,
+        msg: `Remplissez tous les champs svp.`,
         type: StatusToast.DARK,
       });
     }
@@ -42,15 +55,12 @@ function CreateTerritory() {
           true
         )
       );
-      return showToast({
-        msg: `le territoire ${formTerritory.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
-        type: AG_Toast.statusToast.DARK,
-      });
       const { data } = await postAPI<
         IFetchData<{ data: any }>,
         ICreateTerritory
-      >("", formTerritory);
-      if (data.status === 1 && data.data) {
+      >("addter", formTerritory, token);
+
+      if (data.code === 200 && data.data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
@@ -58,6 +68,7 @@ function CreateTerritory() {
             false
           )
         );
+        setTerritory({ ...INIT_FORM_CREATE_TERRITORY });
         return showToast({
           msg: `le territoire ${formTerritory.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
@@ -80,25 +91,31 @@ function CreateTerritory() {
     }
   };
 
+  const keepCurrentProvince = (value: any) => {
+    setTerritory({ ...formTerritory, provinceid: value });
+  };
+
   return (
-    <div className="min-h-screen">
-      <div className="p-1 text-main-color-dark">
+    <div className="">
+      {/* <div className="p-1 text-main-color-dark">
         <LastHeading title={"Création du territoire"} />
-      </div>
+      </div> */}
 
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
               <div className=" px-5">
-                {/* <SelectCommon
-                  data={provinces}
-                  label="Choisir la province"
+                <SelectCommon
+                  data={allProvinces}
+                  onChange={keepCurrentProvince}
+                  label="Selectionner la province"
                   required={true}
+                  keyObject="name"
                   value={"..."}
                   // type=""
-                /> */}
+                />
                 <InputCommon
                   required={true}
                   label="Nom"

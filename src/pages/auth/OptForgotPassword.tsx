@@ -59,8 +59,7 @@ function OptForgotPassword() {
           IFetchData<{ data: any }>,
           { code: string }
         >("test_otp", { code: codeOpt });
-        console.clear();
-        console.log("data", data);
+
         if (data) {
           setInfoLoading(
             HandleFormObject.handleSecondLevel(

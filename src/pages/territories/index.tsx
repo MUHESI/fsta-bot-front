@@ -15,6 +15,8 @@ import {
   getTerritoriesByProvinceState,
 } from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
+import DialogCustom from "@/components/core/DialogCustom";
+import CreateTerritory from "../createTerritory";
 
 function Territories() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
@@ -44,9 +46,16 @@ function Territories() {
             columns={columnsListTerritories}
             data={allTerritoriesByProvince}
           >
-            <Button variant="outline" className="ml-auto rounded-full">
+            <Button variant="outline" className="ml-auto rounded-md">
               <FiRefreshCcw />
             </Button>
+            <DialogCustom
+              btnText="Nouveau territoire"
+              mainTitle="Création du nouveau territoire"
+              width="sm"
+            >
+              <CreateTerritory />
+            </DialogCustom>
           </DataTable>
           <CustomPagination
             dataPagination={dataPagination.pagination}
