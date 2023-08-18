@@ -84,19 +84,19 @@ function CreateProvince() {
 
   return (
     <div className="">
-      {/* <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Création de la province"} />
-      </div> */}
-
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
-              <div className="flex flex-wrap justify-between px-5 gap-5">
+              <div
+                data-testId="create-province"
+                className="flex flex-wrap justify-between px-5 gap-5"
+              >
                 <InputCommon
                   required={true}
                   label="Nom"
+                  // data-testId="create-province"
                   pl="eg: Entrer le nom de la province"
                   value={formProvince.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
