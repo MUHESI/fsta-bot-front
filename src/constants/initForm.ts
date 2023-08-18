@@ -1,3 +1,4 @@
+import { ICreateHealthArea } from "@/types/stateSchema/healthArea";
 import { ForgotPswdScreen } from "../types/commonTypes";
 import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
@@ -24,5 +25,12 @@ export const INIT_FORM_CREATE_TERRITORY: ICreateTerritory = {
     name: '',
     provinceid: ''
 }
+
+export const INIT_FORM_CREATE_HEALTH_AREA: ICreateHealthArea = {
+    name: '',
+    territoirid: ''
+}
+
+
 
 

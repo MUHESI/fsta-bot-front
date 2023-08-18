@@ -158,10 +158,18 @@ function Login() {
               </div>
               <div className="flex justify-between w-64 mb-5 ">
                 <label className="flex items-center text-xs focus:outline-none">
-                  <input className="mr-1" type="checkbox" />
+                  <input
+                    data-testid="rememberMe"
+                    className="mr-1"
+                    type="checkbox"
+                  />
                   Remember me
                 </label>
-                <NavLink to="/auth/forgot-password" className="text-xs">
+                <NavLink
+                  to="/auth/forgot-password"
+                  className="text-xs"
+                  data-testid="forgotPassword"
+                >
                   Forgot password?
                 </NavLink>
               </div>
@@ -170,6 +178,8 @@ function Login() {
                   onClick={handleSubmitLogin}
                   label="Se connecter"
                   statusLoading={infoLoading.loadingLogin.status}
+                  className="rounded-full"
+                  disabled={!formLogin.email || !formLogin.pswd}
                 />
               </div>
             </div>

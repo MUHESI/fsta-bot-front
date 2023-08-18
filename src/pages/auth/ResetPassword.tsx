@@ -214,6 +214,7 @@ function ResetPassword() {
                   onClick={handleSubmitResetPswd}
                   label="Envoyer"
                   statusLoading={infoLoading.resetPassword.status}
+                  className="rounded-full"
                 />
               </div>
             </div>

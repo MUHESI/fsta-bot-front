@@ -5,7 +5,7 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
-import { columnsListTerritories } from "./columns";
+import { columnsListHealthAreas } from "./columns";
 import { SelectCommon } from "@/components/core/select";
 import SkeletonAnimation from "@/components/skeleton";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -19,6 +19,7 @@ import {
 import { IProvince } from "@/types/stateSchema/province";
 import DialogCustom from "@/components/core/DialogCustom";
 import { IHealthArea } from "@/types/stateSchema/healthArea";
+import CreateHealthArea from "../createHealthArea";
 
 function HealthAreas() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
@@ -61,18 +62,18 @@ function HealthAreas() {
 
           <DataTable
             searchField="name"
-            columns={columnsListTerritories}
+            columns={columnsListHealthAreas}
             data={allListHealthAreasByTerritory}
           >
             <Button variant="outline" className="ml-auto rounded-md">
               <FiRefreshCcw />
             </Button>
             <DialogCustom
-              btnText="Nouveau territoire"
-              mainTitle="Création du nouveau territoire"
+              btnText="Nouvelle zone de santé"
+              mainTitle="Création d'une nouvelle zone de santé"
               width="sm"
             >
-              {/* <CreateTerritory /> */}
+              <CreateHealthArea />
             </DialogCustom>
           </DataTable>
           <CustomPagination

@@ -48,12 +48,14 @@ function Provinces() {
 function ListProvinces() {
   return (
     <div>
-      <div className="p-1 text-main-color-dark">
+      <div className="p-1 text-main-color-dark" data-testid="main-title">
         <LastHeading title={"Provinces"} />
       </div>
-      <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-        <Provinces />
-      </Suspense>
+      <div data-testid="list-provinces">
+        <Suspense fallback={<SkeletonAnimation className="px-5" />}>
+          <Provinces />
+        </Suspense>
+      </div>
     </div>
   );
 }

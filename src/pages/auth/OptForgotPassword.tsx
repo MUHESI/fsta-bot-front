@@ -134,6 +134,7 @@ function OptForgotPassword() {
                   statusLoading={infoLoading.codeOptForgotPwd.status}
                   onClick={handleSubmit}
                   label="Vérifier"
+                  className="rounded-full"
                 />
               </div>
             </div>

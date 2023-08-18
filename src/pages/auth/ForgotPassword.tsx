@@ -119,6 +119,7 @@ function ForgotPassword() {
                   onClick={handleSubmitForgotPwd}
                   label="Envoyer"
                   statusLoading={infoLoading.loadingForgotPwd.status}
+                  className="rounded-full"
                 />
               </div>
             </div>

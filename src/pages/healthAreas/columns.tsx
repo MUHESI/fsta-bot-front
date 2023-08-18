@@ -13,7 +13,7 @@ import {
 import { ColumnDef } from "@tanstack/table-core";
 import { ITerritory } from "@/types/stateSchema/territory";
 
-export const columnsListTerritories: ColumnDef<ITerritory>[] = [
+export const columnsListHealthAreas: ColumnDef<ITerritory>[] = [
   {
     accessorKey: "name",
     header: "NOMS",

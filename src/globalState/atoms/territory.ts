@@ -1,7 +1,6 @@
 import { atom, selector } from "recoil";
-import { IProvince } from "../../types/stateSchema/province";
 import { ITerritory } from "../../types/stateSchema/territory";
-import { PROVINCE_KEYS, TERRITORIES_KEYS } from "../keys";
+import { TERRITORIES_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
