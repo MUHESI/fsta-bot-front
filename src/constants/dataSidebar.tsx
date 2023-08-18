@@ -30,7 +30,7 @@ type LabelMenus =
   | "GAPS"
   | "Organisations"
   | "Utilisateurs"
-  | "Provinces"
+  | "Gestion adresses"
   | "Territoires"
   | "Zones de sante"
   | "Aires de santé";
@@ -155,61 +155,27 @@ export const dataMenus: IDataMenu[] = [
     mainMenu: "PYRAMIDE",
     menus: [
       {
-        label: "Provinces",
+        label: "Gestion adresses",
         icon: <FaUsers />,
         path: "/",
         permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
-            label: "Liste des provinces",
+            label: "Provinces",
             icon: <FaUsers />,
             path: "/pyramid/provinces/",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
-          // {
-          //   label: "Créer",
-          //   icon: <BiSolidUserPlus />,
-          //   path: "/pyramid/provinces/create",
-          //   permissions: PERMISSIONS.MANAGE_GAP,
-          // },
-        ],
-      },
-      {
-        label: "Territoires",
-        icon: <FaUsers />,
-        path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
-        subMenus: [
           {
-            label: "Liste des territoires",
+            label: "Territoires",
             icon: <FaUsers />,
             path: "/pyramid/territories",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
-          // {
-          //   label: "Créer",
-          //   icon: <BiSolidUserPlus />,
-          //   path: "/pyramid/territories/create",
-          //   permissions: PERMISSIONS.MANAGE_GAP,
-          // },
-        ],
-      },
-      {
-        label: "Aires de santé",
-        icon: <FaUsers />,
-        path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
-        subMenus: [
           {
-            label: "liste",
+            label: "Aires de santé",
             icon: <FaUsers />,
-            path: "/users",
-            permissions: PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Créer",
-            icon: <BiSolidUserPlus />,
-            path: "/users/create",
+            path: "/pyramid/healthAreas",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],

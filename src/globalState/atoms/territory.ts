@@ -25,3 +25,10 @@ export const getTerritoriesByProvinceState = selector({
     },
 });
 
+export const currentTerritoryIDState = atom<string | null>({
+    key: TERRITORIES_KEYS.CURRENT_TERRITORY_ID_STATE,
+    default: null,
+});
+
+
+

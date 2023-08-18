@@ -12,6 +12,7 @@ import CreateProvince from "../pages/createProvince";
 import ListProvinces from "@/pages/provinces";
 import CreateTerritory from "../pages/createTerritory";
 import ListTerritories from "@/pages/territories";
+import ListHealthAreas from "../pages/healthAreas";
 
 function GlobalRoutes() {
   return (
@@ -40,6 +41,7 @@ function GlobalRoutes() {
           /> */}
           <Route path="/pyramid/provinces" element={<ListProvinces />} />
           <Route path="/pyramid/territories" element={<ListTerritories />} />
+          <Route path="/pyramid/healthAreas" element={<ListHealthAreas />} />
           <Route
             path="/pyramid/territories/create"
             element={<CreateTerritory />}
