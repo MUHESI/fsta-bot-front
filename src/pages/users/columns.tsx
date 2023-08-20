@@ -12,11 +12,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IUser } from "@/types/stateSchema/user";
 import { ColumnDef } from "@tanstack/table-core";
+import { NavLink } from "react-router-dom";
 
 export const columnsListUsers: ColumnDef<IUser>[] = [
   {
+    accessorKey: "id",
+    header: "ID",
+    cell: ({ row }: { row: { [key: string]: any } }) => (
+      <NavLink
+        to={`/users/profile/${row.getValue("id")}`}
+        className={`cursor-pointer font-normal`}
+      >
+        {row.id}
+      </NavLink>
+    ),
+  },
+  {
     accessorKey: "full_name",
     header: "NOMS",
+    cell: ({ row }: { row: { [key: string]: any } }) => (
+      <NavLink
+        to={`/users/profile/${row.getValue("id")}`}
+        className={`cursor-pointer font-normal`}
+      >
+        {row.getValue("full_name")}
+      </NavLink>
+    ),
   },
   {
     accessorKey: "organization",

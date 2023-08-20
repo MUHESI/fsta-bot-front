@@ -1,7 +1,8 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AG_URL, defaultStateUserAuth } from "../../constants/constants";
 import { RiNotification3Line } from "react-icons/ri";
+import { SlOptionsVertical } from "react-icons/sl";
 import Notification from "../profile/Notification";
 import { useEffect } from "react";
 import UserProfile from "../profile/UserProfile";
@@ -20,6 +21,7 @@ import {
   screenSizeState,
   userAuthenticatedState,
 } from "@/globalState/atoms";
+import { verifyMobileScreenSize } from "./Sidebar";
 
 type INavButtonProps = {
   customFunc: () => void;
@@ -43,7 +45,7 @@ const NavButton = ({ customFunc, icon, color, dotColor }: INavButtonProps) => (
   </button>
 );
 
-function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
 
   // RECOIL
@@ -81,114 +83,172 @@ function Navbar() {
     setActiveMenu(!activeMenu);
   };
 
-  return (
-    <div
-      className="flex m-0 justify-between w-full md:mr-0.5 relative bg-white h-[67px]
-    "
-    >
-      <div className="flex ">
-        <div className=" border-r border-t p-3  cursor-pointer">
-          <NavButton
-            title="Menu"
-            customFunc={handleActiveMenu}
-            color={currentColor}
-            icon={<AiOutlineMenu />}
-          />
+  // DESKTOP_NAVBAR
+  function DesktopNavbar() {
+    return (
+      <div className="flex m-0 justify-between">
+        <div className="flex items-center">
+          <div className=" items-center  gap-3  flex  font-extrabold tracking-tight dark:text-white ">
+            <img
+              src={AG_URL.LOGO_AFIA_GAP}
+              className="w-[68px] object-cover"
+              alt="LOGO_AFIA_GAP"
+            />
+            <span
+              className={`text-xl text-slate-600 w-[137px] ${
+                !activeMenu && "scale-0 hidden"
+              }`}
+            >
+              AFIA GAP
+            </span>
+          </div>
+          <div className=" border-r border-l border-t p-3  cursor-pointer">
+            <NavButton
+              title="Menu"
+              customFunc={handleActiveMenu}
+              color={currentColor}
+              icon={<AiOutlineMenu />}
+            />
+          </div>
+          <div
+            className={`flex space-x-2 items-center text-slate-400 p-3 ${
+              screenSize !== undefined && screenSize < 800 && "hidden"
+            }`}
+          >
+            <BsSearch className={`text-2xl `} />
+            <input
+              placeholder="Rechercher..."
+              className={`w-[80%] duration-100  py-1 px-2 m-0 outline-none  border-none focus:outline-none  text-slate-400 text-lg`}
+              type="seach"
+            />
+          </div>
         </div>
         <div
-          className={`flex space-x-2 items-center text-slate-400 p-3 ${
-            screenSize !== undefined && screenSize < 800 && "hidden"
+          className={`flex ${
+            screenSize !== undefined && screenSize < 600 && "hidden"
           }`}
         >
-          <BsSearch className={`text-2xl `} />
-          <input
-            placeholder="Rechercher..."
-            className={`w-[80%] duration-100  py-1 px-2 m-0 outline-none  border-none focus:outline-none  text-slate-400 text-lg`}
-            type="seach"
-          />
-        </div>
-      </div>
-      <div
-        className={`flex ${
-          screenSize !== undefined && screenSize < 600 && "hidden"
-        }`}
-      >
-        <div className="border-x border-t p-3">
-          <NavButton
-            title="Notification"
-            // dotColor="rgb(254, 201, 15)"
-            customFunc={() => console.clear()}
-            color={currentColor}
-            icon={<BiMessageSquareDetail />}
-          />
-        </div>
-        <div className="border-r border-t p-3">
-          <NavButton
-            title="Notification"
-            dotColor="rgb(254, 201, 15)"
-            customFunc={() => console.clear()}
-            color={currentColor}
-            icon={<RiNotification3Line />}
-          />
-        </div>
-        <div className="border-r border-t p-3 p-3">
-          <div
-            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            // onClick={() => handleClick("userProfile")}
-          >
-            <img
-              // onClick={() => navigate("/users/profile/10")}
-              onClick={logout}
-              className="rounded-full w-8 h-8"
-              src={AG_URL.USER_IMG_PROFILE2}
-              alt="user-profile"
+          <div className="border-x border-t p-3">
+            <NavButton
+              title="Notification"
+              // dotColor="rgb(254, 201, 15)"
+              customFunc={() => console.clear()}
+              color={currentColor}
+              icon={<BiMessageSquareDetail />}
             />
-            {/* <p>
+          </div>
+          <div className="border-r border-t p-3">
+            <NavButton
+              title="Notification"
+              dotColor="rgb(254, 201, 15)"
+              customFunc={() => console.clear()}
+              color={currentColor}
+              icon={<RiNotification3Line />}
+            />
+          </div>
+          <div className="border-r border-t p-3 p-3">
+            <div
+              className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
+              // onClick={() => handleClick("userProfile")}
+            >
+              <img
+                // onClick={() => navigate("/users/profile/10")}
+                onClick={logout}
+                className="rounded-full w-8 h-8"
+                src={AG_URL.USER_IMG_PROFILE2}
+                alt="user-profile"
+              />
+              {/* <p>
               <span className="text-gray-400 text-lg ">Hi,</span>{" "}
               <span className="text-gray-400 font-bold ml-1 text-lg ">
                 Moses
               </span>
             </p> */}
+            </div>
           </div>
-        </div>
-        <div className="border-r border-t p-3">
-          <NavButton
-            title="Notification"
-            color={currentColor}
-            customFunc={() => console.clear()}
-            icon={<IoMdSettings />}
-          />
-        </div>
-      </div>
-      {/* MOBILE MENU  */}
-      <div
-        className={` ${
-          screenSize !== undefined && screenSize < 600 ? "flex" : "hidden"
-        }`}
-      >
-        <div className="border-r border-t p-3 ">
-          <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
-            <img
-              onClick={logout}
-              className="rounded-full w-8 h-8"
-              src={AG_URL.USER_IMG_PROFILE2}
-              alt="user-profile"
+          <div className="border-r border-t p-3">
+            <NavButton
+              title="Notification"
+              color={currentColor}
+              customFunc={() => console.clear()}
+              icon={<IoMdSettings />}
             />
           </div>
         </div>
-        <div className="border-r border-t p-3">
-          <NavButton
-            title="Notification"
-            customFunc={() => console.clear()}
-            color={currentColor}
-            icon={<IoMdSettings />}
-          />
+        {/* MOBILE MENU  */}
+        <div
+          className={` ${
+            screenSize !== undefined && screenSize < 600 ? "flex" : "hidden"
+          }`}
+        >
+          <div className="border-r border-t p-3 ">
+            <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
+              <img
+                onClick={logout}
+                className="rounded-full w-8 h-8"
+                src={AG_URL.USER_IMG_PROFILE2}
+                alt="user-profile"
+              />
+            </div>
+          </div>
+          <div className="border-r border-t p-3">
+            <NavButton
+              title="Notification"
+              customFunc={() => console.clear()}
+              color={currentColor}
+              icon={<IoMdSettings />}
+            />
+          </div>
+        </div>
+        {isClicked.notification && <Notification />}
+        {isClicked.userProfile && <UserProfile />}
+      </div>
+    );
+  }
+
+  // MOBILE_NAVBAR
+  function MobileNavbar() {
+    return (
+      <div className="flex m-0 justify-between">
+        <div className="flex items-center">
+          <div className=" border-r border-l p-3  cursor-pointer">
+            <NavButton
+              title="Menu"
+              customFunc={handleActiveMenu}
+              color={currentColor}
+              icon={<AiOutlineMenu />}
+            />
+          </div>
+        </div>
+        <img
+          src={AG_URL.LOGO_AFIA_GAP}
+          className="w-[80px] object-cover"
+          alt="LOGO_AFIA_GAP"
+        />
+        <div className={`flex`}>
+          <div className="border-x border-t p-3">
+            <NavButton
+              title="Notification"
+              // dotColor="rgb(254, 201, 15)"
+              customFunc={() => console.clear()}
+              color={currentColor}
+              icon={<SlOptionsVertical />}
+            />
+          </div>
         </div>
       </div>
-      {isClicked.notification && <Notification />}
-      {isClicked.userProfile && <UserProfile />}
+    );
+  }
+
+  return (
+    <div className="m-0 border-b w-full md:mr-0.5 relative bg-white h-[67px]">
+      {verifyMobileScreenSize(screenSize) ? (
+        <MobileNavbar />
+      ) : (
+        <DesktopNavbar />
+      )}
     </div>
   );
-}
+};
 
 export default Navbar;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { PropsWithChildren } from "react";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { SelectChangeEvent } from "@mui/material/Select";
@@ -8,7 +8,6 @@ import { CustomButton } from "./Button";
 
 interface IDataPropos {
   width: DialogProps["maxWidth"];
-  children: React.ReactNode;
   mainTitle: string;
   btnText: string;
 }
@@ -18,7 +17,7 @@ export default function DialogCustom({
   children,
   mainTitle,
   btnText,
-}: IDataPropos) {
+}: PropsWithChildren<IDataPropos>) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] =

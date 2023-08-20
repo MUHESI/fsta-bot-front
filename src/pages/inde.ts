@@ -1,4 +1,4 @@
-export { default as Layout } from './Layout'
+export { default as Layout } from '../components/navigation/Layout'
 // AUTH
 export { default as Login } from './auth/Login'
 export { default as ResetPassword } from './auth/ResetPassword'

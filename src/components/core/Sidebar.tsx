@@ -15,7 +15,7 @@ import {
   currentColorState,
   screenSizeState,
 } from "@/globalState/atoms";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 const Sidebar = () => {
   // RECOIL
@@ -53,19 +53,34 @@ const Sidebar = () => {
       });
     }
   }, [activeMenu]);
+  useEffect(() => {
+    console.log("screenSize", screenSize);
+  }, [screenSize]);
 
   return (
     <div
       onMouseEnter={() => {
-        if (screenSize !== undefined && screenSize >= 900)
+        // if (screenSize !== undefined && screenSize >= 900) {
+        if (!verifyMobileScreenSize(screenSize)) {
           return setActiveMenu(true);
+        }
+
+        // }
       }}
-      className={`${
-        activeMenu ? "w-72" : "w-20"
+      className={`
+      
+      ${
+        activeMenu
+          ? "w-72"
+          : !verifyMobileScreenSize(screenSize)
+          ? "w-[70px]"
+          : "hidden"
       }  fixed dark:bg-main-dark-bg duration-300 mainScroll h-screen
             border-r
             `}
       style={{
+        // marginTop: "67px",
+        // marginTop: "70px",
         margin: "2px",
         marginRight: "1px",
         marginLeft: "0px",
@@ -74,40 +89,7 @@ const Sidebar = () => {
       }}
     >
       <>
-        <div
-          className={`${
-            activeMenu ? "w-72" : "w-20"
-          } flex fixed justify-between bg-white items-center border-b p-2   m-0 `}
-          style={{
-            transform: "translate(-3px, -3px)",
-            height: "67px",
-            // margin: "0px",
-            // padding: "0px",
-            // zIndex: 1000,
-          }}
-        >
-          <Link
-            to="/"
-            className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
-          >
-            <img
-              src={AG_URL.LOGO_AFIA_GAP}
-              className="w-20 object-cover"
-              alt="LOGO_AFIA_GAP"
-            />
-            <span className={`${!activeMenu ? "scale-0" : ""}`}>AFIA GAP </span>
-          </Link>
-          <button
-            type="button"
-            onClick={() => setActiveMenu(!activeMenu)}
-            style={{ color: currentColor }}
-            className="text-xl t rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
-          >
-            <MdOutlineCancel />
-          </button>
-        </div>
-
-        <div className="mt-10 " style={{ marginTop: "80px" }}>
+        <div className="mt-0 " style={{ marginTop: "0px" }}>
           {dataMenus.map((item: IDataMenu, index) => (
             <div key={index}>
               <p
@@ -123,7 +105,7 @@ const Sidebar = () => {
                     key={index}
                     onClick={() => {
                       // handleCloseSideBar(menu.path);
-                      handleCloseSideBar();
+                      // handleCloseSideBar();
                       if (
                         subMenuOpen.labelMenu === menu.label &&
                         subMenuOpen.index === idx &&
@@ -214,6 +196,7 @@ const Sidebar = () => {
                                   ? "duration-300"
                                   : "duration-300"
                               }`}
+                              onClick={() => handleCloseSideBar()}
                             >
                               <p
                                 className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
@@ -241,3 +224,9 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+export function verifyMobileScreenSize(screenSize: undefined | number) {
+  console.clear();
+  console.log("cool", screenSize);
+  return screenSize !== undefined && screenSize <= 700;
+}

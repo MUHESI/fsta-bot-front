@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, PropsWithChildren } from "react";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
-  //   getPaginationRowModel,
   SortingState,
   getSortedRowModel,
   getFilteredRowModel,
@@ -23,7 +22,7 @@ import { Input } from "../ui/input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  children: React.ReactNode;
+  // children: React.ReactNode;
   searchField: keyof TData;
 }
 
@@ -32,7 +31,7 @@ export function DataTable<TData, TValue>({
   data,
   searchField,
   children,
-}: DataTableProps<TData, TValue>) {
+}: PropsWithChildren<DataTableProps<TData, TValue>>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [searchField_, SetSearchField_] = React.useState<string>("");
 

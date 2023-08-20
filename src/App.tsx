@@ -1,13 +1,13 @@
 import React from "react";
-import Laayout from "./pages/Layout";
+import Layout from "./components/navigation/Layout";
 import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <>
-      <Laayout />
+    <div>
+      <Layout />
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

@@ -106,7 +106,7 @@ function CreateTerritory() {
           <section className="mx-3">
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
-              <div className=" px-5">
+              <div className=" px-5" data-testId="select-province">
                 <SelectCommon
                   data={allProvinces}
                   onChange={keepCurrentProvince}
