@@ -129,21 +129,15 @@ export const dataMenus: IDataMenu[] = [
         permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
-            label: "analyse gaps1",
+            label: "Liste des gaps",
             icon: <AiOutlineShoppingCart />,
-            path: "/gaps/analytics",
+            path: "/gaps",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
-            label: "analyse gaps2",
+            label: "Créer un gap",
             icon: <AiOutlineShoppingCart />,
-            path: "/gaps/analytics",
-            permissions: PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "analyse gaps2",
-            icon: <AiOutlineShoppingCart />,
-            path: "/gaps/analytics",
+            path: "/gaps/create",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],

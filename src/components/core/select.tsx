@@ -1,3 +1,6 @@
+import { BsQuestionCircle } from "react-icons/bs";
+import HoverCardCustom from "./HoverCardCustom";
+
 interface IPropsCustomSelectField<TData> {
   data: TData[];
   keyObject: keyof TData;
@@ -79,4 +82,58 @@ function SelectCommon<TData>({
   );
 }
 
-export { CustomSelectField, SelectCommon };
+function CommonSelectGap<TData>({
+  // pl,
+  // type,
+  onChange,
+  // value,
+  disabled,
+  label,
+  required,
+  data,
+  keyObject,
+  classNameHoverCard,
+  titleTooltip,
+}: {
+  classNameHoverCard?: string;
+  titleTooltip?: string;
+  label: string;
+  data: TData[];
+  value: string | number;
+  pl?: string;
+  type?: string;
+  required?: boolean;
+  disabled?: boolean;
+  keyObject: keyof TData;
+  onChange: (e: any) => void;
+}) {
+  return (
+    <div className="flex-auto p-0 m-0  mb-2">
+      <label className=" flex items-center gap-3 text-sm">
+        <span>
+          {label}
+          <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
+        </span>
+        {titleTooltip && (
+          <HoverCardCustom
+            description={titleTooltip}
+            className={classNameHoverCard}
+          >
+            <BsQuestionCircle />
+          </HoverCardCustom>
+        )}
+      </label>
+      <CustomSelectField
+        disabled={disabled}
+        keyObject={keyObject}
+        value={"value"}
+        data={data}
+        onChange={onChange}
+        // label={"type"}
+        // typeByDefault={{ label: "oook" }}
+      />
+    </div>
+  );
+}
+
+export { CustomSelectField, SelectCommon, CommonSelectGap };
