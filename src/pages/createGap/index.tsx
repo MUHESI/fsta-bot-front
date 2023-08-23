@@ -1,7 +1,7 @@
 import React from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
-import { CommonSelectGap, SelectCommon } from "@/components/core/select";
+import { CommonSelectGap } from "@/components/core/select";
 import { Grid } from "@mui/material";
 import { InputCommon, CommonInputGap } from "@/components/core/Inputs";
 import { CommonTextareaGap } from "@/components/core/TextareaCustom";
@@ -17,7 +17,7 @@ function CreateGap() {
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Créeation de GAP"} />
+        <LastHeading title={"Création de GAP"} />
       </div>
 
       <Grid container spacing={1}>
@@ -56,33 +56,45 @@ function CreateGap() {
                   value={""}
                   // classNameHoverCard=" border-main-color"
                 />
-
                 <CommonInputGap
                   titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
                   required={true}
-                  label="Nom"
+                  label="Nom de la structure de santé"
                   pl="eg: Entrer le nom de l'organisation"
                   onChange={() => console.log("first")}
                   value={""}
                   // classNameHoverCard=" border-main-color"
                 />
               </div>
-
-              <div className="flex flex-wrap justify-between px-5  gap-5">
-                <InputCommon
-                  // required={true}
-                  label="Addresse mail"
-                  pl="eg: cosamed@gmail.com"
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonSelectGap
+                  data={provinces}
+                  // titleTooltip={TOOLTIP_GAP_FORM.TYPE_HEALHP_STRUCTURE}
+                  required={true}
+                  keyObject="label"
+                  label="Selectionner le DPS"
                   onChange={() => console.log("first")}
                   value={""}
+                  // classNameHoverCard=" border-main-color"
                 />
-                {/* <SelectCommon
-                  data={provinces}
-                  label="Selectionner le type d'org."
-                  // onChange={(e) => console.log("e", e)}
-                  value={"..."}
-                  // type=""
-                /> */}
+                <CommonInputGap
+                  titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Province(DPS)"
+                  pl="eg: Entrer le nom de l'organisation"
+                  onChange={() => console.log("first")}
+                  value={"NORD-KIVU"}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Zone de santé"
+                  pl="eg: Entrer le nom de l'organisation"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
               </div>
             </div>
             {/* =========================== POPULATION =========================== */}
@@ -197,55 +209,367 @@ function CreateGap() {
                 />
               </div>
             </div>
+
+            {/* =========================== POP.OTHERS DEATILS =========================== */}
             <div className={commonClassSection}>
-              <LastHeading title={"Adresse de l'organisation"} />
-              <div className="py-2 px-5 gap-5">
-                {/* <SelectCommon
-                  data={provinces}
-                  label="Choisir la procince"
-                  // onChange={(e) => console.log("e", e)}
-                  value={"..."}
-                  // type=""
-                /> */}
-                {/* <SelectCommon
-                  data={provinces}
-                  label="Selectionner la ville"
-                  // onChange={(e) => console.log("e", e)}
-                  value={"..."}
-                  // type=""
-                /> */}
-                {/* <SelectCommon
-                  data={provinces}
-                  label="Selectionner le quartier/territoire"
-                  // onChange={(e) => console.log("e", e)}
-                  value={"..."}
-                  // type=""
-                /> */}
+              <LastHeading title={"Autres informations"} />
+              <div className="px-5">
+                <CommonTextareaGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Equipements"
+                  pl="eg: ..."
+                  onChange={() => console.log("first")}
+                  value={""}
+                  classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="px-5">
+                <CommonTextareaGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Etat de l'infrastructure"
+                  pl="eg: ..."
+                  onChange={() => console.log("first")}
+                  value={""}
+                  classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Taux d'occupation"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+
+                <CommonInputGap
+                  titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Barriere acces aux soins de santé"
+                  pl="eg: "
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
               </div>
             </div>
+            {/* =========================== POP. COUTS DE SOINS DE SANTE =========================== */}
+            <div className={commonClassSection}>
+              <LastHeading title={"Informations sur coût de soins de santé"} />
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.LOCATION_MORE_THAN_AN_HOUR}
+                  required={true}
+                  label="Ambulatoire"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.REMOTE_POPULATION}
+                  required={true}
+                  label="Hospitalisation"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.LOCATION_MORE_THAN_AN_HOUR}
+                  required={true}
+                  label="Accouchement"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.REMOTE_POPULATION}
+                  required={true}
+                  label="Cesarienne"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+            </div>
+            {/* =========================== COUVERTURE EN DTC =========================== */}
+            <div className={commonClassSection}>
+              <LastHeading title={"Informations sur couverture en DTC3"} />
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.LOCATION_MORE_THAN_AN_HOUR}
+                  required={true}
+                  label="Barriere acces aux soins de santé"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.LOCATION_MORE_THAN_AN_HOUR}
+                  required={true}
+                  label="Nb. pop. Handicap"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  titleTooltip={
+                    TOOLTIP_GAP_FORM.DTP3_COVERAGE_IN_CHILDREN_UNDER_1_YEAR
+                  }
+                  required={true}
+                  label="Couverture DTC3"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  titleTooltip={TOOLTIP_GAP_FORM.MORTALITY_UNDER_5_YEARS}
+                  required={true}
+                  label="Mortalité de moins de 5ans"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+            </div>
+            {/* =========================== Nb DS CAS MALADS =========================== */}
             <div className={commonClassSection}>
               <LastHeading
-                title={"Information specifique au type d'organisation"}
+                title={
+                  "Informations nb. des cas maladies liée au contexte local"
+                }
               />
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  titleTooltip={
+                    TOOLTIP_GAP_FORM.DTP3_COVERAGE_IN_CHILDREN_UNDER_1_YEAR
+                  }
+                  required={true}
+                  label="Choléra"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  titleTooltip={TOOLTIP_GAP_FORM.MORTALITY_UNDER_5_YEARS}
+                  required={true}
+                  label="Rougeole"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM}
+                  required={true}
+                  label="Paludisme"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.MORTALITY_UNDER_5_YEARS}
+                  required={true}
+                  label="Autres"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+            </div>
+
+            {/* =========================== INFOS SUR VIRUS ET AUTRES MALADIES  =========================== */}
+            <div className={commonClassSection}>
+              <LastHeading
+                title={"Informations sur les virus et autres maladies"}
+              />
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM}
+                  required={true}
+                  label="COVID-19"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  titleTooltip={TOOLTIP_GAP_FORM.MORTALITY_UNDER_5_YEARS}
+                  required={true}
+                  label="Nombre Test Covid-19"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM}
+                  required={true}
+                  label="Vaccin Covid-19 disponible"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  titleTooltip={
+                    TOOLTIP_GAP_FORM.POURCENTAGE_OF_PEOPLE_WHICH_HAVE_ACCESS_WATER_PROTECTED
+                  }
+                  required={true}
+                  label="% des menages accès à une source d'eau protegée"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.MORTALITY_UNDER_5_YEARS}
+                  required={true}
+                  label="Malnutrition Aigue sevère"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+            </div>
+            {/* =========================== INFOS SUR LES PARTENAIRES =========================== */}
+            <div className={commonClassSection}>
+              <LastHeading title={"Informations sur les partenaires"} />
+              <div className="px-5">
+                <CommonTextareaGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Partenaire présent"
+                  pl="eg: ..."
+                  onChange={() => console.log("first")}
+                  value={""}
+                  classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="px-5">
+                <CommonTextareaGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
+                  required={true}
+                  label="Paquet d'appui"
+                  pl="eg: ..."
+                  onChange={() => console.log("first")}
+                  value={""}
+                  classNameHoverCard=" border-main-color"
+                />
+              </div>
+
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM}
+                  required={true}
+                  type="date"
+                  label="Date de début d'intervention"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  titleTooltip={
+                    TOOLTIP_GAP_FORM.POINT_FOCAL_CONTACT_IN_HEALTH_ARE
+                  }
+                  required={true}
+                  label="Contact du point focal dans l'aire de santé"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM}
+                  required={true}
+                  label="Vaccin Covid-19 disponible"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonInputGap
+                  titleTooltip={
+                    TOOLTIP_GAP_FORM.POURCENTAGE_OF_PEOPLE_WHICH_HAVE_ACCESS_WATER_PROTECTED
+                  }
+                  required={true}
+                  label="% des menages accès à une source d'eau protegée"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+                <CommonInputGap
+                  // titleTooltip={TOOLTIP_GAP_FORM.MORTALITY_UNDER_5_YEARS}
+                  required={true}
+                  label="Malnutrition Aigue sevère"
+                  pl="eg:200"
+                  onChange={() => console.log("first")}
+                  value={""}
+                  // classNameHoverCard=" border-main-color"
+                />
+              </div>
+            </div>
+
+            <div className={commonClassSection}>
+              <LastHeading title={"Information l'adresse du point focal"} />
               <p className=" mx-5 text-[0.6em] font-bold border-l-4 border-main-color px-2">
                 Zone de sante
               </p>
-              <div className="flex flex-wrap justify-between px-5  gap-5">
-                <InputCommon
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonSelectGap
+                  data={provinces}
+                  titleTooltip={TOOLTIP_GAP_FORM.TYPE_HEALHP_STRUCTURE}
                   required={true}
-                  label="Nb de personnels"
-                  type="number"
-                  pl="eg: 30"
+                  keyObject="label"
+                  label="Selectionner la province(DPS)"
                   onChange={() => console.log("first")}
                   value={""}
+                  // classNameHoverCard=" border-main-color"
                 />
                 <InputCommon
                   required={true}
-                  label="Nb de infirmiers"
-                  type="number"
-                  pl="eg: 30"
+                  label="Province(DPS)"
+                  type="string"
+                  // pl="eg: 30"
                   onChange={() => console.log("first")}
-                  value={""}
+                  value={"NORD-KIVU"}
+                  disabled={true}
+                />
+                <InputCommon
+                  required={true}
+                  label="Zone de santé"
+                  type="string"
+                  // pl="eg: 30"
+                  onChange={() => console.log("first")}
+                  value={"NORD-KIVU"}
+                  disabled={true}
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5  gap-5">
