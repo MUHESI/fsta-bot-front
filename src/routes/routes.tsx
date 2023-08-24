@@ -14,6 +14,7 @@ import CreateTerritory from "../pages/createTerritory";
 import ListTerritories from "@/pages/territories";
 import ListHealthAreas from "../pages/healthAreas";
 import CreateGap from "../pages/createGap";
+import CreateScoreCard from "@/pages/createGap/formScore";
 
 function GlobalRoutes() {
   return (
@@ -50,6 +51,10 @@ function GlobalRoutes() {
 
           {/* GAPS */}
           <Route path="/gaps/create/" element={<CreateGap />} />
+          <Route
+            path="/gaps/score-card/create/"
+            element={<CreateScoreCard />}
+          />
 
           {/* <Route
             path="/pyramid/provinces/:id"

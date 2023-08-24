@@ -28,6 +28,7 @@ type MainMemnu =
 
 type LabelMenus =
   | "GAPS"
+  | "GAPS GLOBALS"
   | "Organisations"
   | "Utilisateurs"
   | "Gestion adresses"
@@ -59,8 +60,8 @@ export const dataMenus: IDataMenu[] = [
     mainMenu: "Dashboard",
     menus: [
       {
-        label: "GAPS",
-        path: "/gaps",
+        label: "GAPS GLOBALS",
+        path: "/gaps-dashboard",
         icon: <MdOutlineEditLocationAlt />,
         permissions: PERMISSIONS.MANAGE_GAP,
         subMenus: [
@@ -138,6 +139,12 @@ export const dataMenus: IDataMenu[] = [
             label: "Créer un gap",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Créer score card",
+            icon: <AiOutlineShoppingCart />,
+            path: "/gaps/score-card/create",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],
