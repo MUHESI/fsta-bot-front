@@ -99,7 +99,7 @@ function CommonInputGap({
   return (
     <div className="flex-auto p-0 m-0 mb-2">
       <label className=" flex items-center gap-3 text-sm">
-        <span>
+        <span className="text-main-color">
           {label}
           <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
         </span>

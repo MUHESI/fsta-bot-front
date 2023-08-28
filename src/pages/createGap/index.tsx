@@ -11,7 +11,7 @@ import { TOOLTIP_GAP_FORM } from "./tooltips";
 function CreateGap() {
   // TODO: Improve this later
 
-  const commonClass = "border rounded-lg my-5";
+  const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
 
   return (
