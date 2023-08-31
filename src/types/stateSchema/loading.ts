@@ -5,4 +5,5 @@ interface ILoading {
 
 export interface IStateLoading {
     [key: string]: ILoading
-} 
+}
+

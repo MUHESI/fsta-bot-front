@@ -18,7 +18,15 @@ function RequireAuth() {
   return user.full_name !== null ? (
     <Outlet />
   ) : (
-    <>{loadingInfo ? <LoadingPage /> : <Login />} </>
+    <>
+      {loadingInfo ? (
+        <div className="h-screen flex justify-center items-center">
+          <LoadingPage />
+        </div>
+      ) : (
+        <Login />
+      )}{" "}
+    </>
   );
 }
 
