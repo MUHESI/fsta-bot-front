@@ -29,6 +29,7 @@ type MainMemnu =
 type LabelMenus =
   | "GAPS"
   | "GAPS GLOBALS"
+  | "ALERTES"
   | "Organisations"
   | "Utilisateurs"
   | "Gestion adresses"
@@ -47,6 +48,7 @@ export interface IMenus {
 export interface ISubMenus
   extends Pick<IMenus, "icon" | "path" | "permissions"> {
   label: string;
+  hoverTitle?: string;
 }
 
 export interface IDataMenu {
@@ -146,6 +148,33 @@ export const dataMenus: IDataMenu[] = [
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/score-card/create",
             permissions: PERMISSIONS.MANAGE_GAP,
+          },
+        ],
+      },
+      {
+        label: "ALERTES",
+        icon: <AiOutlineShoppingCart />,
+        path: "/",
+        permissions: PERMISSIONS.MANAGE_GAP,
+        subMenus: [
+          {
+            label: "Liste alertes",
+            icon: <AiOutlineShoppingCart />,
+            path: "/alerts",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Créer alerte-01",
+            icon: <AiOutlineShoppingCart />,
+            path: "/alerts/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Créer alerte-02",
+            icon: <AiOutlineShoppingCart />,
+            path: "/alerts/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+            hoverTitle: "Créer alerte-02",
           },
         ],
       },

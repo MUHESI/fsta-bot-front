@@ -241,7 +241,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="m-0 border-b w-full md:mr-0.5 relative bg-white h-[67px]">
+    <div className="m-0 border-b w-full md:mr-0.5 relative bg-white h-[70px]">
       {verifyMobileScreenSize(screenSize) ? (
         <MobileNavbar />
       ) : (

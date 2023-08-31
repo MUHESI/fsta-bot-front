@@ -47,7 +47,7 @@ export default function Layout() {
         <div className="fixed z-50 bg-white w-full">
           <Navbar />
         </div>
-        <div className="pt-[67px]">
+        <div className="pt-[70px]">
           <Sidebar />
         </div>
         <VerifyBreakPoint className="px-2 pt-3">

@@ -197,6 +197,7 @@ const Sidebar = () => {
                                   : "duration-300"
                               }`}
                               onClick={() => handleCloseSideBar()}
+                              title={item.hoverTitle || ""}
                             >
                               <p
                                 className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
