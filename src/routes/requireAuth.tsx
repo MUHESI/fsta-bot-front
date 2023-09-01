@@ -15,7 +15,8 @@ function RequireAuth() {
     }
   }, [user]);
 
-  return user.full_name !== null ? (
+  // return user.full_name !== null ? (
+  return user.full_name === null ? (
     <Outlet />
   ) : (
     <>
