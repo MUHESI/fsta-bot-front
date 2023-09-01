@@ -16,6 +16,7 @@ import ListHealthAreas from "../pages/healthAreas";
 import CreateGap from "../pages/createGap";
 import CreateScoreCard from "@/pages/createGap/formScore";
 import CreateAlert from "../pages/createAlert";
+import ListAlerts from "../pages/Alerts";
 
 function GlobalRoutes() {
   return (
@@ -57,7 +58,9 @@ function GlobalRoutes() {
             element={<CreateScoreCard />}
           />
 
-          <Route path="/alerts/create/" element={<CreateAlert />} />
+          {/* ALERTS */}
+          <Route path="/alerts/create" element={<CreateAlert />} />
+          <Route path="/alerts/" element={<ListAlerts />} />
 
           {/* <Route
             path="/pyramid/provinces/:id"

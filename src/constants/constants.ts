@@ -3,6 +3,7 @@ import { keyStorage } from "../services/storage/localSTorageHandler";
 import { IDataStoredLocalStorage } from "../types/storageTypes";
 import { IUser } from '@/types/stateSchema/user'
 import { IDataPagination } from '@/types/commonTypes'
+import { IAlert } from '@/types/stateSchema/alert'
 import { IProvince } from "@/types/stateSchema/province";
 import { ITerritory } from "@/types/stateSchema/territory";
 import { IAutherUSer } from "@/types/stateSchema/auth";
@@ -328,3 +329,85 @@ export const provinces = [
         category: "ProvinceValue4",
     },
 ];
+
+
+
+export const dataAlerts: IAlert[] = [
+    {
+        code: '1',
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'ALT-VIP',
+        typeAlert: 'typeAlert-01',
+        status: 'active',
+        typeMaldies: 'typeMaldie-01',
+        healthArea: 'GOMA',
+        nbPeopleAffected: 20,
+        date_created: "2023-08-03T11:28:32.000000Z",
+        nameResp: "MUHESI Moses",
+        phoneResp: "+243 999 999 999",
+        nbPeopleDead: 0,
+        mesure: ' typeMaldie-01 typeMaldie-01 typeMaldie-01  typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+    },
+    {
+        code: '1',
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'ALT-VIP',
+        typeAlert: 'typeAlert-0.1',
+        status: 'active',
+        typeMaldies: 'typeMaldie-0.2',
+        healthArea: 'GOMA',
+        nbPeopleAffected: 20,
+        date_created: "2023-08-03T11:28:32.000000Z",
+        nameResp: "MULOLWA KUTA",
+        phoneResp: "+243 999 999 999",
+        nbPeopleDead: 5,
+        mesure: ' typeMaldie-01 typeMaldie-01 typeMaldie-01  typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+    },
+    {
+        code: '3',
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'ALT-VIP',
+        typeAlert: 'typeAlert-0.1',
+        status: 'active',
+        typeMaldies: 'typeMaldie-0.2',
+        healthArea: 'GOMA',
+        nbPeopleAffected: 20,
+        date_created: "2023-08-03T11:28:32.000000Z",
+        nameResp: "SHEKINAH KUTA",
+        phoneResp: "+243 999 999 999",
+        nbPeopleDead: 5,
+        mesure: ' typeMaldie-01 typeMaldie-01 typeMaldie-01  typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+    },
+    {
+        code: '4',
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03T11:28:32.000000Z",
+        updated_at: "2023-08-03T11:28:32.000000Z",
+        name: 'ALT-VIP',
+        typeAlert: 'typeAlert-0.1',
+        status: 'active',
+        typeMaldies: 'typeMaldie-0.2',
+        healthArea: 'KARISIMBI',
+        nbPeopleAffected: 20,
+        date_created: "2023-08-03T11:28:32.000000Z",
+        nameResp: "SERGE SADIKI",
+        phoneResp: "+243 999 999 999",
+        nbPeopleDead: 3,
+        mesure: ' typeMaldie-01 typeMaldie-01 typeMaldie-01  typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01 typeMaldie-01',
+        createdBy: 'user',
+        dateCreation: '2022-01-01T00:00:00.000Z',
+    },
+
+]

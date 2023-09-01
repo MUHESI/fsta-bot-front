@@ -37,7 +37,6 @@ function VerifyBreakPoint({
 export default VerifyBreakPoint;
 
 // export function verifyMobileScreenSize(screenSize: undefined | number) {
-//   console.clear();
-//   console.log("cool", screenSize);
+
 //   return screenSize !== undefined && screenSize <= 700;
 // }

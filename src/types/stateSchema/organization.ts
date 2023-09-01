@@ -10,8 +10,8 @@ export interface ITypeOrganization {
 export enum Type {
     MZD = 'MCZ',
     DPS = 'DPS'
-
 }
+
 export interface IOrganization extends IBaseInterfaceSchema {
     // id?: number;
     name: string;

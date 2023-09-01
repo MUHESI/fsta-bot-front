@@ -1,9 +1,5 @@
 import { ReactNode } from "react";
-import {
-  AiOutlineCalendar,
-  AiOutlineShoppingCart,
-  AiTwotoneAlert,
-} from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FiCreditCard } from "react-icons/fi";
 import { BsCurrencyDollar, BsKanban, BsShield } from "react-icons/bs";
 import { IoMdAnalytics, IoMdContacts } from "react-icons/io";
@@ -164,17 +160,10 @@ export const dataMenus: IDataMenu[] = [
             permissions: PERMISSIONS.MANAGE_GAP,
           },
           {
-            label: "Créer alerte-01",
+            label: "Créer alerte",
             icon: <AiOutlineShoppingCart />,
             path: "/alerts/create",
             permissions: PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Créer alerte-02",
-            icon: <AiOutlineShoppingCart />,
-            path: "/alerts/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
-            hoverTitle: "Créer alerte-02",
           },
         ],
       },

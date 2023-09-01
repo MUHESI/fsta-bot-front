@@ -53,9 +53,9 @@ const Sidebar = () => {
       });
     }
   }, [activeMenu]);
-  useEffect(() => {
-    console.log("screenSize", screenSize);
-  }, [screenSize]);
+  // useEffect(() => {
+  //   console.log("screenSize", screenSize);
+  // }, [screenSize]);
 
   return (
     <div
@@ -227,7 +227,5 @@ const Sidebar = () => {
 export default Sidebar;
 
 export function verifyMobileScreenSize(screenSize: undefined | number) {
-  console.clear();
-  console.log("cool", screenSize);
   return screenSize !== undefined && screenSize <= 700;
 }
