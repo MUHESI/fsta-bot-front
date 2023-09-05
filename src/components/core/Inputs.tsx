@@ -51,7 +51,7 @@ function InputCommon({
 }: {
   label: string;
   pl?: string;
-  type?: string;
+  type?: "number" | "string" | "date";
   onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
   value: string | number;
   required?: boolean;

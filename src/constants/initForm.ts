@@ -2,6 +2,8 @@ import { ICreateHealthArea } from "@/types/stateSchema/healthArea";
 import { ForgotPswdScreen } from "../types/commonTypes";
 import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
+import { ICreateMenage } from "../types/stateSchema/menage";
+
 import { ICreateTerritory } from "../types/stateSchema/territory";
 
 export const INIT_FORM_LOGIN: ILogin = {
@@ -31,6 +33,16 @@ export const INIT_FORM_CREATE_HEALTH_AREA: ICreateHealthArea = {
     territoirid: ''
 }
 
-
+export const INIT_FORM_CREATE_MENAGE: ICreateMenage = {
+    village: '',
+    housing: '',
+    criteriaVulnerability: [''],
+    nbMemberMenage: 0,
+    currentAdress: '',
+    created_at: '',
+    id: '',
+    status: 'active',
+    updated_at: '',
+}
 
 

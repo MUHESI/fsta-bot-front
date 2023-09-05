@@ -25,6 +25,7 @@ type MainMemnu =
 type LabelMenus =
   | "GAPS"
   | "GAPS GLOBALS"
+  | "VULNERABILITES"
   | "ALERTES"
   | "Organisations"
   | "Utilisateurs"
@@ -163,6 +164,26 @@ export const dataMenus: IDataMenu[] = [
             label: "Créer alerte",
             icon: <AiOutlineShoppingCart />,
             path: "/alerts/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+        ],
+      },
+      {
+        label: "VULNERABILITES",
+        icon: <AiOutlineShoppingCart />,
+        path: "/",
+        permissions: PERMISSIONS.MANAGE_GAP,
+        subMenus: [
+          {
+            label: "Liste des vulnerab.",
+            icon: <AiOutlineShoppingCart />,
+            path: "/vulnerabilities",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Ajouter un vulnerab.",
+            icon: <AiOutlineShoppingCart />,
+            path: "/vulnerabilities/create",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],

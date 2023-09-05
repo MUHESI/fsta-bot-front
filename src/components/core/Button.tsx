@@ -50,7 +50,7 @@ export function CustomButton({
     <button
       onClick={onClick}
       disabled={statusLoading || disabled}
-      className={`${className}  border text-main-color text-sm px-12 py-2 border-main-color cursor-pointer  inline-block font-semibold hover:bg-main-color  hover:text-white md:px-5`}
+      className={`${className}  duration-300 border text-main-color text-sm px-12 py-2 border-main-color cursor-pointer  inline-block font-semibold hover:bg-main-color  hover:text-white md:px-5`}
     >
       {statusLoading ? "Chargement..." : label}
     </button>

@@ -17,6 +17,7 @@ import CreateGap from "../pages/createGap";
 import CreateScoreCard from "@/pages/createGap/formScore";
 import CreateAlert from "../pages/createAlert";
 import ListAlerts from "../pages/Alerts";
+import CreateVulnerabilty from "@/pages/createVulnerability";
 
 function GlobalRoutes() {
   return (
@@ -60,6 +61,13 @@ function GlobalRoutes() {
 
           {/* ALERTS */}
           <Route path="/alerts/create" element={<CreateAlert />} />
+          <Route path="/alerts/" element={<ListAlerts />} />
+
+          {/* VULNERABILTY */}
+          <Route
+            path="/vulnerabilities/create"
+            element={<CreateVulnerabilty />}
+          />
           <Route path="/alerts/" element={<ListAlerts />} />
 
           {/* <Route
