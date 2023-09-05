@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
 import { useEffect, useState } from "react";
-import { Login } from "@/pages/inde";
+import { Login } from "@/pages";
 import LoadingPage from "@/pages/loading";
 
 function RequireAuth() {
