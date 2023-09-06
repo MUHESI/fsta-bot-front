@@ -16,6 +16,8 @@ import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHa
 import { ICreateMenage } from "@/types/stateSchema/menage";
 import { SelectCommon } from "@/components/core/select";
 import { dataProvices } from "@/constants/constants";
+import UploadFilesForm from "@/components/uploadFiles/uploadFilesForm";
+import ShowFilesCharged from "@/components/uploadFiles/ShowFilesCharged";
 
 const dataCritereVulnerablity = [
   {
@@ -146,6 +148,10 @@ function CreateMenage() {
     console.log("value::>>", value);
     // setTerritory({ ...formTerritory, provinceid: value });
   };
+
+  const [files, setFiles] = useState([]);
+  const keepData_ = (files_: any) => setFiles(files_);
+
   return (
     <div className="">
       <Grid container spacing={1}>
@@ -155,6 +161,15 @@ function CreateMenage() {
               <LastHeading
                 title={"Informations concernant le resp. du menage"}
               />
+
+              <div data-testId="create-menage" className="px-5 gap-5">
+                <UploadFilesForm
+                  filesSaved={files}
+                  keepData={keepData_}
+                  label="Ajout des documents"
+                />
+                <ShowFilesCharged files={files} />
+              </div>
 
               <div
                 data-testId="create-menage"

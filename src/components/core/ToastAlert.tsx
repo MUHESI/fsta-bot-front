@@ -38,6 +38,11 @@ export const patterns = {
 interface Imessage {
   msg: string;
   type: string;
+  // type:
+  //   | StatusToast.DARK
+  //   | StatusToast.INFO
+  //   | StatusToast.SUCCESS
+  //   | StatusToast.ERROR;
   autoClose?: boolean | number;
 }
 interface IOptionsAlert {
