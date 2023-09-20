@@ -12,7 +12,7 @@ export enum Type {
     DPS = 'DPS'
 }
 
-export interface IOrganization extends IBaseInterfaceSchema {
+export interface IOrganization_ extends IBaseInterfaceSchema {
     // id?: number;
     name: string;
     email: string;
@@ -28,4 +28,19 @@ export interface IOrganization extends IBaseInterfaceSchema {
     dateCreation: string // DELETE ME
     type: Type
     metadata?: ITypeOrganization
+}
+
+
+export interface IOrganization extends IBaseInterfaceSchema {
+    name: string;
+    email: string;
+    description: string;
+    addresse: string;
+    descritption: string;
+    pointfocal: string;
+    date_created: string;
+    phone: string;
+    typeorgid: string;
+    sigle: string;
+    logo: string;
 }

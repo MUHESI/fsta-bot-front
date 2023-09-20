@@ -19,13 +19,12 @@ export const columnsListOrganizations: ColumnDef<IOrganization>[] = [
     header: "NOMS",
   },
   {
-    accessorKey: "cityId",
-    header: "Ville",
-    cell: ({ row }: any) => <div>{row.getValue("cityId")} </div>,
-  },
-  {
     accessorKey: "phone",
     header: "PHONE",
+  },
+  {
+    accessorKey: "email",
+    header: "email",
   },
   {
     accessorKey: "status",
