@@ -7,7 +7,7 @@ import { userAuthenticatedState } from './auth';
 import { currentProvinceIDState } from './province'
 
 export const getTerritoriesByProvinceState = selector({
-    key: TERRITORIES_KEYS.GET_TERRITORIES_BY_PROVINCE_STATE,
+    key: 'TERRITORIES_KEYS.GET_TERRITORIES_BY_PROVINCE_STATE--',
     get: async ({ get }) => {
         const provinceId = get(currentProvinceIDState)
         const { token } = get(userAuthenticatedState)

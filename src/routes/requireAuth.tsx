@@ -4,20 +4,39 @@ import { userAuthenticatedState } from "@/globalState/atoms";
 import { useEffect, useState } from "react";
 import { Login } from "@/pages";
 import LoadingPage from "@/pages/loading";
+import { HandlePermission } from "@/services/permissions";
+import { PERMISSIONS } from "@/types/permissions";
 
-function RequireAuth() {
+export const user_test = {
+  permissions: [
+    "CREATE_GAP",
+    "READ_GAP",
+    "UPDATE_GAP",
+    PERMISSIONS.CREATE_ORAGNIZATION,
+    PERMISSIONS.READ_ROLES,
+  ],
+};
+
+export interface IRequireAuthProps {
+  alowedPermissions: string | string[];
+}
+
+function RequireAuth({ alowedPermissions }: IRequireAuthProps) {
   const user = useRecoilValue(userAuthenticatedState);
   const [loadingInfo, setLoadingInfo] = useState(true);
-
   useEffect(() => {
-    if (user) {
-      setLoadingInfo(false);
-    }
+    if (user) setLoadingInfo(false);
   }, [user]);
 
-  // return user.full_name !== null ? (
-  return user.full_name === null ? (
-    <Outlet />
+  // return user.full_name === null ? (
+  return user.full_name !== null ? (
+    <>
+      {HandlePermission.check(alowedPermissions, user_test.permissions) ? (
+        <Outlet />
+      ) : (
+        <> NOT ALLOWED</>
+      )}
+    </>
   ) : (
     <>
       {loadingInfo ? (

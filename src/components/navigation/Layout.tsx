@@ -37,9 +37,9 @@ export default function Layout() {
     checkAuthUser();
   }, []);
 
-  // if (user.full_name === null) {
-  //   return <GlobalRoutes />;
-  // }
+  if (user.full_name === null) {
+    return <GlobalRoutes />;
+  }
 
   return (
     <>

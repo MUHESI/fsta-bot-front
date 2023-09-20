@@ -23,6 +23,11 @@ export const INIT_FORM_FORGOT_PSWD_SCREEN: ForgotPswdScreen = {
 export const INIT_FORM_CREATE_PROVINCE: ICreateProvince = {
     name: '',
 }
+
+export const INIT_FORM_CREATE_ROLE: ICreateProvince = {
+    name: '',
+}
+
 export const INIT_FORM_CREATE_TERRITORY: ICreateTerritory = {
     name: '',
     provinceid: ''

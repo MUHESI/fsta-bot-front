@@ -17,7 +17,9 @@ import CreateGap from "../pages/createGap";
 import CreateScoreCard from "@/pages/createGap/formScore";
 import CreateAlert from "../pages/createAlert";
 import ListAlerts from "../pages/Alerts";
+import ListRoles from "../pages/permissionRole";
 import CreateVulnerabilty from "@/pages/createVulnerability";
+import { PERMISSIONS } from "@/types/permissions";
 
 function GlobalRoutes() {
   return (
@@ -29,16 +31,13 @@ function GlobalRoutes() {
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/auth/forgot-password" element={<ForgotPaswdProcess />} />
         {/*  PROTECTED ROUTES */}
-        <Route element={<RequireAuth />}>
+        <Route element={<RequireAuth alowedPermissions={"CREATE_GAP"} />}>
           <Route path="/" element={<Home />} />
           <Route path="/protected" element={<Home />} />
           <Route path="/users" element={<ListUsers />} />
           <Route path="/users/profile/:id" element={<ProfileUser />} />
           <Route path="/organizations" element={<ListOrganizations />} />
-          <Route
-            path="/organizations/create"
-            element={<CreateOrganization />}
-          />
+
           {/* PYRAMIDE */}
           {/* <Route
             path="/pyramid/provinces/create"
@@ -69,13 +68,28 @@ function GlobalRoutes() {
             element={<CreateVulnerabilty />}
           />
           <Route path="/alerts/" element={<ListAlerts />} />
-
           {/* <Route
             path="/pyramid/provinces/:id"
             element={<CreateOrganization />}
           /> */}
         </Route>
+        <Route
+          element={
+            <RequireAuth alowedPermissions={PERMISSIONS.CREATE_ORAGNIZATION} />
+          }
+        >
+          <Route
+            path="/organizations/create"
+            element={<CreateOrganization />}
+          />
+        </Route>
+        <Route
+          element={<RequireAuth alowedPermissions={PERMISSIONS.READ_ROLES} />}
+        >
+          <Route path="/permissions/roles" element={<ListRoles />} />
+        </Route>
       </Routes>
+      {/*  */}
     </div>
   );
 }

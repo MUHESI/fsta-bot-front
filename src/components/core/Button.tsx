@@ -3,6 +3,7 @@ import {
   initialState as initialState_,
   isCLickedState,
 } from "@/globalState/atoms";
+import { FiRefreshCcw } from "react-icons/fi";
 
 const Button = ({
   icon,
@@ -50,9 +51,14 @@ export function CustomButton({
     <button
       onClick={onClick}
       disabled={statusLoading || disabled}
-      className={`${className}  duration-300 border text-main-color text-sm px-12 py-2 border-main-color cursor-pointer  inline-block font-semibold hover:bg-main-color  hover:text-white md:px-5`}
+      className={`flex items-center justify-center gap-4 ${className}  duration-300 border text-main-color text-sm px-12 py-2 border-main-color cursor-pointer  inline-block font-semibold hover:bg-main-color  hover:text-white md:px-5`}
     >
-      {statusLoading ? "Chargement..." : label}
+      <span className="  ">
+        {statusLoading && <FiRefreshCcw className="animate-spin" />}
+      </span>
+      <span className={`${statusLoading && ""}`}>
+        {statusLoading ? "Chargement..." : label}
+      </span>
     </button>
   );
 }

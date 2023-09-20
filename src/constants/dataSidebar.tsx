@@ -20,7 +20,8 @@ type MainMemnu =
   | "ANALYSE"
   | "UTILISATEURS"
   | "ORGANISATIONS"
-  | "PYRAMIDE";
+  | "PYRAMIDE"
+  | "SYSTEME";
 
 type LabelMenus =
   | "GAPS"
@@ -32,7 +33,8 @@ type LabelMenus =
   | "Gestion adresses"
   | "Territoires"
   | "Zones de sante"
-  | "Aires de santé";
+  | "Aires de santé"
+  | "Parametres";
 
 export interface IMenus {
   label: LabelMenus;
@@ -106,7 +108,7 @@ export const dataMenus: IDataMenu[] = [
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
             path: "/organizations/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: PERMISSIONS.CREATE_ORAGNIZATION,
           },
           {
             label: "Permissions",
@@ -184,6 +186,38 @@ export const dataMenus: IDataMenu[] = [
             label: "Ajouter un vulnerab.",
             icon: <AiOutlineShoppingCart />,
             path: "/vulnerabilities/create",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    mainIcon: "",
+    mainMenu: "SYSTEME",
+    menus: [
+      {
+        label: "Parametres",
+        icon: <FaUsers />,
+        path: "/",
+        permissions: PERMISSIONS.MANAGE_GAP,
+        subMenus: [
+          {
+            label: "Gestion des roles",
+            icon: <FaUsers />,
+            path: "/permissions/roles",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Gestions de permissions",
+            icon: <BiSolidUserPlus />,
+            path: "/permissions/",
+            permissions: PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Gestions des affectations",
+            icon: <BiSolidUserPlus />,
+            path: "/permissions/assignments",
             permissions: PERMISSIONS.MANAGE_GAP,
           },
         ],

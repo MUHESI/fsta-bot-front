@@ -1,0 +1,1 @@
+export { HandlePermission } from './checkPermissions'

@@ -14,11 +14,19 @@ export const AG_URL = {
     USER_IMG_PROFILE: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1685807109/orgi_2_aotayp-Circle_y112qy.jpg',
     USER_IMG_PROFILE2: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1676725367/porfolio/profile-pic_2_a7jub9.png'
 }
+// export const defaultStateUserAuth: IAutherUSer = {
+//     full_name: null,
+//     email: null,
+//     token: '',
+//     id: null
+// }
+export const token = "13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4"
+// TODO: Fixe me later
 export const defaultStateUserAuth: IAutherUSer = {
-    full_name: null,
-    email: null,
-    token: '',
-    id: null
+    full_name: 'MUHESI',
+    email: 'user@hmail.com',
+    token: '13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4',
+    id: "9a2b57a0-c7c4-4304-b803-5c837afb5b83"
 
 }
 
@@ -411,3 +419,4 @@ export const dataAlerts: IAlert[] = [
     },
 
 ]
+

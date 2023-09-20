@@ -16,6 +16,8 @@ import {
   screenSizeState,
 } from "@/globalState/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { HandlePermission } from "@/services/permissions";
+import { user_test } from "@/routes/requireAuth";
 
 const Sidebar = () => {
   // RECOIL
@@ -186,30 +188,41 @@ const Sidebar = () => {
                         subMenuOpen.status === true &&
                         menu?.subMenus?.map(
                           (item: ISubMenus, index_: number) => (
-                            <NavLink
-                              to={`${item.path}`}
-                              key={index_}
-                              className={`cursor-pointer font-normal ${
-                                subMenuOpen.labelMenu === menu.label &&
-                                subMenuOpen.index === idx &&
-                                subMenuOpen.status
-                                  ? "duration-300"
-                                  : "duration-300"
-                              }`}
-                              onClick={() => handleCloseSideBar()}
-                              title={item.hoverTitle || ""}
-                            >
-                              <p
-                                className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
-                              >
-                                <span>
-                                  <MdChevronRight />
-                                </span>
-                                <span className={`${!activeMenu && "scale-0"}`}>
-                                  {item.label}
-                                </span>
-                              </p>
-                            </NavLink>
+                            <>
+                              {/* {HandlePermission.check(
+                                item.permissions,
+                                user_test.permissions
+                              ) && ( */}
+
+                              {6 > 2 && (
+                                <NavLink
+                                  to={`${item.path}`}
+                                  key={index_}
+                                  className={`cursor-pointer font-normal ${
+                                    subMenuOpen.labelMenu === menu.label &&
+                                    subMenuOpen.index === idx &&
+                                    subMenuOpen.status
+                                      ? "duration-300"
+                                      : "duration-300"
+                                  }`}
+                                  onClick={() => handleCloseSideBar()}
+                                  title={item.hoverTitle || ""}
+                                >
+                                  <p
+                                    className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
+                                  >
+                                    <span>
+                                      <MdChevronRight />
+                                    </span>
+                                    <span
+                                      className={`${!activeMenu && "scale-0"}`}
+                                    >
+                                      {item.label}
+                                    </span>
+                                  </p>
+                                </NavLink>
+                              )}
+                            </>
                           )
                         )}
                     </motion.div>
