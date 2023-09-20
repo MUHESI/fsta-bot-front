@@ -13,8 +13,9 @@ import {
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
 import { IRoles } from "@/types/stateSchema/permissionsRole";
+import { IPermission } from "@/types/stateSchema/permissions";
 
-export const columnsListPermissions: ColumnDef<IRoles>[] = [
+export const columnsListPermissions: ColumnDef<IPermission>[] = [
   {
     accessorKey: "id",
     header: "ID",

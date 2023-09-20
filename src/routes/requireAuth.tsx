@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import { Login } from "@/pages";
 import LoadingPage from "@/pages/loading";
 import { HandlePermission } from "@/services/permissions";
-import { PERMISSIONS } from "@/types/permissions";
+import { GLOBAL_PERMISSIONS } from "@/types/permissions";
 
 export const user_test = {
   permissions: [
     "CREATE_GAP",
     "READ_GAP",
     "UPDATE_GAP",
-    PERMISSIONS.CREATE_ORAGNIZATION,
-    PERMISSIONS.READ_ROLES,
-    PERMISSIONS.READ_PERMISSIONS,
+    GLOBAL_PERMISSIONS.CREATE_ORAGNIZATION,
+    GLOBAL_PERMISSIONS.READ_ROLES,
+    GLOBAL_PERMISSIONS.READ_PERMISSIONS,
   ],
 };
 

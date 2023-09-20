@@ -4,7 +4,7 @@ import { FiCreditCard } from "react-icons/fi";
 import { BsCurrencyDollar, BsKanban, BsShield } from "react-icons/bs";
 import { IoMdAnalytics, IoMdContacts } from "react-icons/io";
 import { AG_URL } from "./constants";
-import { PERMISSIONS } from "../types/permissions";
+import { GLOBAL_PERMISSIONS } from "../types/permissions";
 import {
   MdCreateNewFolder,
   MdCrisisAlert,
@@ -40,7 +40,7 @@ export interface IMenus {
   label: LabelMenus;
   path: string;
   icon: ReactNode;
-  permissions: PERMISSIONS;
+  permissions: GLOBAL_PERMISSIONS;
   subMenus: ISubMenus[];
 }
 
@@ -64,25 +64,25 @@ export const dataMenus: IDataMenu[] = [
         label: "GAPS GLOBALS",
         path: "/gaps-dashboard",
         icon: <MdOutlineEditLocationAlt />,
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion gaps",
             icon: <AiOutlineShoppingCart />,
             path: "/",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
             path: "/",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Update",
             icon: <AiOutlineShoppingCart />,
             path: "/",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -96,25 +96,25 @@ export const dataMenus: IDataMenu[] = [
         label: "Organisations",
         icon: <FcOrganization />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion org.",
             icon: <MdCreateNewFolder />,
             path: "/organizations",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
             path: "/organizations/create",
-            permissions: PERMISSIONS.CREATE_ORAGNIZATION,
+            permissions: GLOBAL_PERMISSIONS.CREATE_ORAGNIZATION,
           },
           {
             label: "Permissions",
             icon: <AiOutlineShoppingCart />,
             path: "/organizations/permissions",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -128,25 +128,25 @@ export const dataMenus: IDataMenu[] = [
         label: "GAPS",
         icon: <AiOutlineShoppingCart />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Liste des gaps",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer un gap",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer score card",
             icon: <AiOutlineShoppingCart />,
             path: "/gaps/score-card/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -154,19 +154,19 @@ export const dataMenus: IDataMenu[] = [
         label: "ALERTES",
         icon: <AiOutlineShoppingCart />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Liste alertes",
             icon: <AiOutlineShoppingCart />,
             path: "/alerts",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer alerte",
             icon: <AiOutlineShoppingCart />,
             path: "/alerts/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -174,19 +174,19 @@ export const dataMenus: IDataMenu[] = [
         label: "VULNERABILITES",
         icon: <AiOutlineShoppingCart />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Liste des vulnerab.",
             icon: <AiOutlineShoppingCart />,
             path: "/vulnerabilities",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Ajouter un vulnerab.",
             icon: <AiOutlineShoppingCart />,
             path: "/vulnerabilities/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -200,25 +200,25 @@ export const dataMenus: IDataMenu[] = [
         label: "Parametres",
         icon: <FaUsers />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion des roles",
             icon: <FaUsers />,
             path: "/permissions/roles",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Gestions de permissions",
             icon: <BiSolidUserPlus />,
             path: "/permissions/",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Gestions des affectations",
             icon: <BiSolidUserPlus />,
             path: "/permissions/assignments",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -232,25 +232,25 @@ export const dataMenus: IDataMenu[] = [
         label: "Gestion adresses",
         icon: <FaUsers />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Provinces",
             icon: <FaUsers />,
             path: "/pyramid/provinces/",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Territoires",
             icon: <FaUsers />,
             path: "/pyramid/territories",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Aires de santé",
             icon: <FaUsers />,
             path: "/pyramid/healthAreas",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },
@@ -264,19 +264,19 @@ export const dataMenus: IDataMenu[] = [
         label: "Utilisateurs",
         icon: <FaUsers />,
         path: "/",
-        permissions: PERMISSIONS.MANAGE_GAP,
+        permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
             label: "Gestion utilisateurs",
             icon: <FaUsers />,
             path: "/users",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer",
             icon: <BiSolidUserPlus />,
             path: "/users/create",
-            permissions: PERMISSIONS.MANAGE_GAP,
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],
       },

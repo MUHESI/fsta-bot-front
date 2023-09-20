@@ -3,8 +3,11 @@ import { ForgotPswdScreen } from "../types/commonTypes";
 import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
 import { ICreateMenage } from "../types/stateSchema/menage";
+import { GLOBAL_PERMISSIONS } from "@/types/permissions";
+
 
 import { ICreateTerritory } from "../types/stateSchema/territory";
+import { ICreatePermission } from "@/types/stateSchema/permissions";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -51,3 +54,8 @@ export const INIT_FORM_CREATE_MENAGE: ICreateMenage = {
 }
 
 
+
+export const INIT_FORM_CREATE_PERMSSION: ICreatePermission = {
+    psedo: '',
+    name: ''
+}

@@ -19,7 +19,7 @@ import CreateAlert from "../pages/createAlert";
 import ListAlerts from "../pages/Alerts";
 import ListRoles from "../pages/permissionRole";
 import CreateVulnerabilty from "@/pages/createVulnerability";
-import { PERMISSIONS } from "@/types/permissions";
+import { GLOBAL_PERMISSIONS } from "@/types/permissions";
 import ListPermissions from "@/pages/permission";
 
 function GlobalRoutes() {
@@ -76,7 +76,9 @@ function GlobalRoutes() {
         </Route>
         <Route
           element={
-            <RequireAuth alowedPermissions={PERMISSIONS.CREATE_ORAGNIZATION} />
+            <RequireAuth
+              alowedPermissions={GLOBAL_PERMISSIONS.CREATE_ORAGNIZATION}
+            />
           }
         >
           <Route
@@ -85,14 +87,18 @@ function GlobalRoutes() {
           />
         </Route>
         <Route
-          element={<RequireAuth alowedPermissions={PERMISSIONS.READ_ROLES} />}
+          element={
+            <RequireAuth alowedPermissions={GLOBAL_PERMISSIONS.READ_ROLES} />
+          }
         >
           <Route path="/permissions/roles" element={<ListRoles />} />
         </Route>
 
         <Route
           element={
-            <RequireAuth alowedPermissions={PERMISSIONS.READ_PERMISSIONS} />
+            <RequireAuth
+              alowedPermissions={GLOBAL_PERMISSIONS.READ_PERMISSIONS}
+            />
           }
         >
           <Route path="/permissions" element={<ListPermissions />} />

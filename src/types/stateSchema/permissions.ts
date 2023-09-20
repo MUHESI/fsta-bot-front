@@ -1,10 +1,13 @@
 import { IBaseInterfaceSchema } from "../commonTypes";
-import { PERMISSIONS } from '../permissions'
+import { GLOBAL_PERMISSIONS } from '../permissions'
 
 export interface IPermission extends IBaseInterfaceSchema {
     name: string;
+    psedo: string;
 }
 
 export type ICreatePermission = {
-    name: PERMISSIONS;
+    name: GLOBAL_PERMISSIONS | ''
+    psedo: string;
+
 };

@@ -10,6 +10,8 @@ import { useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { getPermissions } from "@/globalState/atoms";
 import { IPermission } from "@/types/stateSchema/permissions";
+import CreatePermission from "../createPermission";
+import DialogCustom from "@/components/core/DialogCustom";
 
 function Permissions() {
   const listPermissions = useRecoilValue(
@@ -20,20 +22,25 @@ function Permissions() {
     <div>
       <div className="p-5">
         <DataTable
-          searchField="name"
+          searchField="psedo"
           columns={columnsListPermissions}
           data={listPermissions || []}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
+          <Button
+            variant="outline"
+            className="ml-auto rounded-full"
+            onClick={() => {}}
+          >
             <FiRefreshCcw />
           </Button>
-          {/* <DialogCustom
+
+          <DialogCustom
             btnText="Nouvelle permission"
             mainTitle="Création d'une nouvelle permission"
             width="sm"
           >
-            <CreateRole />
-          </DialogCustom> */}
+            <CreatePermission />
+          </DialogCustom>
         </DataTable>
 
         <CustomPagination

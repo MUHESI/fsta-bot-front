@@ -11,3 +11,15 @@ export const handleBaseFormLocalStorage =
         date.timestamp = new Date().getTime();
         return { ...f, date, data, user, type, metadata }
     };
+
+export const convertEnumToArray = <E extends Record<string, string>>(enum_: E): { id: number, key: string, value: any }[] => {
+    return Object.entries(enum_).map(
+        ([key, value], id) => ({
+            id,
+            key,
+            value,
+        })
+    )
+}
+
+
