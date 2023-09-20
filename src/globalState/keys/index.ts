@@ -34,3 +34,8 @@ export const HEALTH_AREAS_KEYS = {
 export const PERMISSIONS_ROLES = {
     GET_ROLES: 'RECOIL::ROLE:://GET_ROLES',
 }
+
+
+export const PERMISSIONS = {
+    GET_PERMISSIONS: 'RECOIL::PERMISSION:://GET_ROLES',
+}
