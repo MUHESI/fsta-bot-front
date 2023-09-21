@@ -11,7 +11,6 @@ export enum Type {
     MZD = 'MCZ',
     DPS = 'DPS'
 }
-
 export interface IOrganization_ extends IBaseInterfaceSchema {
     // id?: number;
     name: string;
@@ -29,8 +28,6 @@ export interface IOrganization_ extends IBaseInterfaceSchema {
     type: Type
     metadata?: ITypeOrganization
 }
-
-
 export interface IOrganization extends IBaseInterfaceSchema {
     name: string;
     email: string;
@@ -44,8 +41,6 @@ export interface IOrganization extends IBaseInterfaceSchema {
     sigle: string;
     logo: string;
 }
-
-
 export interface ICreateOrganization {
     name: string;
     email: string;
@@ -56,11 +51,13 @@ export interface ICreateOrganization {
     typeorgid: string;
     sigle: string;
 }
-
 export interface ITypeOrganization extends IBaseInterfaceSchema {
     name: string;
     email: string;
     created_at: string;
     updated_at: string;
-
+}
+export interface ICreateTypeOrganization {
+    name: string;
+    email: string;
 }

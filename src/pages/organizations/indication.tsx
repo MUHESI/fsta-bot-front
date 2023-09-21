@@ -5,39 +5,38 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
-import { columnsListTypeOrganizations } from "./columnsTypeOrganisation";
+import { columnsListOrganizations } from "./columns";
 import { useRecoilValue } from "recoil";
-import { getTypeOrganizations } from "@/globalState/atoms";
-import { ITypeOrganization } from "@/types/stateSchema/organization";
+import { getOrganizations } from "@/globalState/atoms";
+import { IOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
 import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
-import DialogCustom from "@/components/core/DialogCustom";
-import CreateTypeOrganazition from "../createTypeOrganazition";
 
-function TypeOrganizations() {
+function Organizations() {
   const navigate = useNavigate();
-  const listTypeOrganizations = useRecoilValue(
-    getTypeOrganizations
-  ) as unknown as ITypeOrganization[];
+  const listOrganizations = useRecoilValue(
+    getOrganizations
+  ) as unknown as IOrganization[];
   return (
     <div>
       <div className="p-5">
         <DataTable
           searchField="name"
-          columns={columnsListTypeOrganizations}
-          data={listTypeOrganizations}
+          columns={columnsListOrganizations}
+          data={listOrganizations}
         >
           <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />
           </Button>
-          <DialogCustom
-            btnText="Création d'un type org."
-            mainTitle="Création d'un type orgonisation"
-            width="sm"
-          >
-            <CreateTypeOrganazition />
-          </DialogCustom>
+          <div className="">
+            <CustomButton
+              onClick={() => navigate("/organizations/create")}
+              label="Nouvelle org."
+              className="rounded-md"
+              // statusLoading={true}
+            />
+          </div>
         </DataTable>
         <CustomPagination
           dataPagination={dataPagination.pagination}
@@ -49,17 +48,18 @@ function TypeOrganizations() {
   );
 }
 
-function ListTypeOrganizations() {
+function ListOrganizations() {
+  // HANDLE TABS
   const [tabId, setTabId] = useState<number>(0);
   return (
     <div>
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Types  d'organisations"} />
+        <LastHeading title={"Organisations"} />
       </div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-        <TypeOrganizations />
+        <Organizations />
       </Suspense>
     </div>
   );
 }
-export default ListTypeOrganizations;
+export default ListOrganizations;

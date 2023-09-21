@@ -9,6 +9,7 @@ import { ICreateMenage } from "../types/stateSchema/menage";
 import { ICreateTerritory } from "../types/stateSchema/territory";
 import { ICreatePermission } from "@/types/stateSchema/permissions";
 import { ICreateOrganization } from "@/types/stateSchema/organization";
+import { ICreateTypeOrganization } from "../types/stateSchema/organization";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -53,9 +54,6 @@ export const INIT_FORM_CREATE_MENAGE: ICreateMenage = {
     status: 'active',
     updated_at: '',
 }
-
-
-
 export const INIT_FORM_CREATE_ORGANIZATION: ICreateOrganization = {
     phone: '',
     adresse: '',
@@ -65,11 +63,12 @@ export const INIT_FORM_CREATE_ORGANIZATION: ICreateOrganization = {
     description: '',
     pointfocal: '',
     typeorgid: ''
-
 }
-
-
 export const INIT_FORM_CREATE_PERMSSION: ICreatePermission = {
     psedo: '',
+    name: ''
+}
+export const INIT_FORM_CREATE_TYPE_ORGANIZATION: ICreateTypeOrganization = {
+    email: '',
     name: ''
 }
