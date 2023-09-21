@@ -99,23 +99,24 @@ export const dataMenus: IDataMenu[] = [
         permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
           {
-            label: "Gestion org.",
+            label: "Organisations",
             icon: <MdCreateNewFolder />,
-            path: "/organizations/1",
+            path: "/organizations/0",
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
+
           {
             label: "Creer",
             icon: <AiOutlineShoppingCart />,
             path: "/organizations/create",
             permissions: GLOBAL_PERMISSIONS.CREATE_ORAGNIZATION,
           },
-          {
-            label: "Permissions",
-            icon: <AiOutlineShoppingCart />,
-            path: "/organizations/permissions",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
+          // {
+          //   label: "Permissions",
+          //   icon: <AiOutlineShoppingCart />,
+          //   path: "/organizations/permissions",
+          //   permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          // },
         ],
       },
     ],

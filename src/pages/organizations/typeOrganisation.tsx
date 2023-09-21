@@ -2,30 +2,29 @@ import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
-import { dataOrganizations, dataPagination } from "@/constants/constants";
+import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
-import { columnsListOrganizations } from "./columns";
+import { columnsListTypeOrganizations } from "./columnsTypeOrganisation";
 import { useRecoilValue } from "recoil";
-import { getOrganizations } from "@/globalState/atoms";
-import { IOrganization } from "@/types/stateSchema/organization";
+import { getTypeOrganizations } from "@/globalState/atoms";
+import { ITypeOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
-import TabMenuCustom from "@/components/core/tabMenuCustom";
 import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
 
-function Organizations() {
+function TypeOrganizations() {
   const navigate = useNavigate();
-  const listOrganizations = useRecoilValue(
-    getOrganizations
-  ) as unknown as IOrganization[];
+  const listTypeOrganizations = useRecoilValue(
+    getTypeOrganizations
+  ) as unknown as ITypeOrganization[];
   return (
     <div>
       <div className="p-5">
         <DataTable
           searchField="name"
-          columns={columnsListOrganizations}
-          data={listOrganizations}
+          columns={columnsListTypeOrganizations}
+          data={listTypeOrganizations}
         >
           <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />
@@ -49,18 +48,17 @@ function Organizations() {
   );
 }
 
-function ListOrganizations() {
-  // HANDLE TABS
+function ListTypeOrganizations() {
   const [tabId, setTabId] = useState<number>(0);
   return (
     <div>
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Organisations"} />
+        <LastHeading title={"Types  d'organisations"} />
       </div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-        <Organizations />
+        <TypeOrganizations />
       </Suspense>
     </div>
   );
 }
-export default ListOrganizations;
+export default ListTypeOrganizations;

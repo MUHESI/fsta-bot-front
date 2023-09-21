@@ -11,20 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { IOrganization } from "@/types/stateSchema/organization";
+import { ITypeOrganization } from "@/types/stateSchema/organization";
 
-export const columnsListTypeOrganizations: ColumnDef<IOrganization>[] = [
+export const columnsListTypeOrganizations: ColumnDef<ITypeOrganization>[] = [
   {
     accessorKey: "name",
     header: "NOMS",
-  },
-  {
-    accessorKey: "phone",
-    header: "PHONE",
-  },
-  {
-    accessorKey: "email",
-    header: "email",
   },
   {
     accessorKey: "status",

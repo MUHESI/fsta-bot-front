@@ -2,7 +2,7 @@ import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
-import { dataOrganizations, dataPagination } from "@/constants/constants";
+import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListOrganizations } from "./columns";
@@ -10,7 +10,6 @@ import { useRecoilValue } from "recoil";
 import { getOrganizations } from "@/globalState/atoms";
 import { IOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
-import TabMenuCustom from "@/components/core/tabMenuCustom";
 import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
 
