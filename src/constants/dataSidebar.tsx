@@ -101,7 +101,7 @@ export const dataMenus: IDataMenu[] = [
           {
             label: "Gestion org.",
             icon: <MdCreateNewFolder />,
-            path: "/organizations",
+            path: "/organizations/1",
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {

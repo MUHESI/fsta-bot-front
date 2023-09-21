@@ -50,12 +50,17 @@ export interface ICreateOrganization {
     name: string;
     email: string;
     description: string;
-    addresse: string;
-    descritption: string;
+    adresse: string;
     pointfocal: string;
-    date_created: string;
     phone: string;
     typeorgid: string;
     sigle: string;
-    logo: string;
+}
+
+export interface ITypeOrganization extends IBaseInterfaceSchema {
+    name: string;
+    email: string;
+    created_at: string;
+    updated_at: string;
+
 }

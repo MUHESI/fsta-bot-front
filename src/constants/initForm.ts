@@ -57,18 +57,15 @@ export const INIT_FORM_CREATE_MENAGE: ICreateMenage = {
 
 
 export const INIT_FORM_CREATE_ORGANIZATION: ICreateOrganization = {
-    // village: '',
-    // housing: '',
-    // criteriaVulnerability: [''],
     phone: '',
-    addresse: '',
+    adresse: '',
     email: '',
     name: '',
-    // nbMemberMenage: 0
-    // created_at: '',
-    id: '',
-    status: 'active',
-    updated_at: '',
+    sigle: '',
+    description: '',
+    pointfocal: '',
+    typeorgid: ''
+
 }
 
 

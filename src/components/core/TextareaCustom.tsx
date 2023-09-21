@@ -7,7 +7,7 @@ function CommonTextareaGap({
   pl,
   label,
   titleTooltip,
-  // onChange,
+  onChange,
   value,
   // type,
   required,
@@ -19,7 +19,7 @@ function CommonTextareaGap({
   titleTooltip?: string;
   pl?: string;
   type?: string;
-  onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: any) => void;
   value: string | number;
   required?: boolean;
   disabled?: boolean;
@@ -42,7 +42,7 @@ function CommonTextareaGap({
       </label>
       <Textarea
         disabled={disabled ? disabled : false}
-        // onChange={onChange}
+        onChange={onChange}
         placeholder={pl}
         value={value}
         // type={type || "text"}

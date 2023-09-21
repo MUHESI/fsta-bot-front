@@ -24,7 +24,7 @@ function TabMenuCustom({ defeaultTabId, dataTabs, handleTabId }: IProps) {
   }, []);
 
   return (
-    <div className="content-tabs flex gap-4 border-b border-b-main-color mx-[3px] my-[10px] ">
+    <div className="content-tabs flex gap-[5px] border-b border-b-main-color mx-[10px] my-[3px] ">
       {dataTabs.map((item: string, key: number) => (
         <div
           key={key}

@@ -53,9 +53,11 @@ export function CustomButton({
       disabled={statusLoading || disabled}
       className={`flex items-center justify-center gap-4 ${className}  duration-300 border text-main-color text-sm px-12 py-2 border-main-color cursor-pointer  inline-block font-semibold hover:bg-main-color  hover:text-white md:px-5`}
     >
-      <span className="  ">
-        {statusLoading && <FiRefreshCcw className="animate-spin" />}
-      </span>
+      {statusLoading && (
+        <span className="">
+          <FiRefreshCcw className="animate-spin" />
+        </span>
+      )}
       <span className={`${statusLoading && ""}`}>
         {statusLoading ? "Chargement..." : label}
       </span>

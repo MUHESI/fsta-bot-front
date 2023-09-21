@@ -31,6 +31,7 @@ function CreateHealthArea() {
       msg: "",
     },
   });
+
   const [formHealthArea, setFormHealthArea] = useState<ICreateHealthArea>(
     INIT_FORM_CREATE_HEALTH_AREA
   );
@@ -157,10 +158,6 @@ function CreateHealthArea() {
   }, [provinceId]);
   return (
     <div className="">
-      {/* <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Création du territoire"} />
-      </div> */}
-
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
