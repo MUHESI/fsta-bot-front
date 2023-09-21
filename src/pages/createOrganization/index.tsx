@@ -1,31 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { SelectCommon } from "@/components/core/select";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
 import { provinces } from "@/constants/constants";
+import {
+  ICreateOrganization,
+  IOrganization,
+} from "@/types/stateSchema/organization";
+import { IStateLoading } from "@/types/stateSchema/loading";
+import { INIT_FORM_CREATE_ORGANIZATION } from "@/constants/initForm";
 
 function CreateOrganization() {
   // TODO: Improve this later
 
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
+  const [infoLoading, setInfoLoading] = useState<IStateLoading>({
+    creeateTerritory: {
+      status: false,
+      msg: "",
+    },
+  });
+  const [formOrganization, setFormOrganization] = useState<ICreateOrganization>(
+    INIT_FORM_CREATE_ORGANIZATION
+  );
 
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Créeation de l'organisation"} />
+        <LastHeading title={"Création de l'organisation"} />
       </div>
 
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+        {/* <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <section
             className={`${commonClass} mx-3 min-h-60 flex justify-center items-center `}
           >
             <h1 className="text-sm text-center text-gray-400"> Uplaod LOGO</h1>
           </section>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
           <section className="mx-3">
             <div className={commonClassSection}>

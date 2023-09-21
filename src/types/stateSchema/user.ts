@@ -1,5 +1,7 @@
-export type IUser = {
-    id: number;
+
+import { IBaseInterfaceSchema } from "../commonTypes";
+
+export interface IUser extends IBaseInterfaceSchema {
     full_name: string;
     status: "active" | "blocked" | "deleted";
     email: string;

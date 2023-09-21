@@ -44,3 +44,18 @@ export interface IOrganization extends IBaseInterfaceSchema {
     sigle: string;
     logo: string;
 }
+
+
+export interface ICreateOrganization {
+    name: string;
+    email: string;
+    description: string;
+    addresse: string;
+    descritption: string;
+    pointfocal: string;
+    date_created: string;
+    phone: string;
+    typeorgid: string;
+    sigle: string;
+    logo: string;
+}

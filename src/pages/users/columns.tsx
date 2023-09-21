@@ -42,9 +42,14 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
   {
     accessorKey: "organization",
     header: "ORGANISATION",
-    cell: ({ row }: { row: { [key: string]: any } }) => (
-      <div>{row.getValue("organization")?.name} </div>
-    ),
+    cell: ({ row }: { row: { [key: string]: any } }) => {
+      const user: any = row.original;
+      const {
+        affectation_p: { organisation },
+      } = user;
+
+      return <div>{organisation?.name} </div>;
+    },
   },
 
   {

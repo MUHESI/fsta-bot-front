@@ -5,7 +5,7 @@ import { RequireAuth } from ".";
 import ForgotPaswdProcess from "../pages/auth/ForgotPaswdProcess";
 import ProfileUser from "../pages/profileUser";
 import ListUsers from "../pages/users";
-import ListOrganizations from "../pages/organizations";
+import ScreenManagerOrg from "../pages/organizations";
 import CreateOrganization from "../pages/createOrganization";
 import LoadingPage from "../pages/loading";
 import CreateProvince from "../pages/createProvince";
@@ -37,7 +37,10 @@ function GlobalRoutes() {
           <Route path="/protected" element={<Home />} />
           <Route path="/users" element={<ListUsers />} />
           <Route path="/users/profile/:id" element={<ProfileUser />} />
-          <Route path="/organizations" element={<ListOrganizations />} />
+          <Route
+            path="/organizations/:screenId"
+            element={<ScreenManagerOrg />}
+          />
 
           {/* PYRAMIDE */}
           {/* <Route

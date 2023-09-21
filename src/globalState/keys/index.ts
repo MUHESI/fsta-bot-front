@@ -44,3 +44,7 @@ export const PERMISSIONS = {
 export const ORGANIZATIONS = {
     GET_ORGANIZATIONS: 'RECOIL::ORGANIZATION:://GET_ROLES',
 }
+
+export const USERS = {
+    GET_USERS: 'RECOIL::USER:://GET_USERS',
+}

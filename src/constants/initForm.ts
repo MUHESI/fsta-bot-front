@@ -3,11 +3,12 @@ import { ForgotPswdScreen } from "../types/commonTypes";
 import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
 import { ICreateMenage } from "../types/stateSchema/menage";
-import { GLOBAL_PERMISSIONS } from "@/types/permissions";
+// import { GLOBAL_PERMISSIONS } from "@/types/permissions";
 
 
 import { ICreateTerritory } from "../types/stateSchema/territory";
 import { ICreatePermission } from "@/types/stateSchema/permissions";
+import { ICreateOrganization } from "@/types/stateSchema/organization";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -53,6 +54,22 @@ export const INIT_FORM_CREATE_MENAGE: ICreateMenage = {
     updated_at: '',
 }
 
+
+
+export const INIT_FORM_CREATE_ORGANIZATION: ICreateOrganization = {
+    // village: '',
+    // housing: '',
+    // criteriaVulnerability: [''],
+    phone: '',
+    addresse: '',
+    email: '',
+    name: '',
+    // nbMemberMenage: 0
+    // created_at: '',
+    id: '',
+    status: 'active',
+    updated_at: '',
+}
 
 
 export const INIT_FORM_CREATE_PERMSSION: ICreatePermission = {
