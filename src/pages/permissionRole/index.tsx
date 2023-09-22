@@ -9,7 +9,7 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { getRoles } from "@/globalState/atoms";
-import { IRoles } from "@/types/stateSchema/permissionsRole";
+import { IRoles } from "@/types/stateSchema/permissionRole";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateRole from "../createRole";
 

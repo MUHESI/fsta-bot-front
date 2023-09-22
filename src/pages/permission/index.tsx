@@ -9,7 +9,7 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { getPermissions } from "@/globalState/atoms";
-import { IPermission } from "@/types/stateSchema/permissions";
+import { IPermission } from "@/types/stateSchema/permission";
 import CreatePermission from "../createPermission";
 import DialogCustom from "@/components/core/DialogCustom";
 

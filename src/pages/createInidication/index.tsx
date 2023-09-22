@@ -10,26 +10,25 @@ import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import { ICreateTypeOrganization } from "../../types/stateSchema/organization";
-import { INIT_FORM_CREATE_TYPE_ORGANIZATION } from "../../constants/initForm";
+import { INIT_FORM_CREATE_INDICATION } from "../../constants/initForm";
+import { ICreateIndication } from "@/types/stateSchema/indication";
 
-function CreateTypeOrganazition() {
+function CreateIndication() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
-    createTypeOrg: {
+    createIndication: {
       status: false,
       msg: "",
     },
   });
-
-  const [formTypeOrganazition, setTypeOrganazition] =
-    useState<ICreateTypeOrganization>(INIT_FORM_CREATE_TYPE_ORGANIZATION);
-
-  const handleSubmitTypeOrg = async () => {
-    if (formTypeOrganazition.name.trim().length < 2) {
+  const [formInidaction, setIndication] = useState<ICreateIndication>(
+    INIT_FORM_CREATE_INDICATION
+  );
+  const handleSubmitIndication = async () => {
+    if (formInidaction.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,
@@ -39,34 +38,34 @@ function CreateTypeOrganazition() {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createTypeOrg", lKey: "status" },
+          { fKey: "createIndication", lKey: "status" },
           true
         )
       );
-
-      const { data } = await postAPI<
-        IFetchData<IBaseData>,
-        ICreateTypeOrganization
-      >("addtype", formTypeOrganazition, user.token);
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateIndication>(
+        "addtype",
+        formInidaction,
+        user.token
+      );
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
-            { fKey: "createTypeOrg", lKey: "status" },
+            { fKey: "createIndication", lKey: "status" },
             false
           )
         );
         showToast({
-          msg: `le type organisation ${formTypeOrganazition.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `L'indication ${formInidaction.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setTypeOrganazition({ ...INIT_FORM_CREATE_TYPE_ORGANIZATION });
+        setIndication({ ...INIT_FORM_CREATE_INDICATION });
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createTypeOrg", lKey: "status" },
+          { fKey: "createIndication", lKey: "status" },
           false
         )
       );
@@ -92,38 +91,38 @@ function CreateTypeOrganazition() {
                   required={true}
                   label="Nom"
                   // data-testId="create-province"
-                  pl="eg: Entrer le nom du type d'organisation"
-                  value={formTypeOrganazition.name}
+                  pl="eg: Entrer le nom de l'indication"
+                  value={formInidaction.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setTypeOrganazition({
-                      ...formTypeOrganazition,
+                    setIndication({
+                      ...formInidaction,
                       name: e.target.value,
                     })
                   }
                 />
               </div>
               <div
-                data-testId="create-province"
+                // data-testId="create-province"
                 className="flex flex-wrap justify-between px-5 gap-5"
               >
                 <InputCommon
                   required={true}
-                  label="Email"
+                  label="pseudo"
                   pl="eg: Entrer l'email"
-                  value={formTypeOrganazition.email}
+                  value={formInidaction.psedo}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setTypeOrganazition({
-                      ...formTypeOrganazition,
-                      email: e.target.value,
+                    setIndication({
+                      ...formInidaction,
+                      psedo: e.target.value,
                     })
                   }
                 />
               </div>
               <div className="btn py-2 px-5 flex justify-end">
                 <CustomButton
-                  onClick={handleSubmitTypeOrg}
-                  statusLoading={infoLoading.createTypeOrg.status}
-                  disabled={infoLoading.createTypeOrg.status}
+                  onClick={handleSubmitIndication}
+                  statusLoading={infoLoading.createIndication.status}
+                  disabled={infoLoading.createIndication.status}
                   label="Enregistrer"
                   // style={{ border: "1px solid #2DAEC4" }}
                   className="ml-auto  rounded-md"
@@ -137,4 +136,4 @@ function CreateTypeOrganazition() {
   );
 }
 
-export default CreateTypeOrganazition;
+export default CreateIndication;

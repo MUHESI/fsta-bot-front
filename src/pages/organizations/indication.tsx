@@ -13,6 +13,9 @@ import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
 import { getIndications } from "@/globalState/atoms/indication";
 import { IIndication } from "@/types/stateSchema/indication";
+import DialogCustom from "@/components/core/DialogCustom";
+import CreateTypeOrganazition from "../createTypeOrganazition";
+import CreateIndication from "../createInidication";
 
 function Indications() {
   const navigate = useNavigate();
@@ -30,14 +33,13 @@ function Indications() {
           <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />
           </Button>
-          <div className="">
-            <CustomButton
-              onClick={() => navigate("/organizations/create")}
-              label="Nouvelle org."
-              className="rounded-md"
-              // statusLoading={true}
-            />
-          </div>
+          <DialogCustom
+            btnText="Création d'indication"
+            mainTitle="Création d'une nouvelle indication"
+            width="sm"
+          >
+            <CreateIndication />
+          </DialogCustom>
         </DataTable>
         <CustomPagination
           dataPagination={dataPagination.pagination}

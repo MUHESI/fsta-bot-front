@@ -1,10 +1,8 @@
 import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { CommonSelectGap, SelectCommon } from "@/components/core/select";
 import { Grid } from "@mui/material";
 import { CommonInputGap, InputCommon } from "@/components/core/Inputs";
-import { provinces, token } from "@/constants/constants";
 import {
   ICreateOrganization,
   ITypeOrganization,
@@ -20,6 +18,7 @@ import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import SkeletonAnimation from "@/components/skeleton";
+import { token } from "@/constants/constants";
 
 function CreateOrg() {
   // TODO: Improve this later

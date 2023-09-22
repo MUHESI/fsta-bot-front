@@ -10,6 +10,7 @@ import { ICreateTerritory } from "../types/stateSchema/territory";
 import { ICreatePermission } from "@/types/stateSchema/permissions";
 import { ICreateOrganization } from "@/types/stateSchema/organization";
 import { ICreateTypeOrganization } from "../types/stateSchema/organization";
+import { ICreateIndication } from "@/types/stateSchema/indication";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -70,5 +71,10 @@ export const INIT_FORM_CREATE_PERMSSION: ICreatePermission = {
 }
 export const INIT_FORM_CREATE_TYPE_ORGANIZATION: ICreateTypeOrganization = {
     email: '',
+    name: ''
+}
+
+export const INIT_FORM_CREATE_INDICATION: ICreateIndication = {
+    psedo: '',
     name: ''
 }

@@ -6,6 +6,6 @@ export interface IIndication extends IBaseInterfaceSchema {
     psedo: string;
 }
 export type ICreateIndication = {
-    name: GLOBAL_PERMISSIONS | ''
+    name: string
     psedo: string;
 };
