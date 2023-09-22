@@ -5,26 +5,27 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
-import { columnsListOrganizations } from "./columns";
+import { columnsListIndications } from "./columnsIndication";
 import { useRecoilValue } from "recoil";
-import { getOrganizations } from "@/globalState/atoms";
 import { IOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
 import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
+import { getIndications } from "@/globalState/atoms/indication";
+import { IIndication } from "@/types/stateSchema/indication";
 
-function Organizations() {
+function Indications() {
   const navigate = useNavigate();
-  const listOrganizations = useRecoilValue(
-    getOrganizations
-  ) as unknown as IOrganization[];
+  const listIndications = useRecoilValue(
+    getIndications
+  ) as unknown as IIndication[];
   return (
     <div>
       <div className="p-5">
         <DataTable
           searchField="name"
-          columns={columnsListOrganizations}
-          data={listOrganizations}
+          columns={columnsListIndications}
+          data={listIndications}
         >
           <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />
@@ -48,18 +49,16 @@ function Organizations() {
   );
 }
 
-function ListOrganizations() {
-  // HANDLE TABS
-  const [tabId, setTabId] = useState<number>(0);
+function ListIndications() {
   return (
     <div>
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Organisations"} />
+        <LastHeading title={"Indications"} />
       </div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-        <Organizations />
+        <Indications />
       </Suspense>
     </div>
   );
 }
-export default ListOrganizations;
+export default ListIndications;

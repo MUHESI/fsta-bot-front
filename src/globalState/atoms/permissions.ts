@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IPermission } from "../../types/stateSchema/permissions";
+import { IPermission } from "../../types/stateSchema/permission";
 import { PERMISSIONS_ROLES } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";

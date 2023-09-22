@@ -3,6 +3,7 @@ import SkeletonAnimation from "@/components/skeleton";
 import TabMenuCustom from "@/components/core/tabMenuCustom";
 import ListTypeOrganizations from "./typeOrganisation";
 import ListOrganizations from "./organisation";
+import ListIndications from "./indication";
 
 function ScreenManagerOrg() {
   // HANDLE TABS
@@ -16,17 +17,9 @@ function ScreenManagerOrg() {
         defeaultTabId={tabId}
       />
       <div className=" m-4 ">
-        {tabId === 0 && (
-          <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-            <ListOrganizations />
-          </Suspense>
-        )}
-        {tabId === 1 && (
-          <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-            <ListTypeOrganizations />
-          </Suspense>
-        )}
-        {tabId === 2 && <>Im 023 </>}
+        {tabId === 0 && <ListOrganizations />}
+        {tabId === 1 && <ListTypeOrganizations />}
+        {tabId === 2 && <ListIndications />}
       </div>
     </div>
   );

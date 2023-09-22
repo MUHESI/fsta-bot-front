@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
-// import { INIT_FORM_CREATE_ROLE } from "@/constants/initForm";
-// import { ICreateProvince } from "@/types/stateSchema/province";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";

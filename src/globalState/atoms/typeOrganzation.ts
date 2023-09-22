@@ -1,12 +1,12 @@
 import { atom, selector } from "recoil";
 import { IOrganization } from "../../types/stateSchema/organization";
-import { ORGANIZATIONS, PROVINCE_KEYS } from "../keys";
+import { ORGANIZATIONS_KEYS, PROVINCE_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
 
 export const getTypeOrganizations = selector({
-    key: ORGANIZATIONS.GET_ORGANIZATIONS,
+    key: ORGANIZATIONS_KEYS.GET_ORGANIZATIONS,
     get: async ({ get }) => {
         const { token } = get(userAuthenticatedState)
         const res = await getAPI<IFetchData<IOrganization[]> | undefined>('list_org', token);

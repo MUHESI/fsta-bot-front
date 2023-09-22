@@ -1,3 +1,4 @@
+"use client";
 import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ function TypeOrganizations() {
   const listTypeOrganizations = useRecoilValue(
     getTypeOrganizations
   ) as unknown as ITypeOrganization[];
+
   return (
     <div>
       <div className="p-5">
@@ -39,11 +41,13 @@ function TypeOrganizations() {
             <CreateTypeOrganazition />
           </DialogCustom>
         </DataTable>
-        <CustomPagination
-          dataPagination={dataPagination.pagination}
-          nextPage={() => console.log("next")}
-          previousPage={() => console.log("next")}
-        />
+        <div className="">
+          <CustomPagination
+            dataPagination={dataPagination.pagination}
+            nextPage={() => console.log("next")}
+            previousPage={() => console.log("next")}
+          />
+        </div>
       </div>
     </div>
   );

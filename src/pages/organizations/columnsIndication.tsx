@@ -11,12 +11,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { ITypeOrganization } from "@/types/stateSchema/organization";
+import { IIndication } from "@/types/stateSchema/indication";
 
-export const columnsListIndications: ColumnDef<ITypeOrganization>[] = [
+export const columnsListIndications: ColumnDef<IIndication>[] = [
   {
     accessorKey: "name",
     header: "NOMS",
+  },
+  {
+    accessorKey: "psedo",
+    header: "PSEUDO",
   },
   {
     accessorKey: "status",
