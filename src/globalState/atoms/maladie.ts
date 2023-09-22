@@ -1,18 +1,15 @@
 import { atom, selector } from "recoil";
-import { IOrganization } from "../../types/stateSchema/organization";
-import { INDICATIONS_KEYS } from "../keys";
+import { IMaladie } from "../../types/stateSchema/maladie";
+import { MALADIES_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
 
-export const getIndications = selector({
-    key: INDICATIONS_KEYS.GET_INDICATIONS,
+export const getMaladies = selector({
+    key: MALADIES_KEYS.GET_MALADIES,
     get: async ({ get }) => {
         const { token } = get(userAuthenticatedState)
-        const res = await getAPI<IFetchData<IOrganization[]> | undefined>('liste_indicateur', token);
-        console.clear()
-
-        console.log('res', res)
+        const res = await getAPI<IFetchData<IMaladie[]> | undefined>('maladie/list', token);
         if (res === undefined) {
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {
@@ -22,3 +19,4 @@ export const getIndications = selector({
         }
     },
 });
+

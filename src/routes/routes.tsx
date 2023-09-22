@@ -22,6 +22,7 @@ import CreateVulnerabilty from "@/pages/createVulnerability";
 import { GLOBAL_PERMISSIONS as PERMI } from "@/types/permissions";
 import ListPermissions from "@/pages/permission";
 import ListGaps from "@/pages/gaps";
+import ListMaladies from "@/pages/maladies";
 
 function GlobalRoutes() {
   return (
@@ -104,6 +105,11 @@ function GlobalRoutes() {
           element={<RequireAuth alowedPermissions={PERMI.READ_PERMISSIONS} />}
         >
           <Route path="/permissions" element={<ListPermissions />} />
+        </Route>
+        <Route
+          element={<RequireAuth alowedPermissions={PERMI.READ_MALADIES} />}
+        >
+          <Route path="/maladies" element={<ListMaladies />} />
         </Route>
       </Routes>
       {/*  */}

@@ -11,6 +11,7 @@ import { ICreatePermission } from "@/types/stateSchema/permissions";
 import { ICreateOrganization } from "@/types/stateSchema/organization";
 import { ICreateTypeOrganization } from "../types/stateSchema/organization";
 import { ICreateIndication } from "@/types/stateSchema/indication";
+import { ICreateMaladie } from "@/types/stateSchema/maladie";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -73,8 +74,10 @@ export const INIT_FORM_CREATE_TYPE_ORGANIZATION: ICreateTypeOrganization = {
     email: '',
     name: ''
 }
-
 export const INIT_FORM_CREATE_INDICATION: ICreateIndication = {
-    psedo: '',
-    name: ''
+    name: '',
+    value: ''
+}
+export const INIT_FORM_CREATE_MALADIE: ICreateMaladie = {
+    name: '',
 }

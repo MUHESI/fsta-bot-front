@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
+import { INIT_FORM_CREATE_MALADIE } from "@/constants/initForm";
+import { ICreateMaladie } from "@/types/stateSchema/maladie";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
@@ -10,25 +12,25 @@ import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import { INIT_FORM_CREATE_INDICATION } from "../../constants/initForm";
-import { ICreateIndication } from "@/types/stateSchema/indication";
 
-function CreateIndication() {
+function CreateMaladie() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
-    createIndication: {
+    createMaladie: {
       status: false,
       msg: "",
     },
   });
-  const [formInidaction, setIndication] = useState<ICreateIndication>(
-    INIT_FORM_CREATE_INDICATION
+
+  const [formRole, setRole] = useState<ICreateMaladie>(
+    INIT_FORM_CREATE_MALADIE
   );
-  const handleSubmitIndication = async () => {
-    if (formInidaction.name.trim().length < 2) {
+
+  const handleSubmitCreatMaladie = async () => {
+    if (formRole.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,
@@ -38,36 +40,36 @@ function CreateIndication() {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createIndication", lKey: "status" },
+          { fKey: "createMaladie", lKey: "status" },
           true
         )
       );
-      console.clear();
-      console.log("formInidaction", formInidaction);
-      const { data } = await postAPI<IFetchData<IBaseData>, ICreateIndication>(
-        "addindic",
-        formInidaction,
+
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateMaladie>(
+        "maladie/addmaladie",
+        formRole,
         user.token
       );
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
-            { fKey: "createIndication", lKey: "status" },
+            { fKey: "createMaladie", lKey: "status" },
             false
           )
         );
+
         showToast({
-          msg: `L'indicateur ${formInidaction.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `la maladie ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setIndication({ ...INIT_FORM_CREATE_INDICATION });
+        setRole({ ...INIT_FORM_CREATE_MALADIE });
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createIndication", lKey: "status" },
+          { fKey: "createMaladie", lKey: "status" },
           false
         )
       );
@@ -93,38 +95,18 @@ function CreateIndication() {
                   required={true}
                   label="Nom"
                   // data-testId="create-province"
-                  pl="eg: Entrer le nom de l'indication"
-                  value={formInidaction.name}
+                  pl="eg: Entrer le nom de la maladie"
+                  value={formRole.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setIndication({
-                      ...formInidaction,
-                      name: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div
-                // data-testId="create-province"
-                className="flex flex-wrap justify-between px-5 gap-5"
-              >
-                <InputCommon
-                  required={true}
-                  label="pseudo"
-                  pl="eg: Entrer l'email"
-                  value={formInidaction.value}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setIndication({
-                      ...formInidaction,
-                      value: e.target.value,
-                    })
+                    setRole({ ...formRole, name: e.target.value })
                   }
                 />
               </div>
               <div className="btn py-2 px-5 flex justify-end">
                 <CustomButton
-                  onClick={handleSubmitIndication}
-                  statusLoading={infoLoading.createIndication.status}
-                  disabled={infoLoading.createIndication.status}
+                  onClick={handleSubmitCreatMaladie}
+                  statusLoading={infoLoading.createMaladie.status}
+                  disabled={infoLoading.createMaladie.status}
                   label="Enregistrer"
                   // style={{ border: "1px solid #2DAEC4" }}
                   className="ml-auto  rounded-md"
@@ -138,4 +120,4 @@ function CreateIndication() {
   );
 }
 
-export default CreateIndication;
+export default CreateMaladie;

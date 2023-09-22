@@ -221,6 +221,12 @@ export const dataMenus: IDataMenu[] = [
             path: "/permissions/assignments",
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
+          {
+            label: "Gestions des maladies",
+            icon: <BiSolidUserPlus />,
+            path: "/maladies",
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          },
         ],
       },
     ],

@@ -1,11 +1,10 @@
 import { IBaseInterfaceSchema } from "../commonTypes";
 import { GLOBAL_PERMISSIONS } from '../permissions'
 
-export interface IIndication extends IBaseInterfaceSchema {
+export interface IMaladie extends IBaseInterfaceSchema {
     name: string;
-    value: string;
+    psedo: string;
 }
-export type ICreateIndication = {
+export type ICreateMaladie = {
     name: string
-    value: string;
 };

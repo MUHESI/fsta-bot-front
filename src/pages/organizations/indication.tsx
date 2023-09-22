@@ -7,14 +7,13 @@ import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListIndications } from "./columnsIndication";
 import { useRecoilValue } from "recoil";
-import { IOrganization } from "@/types/stateSchema/organization";
+// import { IOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
-import { CustomButton } from "@/components/core/Button";
+// import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
 import { getIndications } from "@/globalState/atoms/indication";
 import { IIndication } from "@/types/stateSchema/indication";
 import DialogCustom from "@/components/core/DialogCustom";
-import CreateTypeOrganazition from "../createTypeOrganazition";
 import CreateIndication from "../createInidication";
 
 function Indications() {

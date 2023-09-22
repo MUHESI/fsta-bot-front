@@ -11,29 +11,32 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { IIndication } from "@/types/stateSchema/indication";
+import { IMaladie } from "@/types/stateSchema/maladie";
 
-export const columnsListIndications: ColumnDef<IIndication>[] = [
+export const columnsListMaladies: ColumnDef<IMaladie>[] = [
   {
     accessorKey: "name",
     header: "NOMS",
-  },
-  {
-    accessorKey: "value",
-    header: "TOUT",
-    // cell: ({ row }) => {
-    //   return <>COOL </>;
-    // },
   },
   {
     accessorKey: "status",
     header: "STATUS",
     cell: ({ row }: any) => (
       <div className="font-semibold text-green-600">
-        {row.getValue("status")}{" "}
+        {row.getValue("status")}
       </div>
     ),
   },
+  {
+    accessorKey: "created_at",
+    header: "DATE CREATION",
+    cell: ({ row }: any) => (
+      <div className="">
+        {new Date(row.getValue("created_at")).toLocaleString()}
+      </div>
+    ),
+  },
+
   {
     accessorKey: "ACTIONS",
     id: "actions",

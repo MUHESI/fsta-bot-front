@@ -49,3 +49,6 @@ export const INDICATIONS_KEYS = {
 export const GAPS_KEYS = {
     GET_GAPS: 'RECOIL::GAP:://GET_GAPS',
 }
+export const MALADIES_KEYS = {
+    GET_MALADIES: 'RECOIL::GAP:://GET_MALADIES',
+}
