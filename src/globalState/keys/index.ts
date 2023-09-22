@@ -46,3 +46,6 @@ export const USERS_KEYS = {
 export const INDICATIONS_KEYS = {
     GET_INDICATIONS: 'RECOIL::INDICATION:://GET_INDICATIONS',
 }
+export const GAPS_KEYS = {
+    GET_GAPS: 'RECOIL::GAP:://GET_GAPS',
+}

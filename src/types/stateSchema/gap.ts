@@ -1,3 +1,5 @@
+// import { IBaseInterfaceSchema } from "../commonTypes"
+
 export interface ICreateGap {
     dateReportage: Date | string
     //  ADDRESS
@@ -133,12 +135,14 @@ const partenairePresents = [
         contactFocal: "+234 998799306"
     }
 ]
+export interface IGap extends ICreateGap {
+    // TODO: FIX THIS LATER
+    id: string;
+    created_at: Date | string;
+    updated_at: Date | string;
+    //
 
-
-
-
-
-
+}
 
 
 

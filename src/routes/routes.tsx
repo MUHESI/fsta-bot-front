@@ -19,8 +19,9 @@ import CreateAlert from "../pages/createAlert";
 import ListAlerts from "../pages/Alerts";
 import ListRoles from "../pages/permissionRole";
 import CreateVulnerabilty from "@/pages/createVulnerability";
-import { GLOBAL_PERMISSIONS } from "@/types/permissions";
+import { GLOBAL_PERMISSIONS as PERMI } from "@/types/permissions";
 import ListPermissions from "@/pages/permission";
+import ListGaps from "@/pages/gaps";
 
 function GlobalRoutes() {
   return (
@@ -56,7 +57,15 @@ function GlobalRoutes() {
           />
 
           {/* GAPS */}
-          <Route path="/gaps/create/" element={<CreateGap />} />
+
+          <Route
+            element={<RequireAuth alowedPermissions={PERMI.READ_ALL_GAPS} />}
+          >
+            <Route path="/gaps/" element={<ListGaps />} />
+          </Route>
+          <Route element={<RequireAuth alowedPermissions={PERMI.CREATE_GAP} />}>
+            <Route path="/gaps/create/" element={<CreateGap />} />
+          </Route>
           <Route
             path="/gaps/score-card/create/"
             element={<CreateScoreCard />}
@@ -79,9 +88,7 @@ function GlobalRoutes() {
         </Route>
         <Route
           element={
-            <RequireAuth
-              alowedPermissions={GLOBAL_PERMISSIONS.CREATE_ORAGNIZATION}
-            />
+            <RequireAuth alowedPermissions={PERMI.CREATE_ORAGNIZATION} />
           }
         >
           <Route
@@ -89,20 +96,12 @@ function GlobalRoutes() {
             element={<CreateOrganization />}
           />
         </Route>
-        <Route
-          element={
-            <RequireAuth alowedPermissions={GLOBAL_PERMISSIONS.READ_ROLES} />
-          }
-        >
+        <Route element={<RequireAuth alowedPermissions={PERMI.READ_ROLES} />}>
           <Route path="/permissions/roles" element={<ListRoles />} />
         </Route>
 
         <Route
-          element={
-            <RequireAuth
-              alowedPermissions={GLOBAL_PERMISSIONS.READ_PERMISSIONS}
-            />
-          }
+          element={<RequireAuth alowedPermissions={PERMI.READ_PERMISSIONS} />}
         >
           <Route path="/permissions" element={<ListPermissions />} />
         </Route>
