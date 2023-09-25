@@ -10,6 +10,7 @@ export const getOrganizations = selector({
     get: async ({ get }) => {
         const { token } = get(userAuthenticatedState)
         const res = await getAPI<IFetchData<IOrganization[]> | undefined>('list_org', token);
+
         if (res === undefined) {
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {

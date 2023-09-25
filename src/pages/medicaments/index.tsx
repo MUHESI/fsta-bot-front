@@ -5,36 +5,38 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
-import { columnsListMaladies } from "./columns";
+import { columnsListMedicaments } from "./columns";
 import { useRecoilValue } from "recoil";
-import { getMaladies } from "@/globalState/atoms";
-import { IMaladie } from "@/types/stateSchema/maladie";
 import SkeletonAnimation from "@/components/skeleton";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "@/components/core/Button";
+import DialogCustom from "@/components/core/DialogCustom";
+import CreateMedicament from "../createMedicament";
+import { getMedicaments } from "../../globalState/atoms";
+import { IMedicament } from "../../types/stateSchema/medicament";
 
-function Maladies() {
+function Medicaments() {
   const navigate = useNavigate();
-  const allMaladies = useRecoilValue(getMaladies) as unknown as IMaladie[];
+  const allMedicaments = useRecoilValue(
+    getMedicaments
+  ) as unknown as IMedicament[];
 
   return (
     <div className="p-5">
       <DataTable
         searchField="name"
-        columns={columnsListMaladies}
-        data={allMaladies || []}
+        columns={columnsListMedicaments}
+        data={allMedicaments || []}
       >
         <Button variant="outline" className="ml-auto rounded-md ">
           <FiRefreshCcw />
         </Button>
-        <div className="">
-          <CustomButton
-            onClick={() => navigate("/gaps/create")}
-            label="Créer un nouveau"
-            className="rounded-md"
-            // statusLoading={true}
-          />
-        </div>
+        <DialogCustom
+          btnText="Nouveau medicament"
+          mainTitle="Création d'unnouveau medicament"
+          width="sm"
+        >
+          <CreateMedicament />
+        </DialogCustom>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}
@@ -45,19 +47,19 @@ function Maladies() {
   );
 }
 
-function ListMaldies() {
+function ListMedicaments() {
   return (
     <div>
       <div className="p-1 text-main-color-dark" data-testid="main-title">
-        <LastHeading title={"liste des maladies"} />
+        <LastHeading title={"liste des medicaments"} />
       </div>
-      <div data-testid="list des maladies">
+      <div data-testid="liste des medicaments">
         <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-          <Maladies />
+          <Medicaments />
         </Suspense>
       </div>
     </div>
   );
 }
 
-export default ListMaldies;
+export default ListMedicaments;

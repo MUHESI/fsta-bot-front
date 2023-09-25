@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
-import { INIT_FORM_CREATE_ROLE } from "@/constants/initForm";
+import { INIT_FORM_CREATE_CRISE } from "@/constants/initForm";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
@@ -11,24 +11,25 @@ import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import { ICreateRole } from "@/types/stateSchema/permissionRole";
+import { token } from "@/constants/constants";
+import { ICreateCrise } from "@/types/stateSchema/crise";
 
-function CreateRole() {
+function CreateCrise() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
-    createRole: {
+    createCrise: {
       status: false,
       msg: "",
     },
   });
 
-  const [formRole, setRole] = useState<ICreateRole>(INIT_FORM_CREATE_ROLE);
+  const [formCrise, setCrise] = useState<ICreateCrise>(INIT_FORM_CREATE_CRISE);
 
-  const handleSubmitCreateRole = async () => {
-    if (formRole.name.trim().length < 2) {
+  const handleSubmitCreatCrise = async () => {
+    if (formCrise.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,
@@ -38,36 +39,37 @@ function CreateRole() {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createRole", lKey: "status" },
+          { fKey: "createCrise", lKey: "status" },
           true
         )
       );
 
-      const { data } = await postAPI<IFetchData<IBaseData>, ICreateRole>(
-        "role/addrole",
-        formRole,
-        user.token
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateCrise>(
+        "crise/addcrise",
+        formCrise,
+        // user.token
+        token
       );
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
-            { fKey: "createRole", lKey: "status" },
+            { fKey: "createCrise", lKey: "status" },
             false
           )
         );
 
         showToast({
-          msg: `le role ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `la maladie ${formCrise.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setRole({ ...INIT_FORM_CREATE_ROLE });
+        setCrise({ ...INIT_FORM_CREATE_CRISE });
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createRole", lKey: "status" },
+          { fKey: "createCrise", lKey: "status" },
           false
         )
       );
@@ -93,18 +95,18 @@ function CreateRole() {
                   required={true}
                   label="Nom"
                   // data-testId="create-province"
-                  pl="eg: Entrer le nom du role"
-                  value={formRole.name}
+                  pl="eg: Entrer le nom de la crise"
+                  value={formCrise.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setRole({ ...formRole, name: e.target.value })
+                    setCrise({ ...formCrise, name: e.target.value })
                   }
                 />
               </div>
               <div className="btn py-2 px-5 flex justify-end">
                 <CustomButton
-                  onClick={handleSubmitCreateRole}
-                  statusLoading={infoLoading.createRole.status}
-                  disabled={infoLoading.createRole.status}
+                  onClick={handleSubmitCreatCrise}
+                  statusLoading={infoLoading.createCrise.status}
+                  disabled={infoLoading.createCrise.status}
                   label="Enregistrer"
                   // style={{ border: "1px solid #2DAEC4" }}
                   className="ml-auto  rounded-md"
@@ -118,4 +120,4 @@ function CreateRole() {
   );
 }
 
-export default CreateRole;
+export default CreateCrise;

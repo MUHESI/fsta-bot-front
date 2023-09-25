@@ -8,7 +8,6 @@ import ListUsers from "../pages/users";
 import ScreenManagerOrg from "../pages/organizations";
 import CreateOrganization from "../pages/createOrganization";
 import LoadingPage from "../pages/loading";
-import CreateProvince from "../pages/createProvince";
 import ListProvinces from "@/pages/provinces";
 import CreateTerritory from "../pages/createTerritory";
 import ListTerritories from "@/pages/territories";
@@ -22,6 +21,9 @@ import CreateVulnerabilty from "@/pages/createVulnerability";
 import { GLOBAL_PERMISSIONS as PERMI } from "@/types/permissions";
 import ListPermissions from "@/pages/permission";
 import ListGaps from "@/pages/gaps";
+import ListCrises from "@/pages/crises";
+import ListMedicaments from "@/pages/medicaments";
+import ListTypePersonnels from "@/pages/typePersonnel";
 import ListMaladies from "@/pages/maladies";
 
 function GlobalRoutes() {
@@ -110,6 +112,21 @@ function GlobalRoutes() {
           element={<RequireAuth alowedPermissions={PERMI.READ_MALADIES} />}
         >
           <Route path="/maladies" element={<ListMaladies />} />
+        </Route>
+        <Route element={<RequireAuth alowedPermissions={PERMI.READ_CRISES} />}>
+          <Route path="/crises" element={<ListCrises />} />
+        </Route>
+        <Route
+          element={<RequireAuth alowedPermissions={PERMI.READ_MEDICAMENTS} />}
+        >
+          <Route path="/medicaments" element={<ListMedicaments />} />
+        </Route>
+        <Route
+          element={
+            <RequireAuth alowedPermissions={PERMI.READ_TYPE_PERSONNELS} />
+          }
+        >
+          <Route path="/typePersonnels" element={<ListTypePersonnels />} />
         </Route>
       </Routes>
       {/*  */}

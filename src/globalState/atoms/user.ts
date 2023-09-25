@@ -3,13 +3,13 @@ import { IUser } from "../../types/stateSchema/user";
 import { USERS_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
-// import { userAuthenticatedState } from './auth';
-import { token } from "@/constants/constants";
+import { userAuthenticatedState } from './auth';
+// import { token } from "@/constants/constants";
 
 export const getUsers = selector({
     key: USERS_KEYS.GET_USERS,
     get: async ({ get }) => {
-        // const { token } = get(userAuthenticatedState)
+        const { token } = get(userAuthenticatedState)
         // const res = await getAPI<IFetchData<IUser[]> | undefined>(`users/listeUsers`, token);
         // TODO:: fixe me later
         const res = await getAPI<any>(`users/listeUsers`, token);

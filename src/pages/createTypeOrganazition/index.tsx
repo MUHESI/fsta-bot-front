@@ -102,23 +102,7 @@ function CreateTypeOrganazition() {
                   }
                 />
               </div>
-              <div
-                data-testId="create-province"
-                className="flex flex-wrap justify-between px-5 gap-5"
-              >
-                <InputCommon
-                  required={true}
-                  label="Email"
-                  pl="eg: Entrer l'email"
-                  value={formTypeOrganazition.email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setTypeOrganazition({
-                      ...formTypeOrganazition,
-                      email: e.target.value,
-                    })
-                  }
-                />
-              </div>
+
               <div className="btn py-2 px-5 flex justify-end">
                 <CustomButton
                   onClick={handleSubmitTypeOrg}

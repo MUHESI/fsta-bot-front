@@ -3,6 +3,7 @@ import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
 import { INIT_FORM_CREATE_ROLE } from "@/constants/initForm";
+import { ICreateProvince } from "@/types/stateSchema/province";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
@@ -12,8 +13,10 @@ import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
 import { ICreateRole } from "@/types/stateSchema/permissionRole";
+import { ICreateTypePersonnel } from "../../types/stateSchema/typePersonnel";
+import { token } from "@/constants/constants";
 
-function CreateRole() {
+function CreateTypePersonnel() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
@@ -25,10 +28,11 @@ function CreateRole() {
     },
   });
 
-  const [formRole, setRole] = useState<ICreateRole>(INIT_FORM_CREATE_ROLE);
+  const [formTypePersonnel, setFormTypePersonnel] =
+    useState<ICreateTypePersonnel>(INIT_FORM_CREATE_ROLE);
 
-  const handleSubmitCreateRole = async () => {
-    if (formRole.name.trim().length < 2) {
+  const handleSubmitTypePersonnel = async () => {
+    if (formTypePersonnel.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,
@@ -38,36 +42,36 @@ function CreateRole() {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createRole", lKey: "status" },
+          { fKey: "createTypePersonnel", lKey: "status" },
           true
         )
       );
-
       const { data } = await postAPI<IFetchData<IBaseData>, ICreateRole>(
-        "role/addrole",
-        formRole,
-        user.token
+        "personnel/addtypepersonnel",
+        formTypePersonnel,
+        // user.token
+        token
       );
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
-            { fKey: "createRole", lKey: "status" },
+            { fKey: "createTypePersonnel", lKey: "status" },
             false
           )
         );
 
         showToast({
-          msg: `le role ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `le role ${formTypePersonnel.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setRole({ ...INIT_FORM_CREATE_ROLE });
+        setFormTypePersonnel({ ...INIT_FORM_CREATE_ROLE });
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createRole", lKey: "status" },
+          { fKey: "createTypePersonnel", lKey: "status" },
           false
         )
       );
@@ -93,16 +97,19 @@ function CreateRole() {
                   required={true}
                   label="Nom"
                   // data-testId="create-province"
-                  pl="eg: Entrer le nom du role"
-                  value={formRole.name}
+                  pl="eg: Entrer le nom du type de personnel"
+                  value={formTypePersonnel.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setRole({ ...formRole, name: e.target.value })
+                    setFormTypePersonnel({
+                      ...formTypePersonnel,
+                      name: e.target.value,
+                    })
                   }
                 />
               </div>
               <div className="btn py-2 px-5 flex justify-end">
                 <CustomButton
-                  onClick={handleSubmitCreateRole}
+                  onClick={handleSubmitTypePersonnel}
                   statusLoading={infoLoading.createRole.status}
                   disabled={infoLoading.createRole.status}
                   label="Enregistrer"
@@ -118,4 +125,4 @@ function CreateRole() {
   );
 }
 
-export default CreateRole;
+export default CreateTypePersonnel;

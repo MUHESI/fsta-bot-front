@@ -12,8 +12,9 @@ import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
+import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 
-function CreateMaladie() {
+function CreateTypesPersonnel() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
@@ -25,12 +26,12 @@ function CreateMaladie() {
     },
   });
 
-  const [formRole, setRole] = useState<ICreateMaladie>(
+  const [formMaladie, setMaladie] = useState<ICreateMaladie>(
     INIT_FORM_CREATE_MALADIE
   );
 
   const handleSubmitCreatMaladie = async () => {
-    if (formRole.name.trim().length < 2) {
+    if (formMaladie.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,
@@ -44,12 +45,10 @@ function CreateMaladie() {
           true
         )
       );
-
-      const { data } = await postAPI<IFetchData<IBaseData>, ICreateMaladie>(
-        "maladie/addmaladie",
-        formRole,
-        user.token
-      );
+      const { data } = await postAPI<
+        IFetchData<IBaseData>,
+        ICreateTypePersonnel
+      >("personnel/addtypepersonnel", formMaladie, user.token);
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
@@ -60,10 +59,10 @@ function CreateMaladie() {
         );
 
         showToast({
-          msg: `la maladie ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `Le type de personnel ${formMaladie.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setRole({ ...INIT_FORM_CREATE_MALADIE });
+        setMaladie({ ...INIT_FORM_CREATE_MALADIE });
       }
     } catch (error: any) {
       setInfoLoading(
@@ -96,9 +95,9 @@ function CreateMaladie() {
                   label="Nom"
                   // data-testId="create-province"
                   pl="eg: Entrer le nom de la maladie"
-                  value={formRole.name}
+                  value={formMaladie.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setRole({ ...formRole, name: e.target.value })
+                    setMaladie({ ...formMaladie, name: e.target.value })
                   }
                 />
               </div>
@@ -120,4 +119,4 @@ function CreateMaladie() {
   );
 }
 
-export default CreateMaladie;
+export default CreateTypesPersonnel;

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
-import { INIT_FORM_CREATE_ROLE } from "@/constants/initForm";
+import { INIT_FORM_CREATE_MEDICAMENT } from "@/constants/initForm";
+import { ICreateMaladie } from "@/types/stateSchema/maladie";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
@@ -11,23 +12,25 @@ import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import { ICreateRole } from "@/types/stateSchema/permissionRole";
+import { ICreateMedicament } from "@/types/stateSchema/medicament";
 
-function CreateRole() {
+function CreateMedicament() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
-    createRole: {
+    createMedicament: {
       status: false,
       msg: "",
     },
   });
 
-  const [formRole, setRole] = useState<ICreateRole>(INIT_FORM_CREATE_ROLE);
+  const [formRole, setRole] = useState<ICreateMedicament>(
+    INIT_FORM_CREATE_MEDICAMENT
+  );
 
-  const handleSubmitCreateRole = async () => {
+  const handleSubmitCreatMaladie = async () => {
     if (formRole.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
@@ -38,13 +41,13 @@ function CreateRole() {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createRole", lKey: "status" },
+          { fKey: "createMedicament", lKey: "status" },
           true
         )
       );
 
-      const { data } = await postAPI<IFetchData<IBaseData>, ICreateRole>(
-        "role/addrole",
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateMaladie>(
+        "medicament/addmedicament",
         formRole,
         user.token
       );
@@ -52,22 +55,22 @@ function CreateRole() {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
-            { fKey: "createRole", lKey: "status" },
+            { fKey: "createMedicament", lKey: "status" },
             false
           )
         );
 
         showToast({
-          msg: `le role ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `le medicament ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setRole({ ...INIT_FORM_CREATE_ROLE });
+        setRole({ ...INIT_FORM_CREATE_MEDICAMENT });
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createRole", lKey: "status" },
+          { fKey: "createMedicament", lKey: "status" },
           false
         )
       );
@@ -86,14 +89,14 @@ function CreateRole() {
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
               <div
-                data-testId="create-province"
+                data-testId="create-medicament"
                 className="flex flex-wrap justify-between px-5 gap-5"
               >
                 <InputCommon
                   required={true}
                   label="Nom"
                   // data-testId="create-province"
-                  pl="eg: Entrer le nom du role"
+                  pl="eg: Entrer le nom d medicament"
                   value={formRole.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setRole({ ...formRole, name: e.target.value })
@@ -102,9 +105,9 @@ function CreateRole() {
               </div>
               <div className="btn py-2 px-5 flex justify-end">
                 <CustomButton
-                  onClick={handleSubmitCreateRole}
-                  statusLoading={infoLoading.createRole.status}
-                  disabled={infoLoading.createRole.status}
+                  onClick={handleSubmitCreatMaladie}
+                  statusLoading={infoLoading.createMedicament.status}
+                  disabled={infoLoading.createMedicament.status}
                   label="Enregistrer"
                   // style={{ border: "1px solid #2DAEC4" }}
                   className="ml-auto  rounded-md"
@@ -118,4 +121,4 @@ function CreateRole() {
   );
 }
 
-export default CreateRole;
+export default CreateMedicament;

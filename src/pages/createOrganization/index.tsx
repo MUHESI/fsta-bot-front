@@ -54,14 +54,14 @@ function CreateOrg() {
           true
         )
       );
-
       const { data } = await postAPI<
         IFetchData<IBaseData>,
         ICreateOrganization
       >("addorga", formOrganization, token);
-      console.clear();
-      console.log("data", data);
-      if (data.code === 200 && data.data) {
+
+      //  TODO: Improve this in backend
+      // if (data.code === 200 && data.data) {
+      if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
@@ -71,16 +71,12 @@ function CreateOrg() {
         );
 
         showToast({
-          msg: `la province ${formOrganization.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `l'organisation ${formOrganization.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        // setFormOrganization({ ...INIT_FORM_CREATE_ORGANIZATION });
+        setFormOrganization({ ...INIT_FORM_CREATE_ORGANIZATION });
       }
-    } catch (error) {
-      console.clear();
-      console.log("error", error);
-      console.log("error", formOrganization);
-
+    } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
@@ -89,9 +85,7 @@ function CreateOrg() {
         )
       );
       return showToast({
-        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${
-          (error as any as unknown as Error).message
-        }`,
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${error.response.data.message}`,
         type: StatusToast.ERROR,
       });
     }
@@ -211,7 +205,7 @@ function CreateOrg() {
                 <CommonInputGap
                   required={true}
                   label="Sigle"
-                  pl="eg:200"
+                  pl="eg: COSAMED"
                   value={formOrganization.sigle}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormOrganization({
@@ -283,8 +277,8 @@ function CreateOrg() {
             <div className="btn py-2 px-5 flex justify-end">
               <CustomButton
                 onClick={handleSubmitCreateOrg}
-                // statusLoading={infoLoading.createOrganization.status}
-                // disabled={infoLoading.createOrganization.status}
+                statusLoading={infoLoading.createOrganization.status}
+                disabled={infoLoading.createOrganization.status}
                 label="Enregistrer"
                 // style={{ border: "1px solid #2DAEC4" }}
                 className="ml-auto  rounded-md"

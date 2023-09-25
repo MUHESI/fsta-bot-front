@@ -4,14 +4,14 @@ import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
 import { ICreateMenage } from "../types/stateSchema/menage";
 // import { GLOBAL_PERMISSIONS } from "@/types/permissions";
-
-
 import { ICreateTerritory } from "../types/stateSchema/territory";
-import { ICreatePermission } from "@/types/stateSchema/permissions";
+import { ICreatePermission } from "@/types/stateSchema/permission";
 import { ICreateOrganization } from "@/types/stateSchema/organization";
 import { ICreateTypeOrganization } from "../types/stateSchema/organization";
 import { ICreateIndication } from "@/types/stateSchema/indication";
 import { ICreateMaladie } from "@/types/stateSchema/maladie";
+import { ICreateMedicament } from "@/types/stateSchema/medicament";
+import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -79,5 +79,14 @@ export const INIT_FORM_CREATE_INDICATION: ICreateIndication = {
     value: ''
 }
 export const INIT_FORM_CREATE_MALADIE: ICreateMaladie = {
+    name: '',
+}
+export const INIT_FORM_CREATE_CRISE: ICreateMaladie = {
+    name: '',
+}
+export const INIT_FORM_CREATE_MEDICAMENT: ICreateMedicament = {
+    name: '',
+}
+export const INIT_FORM_CREATE_TYPE_PERSONNEL: ICreateTypePersonnel = {
     name: '',
 }

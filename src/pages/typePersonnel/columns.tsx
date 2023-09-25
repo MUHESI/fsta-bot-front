@@ -11,9 +11,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { IMaladie } from "../../types/stateSchema/maladie";
+import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
 
-export const columnsListMaladies: ColumnDef<IMaladie>[] = [
+export const columnstypePersonnels: ColumnDef<ITypePersonnel>[] = [
   {
     accessorKey: "name",
     header: "NOMS",

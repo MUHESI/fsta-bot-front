@@ -10,9 +10,6 @@ export const getIndications = selector({
     get: async ({ get }) => {
         const { token } = get(userAuthenticatedState)
         const res = await getAPI<IFetchData<IOrganization[]> | undefined>('liste_indicateur', token);
-        console.clear()
-
-        console.log('res', res)
         if (res === undefined) {
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {

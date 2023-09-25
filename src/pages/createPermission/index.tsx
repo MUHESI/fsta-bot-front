@@ -11,7 +11,7 @@ import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import { ICreatePermission } from "@/types/stateSchema/permissions";
+import { ICreatePermission } from "@/types/stateSchema/permission";
 import { SelectCommon } from "@/components/core/select";
 import { GLOBAL_PERMISSIONS } from "@/types/permissions";
 import { convertEnumToArray } from "@/services/storage/helpers";
@@ -82,8 +82,15 @@ function CreatePermission() {
       });
     }
   };
-  const keepCurrentPermission = (option: GLOBAL_PERMISSIONS) => {
-    setPermission({ ...formPermission, name: option });
+  const keepCurrentPermission = (option: number) => {
+    console.clear();
+    console.log("formPermission", formPermission);
+
+    // const tab = convertEnumToArray(GLOBAL_PERMISSIONS);
+    setPermission({
+      ...formPermission,
+      name: convertEnumToArray(GLOBAL_PERMISSIONS)[option].value,
+    });
   };
 
   return (

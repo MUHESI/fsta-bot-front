@@ -20,15 +20,18 @@ function RangeDateComponent() {
     document.addEventListener("keydown", hideOnClickOutSide, true);
   }, []);
 
-  const handleSelectDate = (date: Date) => {};
+  // const handleSelectDate = (date: Date) => {};
+  const handleSelectDate = () => {};
   // Hide on Escape
   const hideOnEscape = (e: KeyboardEvent) => {
     if (e.key === "Escape") return setOpen(false);
   };
   // Hide on Click Outside
   const hideOnClickOutSide = (e: KeyboardEvent) => {
-    if (refOne.current && !refOne.current.contains(e.target)) {
-    }
+    // console.log("date", date!
+    console.log("e", e);
+    // if (refOne.current && !refOne.current.contains(e.target)) {
+    // }
   };
 
   return (
@@ -39,7 +42,8 @@ function RangeDateComponent() {
         className="inputBox"
         onClick={() => setOpen(!open)}
       />
-      <div ref={refOne}>
+      {/* <div ref={refOne}> */}
+      <div>
         {open && (
           <Calendar
             date={new Date()}

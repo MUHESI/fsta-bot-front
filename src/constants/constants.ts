@@ -43,7 +43,7 @@ export const baseFormLocaStorage: IDataStoredLocalStorage<any> = {
 };
 
 
-export const dataUsers: IUser[] = [
+export const dataUsers = [
     {
         id: 3,
         full_name: "MUHESI Moises",
@@ -160,75 +160,68 @@ export const dataOrganizations: IOrganization[] = [
         name: 'ALT-VIP',
         status: 'active',
         email: 'user@gmailcom',
-        address: 'Kulas Light',
+        addresse: 'Kulas Light',
         phone: '1-770-736-8031 x56442',
-        createdBy: 'user',
-        dateCreation: '2022-01-01T00:00:00.000Z',
         description: '',
-        cityId: 'BUKAVU',
-        communeId: '',
-        quarterId: '',
-        provinceId: '',
         date_created: '2022-01-01T00:00:00.000Z',
-        type: Type.DPS,
+        descritption: '',
+        logo: '',
+        pointfocal: '',
+        sigle: "",
+        typeorgid: ''
     },
     {
         id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
         created_at: "2023-08-03T11:28:32.000000Z",
         updated_at: "2023-08-03T11:28:32.000000Z",
-        name: 'COSAMED',
+        name: 'ALT-VIP',
         status: 'active',
-        email: 'cosamed@gmailcom',
-        address: 'Kulas Light',
+        email: 'user@gmailcom',
+        addresse: 'Kulas Light',
         phone: '1-770-736-8031 x56442',
-        createdBy: 'user',
-        dateCreation: '2022-01-01T00:00:00.000Z',
         description: '',
-        cityId: 'GOMA',
-        communeId: '',
-        quarterId: '',
-        provinceId: '',
         date_created: '2022-01-01T00:00:00.000Z',
-        type: Type.DPS,
+        descritption: '',
+        logo: '',
+        pointfocal: '',
+        sigle: "",
+        typeorgid: ''
     },
     {
         id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
         created_at: "2023-08-03T11:28:32.000000Z",
         updated_at: "2023-08-03T11:28:32.000000Z",
-        name: 'DPS',
+        name: 'ALT-VIP',
         status: 'active',
-        email: 'cosamed@gmailcom',
-        address: 'Kulas Light',
+        email: 'user@gmailcom',
+        addresse: 'Kulas Light',
         phone: '1-770-736-8031 x56442',
-        createdBy: 'user',
-        dateCreation: '2022-01-01T00:00:00.000Z',
         description: '',
-        cityId: 'BENI',
-        communeId: '',
-        quarterId: '',
-        provinceId: '',
         date_created: '2022-01-01T00:00:00.000Z',
-        type: Type.DPS,
+        descritption: '',
+        logo: '',
+        pointfocal: '',
+        sigle: "",
+        typeorgid: ''
     },
+
     {
         id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
         created_at: "2023-08-03T11:28:32.000000Z",
         updated_at: "2023-08-03T11:28:32.000000Z",
-        name: 'DPS',
+        name: 'ALT-VIP',
         status: 'active',
-        email: 'cosamed@gmailcom',
-        address: 'Kulas Light',
+        email: 'user@gmailcom',
+        addresse: 'Kulas Light',
         phone: '1-770-736-8031 x56442',
-        createdBy: 'user',
-        dateCreation: '2022-01-01T00:00:00.000Z',
         description: '',
-        cityId: 'BENI',
-        communeId: '',
-        quarterId: '',
-        provinceId: '',
         date_created: '2022-01-01T00:00:00.000Z',
-        type: Type.DPS,
-    }
+        descritption: '',
+        logo: '',
+        pointfocal: '',
+        sigle: "",
+        typeorgid: ''
+    },
 ]
 
 // TODO: DELETE THIS LATER
@@ -311,7 +304,6 @@ export const dataPagination: { data: {}, pagination: IDataPagination } = {
         previousPage: 0,
         page: 1,
         nextPage: 2
-
     }
 
 }

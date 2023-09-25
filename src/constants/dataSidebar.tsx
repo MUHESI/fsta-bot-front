@@ -222,10 +222,28 @@ export const dataMenus: IDataMenu[] = [
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
+            label: "Gestions des medicaments",
+            icon: <BiSolidUserPlus />,
+            path: "/medicaments",
+            permissions: GLOBAL_PERMISSIONS.READ_MEDICAMENTS,
+          },
+          {
+            label: "Gestions des typePersonnels",
+            icon: <BiSolidUserPlus />,
+            path: "/typePersonnels",
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          },
+          {
             label: "Gestions des maladies",
             icon: <BiSolidUserPlus />,
             path: "/maladies",
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          },
+          {
+            label: "Gestions des crises",
+            icon: <BiSolidUserPlus />,
+            path: "/crises",
+            permissions: GLOBAL_PERMISSIONS.READ_CRISES,
           },
         ],
       },

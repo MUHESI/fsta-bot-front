@@ -91,9 +91,8 @@ function CreateIndication() {
               >
                 <InputCommon
                   required={true}
-                  label="Nom"
-                  // data-testId="create-province"
-                  pl="eg: Entrer le nom de l'indication"
+                  label="Abreviation"
+                  pl="eg: Entrer l'abrev de l'indication"
                   value={formInidaction.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setIndication({
@@ -109,8 +108,8 @@ function CreateIndication() {
               >
                 <InputCommon
                   required={true}
-                  label="pseudo"
-                  pl="eg: Entrer l'email"
+                  label="Tout le nom"
+                  pl="eg: Entrer tout le nom"
                   value={formInidaction.value}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setIndication({

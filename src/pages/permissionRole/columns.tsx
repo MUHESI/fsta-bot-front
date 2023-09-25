@@ -10,10 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { IUser } from "@/types/stateSchema/user";
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
-import { IRoles } from "@/types/stateSchema/permissionsRole";
+import { IRoles } from "@/types/stateSchema/permissionRole";
 
 export const columnsListRoles: ColumnDef<IRoles>[] = [
   {

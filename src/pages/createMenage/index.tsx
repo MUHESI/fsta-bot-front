@@ -8,7 +8,6 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { postAPI } from "@/utils/fetchData";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";

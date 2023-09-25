@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
-import { IRoles } from "@/types/stateSchema/permissionsRole";
-import { IPermission } from "@/types/stateSchema/permissions";
+import { IRoles } from "@/types/stateSchema/permissionRole";
+import { IPermission } from "@/types/stateSchema/permission";
 
 export const columnsListPermissions: ColumnDef<IPermission>[] = [
   {
