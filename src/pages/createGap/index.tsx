@@ -13,7 +13,6 @@ function CreateGap() {
 
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
-
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">

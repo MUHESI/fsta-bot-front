@@ -120,11 +120,14 @@ function ResetPassword() {
     const dataSaved = LocalStorage.getItem<any>(
       keyStorage.AFIAGAP_FORGORT_PASSWORD
     );
+    // TODO: ANALYZE THIS LATER
     if (dataSaved === null) {
-      return navigate("/auth/forgot-password");
+      // return navigate("/auth/forgot-password"); // It should be this router
+      return navigate("/");
     } else {
       const { data } = dataSaved;
       setFormResetPswd({ ...formResetPswd, email: data.email });
+      return navigate("/");
     }
   };
   useEffect(() => {

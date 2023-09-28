@@ -69,7 +69,7 @@ const Sidebar = () => {
 
         // }
       }}
-      className={`
+      className={`h-[89%] overflow-hidden duration-300
       
       ${
         activeMenu

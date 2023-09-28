@@ -14,6 +14,7 @@ import { INIT_FORM_FORGOT_PSWD_SCREEN } from "../../constants/initForm";
 import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
 import { StatusToast, showToast } from "@/components/core/ToastAlert";
+import { NavLink } from "react-router-dom";
 
 function OptForgotPassword() {
   const setForgotPswdScreen = useSetRecoilState(forgotPswdScreenState);
@@ -146,6 +147,12 @@ function OptForgotPassword() {
               Bienvenue sur la plateforme <strong>AfiaGap</strong>. Un outil du
               monitoring de la préparation et la réponse aux urgences
             </p>
+            <NavLink
+              to="/login"
+              className="border text-sm px-12 py-1 border-white rounded-full  inline-block font-semibold hover:bg-white hover:text-main-color md:px-5"
+            >
+              Se connecter
+            </NavLink>
           </div>
         </main>
       </div>

@@ -10,25 +10,25 @@ import { IAutherUSer } from "@/types/stateSchema/auth";
 
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
-    AVATAR_USER: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1638616999/blog-hight-tec/user_gjxqrh.png',
+    AVATAR_USER: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1646826119/cresJoinAfrik/user_ifzful.png',
     USER_IMG_PROFILE: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1685807109/orgi_2_aotayp-Circle_y112qy.jpg',
     USER_IMG_PROFILE2: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1676725367/porfolio/profile-pic_2_a7jub9.png'
 }
-// export const defaultStateUserAuth: IAutherUSer = {
-//     full_name: null,
-//     email: null,
-//     token: '',
-//     id: null
-// }
+export const defaultStateUserAuth: IAutherUSer = {
+    full_name: null,
+    email: null,
+    token: '',
+    id: null
+}
 export const token = "13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4"
 // TODO: Fixe me later
-export const defaultStateUserAuth: IAutherUSer = {
-    full_name: 'MUHESI',
-    email: 'user@hmail.com',
-    token: '13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4',
-    id: "9a2b57a0-c7c4-4304-b803-5c837afb5b83"
+// export const defaultStateUserAuth: IAutherUSer = {
+//     full_name: 'MUHESI',
+//     email: 'user@hmail.com',
+//     token: '13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4',
+//     id: "9a2b57a0-c7c4-4304-b803-5c837afb5b83"
 
-}
+// }
 
 export const baseFormLocaStorage: IDataStoredLocalStorage<any> = {
     date: {
@@ -412,3 +412,74 @@ export const dataAlerts: IAlert[] = [
 
 ]
 
+// TODO:: imorve later
+
+export interface IGapProvince {
+    id: string,
+    created_at: string,
+    province: string,
+    pDeplaces: number,
+    pRetournees: number,
+
+    pElogines: number,
+    pin: number,
+    typeCrise: string,
+    structureSante: string,
+    barrieres: string[],
+    typeAlert: string,
+    status: string,
+    healthArea: string,
+    acteur: string,
+
+}
+
+export const dataGaProvince: IGapProvince[] = [
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03",
+        province: 'NORD-KIVU',
+        pDeplaces: 20,
+        pRetournees: 20,
+        pElogines: 20,
+        pin: 4.40,
+        typeCrise: 'Type-1',
+        structureSante: 'KARISIMBI',
+        barrieres: ['structure Sante non accessible', "Manque d'eau", 'etc...'],
+        typeAlert: 'typeAlert-0.1',
+        status: 'active',
+        healthArea: 'KARISIMBI',
+        acteur: 'COSAMED',
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03",
+        province: 'SUD-KIVU',
+        pDeplaces: 205,
+        pRetournees: 206,
+        pElogines: 2440,
+        pin: 5.44,
+        typeCrise: 'Type-1',
+        structureSante: 'KARISIMBI',
+        barrieres: ['structure Sante non accessible', "Manque d'eau", 'etc...'],
+        typeAlert: 'typeAlert-0.1',
+        status: 'active',
+        healthArea: 'KARISIMBI',
+        acteur: 'MUSACA',
+    },
+    {
+        id: "99cc8572-0389-49c5-8c68-c9dc2861a908",
+        created_at: "2023-08-03",
+        province: 'ITURI',
+        pDeplaces: 900,
+        pRetournees: 206,
+        pElogines: 2440,
+        pin: 5.44,
+        typeCrise: 'Type-1',
+        structureSante: 'KARISIMBI',
+        barrieres: ['structure Sante non accessible', "Manque d'eau", 'etc...'],
+        typeAlert: 'typeAlert-0.1',
+        status: 'active',
+        healthArea: 'KARISIMBI',
+        acteur: 'MUSANOVI',
+    },
+]

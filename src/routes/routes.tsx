@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
+import Dashboard from "../pages/dashboard";
 import Login from "../pages/auth/Login";
 import { RequireAuth } from ".";
 import ForgotPaswdProcess from "../pages/auth/ForgotPaswdProcess";
@@ -37,8 +37,8 @@ function GlobalRoutes() {
         <Route path="/auth/forgot-password" element={<ForgotPaswdProcess />} />
         {/*  PROTECTED ROUTES */}
         <Route element={<RequireAuth alowedPermissions={"CREATE_GAP"} />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/protected" element={<Home />} />
+          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/protected" element={<Home />} /> */}
           <Route path="/users" element={<ListUsers />} />
           <Route path="/users/profile/:id" element={<ProfileUser />} />
           <Route
@@ -54,6 +54,7 @@ function GlobalRoutes() {
           <Route path="/pyramid/provinces" element={<ListProvinces />} />
           <Route path="/pyramid/territories" element={<ListTerritories />} />
           <Route path="/pyramid/healthAreas" element={<ListHealthAreas />} />
+          {/* <Route path="/pyramid/structure" element={<ListHealthAreas />} /> */}
           <Route
             path="/pyramid/territories/create"
             element={<CreateTerritory />}

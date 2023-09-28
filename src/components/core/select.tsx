@@ -1,7 +1,7 @@
 import { BsQuestionCircle } from "react-icons/bs";
 import HoverCardCustom from "./HoverCardCustom";
 
-interface IPropsCustomSelectField<TData> {
+export interface IPropsCustomSelectField<TData> {
   data: TData[];
   keyObject: keyof TData;
   disabled?: boolean;

@@ -9,6 +9,7 @@ import UserProfile from "../profile/UserProfile";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import { IoMdSettings } from "react-icons/io";
+import { BiExit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import LocalStorage, {
   keyStorage,
@@ -22,6 +23,7 @@ import {
   userAuthenticatedState,
 } from "@/globalState/atoms";
 import { verifyMobileScreenSize } from "./Sidebar";
+import { Tooltip } from "@mui/material";
 
 type INavButtonProps = {
   customFunc: () => void;
@@ -167,12 +169,14 @@ const Navbar = () => {
             </div>
           </div>
           <div className="border-r border-t p-3">
-            <NavButton
-              title="Notification"
-              color={currentColor}
-              customFunc={() => console.clear()}
-              icon={<IoMdSettings />}
-            />
+            <Tooltip title={"Deconnexion"}>
+              <NavButton
+                title="Notification"
+                color={currentColor}
+                customFunc={() => logout()}
+                icon={<BiExit />}
+              />
+            </Tooltip>
           </div>
         </div>
         {/* MOBILE MENU  */}
@@ -183,12 +187,14 @@ const Navbar = () => {
         >
           <div className="border-r border-t p-3 ">
             <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
-              <img
-                onClick={logout}
-                className="rounded-full w-8 h-8"
-                src={AG_URL.USER_IMG_PROFILE2}
-                alt="user-profile"
-              />
+              <Tooltip title="Profile">
+                <img
+                  onClick={logout}
+                  className="rounded-full w-8 h-8"
+                  src={AG_URL.USER_IMG_PROFILE2}
+                  alt="user-profile"
+                />
+              </Tooltip>
             </div>
           </div>
           <div className="border-r border-t p-3">

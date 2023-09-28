@@ -277,6 +277,12 @@ export const dataMenus: IDataMenu[] = [
             path: "/pyramid/healthAreas",
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
+          {
+            label: "Structure de santé",
+            icon: <FaUsers />,
+            path: "/pyramid/structure",
+            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          },
         ],
       },
     ],
