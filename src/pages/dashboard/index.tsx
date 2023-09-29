@@ -12,6 +12,7 @@ import { PieChart } from "@/components/chrats/PieChart";
 import { MainTitle, SelectField } from "./components";
 import { SelectCommon } from "@/components/core/select";
 import ListGapsByDPS from "./ListGaps";
+import { ArcMapView } from "@/components/arcGis-components/arcMapView";
 
 const dataYear = [
   { id: 1, year: 2000 },
@@ -202,6 +203,9 @@ function Dashboard() {
       </main>
       <main className=" my-2  bg-white rounded shadow">
         <ListGapsByDPS />
+      </main>
+      <main className=" my-4 p-2  bg-white rounded shadow">
+        <ArcMapView />
       </main>
     </div>
   );

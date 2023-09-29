@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
-
+@import "@arcgis/core/assets/esri/themes/light/main.css";
 body{
     margin: 0;
     padding:0;
@@ -64,3 +63,5 @@ z-index: 999;
     background-color: red;
     display: block;
 }
+/* --------------view------------------ */
+
