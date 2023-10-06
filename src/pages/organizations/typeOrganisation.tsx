@@ -30,9 +30,12 @@ function TypeOrganizations() {
           columns={columnsListTypeOrganizations}
           data={listTypeOrganizations}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
-            <FiRefreshCcw />
-          </Button>
+          <CustomButton
+            onClick={() => ""}
+            label="Actualiser"
+            className="rounded-md "
+            // statusLoading={true}
+          />
           <DialogCustom
             btnText="Création d'un type org."
             mainTitle="Création d'un type orgonisation"

@@ -27,7 +27,7 @@ type LabelMenus =
   | "ALERTES"
   | "Organisations"
   | "Utilisateurs"
-  | "Gestion adresses"
+  | "Gestion des DPS"
   | "Territoires"
   | "Zones de sante"
   | "Aires de santé"
@@ -251,36 +251,11 @@ export const dataMenus: IDataMenu[] = [
     mainMenu: "PYRAMIDE",
     menus: [
       {
-        label: "Gestion adresses",
+        label: "Gestion des DPS",
         icon: <FaUsers />,
-        path: "/",
+        path: "/pyramid",
         permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-        subMenus: [
-          {
-            label: "Provinces",
-            icon: <FaUsers />,
-            path: "/pyramid/provinces/",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Territoires",
-            icon: <FaUsers />,
-            path: "/pyramid/territories",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Aires de santé",
-            icon: <FaUsers />,
-            path: "/pyramid/healthAreas",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Structure de santé",
-            icon: <FaUsers />,
-            path: "/pyramid/structure",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
-        ],
+        subMenus: [],
       },
     ],
   },

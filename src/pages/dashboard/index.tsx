@@ -156,7 +156,7 @@ function Home() {
                 </Grid>
               </Grid>
               <section className={commonClassMain}>
-                {/* <ChartComponent /> */}
+                <ChartComponent />
               </section>
             </section>
           </Grid>

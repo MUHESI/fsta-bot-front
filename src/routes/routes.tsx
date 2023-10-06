@@ -25,6 +25,7 @@ import ListCrises from "@/pages/crises";
 import ListMedicaments from "@/pages/medicaments";
 import ListTypePersonnels from "@/pages/typePersonnel";
 import ListMaladies from "@/pages/maladies";
+import Pyramid from "@/pages/pyramid/";
 
 function GlobalRoutes() {
   return (
@@ -51,9 +52,10 @@ function GlobalRoutes() {
             path="/pyramid/provinces/create"
             element={<CreateProvince />}
           /> */}
+          <Route path="/pyramid/" element={<Pyramid />} />
           <Route path="/pyramid/provinces" element={<ListProvinces />} />
-          <Route path="/pyramid/territories" element={<ListTerritories />} />
-          <Route path="/pyramid/healthAreas" element={<ListHealthAreas />} />
+          {/* <Route path="/pyramid/territories" element={<ListTerritories />} /> */}
+          {/* <Route path="/pyramid/healthAreas" element={<ListHealthAreas />} /> */}
           {/* <Route path="/pyramid/structure" element={<ListHealthAreas />} /> */}
           <Route
             path="/pyramid/territories/create"

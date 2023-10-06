@@ -148,7 +148,7 @@ function CreateOrg() {
                   data={allTypeOrganizations}
                   required={true}
                   keyObject="name"
-                  label="Selectionner la province(DPS)"
+                  label="Selectionner le type d'org."
                   value={formOrganization.typeorgid}
                   onChange={(value: string) =>
                     setFormOrganization({

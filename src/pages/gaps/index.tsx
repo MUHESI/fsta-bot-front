@@ -24,9 +24,12 @@ function Gaps() {
         columns={columnsListGaps}
         data={allGaps || []}
       >
-        <Button variant="outline" className="ml-auto rounded-md ">
-          <FiRefreshCcw />
-        </Button>
+        <CustomButton
+          onClick={() => navigate("/organizations/create")}
+          label="Actualiser"
+          className="rounded-md"
+          // statusLoading={true}
+        />
         <div className="">
           <CustomButton
             onClick={() => navigate("/gaps/create")}

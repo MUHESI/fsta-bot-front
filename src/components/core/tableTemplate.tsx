@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center justify-between py-4">
+      <div className="flex flex-wrap items-center gap-2 justify-between py-4">
         <Input
           placeholder={`Rechercher par ${searchField_} ...`}
           value={
@@ -64,7 +64,9 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm rounded-md"
         />
-        <div className="flex  gap-2">{children}</div>
+        <div className="flex flex-wrap justify-center items-center  gap-2">
+          {children}
+        </div>
       </div>
       <div className="rounded-md border ">
         <Table>

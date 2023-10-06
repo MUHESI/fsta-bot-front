@@ -13,6 +13,7 @@ import SkeletonAnimation from "@/components/skeleton";
 import { useNavigate } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateTypesPersonnel from "../createMaladie";
+import { CustomButton } from "@/components/core/Button";
 
 function TypePersonnel() {
   const navigate = useNavigate();
@@ -27,9 +28,12 @@ function TypePersonnel() {
         columns={columnstypePersonnels}
         data={allTypePersonnels || []}
       >
-        <Button variant="outline" className="ml-auto rounded-md ">
-          <FiRefreshCcw />
-        </Button>
+        <CustomButton
+          onClick={() => ""}
+          label="Actualiser"
+          className="rounded-md"
+          // statusLoading={true}
+        />
         <DialogCustom
           btnText="Nouvelle type de pers."
           mainTitle="Création de type de personnel"

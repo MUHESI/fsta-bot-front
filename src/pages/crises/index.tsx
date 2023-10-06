@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import { ICrise } from "@/types/stateSchema/crise";
 import CreateCrise from "../createCrise";
+import { CustomButton } from "@/components/core/Button";
 
 function Crises() {
   const navigate = useNavigate();
@@ -25,9 +26,14 @@ function Crises() {
         columns={columnsListCrises}
         data={allCrises || []}
       >
-        <Button variant="outline" className="ml-auto rounded-md ">
-          <FiRefreshCcw />
-        </Button>
+        <CustomButton
+          onClick={() => {
+            ("");
+          }}
+          label="Actualiser"
+          className="rounded-md"
+          // statusLoading={true}
+        />
         <DialogCustom
           btnText="Nouvelle crise"
           mainTitle="Création de la nouvelle crise"

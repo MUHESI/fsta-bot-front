@@ -17,6 +17,7 @@ import {
 import { IProvince } from "@/types/stateSchema/province";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateTerritory from "../createTerritory";
+import { CustomButton } from "@/components/core/Button";
 
 function Territories() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
@@ -46,9 +47,12 @@ function Territories() {
             columns={columnsListTerritories}
             data={allTerritoriesByProvince}
           >
-            <Button variant="outline" className="ml-auto rounded-md">
-              <FiRefreshCcw />
-            </Button>
+            <CustomButton
+              onClick={() => ""}
+              label="Actualiser"
+              className="rounded-md"
+              // statusLoading={true}
+            />
             <DialogCustom
               btnText="Nouveau territoire"
               mainTitle="Création du nouveau territoire"

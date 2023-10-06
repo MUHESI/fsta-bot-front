@@ -24,9 +24,12 @@ function Maladies() {
         columns={columnsListMaladies}
         data={allMaladies || []}
       >
-        <Button variant="outline" className="ml-auto rounded-md ">
-          <FiRefreshCcw />
-        </Button>
+        <CustomButton
+          onClick={() => ""}
+          label="Actualiser"
+          className="rounded-md "
+          // statusLoading={true}
+        />
         <div className="">
           <CustomButton
             onClick={() => navigate("/gaps/create")}

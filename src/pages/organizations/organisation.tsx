@@ -26,17 +26,23 @@ function Organizations() {
           columns={columnsListOrganizations}
           data={listOrganizations}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
+          {/* <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />
-          </Button>
-          <div className="">
-            <CustomButton
-              onClick={() => navigate("/organizations/create")}
-              label="Nouvelle org."
-              className="rounded-md"
-              // statusLoading={true}
-            />
-          </div>
+          </Button> */}
+          <CustomButton
+            onClick={() => {
+              ("");
+            }}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
+          <CustomButton
+            onClick={() => navigate("/organizations/create")}
+            label="Nouvelle org."
+            className="rounded-md "
+            // statusLoading={true}
+          />
         </DataTable>
         <CustomPagination
           dataPagination={dataPagination.pagination}

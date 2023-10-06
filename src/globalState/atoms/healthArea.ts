@@ -1,4 +1,4 @@
-import { selector } from "recoil";
+import { atom, selector } from "recoil";
 import { IHealthArea } from "../../types/stateSchema/healthArea";
 import { HEALTH_AREAS_KEYS, } from "../keys";
 import { getAPI } from "../../utils/fetchData";
@@ -13,7 +13,6 @@ export const getListHealthAreasByTerritory = selector({
         const { token } = get(userAuthenticatedState)
         if (territoryId === null) return [];
         const res = await getAPI<IFetchData<IHealthArea[]> | undefined>(`listzon/${territoryId}`, token);
-
         if (res === undefined) {
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {
@@ -23,5 +22,13 @@ export const getListHealthAreasByTerritory = selector({
         }
     },
 });
+
+export const currentHalthAreaIDState = atom<string | null>({
+    key: HEALTH_AREAS_KEYS.CURRENT_HEALTH_AREA_ID_STATE,
+    default: null,
+});
+
+
+
 
 

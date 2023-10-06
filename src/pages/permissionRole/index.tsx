@@ -12,6 +12,7 @@ import { getRoles } from "@/globalState/atoms";
 import { IRoles } from "@/types/stateSchema/permissionRole";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateRole from "../createRole";
+import { CustomButton } from "@/components/core/Button";
 
 function Roles() {
   const allRoles = useRecoilValue(getRoles) as unknown as IRoles[];
@@ -24,9 +25,12 @@ function Roles() {
           columns={columnsListRoles}
           data={allRoles || []}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
-            <FiRefreshCcw />
-          </Button>
+          <CustomButton
+            onClick={() => ""}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
           <DialogCustom
             btnText="Nouveau role"
             mainTitle="Création d'un nouveau role"

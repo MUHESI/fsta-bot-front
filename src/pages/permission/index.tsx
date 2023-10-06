@@ -12,6 +12,7 @@ import { getPermissions } from "@/globalState/atoms";
 import { IPermission } from "@/types/stateSchema/permission";
 import CreatePermission from "../createPermission";
 import DialogCustom from "@/components/core/DialogCustom";
+import { CustomButton } from "@/components/core/Button";
 
 function Permissions() {
   const listPermissions = useRecoilValue(
@@ -26,13 +27,12 @@ function Permissions() {
           columns={columnsListPermissions}
           data={listPermissions || []}
         >
-          <Button
-            variant="outline"
-            className="ml-auto rounded-full"
-            onClick={() => {}}
-          >
-            <FiRefreshCcw />
-          </Button>
+          <CustomButton
+            onClick={() => ""}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
 
           <DialogCustom
             btnText="Nouvelle permission"

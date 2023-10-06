@@ -36,7 +36,7 @@ function RangerSlider({ className, typeRanger, data }: IRangerSliderProps) {
 export default RangerSlider;
 
 function LegendRangerSlider() {
-  return <div className="border-b mb-2 text-xs pb-1">Legend</div>;
+  return <div className="border-b mb-2 text-xs pb-1 text-gray-500">Legend</div>;
 }
 
 export { LegendRangerSlider };

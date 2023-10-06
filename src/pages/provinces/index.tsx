@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListProvinces } from "./columns";
 import { useRecoilValue } from "recoil";
 import { getProvincesState } from "@/globalState/atoms";
@@ -12,6 +11,7 @@ import { IProvince } from "@/types/stateSchema/province";
 import SkeletonAnimation from "@/components/skeleton";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateProvince from "../createProvince";
+import { CustomButton } from "@/components/core/Button";
 
 function Provinces() {
   const allProvinces = useRecoilValue(
@@ -25,9 +25,12 @@ function Provinces() {
         columns={columnsListProvinces}
         data={allProvinces || []}
       >
-        <Button variant="outline" className="ml-auto rounded-md ">
-          <FiRefreshCcw />
-        </Button>
+        <CustomButton
+          onClick={() => ""}
+          label="Actualiser"
+          className="rounded-md"
+          // statusLoading={true}
+        />
         <DialogCustom
           btnText="Nouvelle province"
           mainTitle="Création de la nouvelle province"
