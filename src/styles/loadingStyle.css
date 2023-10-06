@@ -57,3 +57,12 @@
         transform: rotate(360deg) scale(0.5);
     }
 }
+
+
+/* .box{
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #5BDCF1;
+} */
+

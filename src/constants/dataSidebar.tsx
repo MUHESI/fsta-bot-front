@@ -1,21 +1,18 @@
 import { ReactNode } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FiCreditCard } from "react-icons/fi";
-import { BsCurrencyDollar, BsKanban, BsShield } from "react-icons/bs";
-import { IoMdAnalytics, IoMdContacts } from "react-icons/io";
+import { BsCurrencyDollar, BsShield } from "react-icons/bs";
+import { ImHome3 } from "react-icons/im";
+// import { IoMdAnalytics, IoMdContacts } from "react-icons/io";
 import { AG_URL } from "./constants";
 import { GLOBAL_PERMISSIONS } from "../types/permissions";
-import {
-  MdCreateNewFolder,
-  MdCrisisAlert,
-  MdOutlineEditLocationAlt,
-} from "react-icons/md";
+import { MdCreateNewFolder } from "react-icons/md";
 import { FcOrganization } from "react-icons/fc";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 
 type MainMemnu =
-  | "Dashboard"
+  | "Aperçu"
   | "Services"
   | "ANALYSE"
   | "UTILISATEURS"
@@ -25,7 +22,7 @@ type MainMemnu =
 
 type LabelMenus =
   | "GAPS"
-  | "GAPS GLOBALS"
+  | "DASHBOARD"
   | "VULNERABILITES"
   | "ALERTES"
   | "Organisations"
@@ -58,32 +55,32 @@ export interface IDataMenu {
 export const dataMenus: IDataMenu[] = [
   {
     mainIcon: "",
-    mainMenu: "Dashboard",
+    mainMenu: "Aperçu",
     menus: [
       {
-        label: "GAPS GLOBALS",
-        path: "/gaps-dashboard",
-        icon: <MdOutlineEditLocationAlt />,
+        label: "DASHBOARD",
+        path: "/dashboard",
+        icon: <ImHome3 />,
         permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
         subMenus: [
-          {
-            label: "Gestion gaps",
-            icon: <AiOutlineShoppingCart />,
-            path: "/",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Creer",
-            icon: <AiOutlineShoppingCart />,
-            path: "/",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
-          {
-            label: "Update",
-            icon: <AiOutlineShoppingCart />,
-            path: "/",
-            permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
-          },
+          // {
+          //   label: "Gestion gaps",
+          //   icon: <AiOutlineShoppingCart />,
+          //   path: "/",
+          //   permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          // },
+          // {
+          //   label: "Creer",
+          //   icon: <AiOutlineShoppingCart />,
+          //   path: "/",
+          //   permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          // },
+          // {
+          //   label: "Update",
+          //   icon: <AiOutlineShoppingCart />,
+          //   path: "/",
+          //   permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
+          // },
         ],
       },
     ],

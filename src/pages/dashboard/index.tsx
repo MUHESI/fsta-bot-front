@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Grid } from "@mui/material";
 
 import RangeDateComponent from "@/components/shared/RangeDateComponent";
@@ -13,56 +13,27 @@ import { MainTitle, SelectField } from "./components";
 import { SelectCommon } from "@/components/core/select";
 import ListGapsByDPS from "./ListGaps";
 import { ArcMapView } from "@/components/arcGis-components/arcMapView";
+import {
+  getEpidemioLogicWeek,
+  getYearsInInterval,
+} from "@/constants/constants";
+import { useRecoilValue } from "recoil";
+import { getMaladies, getProvincesState } from "@/globalState/atoms";
+import { IProvince } from "@/types/stateSchema/province";
+import SkeletonAnimation from "@/components/skeleton";
+import { LastHeading } from "@/components/core/Heading";
+import { IMaladie } from "@/types/stateSchema/maladie";
+import RangerSlider, {
+  LegendRangerSlider,
+  RANGE_CLASS,
+} from "@/components/core/RangerSlider";
 
-const dataYear = [
-  { id: 1, year: 2000 },
-  { id: 1, year: 2001 },
-  { id: 1, year: 2002 },
-  { id: 1, year: 2003 },
-  { id: 1, year: 2004 },
-  { id: 1, year: 2005 },
-  { id: 1, year: 2022 },
-  { id: 1, year: 2023 },
-];
+function Home() {
+  const allProvinces = useRecoilValue(
+    getProvincesState
+  ) as unknown as IProvince[];
+  const allMaladies = useRecoilValue(getMaladies) as unknown as IMaladie[];
 
-const dataDPS = [
-  {
-    id: 1,
-    DPS: "SUD-KIVU",
-  },
-  {
-    id: 1,
-    DPS: "NORD-KIVU",
-  },
-  {
-    id: 1,
-    DPS: "ITURI",
-  },
-  {
-    id: 1,
-    DPS: "KATANGA",
-  },
-];
-const dataMaladies = [
-  {
-    id: 1,
-    label: "CHOLERA",
-  },
-  {
-    id: 1,
-    label: "ROUGEOLE",
-  },
-  {
-    id: 1,
-    label: "PALUDISME",
-  },
-  {
-    id: 1,
-    label: "AUTRES",
-  },
-];
-
-function Dashboard() {
   const commonClassMain = "border my-2 p-1 rounded";
 
   return (
@@ -88,49 +59,50 @@ function Dashboard() {
                   <div>
                     <div className="flex gap-2">
                       <SelectField
-                        data={dataYear}
-                        label={"Choisir l'année epid."}
+                        data={getYearsInInterval(2022, 2030)}
                         onChange={(e: any) => {
                           console.clear();
                           console.log("e", e);
                         }}
+                        label={"Choisir l'année epid."}
                         tooltipTitle="Année epidemiologie"
-                        keyObject="year"
+                        keyObject="value"
                         value={"..."}
                       />
                       <SelectField
-                        data={dataYear}
+                        data={getEpidemioLogicWeek()}
                         label={"Sem. epid."}
                         onChange={(e: any) => {
                           console.clear();
                           console.log("e", e);
                         }}
                         tooltipTitle="La semaine epidemiologie"
-                        keyObject="year"
+                        keyObject="value"
                         value={"..."}
                       />
                     </div>
                     <div className="flex gap-2">
                       <SelectField
-                        data={dataDPS}
+                        data={allProvinces}
+                        defaultValue={{ label: "ALL", value: "ALL" }}
                         label={"DPS"}
                         onChange={(e: any) => {
                           console.clear();
                           console.log("e", e);
                         }}
                         tooltipTitle="Choisir le DPS"
-                        keyObject="DPS"
+                        keyObject="name"
                         value={"..."}
                       />
                       <SelectField
-                        data={dataMaladies}
-                        label={"Maladie"}
+                        data={allMaladies}
+                        defaultValue={{ label: "ALL", value: "ALL" }}
                         onChange={(e: any) => {
                           console.clear();
                           console.log("e", e);
                         }}
                         tooltipTitle="Choisir la maladie"
-                        keyObject="label"
+                        keyObject="name"
                         value={"..."}
                       />
                     </div>
@@ -184,14 +156,27 @@ function Dashboard() {
                 </Grid>
               </Grid>
               <section className={commonClassMain}>
-                <ChartComponent />
+                {/* <ChartComponent /> */}
               </section>
             </section>
           </Grid>
           <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
             <section className={commonClassMain}>
               <MainTitle title="Status gaps" />
-              <PieChart />
+              <LegendRangerSlider />
+              {/* <PieChart /> */}
+              {allProvinces?.map((item: IProvince, key: number) => (
+                <div key={key}>
+                  <RangerSlider
+                    data={{
+                      label: item.name,
+                      lNumber: 677,
+                      value: `86`,
+                    }}
+                    typeRanger={RANGE_CLASS.brightOrange}
+                  />
+                </div>
+              ))}
             </section>
 
             <section className={commonClassMain}>
@@ -211,4 +196,13 @@ function Dashboard() {
   );
 }
 
+function Dashboard() {
+  return (
+    <div>
+      <Suspense fallback={<SkeletonAnimation className="px-5" />}>
+        <Home />
+      </Suspense>
+    </div>
+  );
+}
 export default Dashboard;

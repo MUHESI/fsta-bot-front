@@ -483,3 +483,31 @@ export const dataGaProvince: IGapProvince[] = [
         acteur: 'MUSANOVI',
     },
 ]
+
+
+// DASHBOARD
+export const getEpidemioLogicWeek = (): { id: number | string, value: number }[] => {
+    let count = 57
+    let data = []
+    for (let i = 0; i <= count; i++) {
+        data.push({
+            id: i + 1,
+            value: i + 1
+        })
+    }
+    return data
+}
+
+export const getYearsInInterval = (minYear: number, maxYear: number): { id: number | string, value: number }[] => {
+    let count = 57
+    minYear = minYear
+    let data = []
+    for (let i = minYear; i <= maxYear; i++) {
+        data.push({
+            id: i,
+            value: i
+        })
+
+    }
+    return data
+}

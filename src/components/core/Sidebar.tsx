@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdChevronRight, MdOutlineCancel } from "react-icons/md";
 import {
   dataMenus,
@@ -20,6 +20,7 @@ import { HandlePermission } from "@/services/permissions";
 import { user_test } from "@/routes/requireAuth";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   // RECOIL
   const [activeMenu, setActiveMenu] = useRecoilState(activeMenuState);
   const screenSize = useRecoilValue(screenSizeState);
@@ -113,16 +114,21 @@ const Sidebar = () => {
                         subMenuOpen.index === idx &&
                         subMenuOpen.status === true
                       ) {
-                        return setSubMenuOpen({
+                        setSubMenuOpen({
                           ...subMenuOpen,
                           status: !subMenuOpen.status,
                         });
                       } else {
-                        return setSubMenuOpen({
+                        setSubMenuOpen({
                           labelMenu: menu.label,
                           index: idx,
                           status: true,
                         });
+                      }
+                      // ROUTES;
+                      if (menu.path !== "/") {
+                        if (menu.path === "/dashboard") return navigate(`/`);
+                        else return navigate(menu.path);
                       }
                     }}
                     style={{

@@ -11,8 +11,9 @@ export interface IPropsCustomSelectField<TData> {
   keyObject: keyof TData;
   disabled?: boolean;
   tooltipTitle?: string;
-  label: string;
+  label?: string;
   value: string | number;
+  defaultValue?: { label: string; value: string | number };
   onChange: (e: any) => void;
 }
 
@@ -23,6 +24,7 @@ export function SelectField<TData>({
   onChange,
   tooltipTitle,
   label,
+  defaultValue,
 }: IPropsCustomSelectField<TData>) {
   return (
     <Tooltip title={tooltipTitle}>
@@ -37,9 +39,15 @@ export function SelectField<TData>({
         focus-visible:ring-offset-2 
         disabled:cursor-not-allowed disabled:opacity-50 px-3 py-1  text-gray-400 rounded   text-[0.3em]"
       >
-        <option value={""} className="">
-          {label}
-        </option>
+        {defaultValue ? (
+          <option value={defaultValue.value} className="">
+            {defaultValue.label}
+          </option>
+        ) : (
+          <option value={""} className="">
+            {label}
+          </option>
+        )}
         {data?.map((item: any, key: number) => (
           <option
             key={key}

@@ -3,7 +3,7 @@ import SkeletonAnimation from "@/components/skeleton";
 import TabMenuCustom from "@/components/core/tabMenuCustom";
 import ListTypeOrganizations from "./typeOrganisation";
 import ListOrganizations from "./organisation";
-import ListIndications from "./indication";
+import ListIndicators from "./indicators";
 
 function ScreenManagerOrg() {
   // HANDLE TABS
@@ -12,14 +12,14 @@ function ScreenManagerOrg() {
   return (
     <div className="pt-4">
       <TabMenuCustom
-        dataTabs={["Organisations", "Type Organisation", "Indications"]}
+        dataTabs={["Organisations", "Type Organisation", "Indicateurs"]}
         handleTabId={setTabId}
         defeaultTabId={tabId}
       />
       <div className=" m-4 ">
         {tabId === 0 && <ListOrganizations />}
         {tabId === 1 && <ListTypeOrganizations />}
-        {tabId === 2 && <ListIndications />}
+        {tabId === 2 && <ListIndicators />}
       </div>
     </div>
   );
