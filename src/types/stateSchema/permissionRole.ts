@@ -1,7 +1,7 @@
 import { IBaseInterfaceSchema } from "../commonTypes";
 
 
-export interface IRoles extends IBaseInterfaceSchema {
+export interface IRole extends IBaseInterfaceSchema {
     name: string;
 }
 

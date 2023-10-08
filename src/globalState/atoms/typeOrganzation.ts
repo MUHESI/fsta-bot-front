@@ -4,6 +4,7 @@ import { ORGANIZATIONS_KEYS, PROVINCE_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
+import { BsJoystick } from "react-icons/bs";
 
 export const getTypeOrganizations = selector({
     key: ORGANIZATIONS_KEYS.GET_ORGANIZATIONS,
@@ -19,3 +20,5 @@ export const getTypeOrganizations = selector({
         }
     },
 });
+
+

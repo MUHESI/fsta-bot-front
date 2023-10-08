@@ -52,7 +52,7 @@ function ListProvinces() {
   return (
     <div>
       <div className="p-1 text-main-color-dark" data-testid="main-title">
-        <LastHeading title={"Provinces"} />
+        {/* <LastHeading title={"Provinces"} /> */}
       </div>
       <div data-testid="list-provinces">
         <Suspense fallback={<SkeletonAnimation className="px-5" />}>

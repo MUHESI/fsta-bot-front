@@ -17,9 +17,8 @@ export const getListHealthAreasByTerritory = selector({
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {
             return { error: res }
-        } else {
-            return res?.data?.data ?? []
-        }
+        } else return res?.data?.data ?? []
+
     },
 });
 

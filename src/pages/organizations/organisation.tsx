@@ -18,6 +18,7 @@ function Organizations() {
   const listOrganizations = useRecoilValue(
     getOrganizations
   ) as unknown as IOrganization[];
+
   return (
     <div>
       <div className="p-5">

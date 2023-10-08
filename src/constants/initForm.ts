@@ -5,13 +5,14 @@ import { ICreateProvince } from "../types/stateSchema/province";
 import { ICreateMenage } from "../types/stateSchema/menage";
 // import { GLOBAL_PERMISSIONS } from "@/types/permissions";
 import { ICreateTerritory } from "../types/stateSchema/territory";
-import { ICreatePermission } from "@/types/stateSchema/permission";
+import { ICreatePermission, ICreateAffectation } from "@/types/stateSchema/permission";
 import { ICreateOrganization } from "@/types/stateSchema/organization";
 import { ICreateTypeOrganization } from "../types/stateSchema/organization";
 import { ICreateIndication } from "@/types/stateSchema/indication";
 import { ICreateMaladie } from "@/types/stateSchema/maladie";
 import { ICreateMedicament } from "@/types/stateSchema/medicament";
 import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
+import { ICreateStructureHealth } from "@/types/stateSchema/StructureHealth";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -89,4 +90,31 @@ export const INIT_FORM_CREATE_MEDICAMENT: ICreateMedicament = {
 }
 export const INIT_FORM_CREATE_TYPE_PERSONNEL: ICreateTypePersonnel = {
     name: '',
+}
+export const INIT_FORM_CREATE_STRUCTURE: ICreateStructureHealth = {
+    name: '',
+    contact: '',
+    aireid: ''
+}
+
+const CREATE_AFFECTION: ICreateAffectation = {
+    orgid: "",
+    roleid: "",
+    userid: "",
+
+}
+export const INIT_FORM_CREATE_AFFECTATION: {
+    createAffectation: ICreateAffectation;
+    givePermission: {
+        affectationid: string;
+        permissionid: string;
+    }
+} = {
+    createAffectation: CREATE_AFFECTION,
+    givePermission: {
+        affectationid: "",
+        permissionid: "",
+    }
+
+
 }

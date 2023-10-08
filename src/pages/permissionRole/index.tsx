@@ -9,13 +9,13 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { getRoles } from "@/globalState/atoms";
-import { IRoles } from "@/types/stateSchema/permissionRole";
+import { IRole } from "@/types/stateSchema/permissionRole";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateRole from "../createRole";
 import { CustomButton } from "@/components/core/Button";
 
 function Roles() {
-  const allRoles = useRecoilValue(getRoles) as unknown as IRoles[];
+  const allRoles = useRecoilValue(getRoles) as unknown as IRole[];
 
   return (
     <div>

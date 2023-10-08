@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IRoles } from "../../types/stateSchema/permissionRole";
+import { IRole } from "../../types/stateSchema/permissionRole";
 import { PERMISSIONS_ROLES_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
@@ -10,7 +10,7 @@ export const getRoles = selector({
     key: PERMISSIONS_ROLES_KEYS.GET_ROLES,
     get: async ({ get }) => {
         const { token } = get(userAuthenticatedState)
-        const res = await getAPI<IFetchData<IRoles[]> | undefined>(`role/list`, token);
+        const res = await getAPI<IFetchData<IRole[]> | undefined>(`role/list`, token);
 
         if (res === undefined) {
             return { error: new Error('res is undefined') }

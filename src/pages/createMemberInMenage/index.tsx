@@ -13,7 +13,7 @@ import AlertMessage, {
 import CreateMenage from "../createMenage";
 import DialogCustom from "@/components/core/DialogCustom";
 
-function CreateVulnerabilty() {
+function AddMemberInMenage() {
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const message =
@@ -29,7 +29,7 @@ function CreateVulnerabilty() {
   return (
     <div className="">
       <div className="p-1 flex justify-between text-main-color-dark">
-        <LastHeading title={"Ajouter un vulnerabilité"} />
+        <LastHeading title={"Ajout d'un memebre dans un ménage"} />
         <DialogCustom
           btnText="Nouveau menage"
           mainTitle="Création d'un menage"
@@ -75,6 +75,16 @@ function CreateVulnerabilty() {
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <CommonSelectGap
+                  data={provinces}
+                  required={true}
+                  keyObject="label"
+                  label="Selectionner le menage"
+                  onChange={() => console.log("first")}
+                  value={""}
+                />
+              </div>
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <CommonInputGap
                   required={true}
@@ -275,4 +285,4 @@ function CreateVulnerabilty() {
   );
 }
 
-export default CreateVulnerabilty;
+export default AddMemberInMenage;

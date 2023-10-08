@@ -19,6 +19,8 @@ import { IProvince } from "@/types/stateSchema/province";
 import DialogCustom from "@/components/core/DialogCustom";
 import { IHealthArea } from "@/types/stateSchema/healthArea";
 import CreateHealthArea from "../createHealthArea";
+import CreateStructureHealt from "../createStructureHealth";
+import { IStructureHealth } from "@/types/stateSchema/StructureHealth";
 
 function Structure() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
@@ -37,7 +39,7 @@ function Structure() {
 
   const allListStructureHealth = useRecoilValue(
     getListStuctureHealthByAreas
-  ) as unknown as IHealthArea[];
+  ) as unknown as IStructureHealth[];
 
   return (
     <div>
@@ -80,7 +82,7 @@ function Structure() {
               mainTitle="Création d'une nouvelle structure"
               width="sm"
             >
-              <CreateHealthArea />
+              <CreateStructureHealt />
             </DialogCustom>
           </DataTable>
           <CustomPagination

@@ -9,5 +9,9 @@ export interface IPermission extends IBaseInterfaceSchema {
 export type ICreatePermission = {
     name: GLOBAL_PERMISSIONS | ''
     psedo: string;
-
+};
+export type ICreateAffectation = {
+    orgid: string;
+    roleid: string;
+    userid: string;
 };

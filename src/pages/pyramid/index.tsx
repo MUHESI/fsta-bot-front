@@ -14,7 +14,7 @@ function ScreenManagerOrg() {
     <div className="pt-1">
       <TabMenuCustom
         dataTabs={[
-          "Aperçu global",
+          "Structures de santé",
           "Provinces",
           "Territoires",
           "Aires de sante",

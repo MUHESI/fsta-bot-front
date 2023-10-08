@@ -1,25 +1,27 @@
 import React from "react";
 
-interface Iprops<T extends { label: string }> {
-  data: T[];
-  saveData: (data: T) => void;
+interface Iprops<TData> {
+  data: TData[];
+  saveData: (data: TData) => void;
   // label: keyof T | string;
   label: string;
   required?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
+  keyObject: keyof TData;
 }
 
 // TODO:: Improve later label
-export function CustomChipBtn<T extends { label: string }>({
+export function CustomChipBtn<TData>({
   data,
   saveData,
   label,
   required,
   disabled,
   children,
-}: Iprops<T>) {
-  const handlerItem = (item: T) => saveData(item);
+  keyObject,
+}: Iprops<TData>) {
+  const handlerItem = (item: TData) => saveData(item);
 
   return (
     <div className="  my-4">
@@ -28,13 +30,13 @@ export function CustomChipBtn<T extends { label: string }>({
         <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
       </label>
       <div className="border rounded-lg">
-        {data.map((item: T, key: number) => (
+        {data.map((item: any, key: number) => (
           <span className="duration-300 inline-flex" key={key}>
             <button
               onClick={() => !disabled && handlerItem(item)}
               className=" text-white m-2 p-1 flex items-center gap-4  justify-between  border border-main-color bg-main-color rounded-full"
             >
-              <span>{item.label}</span>
+              <span>{` ${item[keyObject]}`}</span>
               <span className="text-2xl cursor-pointer duration-300 hover:text-main-color-dark">
                 {children}
               </span>

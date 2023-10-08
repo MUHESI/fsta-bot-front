@@ -10,14 +10,12 @@ import CreateOrganization from "../pages/createOrganization";
 import LoadingPage from "../pages/loading";
 import ListProvinces from "@/pages/provinces";
 import CreateTerritory from "../pages/createTerritory";
-import ListTerritories from "@/pages/territories";
-import ListHealthAreas from "../pages/healthAreas";
 import CreateGap from "../pages/createGap";
 import CreateScoreCard from "@/pages/createGap/formScore";
 import CreateAlert from "../pages/createAlert";
 import ListAlerts from "../pages/Alerts";
 import ListRoles from "../pages/permissionRole";
-import CreateVulnerabilty from "@/pages/createVulnerability";
+import AddMemberInMenage from "@/pages/createMemberInMenage";
 import { GLOBAL_PERMISSIONS as PERMI } from "@/types/permissions";
 import ListPermissions from "@/pages/permission";
 import ListGaps from "@/pages/gaps";
@@ -26,6 +24,7 @@ import ListMedicaments from "@/pages/medicaments";
 import ListTypePersonnels from "@/pages/typePersonnel";
 import ListMaladies from "@/pages/maladies";
 import Pyramid from "@/pages/pyramid/";
+import ListUsersAssignments from "@/pages/permission/usersAssignments";
 
 function GlobalRoutes() {
   return (
@@ -83,8 +82,9 @@ function GlobalRoutes() {
 
           {/* VULNERABILTY */}
           <Route
-            path="/vulnerabilities/create"
-            element={<CreateVulnerabilty />}
+            // path="/vulnerabilities/create"
+            path="/menages/addMember"
+            element={<AddMemberInMenage />}
           />
           <Route path="/alerts/" element={<ListAlerts />} />
           {/* <Route
@@ -111,6 +111,11 @@ function GlobalRoutes() {
         >
           <Route path="/permissions" element={<ListPermissions />} />
         </Route>
+        <Route
+          path="/permissions/assignments"
+          element={<ListUsersAssignments />}
+        />
+
         <Route
           element={<RequireAuth alowedPermissions={PERMI.READ_MALADIES} />}
         >

@@ -255,6 +255,7 @@ function CreateMenage() {
                   label="Selectionner les critères de vulnérabilité"
                   saveData={removeItemFromDataToSelect}
                   required={true}
+                  keyObject={"label"}
                 >
                   <AiFillPlusCircle />
                 </CustomChipBtn>
@@ -264,6 +265,7 @@ function CreateMenage() {
                   data={dataSelected}
                   label="Les critères de vulnérabilité Selectionnés"
                   saveData={removeItemFromDataSelected}
+                  keyObject={"label"}
                   // required={true}
                 >
                   <AiFillCloseCircle />

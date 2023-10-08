@@ -11,22 +11,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { ITerritory } from "@/types/stateSchema/territory";
+import { IStructureHealth } from "@/types/stateSchema/StructureHealth";
 
-export const columnsListHealthAreas: ColumnDef<ITerritory>[] = [
+export const columnsListHealthAreas: ColumnDef<IStructureHealth>[] = [
   {
     accessorKey: "name",
     header: "NOMS",
   },
-  // {
-  //   accessorKey: "status",
-  //   header: "STATUS",
-  //   cell: ({ row }: any) => (
-  //     <div className="font-semibold text-green-600">
-  //       {row.getValue("status")}
-  //     </div>
-  //   ),
-  // },
+  {
+    accessorKey: "contact",
+    header: "TELEPHONE",
+  },
   {
     accessorKey: "created_at",
     header: "DATE CREATION",

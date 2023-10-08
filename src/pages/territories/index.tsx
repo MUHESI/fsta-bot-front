@@ -76,7 +76,7 @@ function ListTerritories() {
   return (
     <div>
       <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Territoires par province"} />
+        {/* <LastHeading title={"Territoires par province"} /> */}
       </div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
         <Territories />

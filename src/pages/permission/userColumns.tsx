@@ -10,11 +10,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { IUser } from "@/types/stateSchema/user";
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
-import { IRole } from "@/types/stateSchema/permissionRole";
+import DialogCustom from "@/components/core/DialogCustom";
+import ShowPermissions from "../showPermissions";
 
-export const columnsListRoles: ColumnDef<IRole>[] = [
+export const columnsListUsers: ColumnDef<IUser>[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -28,10 +30,34 @@ export const columnsListRoles: ColumnDef<IRole>[] = [
     ),
   },
   {
-    accessorKey: "name",
+    accessorKey: "full_name",
     header: "NOMS",
+    cell: ({ row }: { row: { [key: string]: any } }) => (
+      <NavLink
+        to={`/users/profile/${row.getValue("id")}`}
+        className={`cursor-pointer font-normal`}
+      >
+        {row.getValue("full_name")}
+      </NavLink>
+    ),
+  },
+  {
+    accessorKey: "organization",
+    header: "ORGANISATION",
+    cell: ({ row }: { row: { [key: string]: any } }) => {
+      const user: any = row.original;
+      const {
+        affectation_p: { organisation },
+      } = user;
+
+      return <div>{organisation?.name} </div>;
+    },
   },
 
+  {
+    accessorKey: "phone",
+    header: "PHONE",
+  },
   {
     accessorKey: "status",
     header: "STATUS",
@@ -40,6 +66,23 @@ export const columnsListRoles: ColumnDef<IRole>[] = [
         {row.getValue("status")}
       </div>
     ),
+  },
+  {
+    accessorKey: "permissions",
+    header: "PERMISSIONS",
+    cell: ({ row }: any) => {
+      return (
+        <div>
+          <DialogCustom
+            btnText="Voir"
+            mainTitle="Affectations du l'utilisateur"
+            width="sm"
+          >
+            <ShowPermissions currentUser={row.original} />
+          </DialogCustom>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "ACTIONS",
