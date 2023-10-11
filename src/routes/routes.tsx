@@ -19,6 +19,7 @@ import AddMemberInMenage from "@/pages/createMemberInMenage";
 import { GLOBAL_PERMISSIONS as PERMI } from "@/types/permissions";
 import ListPermissions from "@/pages/permission";
 import ListGaps from "@/pages/gaps";
+import DetailGap from "@/pages/detailGap";
 import ListCrises from "@/pages/crises";
 import ListMedicaments from "@/pages/medicaments";
 import ListTypePersonnels from "@/pages/typePersonnel";
@@ -40,7 +41,7 @@ function GlobalRoutes() {
           <Route path="/" element={<Dashboard />} />
           {/* <Route path="/protected" element={<Home />} /> */}
           <Route path="/users" element={<ListUsers />} />
-          <Route path="/users/profile/:id" element={<ProfileUser />} />
+          <Route path="/users/profile/:idUser" element={<ProfileUser />} />
           <Route
             path="/organizations/:screenId"
             element={<ScreenManagerOrg />}
@@ -63,10 +64,13 @@ function GlobalRoutes() {
 
           {/* GAPS */}
 
+          <Route element={<RequireAuth alowedPermissions={PERMI.READ_GAP} />}>
+            <Route path="/gaps/detail/:id" element={<DetailGap />} />
+          </Route>
           <Route
             element={<RequireAuth alowedPermissions={PERMI.READ_ALL_GAPS} />}
           >
-            <Route path="/gaps/" element={<ListGaps />} />
+            <Route path="/gaps" element={<ListGaps />} />
           </Route>
           <Route element={<RequireAuth alowedPermissions={PERMI.CREATE_GAP} />}>
             <Route path="/gaps/create/" element={<CreateGap />} />

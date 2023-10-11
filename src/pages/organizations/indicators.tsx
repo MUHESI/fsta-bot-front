@@ -32,7 +32,7 @@ function Indicators() {
           </Button>
           <DialogCustom
             btnText="Création d'indicateur"
-            mainTitle="Création d'une nouveau indicateur"
+            mainTitle="Création d'un nouveau indicateur"
             width="sm"
           >
             <CreateIndication />

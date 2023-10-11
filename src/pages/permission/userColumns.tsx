@@ -14,7 +14,7 @@ import { IUser } from "@/types/stateSchema/user";
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
-import ShowPermissions from "../showPermissions";
+import AddPermissions from "../addPermissions";
 
 export const columnsListUsers: ColumnDef<IUser>[] = [
   {
@@ -74,11 +74,13 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
       return (
         <div>
           <DialogCustom
-            btnText="Voir"
-            mainTitle="Affectations du l'utilisateur"
+            btnText="Gerer"
+            mainTitle="Gestion des permissions"
             width="sm"
           >
-            <ShowPermissions currentUser={row.original} />
+            <div className="">
+              <AddPermissions currentUser={row.original} />
+            </div>
           </DialogCustom>
         </div>
       );

@@ -21,7 +21,14 @@ function UsersAssignments() {
           columns={columnsListUsers}
           data={listUsers}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
+          <Button
+            onClick={() => {
+              console.clear();
+              console.log("listUsers", listUsers);
+            }}
+            variant="outline"
+            className="ml-auto rounded-full"
+          >
             <FiRefreshCcw />
           </Button>
         </DataTable>

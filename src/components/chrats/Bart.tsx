@@ -79,17 +79,17 @@ export function BarChart({ bgColor }: { bgColor?: string }) {
     }
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowStatus(true);
-    }, 50);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setShowStatus(true);
+  //   }, 50);
+  // }, []);
 
   return (
     <div style={{ width: "100%" }}>
-      {showStatus && (
-        <Bar width={"100%"} height={"250px"} options={options} data={data} />
-      )}
+      <Bar width={"100%"} height={"250px"} options={options} data={data} />
+      {/* {showStatus && (
+      )} */}
     </div>
   );
 }

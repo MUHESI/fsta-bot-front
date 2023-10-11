@@ -64,7 +64,7 @@ function SelectCommon<TData>({
   onChange: (e: any) => void;
 }) {
   return (
-    <div className="w-full p-0 m-0">
+    <div className="flex-auto 0 m-0">
       <label className="text-sm m-0">
         {label}
         <span className="text-red-500 m-0"> {`${required ? "*" : ""}`} </span>

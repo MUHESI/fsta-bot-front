@@ -37,11 +37,22 @@ export const patchAPI = async <TData>(url: string, post: TData) => {
     });
     return res;
 };
-export const putAPI = async <TData>(url: string, post: TData) => {
-    const res = await axios({
+export const putAPI = async<Tfecth, TData>(url: string, post: TData, token?: string) => {
+    const res: Tfecth = await axios({
         method: "put",
         url: `${BASE_URL_API}/api/${url}`,
         data: post,
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    return res;
+};
+
+export const updateAPI = async<Tfecth, TData>(url: string, post: TData, token?: string) => {
+    const res: Tfecth = await axios({
+        method: "update",
+        url: `${BASE_URL_API}/api/${url}`,
+        data: post,
+        headers: { Authorization: `Bearer ${token}` },
     });
     return res;
 };

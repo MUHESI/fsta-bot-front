@@ -107,13 +107,13 @@ export const INIT_FORM_CREATE_AFFECTATION: {
     createAffectation: ICreateAffectation;
     givePermission: {
         affectationid: string;
-        permissionid: string;
+        permissionid: string[];
     }
 } = {
     createAffectation: CREATE_AFFECTION,
     givePermission: {
         affectationid: "",
-        permissionid: "",
+        permissionid: [],
     }
 
 

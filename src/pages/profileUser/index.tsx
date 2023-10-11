@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { AG_URL } from "@/constants/constants";
 import { Input } from "@/components/ui/input";
@@ -11,14 +11,129 @@ import { CgOrganisation } from "react-icons/cg";
 import { MdSettings } from "react-icons/md";
 import { RiDeleteBin2Fill, RiLockPasswordFill } from "react-icons/ri";
 import { Grid } from "@mui/material";
+import { useRecoilValue } from "recoil";
+import { userAuthenticatedState } from "@/globalState/atoms";
+import LocalStorage, {
+  keyStorage,
+} from "@/services/storage/localSTorageHandler";
+import { IAutherUSer } from "@/types/stateSchema/auth";
+import { IMetadataAuthUser } from "@/types/storageTypes";
+import { IUser } from "@/types/stateSchema/user";
+import ShowPermissionUser from "../showPermissionUser";
+import SkeletonAnimation from "@/components/skeleton";
+import { getInfoUser } from "@/globalState/atoms/user";
+import { CommonSelectGap, SelectCommon } from "@/components/core/select";
+import { IStateLoading } from "@/types/stateSchema/loading";
+import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
+import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
+import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
+import { postAPI, putAPI, updateAPI } from "@/utils/fetchData";
+import { IBaseData, IFetchData } from "@/types/commonTypes";
+import { CustomButton } from "@/components/core/Button";
+import { useParams } from "react-router";
 
-function ProfileUser() {
+function ShowProfileUser() {
+  const { idUser } = useParams();
   // TODO: Improve this later
   const commonClass = "border rounded-lg my-5 ";
   const commonClassSection = `${commonClass} pb-5`;
+  // DATA
+  const user = useRecoilValue(userAuthenticatedState);
+  const currentUser_ = useRecoilValue(
+    getInfoUser({ idUser: user.id, token: user.token })
+  ) as unknown as any;
+  // const currentUser_ = "useRecoilValue(getInfoUser) as unknown as any";
+
+  const [currentUser, setCurrentUser] = useState<IUser | any>({});
+
+  const checkAuthUser = () => {
+    const dataSaved = LocalStorage.getItem<{
+      data: IAutherUSer;
+      metadata: IMetadataAuthUser | null;
+    }>(keyStorage.AFIAGAP_AUTH_USER);
+    if (dataSaved === null) {
+      return;
+    } else {
+      const { data } = dataSaved;
+      console.clear();
+      console.log("data, ", data);
+      // setcurrentUser(data);
+    }
+  };
+
+  useEffect(() => {
+    if (Object.keys(currentUser_).length > 0) {
+      setCurrentUser(currentUser_);
+    }
+    checkAuthUser();
+  }, [currentUser_]);
 
   const commonClassResume =
     "flex justify-start w-full gap-5 px-5 py-2  cursor-pointer items-center text-base hover:bg-white-hover hover:text-accent-foreground";
+
+  const [infoLoading, setInfoLoading] = useState<IStateLoading>({
+    updateProfile: {
+      status: false,
+      msg: "",
+    },
+  });
+
+  const handleSubmitUpdateProfile = async () => {
+    if (currentUser.full_name.trim().length < 3) {
+      return showToast({
+        msg: `Remplissez tous les champs`,
+        type: StatusToast.DARK,
+      });
+    }
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updateProfile", lKey: "status" },
+          true
+        )
+      );
+      const { data } = await putAPI<IFetchData<IBaseData>, any>(
+        "users/editprofile",
+        currentUser,
+        user.token
+      );
+      //
+      console.clear();
+      console.log("data", data);
+      //
+      if (data) {
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "updateProfile", lKey: "status" },
+            false
+          )
+        );
+        showToast({
+          msg: `les informations de ${currentUser.full_name} ont été enregistré avec succès`,
+          type: AG_Toast.statusToast.SUCCESS,
+        });
+      }
+    } catch (error) {
+      console.clear();
+      console.log("error", error);
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updateProfile", lKey: "status" },
+          false
+        )
+      );
+      return showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${
+          (error as any as unknown as Error).message
+        }`,
+        type: StatusToast.ERROR,
+      });
+    }
+  };
+
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">
@@ -59,12 +174,12 @@ function ProfileUser() {
                 <div className="flex flex-col sm:flex-row  justify-center  gap-5 items-center ">
                   <img
                     alt="..."
-                    src={`${AG_URL.USER_IMG_PROFILE2}`}
+                    src={`${AG_URL.USER_IMG_PROFILE}`}
                     className="w-20 h-20 object-cover"
                   />
                   <div className=" flex flex-col  text-center sm:text-left">
-                    <strong> MUHESI Moise </strong>
-                    <span>Admin </span>
+                    <strong> {currentUser?.full_name || ""} </strong>
+                    <span>{currentUser?.affectation_p?.role?.name || ""} </span>
                   </div>
                 </div>
                 <div className="p-5"> Rendre off </div>
@@ -77,15 +192,25 @@ function ProfileUser() {
                   required={true}
                   label="Nom"
                   pl="eg: Entrer votre nom"
-                  onChange={() => console.log("first")}
-                  value={"MUHESI"}
+                  onChange={(e) =>
+                    setCurrentUser({
+                      ...currentUser,
+                      full_name: e.target.value,
+                    })
+                  }
+                  value={currentUser.full_name}
                 />
                 <InputCommon
                   required={true}
                   label="Prenon"
                   pl="eg: Entrer votre nom"
-                  onChange={() => console.log("first")}
-                  value={"MOSES"}
+                  onChange={(e) =>
+                    setCurrentUser({
+                      ...currentUser,
+                      full_name: e.target.value,
+                    })
+                  }
+                  value={currentUser.full_name}
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5 gap-5">
@@ -93,8 +218,13 @@ function ProfileUser() {
                   required={true}
                   label="Addresse mail"
                   pl="Entrer votre adresse mail"
-                  onChange={() => console.log("first")}
-                  value={"mvmmuhesi@gmail.com"}
+                  onChange={(e) =>
+                    setCurrentUser({
+                      ...currentUser,
+                      email: e.target.value,
+                    })
+                  }
+                  value={currentUser.email}
                 />
                 <InputCommon
                   required={true}
@@ -102,31 +232,69 @@ function ProfileUser() {
                   label="Role"
                   pl="Entrer votre role"
                   onChange={() => console.log("first")}
-                  value={"Niveau 1"}
+                  value={currentUser?.affectation_p?.role?.name || ""}
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <InputCommon
                   label="Addresse physique"
-                  pl="eg: Q. Himbi ||"
+                  pl="..."
                   onChange={() => console.log("first")}
-                  value={"Q. Himbi"}
+                  value={""}
+                  disabled={true}
                 />
                 <InputCommon
                   label="Telephone"
                   pl="Entrer votre numero de telephone"
-                  onChange={() => console.log("first")}
-                  value={"+243 998799306"}
+                  onChange={(e) =>
+                    setCurrentUser({
+                      ...currentUser,
+                      phone: e.target.value,
+                    })
+                  }
+                  value={currentUser?.phone || ""}
+                />
+              </div>
+              <div className="flex flex-wrap justify-between px-5 gap-5">
+                <InputCommon
+                  label="Addresse physique"
+                  pl="..."
+                  type="date"
+                  onChange={(e) =>
+                    setCurrentUser({
+                      ...currentUser,
+                      dateBorn: e.target.value,
+                    })
+                  }
+                  value={currentUser.dateBorn || ""}
+                />
+                <SelectCommon
+                  data={[
+                    { id: "Masculin", label: "Masculin", value: "Masculin" },
+                    { id: "Féminin", label: "Féminin", value: "Féminin" },
+                    { id: "AUTRE", label: "AUTRE", value: "AUTRE" },
+                  ]}
+                  required={true}
+                  keyObject="value"
+                  label="Selectionner le genre"
+                  onChange={(value) =>
+                    setCurrentUser({
+                      ...currentUser,
+                      gender: value,
+                    })
+                  }
+                  value={currentUser?.gender}
+                  // classNameHoverCard=" border-main-color"
                 />
               </div>
               <div className="btn p-3 flex justify-end ">
-                <Button
-                  variant="primary"
-                  style={{ border: "1px solid #2DAEC4" }}
+                <CustomButton
+                  onClick={handleSubmitUpdateProfile}
+                  statusLoading={infoLoading.updateProfile.status}
+                  disabled={infoLoading.updateProfile.status}
+                  label="Mettre en jour"
                   className="ml-auto  rounded-md"
-                >
-                  Enregistrer
-                </Button>
+                />
               </div>
             </div>
             <div className={commonClassSection}>
@@ -137,36 +305,26 @@ function ProfileUser() {
                   disabled={true}
                   label="Nom"
                   onChange={() => console.log("first")}
-                  value={"COSAMED"}
+                  value={currentUser?.affectation_p?.organisation?.name || ""}
                 />
                 <InputCommon
                   required={true}
                   label="Telephone"
                   disabled={true}
-                  // pl="+243 998799306"
                   onChange={() => console.log("first")}
-                  value={"+243 998799306"}
+                  value={currentUser?.affectation_p?.organisation?.phone || ""}
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <InputCommon
                   required={true}
+                  disabled={true}
                   label="Addresse mail"
-                  disabled={true}
-                  // pl="Entrer votre adresse mail"
                   onChange={() => console.log("first")}
-                  value={"cosamed@gmail.com"}
-                />
-                <InputCommon
-                  required={true}
-                  disabled={true}
-                  label="Role"
-                  pl="Entrer votre role"
-                  onChange={() => console.log("first")}
-                  value={"Niveau 1"}
+                  value={currentUser?.affectation_p?.organisation?.email || ""}
                 />
               </div>
-              <div className="btn p-3 flex justify-end ">
+              {/* <div className="btn p-3 flex justify-end ">
                 <Button
                   variant="primary"
                   style={{ border: "1px solid #2DAEC4" }}
@@ -174,13 +332,14 @@ function ProfileUser() {
                 >
                   Enregistrer
                 </Button>
-              </div>
+              </div> */}
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Changer mot de passe"} />
               <div className="py-2 px-5 gap-5">
                 <InputCommon
                   required={true}
+                  disabled={true}
                   label="Ancien mot de passe"
                   type="password"
                   pl="Entrer votre ancien mot de passe"
@@ -191,6 +350,7 @@ function ProfileUser() {
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <InputCommon
                   required={true}
+                  disabled={true}
                   label="Nouveau mot de passe"
                   type="password"
                   // pl="Entrer votre adresse mail"
@@ -199,6 +359,7 @@ function ProfileUser() {
                 />
                 <InputCommon
                   required={true}
+                  disabled={true}
                   type="password"
                   label=" Confirmer votrenouveau mot de passe"
                   pl="Entrer votre role"
@@ -206,7 +367,7 @@ function ProfileUser() {
                   value={"Niveau 1"}
                 />
               </div>
-              <div className="btn p-3 flex justify-end ">
+              {/* <div className="btn p-3 flex justify-end ">
                 <Button
                   variant="primary"
                   style={{ border: "1px solid #2DAEC4" }}
@@ -214,7 +375,17 @@ function ProfileUser() {
                 >
                   Enregistrer
                 </Button>
-              </div>
+              </div> */}
+            </div>
+            {/* =====PERMISSIONS==== */}
+            <div
+              className={commonClassSection}
+              onClick={() => console.log("currentUser_", currentUser_)}
+            >
+              <LastHeading title={"Permissions de l'utilisateur"} />
+              <ShowPermissionUser
+                dataPermissions={currentUser_?.metaData?.permissions}
+              />
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Parametres du compte"} />
@@ -231,8 +402,7 @@ function ProfileUser() {
                   Rendre le compte actif
                 </label>
               </div>
-
-              <div className="btn p-3 flex justify-end ">
+              {/* <div className="btn p-3 flex justify-end ">
                 <Button
                   variant="primary"
                   style={{ border: "1px solid #2DAEC4" }}
@@ -240,7 +410,7 @@ function ProfileUser() {
                 >
                   Enregistrer
                 </Button>
-              </div>
+              </div> */}
             </div>
           </section>
         </Grid>
@@ -249,6 +419,17 @@ function ProfileUser() {
   );
 }
 
+function ProfileUser() {
+  // HANDLE TABS
+  const [tabId, setTabId] = useState<number>(0);
+  return (
+    <div>
+      <Suspense fallback={<SkeletonAnimation className="px-5" />}>
+        <ShowProfileUser />
+      </Suspense>
+    </div>
+  );
+}
 export default ProfileUser;
 
 function InputCommon({
@@ -263,7 +444,7 @@ function InputCommon({
   label: string;
   pl?: string;
   type?: string;
-  onChange: () => void;
+  onChange: (e: any) => void;
   value: string | number;
   required?: boolean;
   disabled?: boolean;

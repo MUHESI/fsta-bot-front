@@ -6,6 +6,12 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
 
+export const MESSAGES_ALERT = {
+  FEAT_IN_PROGRESS:
+    "Oops , cette fonctionnalité est en cours d'implementation.",
+  FEAT_IN_HALF_FINISHED:
+    "Oops , cette fonctionnalité n’est pas finie complément ,",
+};
 export const setAlertAsEmptyData = (alert: any) => {
   return {
     ...alert,

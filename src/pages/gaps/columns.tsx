@@ -12,11 +12,29 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
 import { IGap } from "@/types/stateSchema/gap";
+import { NavLink } from "react-router-dom";
+import { Tooltip } from "@mui/material";
 
 export const columnsListGaps: ColumnDef<IGap>[] = [
   {
-    accessorKey: "titleGap",
+    accessorKey: "title",
     header: "Titre",
+    cell: ({ row }: any) => (
+      <NavLink to={`/gaps/detail/${row.original.id}`} className="">
+        {row.getValue("title")}
+      </NavLink>
+    ),
+  },
+  {
+    accessorKey: "dataprovince",
+    header: "LOCALISATION",
+    cell: ({ row }: any) => (
+      <Tooltip
+        title={`Province: ${row.original.dataprovince.name} | Aire de santé : ${row.original.dataaire.name}`}
+      >
+        <div className="">{`${row.original.dataprovince.name} | ${row.original.dataaire.name}`}</div>
+      </Tooltip>
+    ),
   },
   {
     accessorKey: "status",
@@ -31,9 +49,7 @@ export const columnsListGaps: ColumnDef<IGap>[] = [
     accessorKey: "created_at",
     header: "DATE CREATION",
     cell: ({ row }: any) => (
-      <div className="">
-        {new Date(row.getValue("created_at")).toLocaleString()}
-      </div>
+      <div>{new Date(row.getValue("created_at")).toLocaleString()}</div>
     ),
   },
 

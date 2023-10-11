@@ -22,4 +22,24 @@ export const getPermissions = selector({
     },
 });
 
+export interface IAffectation {
+    name: string,
+    psedo: string,
+    id: string
+}
+export const getPermissionsofCurrentUser = (currentUser: { affectation_p: { allpermission: any[] } }): IAffectation[] => {
+    let tapPermissions: IAffectation[] = []
+    if (Object.keys(currentUser).length > 0) {
+        currentUser.affectation_p.allpermission.map((item: any) => {
+            item = {
+                ...item,
+                psedo: item.permission.psedo,
+                name: item.permission.name
+            }
+            tapPermissions.push(item)
+        });
+        return tapPermissions
+    }
+    return tapPermissions
+}
 

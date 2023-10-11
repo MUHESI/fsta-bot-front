@@ -6,16 +6,27 @@ import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListGaps } from "./columns";
-import { useRecoilValue } from "recoil";
-import { getAllGaps } from "@/globalState/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentProvinceIDState,
+  getAllGaps,
+  getProvincesState,
+} from "@/globalState/atoms";
 import { IGap } from "@/types/stateSchema/gap";
 import SkeletonAnimation from "@/components/skeleton";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "@/components/core/Button";
+import { IProvince } from "@/types/stateSchema/province";
+import { SelectCommon } from "@/components/core/select";
 
 function Gaps() {
   const navigate = useNavigate();
   const allGaps = useRecoilValue(getAllGaps) as unknown as IGap[];
+
+  const allProvinces = useRecoilValue(
+    getProvincesState
+  ) as unknown as IProvince[];
+  const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
 
   return (
     <div className="p-5">
@@ -24,6 +35,15 @@ function Gaps() {
         columns={columnsListGaps}
         data={allGaps || []}
       >
+        <SelectCommon
+          data={allProvinces}
+          // required={true}
+          label=""
+          keyObject="name"
+          onChange={setCurrentProvinceID}
+          value={"..."}
+          // type=""
+        />
         <CustomButton
           onClick={() => navigate("/organizations/create")}
           label="Actualiser"

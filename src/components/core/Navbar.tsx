@@ -51,7 +51,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // RECOIL
-  const setUser = useSetRecoilState(userAuthenticatedState);
+  const [user, setUser] = useRecoilState(userAuthenticatedState);
   const currentColor = useRecoilValue(currentColorState);
   const isClicked = useRecoilValue(isCLickedState);
   const [activeMenu, setActiveMenu] = useRecoilState(activeMenuState);
@@ -153,13 +153,14 @@ const Navbar = () => {
               className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
               // onClick={() => handleClick("userProfile")}
             >
-              <img
-                // onClick={() => navigate("/users/profile/10")}
-                onClick={logout}
-                className="rounded-full w-8 h-8"
-                src={AG_URL.USER_IMG_PROFILE2}
-                alt="user-profile"
-              />
+              <Tooltip title={user.full_name || ""}>
+                <img
+                  onClick={() => navigate(`/users/profile/${user.id}`)}
+                  className="rounded-full w-8 h-8"
+                  src={AG_URL.USER_IMG_PROFILE}
+                  alt="user-profile"
+                />
+              </Tooltip>
               {/* <p>
               <span className="text-gray-400 text-lg ">Hi,</span>{" "}
               <span className="text-gray-400 font-bold ml-1 text-lg ">

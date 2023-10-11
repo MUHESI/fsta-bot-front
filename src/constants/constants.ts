@@ -11,7 +11,7 @@ import { IAutherUSer } from "@/types/stateSchema/auth";
 export const AG_URL = {
     LOGO_AFIA_GAP: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1689081211/afia-gap/afia-gap-png_nhtaff.png',
     AVATAR_USER: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1646826119/cresJoinAfrik/user_ifzful.png',
-    USER_IMG_PROFILE: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1685807109/orgi_2_aotayp-Circle_y112qy.jpg',
+    USER_IMG_PROFILE: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1646826119/cresJoinAfrik/user_ifzful.png',
     USER_IMG_PROFILE2: 'https://res.cloudinary.com/chanel-muhesi/image/upload/v1676725367/porfolio/profile-pic_2_a7jub9.png'
 }
 export const defaultStateUserAuth: IAutherUSer = {
@@ -510,4 +510,325 @@ export const getYearsInInterval = (minYear: number, maxYear: number): { id: numb
 
     }
     return data
+}
+
+
+export const DETAIL_GAP = {
+    "id": "9a459acc-2328-4b3c-b52e-235c3386540a",
+    "title": "Centre de santé DON BOSCO 2023-10-02 00:00:0009:03:24",
+    "provinceid": "99cd151b-dc63-4437-b9fc-514a1cf8fd89",
+    "territoirid": "99cd1785-765a-49c5-a3fc-b5435a65c665",
+    "zoneid": "99cd2008-0fb1-4a7a-8c67-f28248779712",
+    "airid": "99cd25b4-d5d8-48ae-91d2-7f667d1e1649",
+    "orgid": "9a318be3-6677-49c3-bc2b-1d74ebd93d89",
+    "population": 250,
+    "pop_deplace": 55,
+    "pop_retourne": 56565,
+    "pop_site": 565,
+    "userid": "9a457fff-0386-4a01-afb2-610b5c2148ab",
+    "semaine_epid": "2",
+    "annee_epid": "2023",
+    "created_at": "2023-10-02T09:03:24.000000Z",
+    "updated_at": "2023-10-02T09:03:24.000000Z",
+    "etat_top": 0,
+    "status": 0,
+    "deleted": 0,
+    "dataprovince": {
+        "id": "99cd151b-dc63-4437-b9fc-514a1cf8fd89",
+        "name": "Nord-kivu",
+        "created_at": "2023-08-03T16:10:15.000000Z",
+        "updated_at": "2023-08-03T16:10:15.000000Z"
+    },
+    "dataterritoir": {
+        "id": "99cd1785-765a-49c5-a3fc-b5435a65c665",
+        "name": "Territoire de Goma",
+        "provinceid": "99cd151b-dc63-4437-b9fc-514a1cf8fd89",
+        "created_at": "2023-08-03T16:16:59.000000Z",
+        "updated_at": "2023-08-03T16:16:59.000000Z"
+    },
+    "datazone": {
+        "id": "99cd2008-0fb1-4a7a-8c67-f28248779712",
+        "name": "Karisimbi",
+        "territoirid": "99cd1785-765a-49c5-a3fc-b5435a65c665",
+        "created_at": "2023-08-03T16:40:47.000000Z",
+        "updated_at": "2023-08-03T16:40:47.000000Z"
+    },
+    "dataaire": {
+        "id": "99cd25b4-d5d8-48ae-91d2-7f667d1e1649",
+        "name": "Albert Barthel",
+        "zoneid": "99cd2008-0fb1-4a7a-8c67-f28248779712",
+        "created_at": "2023-08-03T16:56:39.000000Z",
+        "updated_at": "2023-08-03T16:56:39.000000Z"
+    },
+    "datapopulation_eloigne": [],
+    "datamaladie": [
+        {
+            "id": "9a459acc-2463-46af-8fbd-f5bc54e90612",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "maladieid": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+            "nbrCas": 900,
+            "nbrDeces": 8,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "maladie": {
+                "id": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+                "name": "Thyphoide",
+                "created_at": "2023-09-21T18:10:11.000000Z",
+                "updated_at": "2023-09-21T18:10:11.000000Z",
+                "status": 0,
+                "deleted": 0
+            }
+        },
+        {
+            "id": "9a459acc-2463-46af-8fbd-f5bc54e90612",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "maladieid": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+            "nbrCas": 900,
+            "nbrDeces": 8,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "maladie": {
+                "id": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+                "name": "Thyphoide",
+                "created_at": "2023-09-21T18:10:11.000000Z",
+                "updated_at": "2023-09-21T18:10:11.000000Z",
+                "status": 0,
+                "deleted": 0
+            }
+        },
+        {
+            "id": "9a459acc-2463-46af-8fbd-f5bc54e90612",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "maladieid": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+            "nbrCas": 900,
+            "nbrDeces": 8,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "maladie": {
+                "id": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+                "name": "Thyphoide",
+                "created_at": "2023-09-21T18:10:11.000000Z",
+                "updated_at": "2023-09-21T18:10:11.000000Z",
+                "status": 0,
+                "deleted": 0
+            }
+        },
+        {
+            "id": "9a459acc-2463-46af-8fbd-f5bc54e90612",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "maladieid": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+            "nbrCas": 900,
+            "nbrDeces": 8,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "maladie": {
+                "id": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+                "name": "Thyphoide",
+                "created_at": "2023-09-21T18:10:11.000000Z",
+                "updated_at": "2023-09-21T18:10:11.000000Z",
+                "status": 0,
+                "deleted": 0
+            }
+        },
+        {
+            "id": "9a459acc-2463-46af-8fbd-f5bc54e90612",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "maladieid": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+            "nbrCas": 900,
+            "nbrDeces": 8,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "maladie": {
+                "id": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+                "name": "Thyphoide",
+                "created_at": "2023-09-21T18:10:11.000000Z",
+                "updated_at": "2023-09-21T18:10:11.000000Z",
+                "status": 0,
+                "deleted": 0
+            }
+        },
+        {
+            "id": "9a459acc-2463-46af-8fbd-f5bc54e90612",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "maladieid": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+            "nbrCas": 900,
+            "nbrDeces": 8,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "maladie": {
+                "id": "9a303d84-51cf-4e0f-971d-5dc17895abb4",
+                "name": "Thyphoide",
+                "created_at": "2023-09-21T18:10:11.000000Z",
+                "updated_at": "2023-09-21T18:10:11.000000Z",
+                "status": 0,
+                "deleted": 0
+            }
+        }
+    ],
+    "datamedicament": [
+        {
+            "id": "9a459acc-24a3-4f88-bb5d-f353ce66d164",
+            "medocid": "9a3044bd-224d-4c61-8c56-2820f78eb9ba",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "etat_top": 0,
+            "status": 0,
+            "deleted": 0,
+            "medicament": {
+                "id": "9a3044bd-224d-4c61-8c56-2820f78eb9ba",
+                "name": "Aspirine",
+                "created_at": "2023-09-21T18:30:23.000000Z",
+                "updated_at": "2023-09-21T18:30:23.000000Z",
+                "etat_top": 0,
+                "status": 0,
+                "deleted": 0
+            }
+        },
+        {
+            "id": "9a459acc-24d4-4615-b21c-b1ed14bdd374",
+            "medocid": "9a304767-2f32-423f-a694-783e1f5b10f8",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "etat_top": 0,
+            "status": 0,
+            "deleted": 0,
+            "medicament": {
+                "id": "9a304767-2f32-423f-a694-783e1f5b10f8",
+                "name": "Paracetamole",
+                "created_at": "2023-09-21T18:37:50.000000Z",
+                "updated_at": "2023-09-21T18:37:50.000000Z",
+                "etat_top": 0,
+                "status": 0,
+                "deleted": 0
+            }
+        }
+    ],
+    "datapartenaire": [
+        {
+            "id": "9a459acc-2511-467d-b62a-c411dd70a489",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "orgid": "9a301185-12a9-43ad-a28b-f236fda2cd6b",
+            "contact_point_facal": "7",
+            "date_debut": "2023-10-12",
+            "date_fin": "2023-11-17",
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "partenaire": {
+                "id": "9a301185-12a9-43ad-a28b-f236fda2cd6b",
+                "name": "HCR",
+                "email": "salasisaac2022@cosamed.org",
+                "phone": "+243973760643",
+                "description": "-",
+                "sigle": "-",
+                "logo": "logo.jpeg",
+                "adresse": "-",
+                "activite": null,
+                "typeorgid": "9a2bbd04-ac04-4fd9-98d0-a8091ed0a94a",
+                "pointfocal": null,
+                "status": 0,
+                "delete": 0,
+                "created_at": "2023-09-21T16:07:10.000000Z",
+                "updated_at": "2023-09-21T16:07:10.000000Z",
+                "dataindicateur": null
+            },
+            indicateurs: [
+                {
+                    id: "232",
+                    indicator: {
+                        id: '2342',
+                        name: "indicateur 01"
+
+                    }
+                },
+                {
+                    id: "232",
+                    indicator: {
+                        id: '2342',
+                        name: "indicateur 02"
+
+                    }
+                }
+            ]
+        },
+        {
+            "id": "9a459acc-2511-467d-b62a-c411dd70a489",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "orgid": "9a301185-12a9-43ad-a28b-f236fda2cd6b",
+            "contact_point_facal": "7",
+            "date_debut": "2023-10-12",
+            "date_fin": "2023-11-17",
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "status": 0,
+            "deleted": 0,
+            "partenaire": {
+                "id": "9a301185-12a9-43ad-a28b-f236fda2cd6b",
+                "name": "HCR",
+                "email": "salasisaac2022@cosamed.org",
+                "phone": "+243973760643",
+                "description": "-",
+                "sigle": "-",
+                "logo": "logo.jpeg",
+                "adresse": "-",
+                "activite": null,
+                "typeorgid": "9a2bbd04-ac04-4fd9-98d0-a8091ed0a94a",
+                "pointfocal": null,
+                "status": 0,
+                "delete": 0,
+                "created_at": "2023-09-21T16:07:10.000000Z",
+                "updated_at": "2023-09-21T16:07:10.000000Z",
+                "dataindicateur": null
+            },
+            indicateurs: [
+                {
+                    id: "232",
+                    indicator: {
+                        id: '2342',
+                        name: "indicateur 01"
+
+                    }
+                },
+                {
+                    id: "232",
+                    indicator: {
+                        id: '2342',
+                        name: "indicateur 02"
+
+                    }
+                }
+            ]
+        }
+    ],
+    "datatypepersonnel": [
+        {
+            "id": "9a459acc-258f-46b7-a327-1c9a3284a0ec",
+            "personnelid": "9a304c22-944e-45a1-869e-b96aa4a28341",
+            "gapid": "9a459acc-2328-4b3c-b52e-235c3386540a",
+            "nbr": 5,
+            "created_at": "2023-10-02T09:03:24.000000Z",
+            "updated_at": "2023-10-02T09:03:24.000000Z",
+            "typepersonnel": {
+                "id": "9a304c22-944e-45a1-869e-b96aa4a28341",
+                "name": "Médecin",
+                "created_at": "2023-09-21T18:51:04.000000Z",
+                "updated_at": "2023-09-21T18:51:04.000000Z"
+            }
+        }
+    ]
 }

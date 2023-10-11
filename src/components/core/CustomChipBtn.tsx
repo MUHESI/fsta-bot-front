@@ -9,6 +9,7 @@ interface Iprops<TData> {
   disabled?: boolean;
   children: React.ReactNode;
   keyObject: keyof TData;
+  className?: string;
 }
 
 // TODO:: Improve later label
@@ -20,16 +21,17 @@ export function CustomChipBtn<TData>({
   disabled,
   children,
   keyObject,
+  className,
 }: Iprops<TData>) {
   const handlerItem = (item: TData) => saveData(item);
 
   return (
-    <div className="  my-4">
+    <div className=" my-4">
       <label className="text-sm">
         {label}
-        <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
+        <span className="text-red-500"> {`${required ? "*" : ""}`}</span>
       </label>
-      <div className="border rounded-lg">
+      <div className={`text-sm ${className} rounded-lg`}>
         {data.map((item: any, key: number) => (
           <span className="duration-300 inline-flex" key={key}>
             <button

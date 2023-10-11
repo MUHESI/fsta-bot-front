@@ -27,7 +27,7 @@ function CommonTextareaGap({
   return (
     <div className="flex-auto p-0 m-0  mb-2">
       <label className="flex items-center gap-3 text-sm">
-        <span className="text-main-color">
+        <span className="">
           {label}
           <span className="text-red-500"> {`${required ? "*" : ""}`} </span>
         </span>
