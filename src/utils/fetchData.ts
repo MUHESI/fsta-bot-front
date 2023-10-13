@@ -26,6 +26,7 @@ export const getAPI = async<TRes>(url: string, token?: string): Promise<TRes | u
         });
         return res;
     } catch (error) {
+        console.log('ERROR_GET', error)
         return undefined
     }
 };

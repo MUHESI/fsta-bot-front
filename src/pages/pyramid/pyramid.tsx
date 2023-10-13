@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
@@ -10,21 +10,25 @@ import {
   currentHalthAreaIDState,
   currentProvinceIDState,
   currentTerritoryIDState,
-  getListHealthAreasByTerritory,
+  getListHealthAreasByZone,
   getProvincesState,
   getTerritoriesByProvinceState,
   getListStuctureHealthByAreas,
+  currentStructureIDState,
+  getListZoneSanteByTerritory,
+  currentZoneSanteIDState,
 } from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
 import DialogCustom from "@/components/core/DialogCustom";
 import { IHealthArea } from "@/types/stateSchema/healthArea";
-import CreateHealthArea from "../createHealthArea";
 import CreateStructureHealt from "../createStructureHealth";
 import { IStructureHealth } from "@/types/stateSchema/StructureHealth";
+import { IZoneSante } from "@/types/stateSchema/zoneSante";
 
 function Structure() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const setCurrentTerritoryID = useSetRecoilState(currentTerritoryIDState);
+  const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
   const setCurrentHalthAreaID = useSetRecoilState(currentHalthAreaIDState);
 
   const allProvinces = useRecoilValue(
@@ -33,13 +37,17 @@ function Structure() {
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
-  const allListHealthAreasByTerritory = useRecoilValue(
-    getListHealthAreasByTerritory
+  const allListHealthAreasByZone = useRecoilValue(
+    getListHealthAreasByZone
   ) as unknown as IHealthArea[];
 
   const allListStructureHealth = useRecoilValue(
     getListStuctureHealthByAreas
   ) as unknown as IStructureHealth[];
+
+  const allListZoneSantes = useRecoilValue(
+    getListZoneSanteByTerritory
+  ) as unknown as IZoneSante[];
 
   return (
     <div>
@@ -48,7 +56,7 @@ function Structure() {
           <div className="flex justify-between gap-6">
             <SelectCommon
               data={allProvinces}
-              label="Selectionner le DPS"
+              label="Province"
               keyObject="name"
               onChange={setCurrentProvinceID}
               value={"..."}
@@ -56,14 +64,22 @@ function Structure() {
             />
             <SelectCommon
               data={allTerritoriesByProvince}
-              label="Selectionner le territoire"
+              label="Territoire"
               keyObject="name"
               onChange={setCurrentTerritoryID}
               value={"..."}
             />
             <SelectCommon
-              data={allListHealthAreasByTerritory}
-              label="Selectionner Aires de santé "
+              data={allListZoneSantes}
+              label="Zone de santé"
+              keyObject="name"
+              onChange={setCurrentZoneSanteID}
+              value={"..."}
+              // type=""
+            />
+            <SelectCommon
+              data={allListHealthAreasByZone}
+              label="Aire de santé"
               keyObject="name"
               onChange={setCurrentHalthAreaID}
               value={"..."}
@@ -75,7 +91,6 @@ function Structure() {
             searchField="name"
             columns={columnsListHealthAreas}
             data={allListStructureHealth}
-            // data={[]}
           >
             <DialogCustom
               btnText="Nouvelle  structure"
@@ -99,9 +114,7 @@ function Structure() {
 function ListStructure() {
   return (
     <div>
-      <div className=" text-main-color-dark">
-        {/* <LastHeading title={" Structures de santé"} /> */}
-      </div>
+      <div className=" text-main-color-dark"></div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
         <Structure />
       </Suspense>

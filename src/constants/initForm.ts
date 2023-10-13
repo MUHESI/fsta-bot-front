@@ -13,6 +13,7 @@ import { ICreateMaladie } from "@/types/stateSchema/maladie";
 import { ICreateMedicament } from "@/types/stateSchema/medicament";
 import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 import { ICreateStructureHealth } from "@/types/stateSchema/StructureHealth";
+import { ICreateAlert } from "@/types/stateSchema/alert";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -115,6 +116,30 @@ export const INIT_FORM_CREATE_AFFECTATION: {
         affectationid: "",
         permissionid: [],
     }
+}
+export const INIT_FORM_CREATE_ALERT: ICreateAlert = {
+    name_point_focal: "",
+    phone: "",
+    airid: "",
+    date_notification: "",
+    datealert: "",
+    timealert: "",
+    nbr_touche: "",
+    dece_disponible: "NON",
+    nbr_dece: "",
+    animal_malade: "NON",
+    animal_mort: "NON",
+    evenement: "NON",
+    mesure: "",
+    description: "",
+    maladieid: "",
+    // 
+    // time_notification: "",
+    date_detection: "",
+    time_detection: "",
+    nb_animal_malade: "",
+    nb_animal_mort: "",
 
+    // nb_animal_touche: "",
 
 }

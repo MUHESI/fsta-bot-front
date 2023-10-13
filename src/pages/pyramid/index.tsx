@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import SkeletonAnimation from "@/components/skeleton";
 import TabMenuCustom from "@/components/core/tabMenuCustom";
 import ListProvinces from "../provinces";
 import ListTerritories from "../territories";
 import ListHealthAreas from "../healthAreas";
 import Pyramid from "./pyramid";
+import ListZoneSantes from "../zoneSante";
 
 function ScreenManagerOrg() {
   // HANDLE TABS
@@ -17,6 +17,7 @@ function ScreenManagerOrg() {
           "Structures de santé",
           "Provinces",
           "Territoires",
+          "Zone de santé",
           "Aires de sante",
         ]}
         handleTabId={setTabId}
@@ -26,7 +27,8 @@ function ScreenManagerOrg() {
         {tabId === 0 && <Pyramid />}
         {tabId === 1 && <ListProvinces />}
         {tabId === 2 && <ListTerritories />}
-        {tabId === 3 && <ListHealthAreas />}
+        {tabId === 3 && <ListZoneSantes />}
+        {tabId === 4 && <ListHealthAreas />}
       </div>
     </div>
   );

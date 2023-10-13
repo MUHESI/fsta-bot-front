@@ -4,20 +4,23 @@ import { HEALTH_AREAS_KEYS, } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
-import { currentTerritoryIDState } from './territory'
+import { currentZoneSanteIDState } from './zoneSante'
 
-export const getListHealthAreasByTerritory = selector({
+export const getListHealthAreasByZone = selector({
     key: HEALTH_AREAS_KEYS.GET_HEALTH_AREAS_BY_PROPS_STATE,
     get: async ({ get }) => {
-        const territoryId = get(currentTerritoryIDState)
+        const zoneSanteId = get(currentZoneSanteIDState)
         const { token } = get(userAuthenticatedState)
-        if (territoryId === null) return [];
-        const res = await getAPI<IFetchData<IHealthArea[]> | undefined>(`listzon/${territoryId}`, token);
+        if (zoneSanteId === null) return [];
+        const res = await getAPI<IFetchData<IHealthArea[]> | undefined>(`listair/${zoneSanteId}`, token);
         if (res === undefined) {
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {
             return { error: res }
-        } else return res?.data?.data ?? []
+        } else {
+
+            return res?.data?.data ?? []
+        }
 
     },
 });

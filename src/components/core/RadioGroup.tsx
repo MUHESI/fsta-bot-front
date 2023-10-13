@@ -19,6 +19,7 @@ interface Iprops {
   required?: boolean;
   disabled?: boolean;
   classNameHoverCard?: string;
+  onChange: (e: any) => void;
 }
 
 export default function RowRadioButtonsGroup({
@@ -27,6 +28,7 @@ export default function RowRadioButtonsGroup({
   dataItems,
   titleTooltip,
   classNameHoverCard,
+  onChange,
 }: Iprops) {
   return (
     <FormControl className="m-0 p-0">
@@ -49,6 +51,7 @@ export default function RowRadioButtonsGroup({
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
+        onChange={onChange}
       >
         {dataItems.map((item: IDataPropos, key: number) => (
           <FormControlLabel

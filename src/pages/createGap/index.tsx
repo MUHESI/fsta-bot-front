@@ -24,6 +24,7 @@ function CreateGap() {
           <section className="mx-3">
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
+
               <div className="px-5">
                 <CommonTextareaGap
                   titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
@@ -34,6 +35,7 @@ function CreateGap() {
                   value={""}
                   classNameHoverCard=" border-main-color"
                 />
+                Pyramid
               </div>
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <CommonSelectGap

@@ -3,7 +3,7 @@ import { STRUCTURE_HEALTH_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
-import { currentHalthAreaIDState } from '../atoms/healthArea'
+import { currentHalthAreaIDState } from './healthArea'
 import { IHealthArea } from "@/types/stateSchema/healthArea";
 
 export const getListStuctureHealthByAreas = selector({
@@ -22,4 +22,11 @@ export const getListStuctureHealthByAreas = selector({
         }
     },
 });
+
+export const currentStructureIDState = atom<string | null>({
+    key: STRUCTURE_HEALTH_KEYS.CURRENT_STRUCTURE_HEALTH_ID_STATE,
+    default: null,
+});
+
+
 

@@ -1,35 +1,27 @@
 import React, { Suspense } from "react";
-import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
-import { columnsListHealthAreas } from "./columns";
+import { columnsListZoneSante } from "./columns";
 import { SelectCommon } from "@/components/core/select";
 import SkeletonAnimation from "@/components/skeleton";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentProvinceIDState,
   currentTerritoryIDState,
-  currentZoneSanteIDState,
-  getListHealthAreasByZone,
-  getListZoneSanteByTerritory,
   getProvincesState,
   getTerritoriesByProvinceState,
+  getListZoneSanteByTerritory,
 } from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
-import { IZoneSante } from "@/types/stateSchema/zoneSante";
-
 import DialogCustom from "@/components/core/DialogCustom";
-import { IHealthArea } from "@/types/stateSchema/healthArea";
 import CreateHealthArea from "../createHealthArea";
 import { CustomButton } from "@/components/core/Button";
+import { IZoneSante } from "@/types/stateSchema/zoneSante";
 
-function HealthAreas() {
+function ZoneSantes() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const setCurrentTerritoryID = useSetRecoilState(currentTerritoryIDState);
-  const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
 
   const allProvinces = useRecoilValue(
     getProvincesState
@@ -37,13 +29,9 @@ function HealthAreas() {
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
-  const allListZoneSanteByTerritory = useRecoilValue(
+  const allListZoneSantes = useRecoilValue(
     getListZoneSanteByTerritory
   ) as unknown as IZoneSante[];
-
-  const allListHealthAreasByTerritory = useRecoilValue(
-    getListHealthAreasByZone
-  ) as unknown as IHealthArea[];
 
   return (
     <div>
@@ -68,20 +56,12 @@ function HealthAreas() {
               value={"..."}
               // type=""
             />
-            <SelectCommon
-              data={allListZoneSanteByTerritory}
-              required={true}
-              label="Selectionner la zone de snaté"
-              keyObject="name"
-              onChange={setCurrentZoneSanteID}
-              value={"..."}
-            />
           </div>
 
           <DataTable
             searchField="name"
-            columns={columnsListHealthAreas}
-            data={allListHealthAreasByTerritory}
+            columns={columnsListZoneSante}
+            data={allListZoneSantes}
           >
             <CustomButton
               onClick={() => ""}
@@ -108,16 +88,14 @@ function HealthAreas() {
   );
 }
 
-function ListHealthAreas() {
+function ListZoneSantes() {
   return (
     <div>
-      <div className="p-1 text-main-color-dark">
-        {/* <LastHeading title={" Aires de santé par territoire"} /> */}
-      </div>
+      <div className="p-1 text-main-color-dark"></div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-        <HealthAreas />
+        <ZoneSantes />
       </Suspense>
     </div>
   );
 }
-export default ListHealthAreas;
+export default ListZoneSantes;

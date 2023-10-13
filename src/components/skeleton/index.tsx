@@ -17,3 +17,7 @@ export default function SkeletonAnimation({
     </div>
   );
 }
+
+export function TexttLoading({ text }: { text?: string }) {
+  return <div className="text-sm">{text || "Chargement..."}</div>;
+}

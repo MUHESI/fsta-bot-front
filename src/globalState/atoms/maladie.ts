@@ -20,3 +20,8 @@ export const getMaladies = selector({
     },
 });
 
+export const currentMaladieIDState = atom<string | null>({
+    key: MALADIES_KEYS.CURRENT_MALADIE_ID_STATE,
+    default: null,
+});
+
