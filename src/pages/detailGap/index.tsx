@@ -1,6 +1,6 @@
+import React, { Suspense } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import SkeletonAnimation from "@/components/skeleton";
-import React, { Suspense } from "react";
 import CustomAccordion from "../../components/core/CustomAccordion";
 import { Grid } from "@mui/material";
 import { useRecoilValue } from "recoil";

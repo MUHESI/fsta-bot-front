@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
@@ -10,20 +10,18 @@ import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { IAlert } from "@/types/stateSchema/alert";
 import { getAllAlerts } from "@/globalState/atoms";
+import SkeletonAnimation from "@/components/skeleton";
 
-function ListAlerts() {
+function Alerts() {
   const navigate = useNavigate();
-  // const allAlert = useRecoilValue(getAllAlerts) as unknown as IAlert[];
+  const allAlert = useRecoilValue(getAllAlerts) as unknown as IAlert[];
   return (
     <div>
-      <div className="p-1 text-main-color-dark">
-        <LastHeading title={"Alerts"} />
-      </div>
       <div className="p-5">
         <DataTable
           searchField="description"
           columns={columnsListAlerts}
-          data={dataAlerts}
+          data={allAlert}
         >
           <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />
@@ -35,6 +33,21 @@ function ListAlerts() {
           nextPage={() => console.log("next")}
           previousPage={() => console.log("next")}
         />
+      </div>
+    </div>
+  );
+}
+
+function ListAlerts() {
+  return (
+    <div>
+      <div className="p-1 text-main-color-dark" data-testid="main-title">
+        <LastHeading title={"liste des alerts"} />
+      </div>
+      <div data-testid="list des alerts">
+        <Suspense fallback={<SkeletonAnimation className="px-5" />}>
+          <Alerts />
+        </Suspense>
       </div>
     </div>
   );

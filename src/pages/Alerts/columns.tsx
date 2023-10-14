@@ -8,30 +8,42 @@ import SwipeableCustom, {
 
 export const columnsListAlerts: ColumnDef<IAlert>[] = [
   {
-    accessorKey: "code",
-    header: "CODE",
+    accessorKey: "date_notification",
+    header: "DATE DE NOTIF.",
   },
   {
-    accessorKey: "nameResp",
-    header: "NOM POINT FOCAL",
+    accessorKey: "datealert",
+    header: "DATE D'ALERTE",
   },
-
   {
-    accessorKey: "typeAlert",
-    header: "TYPE",
+    accessorKey: "name_point_focal",
+    header: "NOM POINT FOCAL ET CONTACT ",
+    cell: ({ row }: any) => {
+      const alert = row.original;
+      return <div>{`${alert.name_point_focal} | ${alert.phone}`}</div>;
+    },
   },
   {
     accessorKey: "healthArea",
     header: "LIEU",
+    cell: ({ row }: any) => {
+      const AireSante = row.original;
+      return (
+        <div className="font-semibold text-green-600">
+          {AireSante.dataaire.name}
+        </div>
+      );
+    },
   },
   {
-    accessorKey: "nbPeopleAffected",
+    accessorKey: "nbr_touche",
     header: "PERS. AFFECT.",
   },
   {
-    accessorKey: "nbPeopleDead",
+    accessorKey: "nbr_dece",
     header: "DECES",
   },
+
   {
     accessorKey: "status",
     header: "STATUS",

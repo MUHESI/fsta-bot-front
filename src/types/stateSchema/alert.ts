@@ -8,11 +8,11 @@ export interface IAlert extends IBaseInterfaceSchema {
     datealert: string,
     timealert: string,
     nbr_touche: string,
-    dece_disponible: "" | "OUI" | "NON",
+    dece_disponible: "" | "oui" | "non",
     nbr_dece: string,
-    animal_malade: "" | "OUI" | "NON",
-    animal_mort: "" | "OUI" | "NON",
-    evenement: "" | "OUI" | "NON",
+    animal_malade: "" | "oui" | "non",
+    animal_mort: "" | "oui" | "non",
+    evenement: "" | "oui" | "non",
     mesure: string,
     description: string,
     maladieid: string
@@ -20,8 +20,15 @@ export interface IAlert extends IBaseInterfaceSchema {
     nb_animal_malade: string,
     nb_animal_mort: string,
     date_detection: string
-    time_detection: string
-
+    time_detection: string,
+    dataaire: {
+        id: string,
+        name: string,
+    },
+    maladie: {
+        id: string,
+        name: string,
+    },
 }
 
 export interface ICreateAlert {
