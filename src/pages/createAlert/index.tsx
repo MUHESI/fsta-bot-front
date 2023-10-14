@@ -69,10 +69,6 @@ function CreateAlert() {
         type: StatusToast.DARK,
       });
     }
-
-    console.clear();
-    console.log("formCreateAlert", formCreateAlert);
-
     const form_ = {
       ...formCreateAlert,
       maladieid: currentMaladieId,
@@ -270,7 +266,7 @@ function CreateAlert() {
                   required={true}
                   type="number"
                   label="Quand cela s’est-il produit: Heure"
-                  pl="ex:10"
+                  pl="ex: 14:20:00"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,
@@ -296,7 +292,7 @@ function CreateAlert() {
                 <CommonInputGap
                   required={true}
                   label="Heure de la détection"
-                  pl="ex: 14"
+                  pl="ex: 14:20:00"
                   type="number"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
@@ -349,7 +345,11 @@ function CreateAlert() {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,
-                      dece_disponible: e.target.value as "OUI" | "NON",
+                      dece_disponible: e.target.value as "oui" | "non",
+                      nbr_dece:
+                        e.target.value == "non"
+                          ? "0"
+                          : formCreateAlert.nbr_dece,
                     })
                   }
                 />
@@ -357,6 +357,9 @@ function CreateAlert() {
                 <CommonInputGap
                   // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_MOVED}
                   required={true}
+                  disabled={
+                    formCreateAlert.dece_disponible === "non" ? true : false
+                  }
                   label="Si oui , combien ?"
                   pl="..."
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -376,13 +379,20 @@ function CreateAlert() {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,
-                      animal_malade: e.target.value as "OUI" | "NON",
+                      animal_malade: e.target.value as "oui" | "non",
+                      nb_animal_malade:
+                        e.target.value == "non"
+                          ? "0"
+                          : formCreateAlert.nb_animal_malade,
                     })
                   }
                 />
                 <CommonInputGap
                   // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_MOVED}
                   required={true}
+                  disabled={
+                    formCreateAlert.animal_malade === "non" ? true : false
+                  }
                   label="Si oui,Combien"
                   pl="..."
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -402,13 +412,19 @@ function CreateAlert() {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,
-                      animal_mort: e.target.value as "OUI" | "NON",
+                      animal_mort: e.target.value as "oui" | "non",
+                      nb_animal_mort:
+                        e.target.value == "non"
+                          ? "0"
+                          : formCreateAlert.animal_mort,
                     })
                   }
                   // value={formCreateAlert.nb_animal_mort}
                 />
                 <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_MOVED}
+                  disabled={
+                    formCreateAlert.animal_mort === "non" ? true : false
+                  }
                   required={true}
                   label="Si oui,Combien"
                   pl="..."
@@ -435,7 +451,7 @@ function CreateAlert() {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,
-                      evenement: e.target.value as "OUI" | "NON",
+                      evenement: e.target.value as "oui" | "non",
                     })
                   }
                 />
