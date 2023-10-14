@@ -22,11 +22,7 @@ export const getListStuctureHealthByAreas = selector({
         }
     },
 });
-
 export const currentStructureIDState = atom<string | null>({
     key: STRUCTURE_HEALTH_KEYS.CURRENT_STRUCTURE_HEALTH_ID_STATE,
     default: null,
 });
-
-
-

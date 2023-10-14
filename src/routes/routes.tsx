@@ -65,7 +65,7 @@ function GlobalRoutes() {
           {/* GAPS */}
 
           <Route element={<RequireAuth alowedPermissions={PERMI.READ_GAP} />}>
-            <Route path="/gaps/detail/:id" element={<DetailGap />} />
+            <Route path="/gaps/detail/:idGap" element={<DetailGap />} />
           </Route>
           <Route
             element={<RequireAuth alowedPermissions={PERMI.READ_ALL_GAPS} />}

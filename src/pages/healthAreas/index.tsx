@@ -111,9 +111,6 @@ function HealthAreas() {
 function ListHealthAreas() {
   return (
     <div>
-      <div className="p-1 text-main-color-dark">
-        {/* <LastHeading title={" Aires de santé par territoire"} /> */}
-      </div>
       <Suspense fallback={<SkeletonAnimation className="px-5" />}>
         <HealthAreas />
       </Suspense>

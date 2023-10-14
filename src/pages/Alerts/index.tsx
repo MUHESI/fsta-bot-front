@@ -6,8 +6,14 @@ import { dataAlerts, dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListAlerts } from "./columns";
+import { useNavigate } from "react-router";
+import { useRecoilValue } from "recoil";
+import { IAlert } from "@/types/stateSchema/alert";
+import { getAllAlerts } from "@/globalState/atoms";
 
 function ListAlerts() {
+  const navigate = useNavigate();
+  // const allAlert = useRecoilValue(getAllAlerts) as unknown as IAlert[];
   return (
     <div>
       <div className="p-1 text-main-color-dark">
@@ -15,7 +21,7 @@ function ListAlerts() {
       </div>
       <div className="p-5">
         <DataTable
-          searchField="healthArea"
+          searchField="description"
           columns={columnsListAlerts}
           data={dataAlerts}
         >

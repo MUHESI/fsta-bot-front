@@ -1,11 +1,9 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { CommonSelectGap, SelectCommon } from "@/components/core/select";
+import { SelectCommon } from "@/components/core/select";
 import { Grid } from "@mui/material";
 import { CommonInputGap } from "@/components/core/Inputs";
 import { CommonTextareaGap } from "@/components/core/TextareaCustom";
-import { provinces } from "@/constants/constants";
-import { TOOLTIP_GAP_FORM } from "./tooltips";
 import AlertMessage, {
   INIT_ALERT_MODEL,
   setAlertAsEmptyData,
@@ -26,18 +24,17 @@ import {
   getMaladies,
   userAuthenticatedState,
 } from "@/globalState/atoms";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CustomButton } from "@/components/core/Button";
 import Pyramid from "@/components/pyramid";
 import { IMaladie } from "@/types/stateSchema/maladie";
-import SkeletonAnimation, { TexttLoading } from "@/components/skeleton";
+import { TexttLoading } from "@/components/skeleton";
 
 function CreateAlert() {
   const user = useRecoilValue(userAuthenticatedState);
   const currentMaladieId = useRecoilValue(currentMaladieIDState);
   const currentStructureID = useRecoilValue(currentStructureIDState);
   const currentHalthAreaID = useRecoilValue(currentHalthAreaIDState);
-  // const [user, setUser] = useRecoilState(userAuthenticatedState);
 
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
@@ -47,8 +44,8 @@ function CreateAlert() {
   // MANAGER ALERT
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL });
   const [dataAboutdead] = useState([
-    { label: "OUI", value: "OUI" },
-    { label: "NON", value: "NON" },
+    { label: "OUI", value: "oui" },
+    { label: "NON", value: "non" },
   ]);
 
   useEffect(() => {
@@ -73,7 +70,7 @@ function CreateAlert() {
       });
     }
 
-    // onsole.clear();
+    console.clear();
     console.log("formCreateAlert", formCreateAlert);
 
     const form_ = {
@@ -88,9 +85,9 @@ function CreateAlert() {
       form_.name_point_focal.trim().length < 3 ||
       form_.phone.trim().length < 8 ||
       form_.date_notification.trim().length < 4 ||
-      form_.datealert.trim().length < 4 ||
-      form_.date_detection.trim().length < 4 ||
-      form_.time_detection.trim().length < 4 ||
+      form_.datealert.trim().length < 2 ||
+      form_.date_detection.trim().length < 2 ||
+      form_.time_detection.trim().length < 2 ||
       form_.nbr_touche.trim().length < 2 ||
       form_.animal_malade.trim().length < 2 ||
       form_.animal_mort.trim().length < 2 ||
@@ -111,13 +108,13 @@ function CreateAlert() {
           true
         )
       );
-
       const { data } = await postAPI<IFetchData<IBaseData>, ICreateAlert>(
         "alert/sendAlert",
-        formCreateAlert,
+        form_,
         user.token
       );
-      if (data.code === 200 && data.data) {
+
+      if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
@@ -130,7 +127,7 @@ function CreateAlert() {
           msg: `l'alert ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setFormCreateAlert({ ...INIT_FORM_CREATE_ALERT });
+        // setFormCreateAlert({ ...INIT_FORM_CREATE_ALERT });
       }
     } catch (error) {
       setInfoLoading(
@@ -271,8 +268,9 @@ function CreateAlert() {
                 <CommonInputGap
                   // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_AREA}
                   required={true}
+                  type="number"
                   label="Quand cela s’est-il produit: Heure"
-                  pl="eg:14H00"
+                  pl="ex:10"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,
@@ -298,7 +296,8 @@ function CreateAlert() {
                 <CommonInputGap
                   required={true}
                   label="Heure de la détection"
-                  pl="eg: 14H00"
+                  pl="ex: 14"
+                  type="number"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setFormCreateAlert({
                       ...formCreateAlert,

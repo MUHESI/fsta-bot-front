@@ -24,7 +24,6 @@ export const getListHealthAreasByZone = selector({
 
     },
 });
-
 export const currentHalthAreaIDState = atom<string | null>({
     key: HEALTH_AREAS_KEYS.CURRENT_HEALTH_AREA_ID_STATE,
     default: null,

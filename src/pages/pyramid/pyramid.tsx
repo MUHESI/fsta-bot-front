@@ -14,7 +14,6 @@ import {
   getProvincesState,
   getTerritoriesByProvinceState,
   getListStuctureHealthByAreas,
-  currentStructureIDState,
   getListZoneSanteByTerritory,
   currentZoneSanteIDState,
 } from "@/globalState/atoms";

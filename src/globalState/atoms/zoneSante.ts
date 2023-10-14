@@ -1,6 +1,6 @@
 import { atom, selector } from "recoil";
 import { IZoneSante } from "../../types/stateSchema/zoneSante";
-import { HEALTH_AREAS_KEYS, ZONE_SANTE_KEYS, } from "../keys";
+import { ZONE_SANTE_KEYS, } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
@@ -21,7 +21,6 @@ export const getListZoneSanteByTerritory = selector({
 
     },
 });
-
 export const currentZoneSanteIDState = atom<string | null>({
     key: ZONE_SANTE_KEYS.CURRENT_ZONE_SANTE_ID_STATE,
     default: null,

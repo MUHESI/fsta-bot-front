@@ -9,18 +9,18 @@ import {
   getListHealthAreasByZone,
   getProvincesState,
   getTerritoriesByProvinceState,
-  getListStuctureHealthByAreas,
-  currentStructureIDState,
+  getListZoneSanteByTerritory,
+  currentZoneSanteIDState,
 } from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
 import { IHealthArea } from "@/types/stateSchema/healthArea";
-import { IStructureHealth } from "@/types/stateSchema/StructureHealth";
+import { IZoneSante } from "@/types/stateSchema/zoneSante";
 
 function ShowPyramid() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const setCurrentTerritoryID = useSetRecoilState(currentTerritoryIDState);
   const setCurrentHalthAreaID = useSetRecoilState(currentHalthAreaIDState);
-  const setCurrentStructureID = useSetRecoilState(currentStructureIDState);
+  const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
 
   const allProvinces = useRecoilValue(
     getProvincesState
@@ -28,46 +28,47 @@ function ShowPyramid() {
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
-  const allListHealthAreasByTerritory = useRecoilValue(
+  const allListZoneSantes = useRecoilValue(
+    getListZoneSanteByTerritory
+  ) as unknown as IZoneSante[];
+
+  const allListHealthAreasByZone = useRecoilValue(
     getListHealthAreasByZone
   ) as unknown as IHealthArea[];
-
-  const allListStructureHealth = useRecoilValue(
-    getListStuctureHealthByAreas
-  ) as unknown as IStructureHealth[];
 
   return (
     <div className="mb-2">
       <div className="flex flex-wrap justify-between px-5 gap-5">
         <SelectCommon
           data={allProvinces}
-          label="Selectionner le DPS"
+          label="DPS/Province"
           keyObject="name"
           onChange={setCurrentProvinceID}
           value={"..."}
         />
         <SelectCommon
           data={allTerritoriesByProvince}
-          label="Selectionner le territoire"
+          label="Territoire"
           keyObject="name"
           onChange={setCurrentTerritoryID}
           value={"..."}
         />
+
         <SelectCommon
-          data={allListHealthAreasByTerritory}
-          label="Selectionner Aires de santé "
+          data={allListZoneSantes}
+          label="Zone de santé"
+          keyObject="name"
+          onChange={setCurrentZoneSanteID}
+          value={"..."}
+        />
+        <SelectCommon
+          data={allListHealthAreasByZone}
+          label="Aire de santé"
           keyObject="name"
           onChange={setCurrentHalthAreaID}
           value={"..."}
+          // type=""
         />
-        {/* <SelectCommon
-          data={allListStructureHealth}
-          label="Selectionner Aires de santé "
-          keyObject="name"
-          onChange={setCurrentStructureID}
-          value={"..."}
-        /> */}
-        {JSON.stringify(allListStructureHealth)}
       </div>
     </div>
   );

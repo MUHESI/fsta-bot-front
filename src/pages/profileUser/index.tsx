@@ -42,7 +42,6 @@ function ShowProfileUser() {
   const currentUser_ = useRecoilValue(
     getInfoUser({ idUser: user.id, token: user.token })
   ) as unknown as any;
-  // const currentUser_ = "useRecoilValue(getInfoUser) as unknown as any";
 
   const [currentUser, setCurrentUser] = useState<IUser | any>({});
 
