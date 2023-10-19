@@ -1,11 +1,12 @@
-import { selector, selectorFamily } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 
-import { IGap } from "../../types/stateSchema/gap";
+import { ICreateGap, IGap } from "../../types/stateSchema/gap";
 import { GAPS_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
 import { currentProvinceIDState } from './province'
+import { INIT_FORM_CREATE_GAP } from "@/constants/initForm";
 
 
 export const getAllGaps = selector({
@@ -41,7 +42,13 @@ export const getInfoGap = selectorFamily({
         } else if (res instanceof Error) {
             return { error: res }
         } else return res?.data?.data
-
     },
 });
+
+export const createGap = atom<ICreateGap>({
+    key: GAPS_KEYS.CREATE_GAP,
+    default: {
+        ...INIT_FORM_CREATE_GAP
+    }
+})
 

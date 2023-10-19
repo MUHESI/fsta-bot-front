@@ -14,6 +14,7 @@ import { ICreateMedicament } from "@/types/stateSchema/medicament";
 import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 import { ICreateStructureHealth } from "@/types/stateSchema/StructureHealth";
 import { ICreateAlert } from "@/types/stateSchema/alert";
+import { ICreateGap } from "@/types/stateSchema/gap";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -125,11 +126,11 @@ export const INIT_FORM_CREATE_ALERT: ICreateAlert = {
     datealert: "",
     timealert: "",
     nbr_touche: "",
-    dece_disponible: "NON",
+    dece_disponible: "non",
     nbr_dece: "",
-    animal_malade: "NON",
-    animal_mort: "NON",
-    evenement: "NON",
+    animal_malade: "non",
+    animal_mort: "non",
+    evenement: "non",
     mesure: "",
     description: "",
     maladieid: "",
@@ -141,5 +142,75 @@ export const INIT_FORM_CREATE_ALERT: ICreateAlert = {
     nb_animal_mort: "",
 
     // nb_animal_touche: "",
+}
+
+export const INIT_FORM_CREATE_GAP: ICreateGap = {
+    provinceid: "",
+    territoirid: "",
+    zoneid: "",
+    airid: "",
+    structureid: "",
+    population: 0,
+    pop_deplace: 0,
+    pop_site: 0,
+    pop_retourne: 0,
+    semaine_epid: 0,
+    annee_epid: 0,
+    // etat_infra: "NO DETRUITE",
+    equipement: "",
+    nbr_lit: 0,
+    taux_occupation: 0,
+    nbr_reco: 0,
+    pop_eloigne: 0,
+    pop_vulnerable: 0,
+    cout_ambulatoire: 0,
+    cout_hospitalisation: 0,
+    cout_accouchement: 0,
+    cout_cesarienne: 0,
+    barriere: 0,
+    pop_handicap: 0,
+    couvertureDtc3: 0,
+    mortaliteLessfiveyear: 0,
+    covid19_nbrcas: 0,
+    covid19_nbrdeces: 0,
+    covid19_nbrtest: 0,
+    covid19_vacciDispo: 0,
+    malnutrition: 0,
+    pourcentCleanWater: 0,
+    //
+    datacriseid: [""],
+    datapopulationeloigne: [
+        {
+            localite: "",
+            nbr: 0
+        },
+
+    ],
+    datamaladie: [
+        {
+            nbrCas: 2,
+            nbrDeces: 0,
+            maladieid: ""
+        },
+    ],
+    datamedocid: [],
+    datapartenaireid: [
+        {
+            orgid: "",
+            date_debut: "",
+            date_fin: "",
+            email: "",
+            datatindicateur: []
+        },
+    ],
+    datatypepersonnel: [
+        {
+            typepersonnelid: "",
+            nbr: 0
+        }
+    ],
+    dateReportage: "",
+    etat_infra: 'NO-DETRUITE',
+    pop_retournes: 0
 
 }

@@ -1,10 +1,8 @@
 import React, { Suspense } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListGaps } from "./columns";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {

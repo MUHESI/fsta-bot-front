@@ -1,78 +1,73 @@
 // import { IBaseInterfaceSchema } from "../commonTypes"
 
+interface IDatapopulationeloigne {
+    localite: string,
+    nbr: number
+}
+
+export interface IDatamaladie {
+    nbrCas: number,
+    nbrDeces: number,
+    maladieid: string
+}
+interface IDatatypepersonnel {
+    typepersonnelid: string,
+    nbr: number
+
+}
+export interface IDataPartenaire {
+    orgid: string,
+    date_debut: string,
+    date_fin: string,
+    email: string,
+    datatindicateur: string[]
+}
 export interface ICreateGap {
-    dateReportage: Date | string
+    dateReportage: Date | string;
     //  ADDRESS
-    provinceId: string
-    zoneSanteId: string
-    aireSanteId: string
-    structureSanteId: string
-    typeStructureSanteId: string // It should be a  id typeStructureSante 
+    provinceid: string;
+    zoneid: string;
+    territoirid: string;
+    airid: string;
+    structureid: string;
 
     // POPULATION
-    pop_aireSante: number
-    pop_moved: number
-    pop_retournes: number
+    population: number;
+    pop_deplace: number;
+    pop_retournes: number;
+    pop_site: number;
+    pop_retourne: number;
+    pop_handicap: number;
     //
-    typeCrises: string[]
-    pop_inMovedZone: number
-    medRuptureStock: string[] // array of id
-    etatInfrastructure: 'NON_DETRUITE' | 'DETRUITE'
-    etatEquipement: string
-    // PERSONNEL
-    nb_medecin: number
-    nb_infirmierA1: number
-    nb_infirmierA2: number
-    nb_sageFemme: number
-    //
-    nb_lits: number
-    tauxOccupation: number
-    nb_recoActifs: number
-    // POPULATION 
-    popEloigneStructureSante_MoreHour: {
-        nameLocality: string
-        nb: number
-    }[]
-    popEloigneStructureSante: number
-    // COUT DE SANTE
-    popVulnerableHaveNotAccessHealfInNeed: number
-    coutSoinsSante_ambulatoire: number
-    coutSoinsSante_hospitalisation: number
-    coutSoinsSante_accouchement: number
-    coutSoinsSante_cesarienne: number
+    semaine_epid: number;
+    annee_epid: number;
+    etat_infra: "DETRUITE" | "NON DETRUITE";
 
-    barrieresToAccessHealf: string[]
-    pop_handicap: number
-    couvertureDTC3: number
-    mortalityLessFiveYear: number
-    maladies: {
-        maladieId: string
-        nbCas: string
-        nbDeces: string
-    }[]
-    covid19_nbCas: number
-    covid19_nbDeces: number
-    covid19_nbTest: number
-    covid19_vaccinsDispo: number
-    poucentMenagesHaveAccessCleanWater: number
-    malnitrutionAigueSevere: number
-    partenairePresents: {
-        partenaireId: string
-        paquetAppui: string[]
-        startDate: Date | string
-        endDate: Date | string
-        contactFocal: string
-    }[]
-    semaineEpid: number
-    yaer: number
-    // OTHER FIELDS
-    titleGap: string
-    gapId: string // IN ORDER TO LINK gap taken as monitoring 
-    createdBy: string// It should be id of use who creates this item
-    status: "MONITORING" | "ANALYSE" | "SEEN" | "COVERED"
-    dateAnalyzed: Date | string
-    dateSeen: Date | string
-    dateCoverd: Date | string
+    equipement: string;
+    nbr_lit: number;
+    nbr_reco: number;
+    pop_eloigne: number;
+    pop_vulnerable: number;
+    cout_ambulatoire: number;
+    cout_hospitalisation: number;
+    cout_accouchement: number;
+    cout_cesarienne: number;
+    barriere: number;
+    taux_occupation: number;
+    couvertureDtc3: number;
+    mortaliteLessfiveyear: number;
+    covid19_nbrcas: number;
+    covid19_nbrdeces: number;
+    covid19_nbrtest: number;
+    covid19_vacciDispo: number;
+    malnutrition: number;
+    pourcentCleanWater: number;
+    datacriseid: string[];
+    datapopulationeloigne: IDatapopulationeloigne[];
+    datamaladie: IDatamaladie[];
+    datamedocid: string[];
+    datapartenaireid: IDataPartenaire[];
+    datatypepersonnel: IDatatypepersonnel[];
 
 }
 

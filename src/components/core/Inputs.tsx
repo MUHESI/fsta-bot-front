@@ -92,7 +92,7 @@ function CommonInputGap({
   pl?: string;
   type?: string;
   onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string | number;
+  value: string | number | Date;
   required?: boolean;
   disabled?: boolean;
 }) {
