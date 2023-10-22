@@ -68,6 +68,7 @@ function MedicamenetEnRuptureStock({
     <div>
       <div className={commonClassSection}>
         <LastHeading
+          className="border-l-4 border-main-color pl-1"
           title={"Médicaments en rupture de stock et cout des soins de sante"}
         />
         <div className="flex flex-wrap justify-between px-5 gap-5">
@@ -208,22 +209,6 @@ function MedicamenetEnRuptureStock({
               });
             }}
             value={formGap.mortaliteLessfiveyear}
-            classNameHoverCard=" border-main-color"
-          />
-        </div>
-        <div className="flex flex-wrap justify-between px-5 gap-5">
-          <CommonInputGap
-            // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-            required={true}
-            label="Nb. pop. Handicap"
-            pl="eg: ..."
-            onChange={(e) => {
-              setFormGap({
-                ...formGap,
-                pop_handicap: Number(e.target.value),
-              });
-            }}
-            value={formGap.pop_handicap}
             classNameHoverCard=" border-main-color"
           />
         </div>

@@ -75,8 +75,14 @@ function GlobalRoutes() {
           <Route element={<RequireAuth alowedPermissions={PERMI.CREATE_GAP} />}>
             <Route path="/gaps/create/" element={<CreateGap />} />
           </Route>
+          <Route element={<RequireAuth alowedPermissions={PERMI.CREATE_GAP} />}>
+            <Route
+              path="/gaps/actions/:statusAction/:idGap"
+              element={<CreateGap />}
+            />
+          </Route>
           <Route
-            path="/gaps/score-card/create/"
+            path="/gaps/score-card/create/:idGap"
             element={<CreateScoreCard />}
           />
 

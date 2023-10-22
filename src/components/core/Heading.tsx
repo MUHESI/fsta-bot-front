@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 type IHeadingProps = {
   title: string;
+  className?: string;
 };
 function MainHeading({ title }: IHeadingProps) {
   return (
@@ -24,20 +25,25 @@ export function FirstHeading({ title }: IHeadingProps) {
 export function SecondHeading({ title }: IHeadingProps) {
   return (
     <ContentTitle>
-      <h3> {title || "Add a title"} </h3>
+      <h3 className="font-bold"> {title || "Add a title"} </h3>
     </ContentTitle>
   );
 }
 
-export function LastHeading({ title }: IHeadingProps) {
+export function LastHeading({ title, className }: IHeadingProps) {
   return (
     <ContentTitle>
-      <h4 className="font-bold text-xl"> {title || "Add a title"} </h4>
+      <h4 className={`${className} font-bold text-sm`}>
+        {" "}
+        {title || "Add a title"}{" "}
+      </h4>
     </ContentTitle>
   );
 }
 export const ContentTitle = styled.div`
   margin: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 
   & h1 {
     font-size: 1.7em;
@@ -46,7 +52,7 @@ export const ContentTitle = styled.div`
     font-size: 1.6em;
   }
   & h3 {
-    font-size: 1.4em;
+    font-size: 0.8em;
   }
   // & h4 {
   //   font-size: 0.8em;

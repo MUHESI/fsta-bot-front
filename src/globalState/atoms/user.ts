@@ -75,13 +75,16 @@ export const getInfoUser = selectorFamily({
             return { error: res }
         } else {
             // DATA IMPROVED BEFORE
-            let user = {
-                ...res?.data?.data,
-                metaData: {
-                    permissions: getPermissionsofCurrentUser(res?.data?.data)
-                }
-            }
-            return user
+            console.clear()
+            console.log('res?.data?.data', res?.data?.data)
+            // let user = {
+            //     ...res?.data?.data,
+            //     metaData: {
+            //         permissions: getPermissionsofCurrentUser(res?.data?.data)
+            //     }
+            // }
+            // return user
+            return res?.data?.data
         }
     },
 });

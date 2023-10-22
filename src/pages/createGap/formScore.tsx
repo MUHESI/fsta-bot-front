@@ -1,512 +1,273 @@
-import React from "react";
-import { LastHeading } from "@/components/core/Heading";
+import React, { Suspense, useEffect, useState } from "react";
+import { LastHeading, SecondHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { Grid } from "@mui/material";
-import { CommonInputGap } from "@/components/core/Inputs";
-import { GAP_SCORE_CARD_LABELS, TOOLTIP_GAP_FORM } from "./tooltips";
+import { useNavigate, useParams } from "react-router";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  currentGapIDState,
+  getAllGaps,
+  getInfoGap,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
+import { Checkbox } from "@/components/ui/checkbox";
+import { IStateLoading } from "@/types/stateSchema/loading";
+import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
+import { IFetchData } from "@/types/commonTypes";
+import { getAPI, postAPI } from "@/utils/fetchData";
+import { ICreateGap, IGap } from "@/types/stateSchema/gap";
+import SkeletonAnimation, { TexttLoading } from "@/components/skeleton";
+import { SelectCommon } from "@/components/core/select";
+import { AG_Toast, showToast } from "@/components/core/ToastAlert";
+import { CustomButton } from "@/components/core/Button";
 
 function CreateScoreCard() {
   // TODO: Improve this later
 
+  const navigate = useNavigate();
+
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
+
+  // recoil
+  const user = useRecoilValue(userAuthenticatedState);
+  const currentGapId = useRecoilValue(currentGapIDState);
+
+  const { idGap } = useParams();
+  const [idGap_, setidGap_] = useState<string>("");
+  const [enteteScoreCard, setEnteteScoreCard] = useState<any[]>([]);
+  const [infoLoading, setInfoLoading] = useState<IStateLoading>({
+    loadEnteteScoreCard: {
+      status: false,
+      msg: "",
+    },
+    sendScoreCard: {
+      status: false,
+      msg: "",
+    },
+  });
+
+  useEffect(() => {
+    if (idGap !== "null") {
+      setidGap_(currentGapId as string);
+      setidGap_(idGap as string);
+    } else {
+      setidGap_(currentGapId as string);
+    }
+  }, [idGap, currentGapId]);
+
+  const classNameLasHeading = "border-l-4 border-main-color pl-1";
+
+  const getEnteteScoreCard = async () => {
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "loadEnteteScoreCard", lKey: "status" },
+          true
+        )
+      );
+      // TODO: typp this laater
+      const res = await getAPI<IFetchData<any[]> | undefined>(
+        "scorecard/listentete",
+        user.token
+      );
+
+      if (res?.data) {
+        let dataOrigin: any[] = [];
+        let data: any[] = [];
+        for (let i = 0; i < res?.data?.data.length; i++) {
+          res?.data?.data[i].dataquestion.map((item: any, key: number) => {
+            data.push({ ...item, response: null });
+          });
+          dataOrigin.push({ ...res?.data?.data[i], dataquestion: data });
+          data = [];
+        }
+        setEnteteScoreCard(dataOrigin);
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "loadEnteteScoreCard", lKey: "status" },
+            false
+          )
+        );
+      }
+    } catch (error) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "loadEnteteScoreCard", lKey: "status" },
+          false
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    getEnteteScoreCard();
+  }, []);
+
+  const handleClick = ({ enteteIndex, questionIndex, value }: any) => {
+    const enteteScoreCard_ = [...enteteScoreCard];
+    enteteScoreCard_[enteteIndex].dataquestion[questionIndex].response = value
+      ? 1
+      : 0;
+    return setEnteteScoreCard(enteteScoreCard_);
+  };
+
+  const submitSccoreCard = async () => {
+    let dataQuestion: any[] = [];
+    for (let i = 0; i < enteteScoreCard.length; i++) {
+      enteteScoreCard[i].dataquestion.map((item: any, key: number) => {
+        if (item.response !== null) {
+          dataQuestion.push({
+            questionid: item.id,
+            reponse: `${item.response}`,
+          });
+        }
+      });
+    }
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "sendScoreCard", lKey: "status" },
+          true
+        )
+      );
+      let form_ = { gapid: idGap_, datareponse: dataQuestion };
+      const { data } = await postAPI<IFetchData<any>, any>(
+        "scorecard/sendscorecard",
+        form_,
+        user.token
+      );
+      if (data) {
+        showToast({
+          msg: `Traitement réussie avec succès!`,
+          type: AG_Toast.statusToast.SUCCESS,
+        });
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "sendScoreCard", lKey: "status" },
+            false
+          )
+        );
+        navigate(`/gaps`);
+      }
+    } catch (error) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "sendScoreCard", lKey: "status" },
+          false
+        )
+      );
+      showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG}`,
+        type: AG_Toast.statusToast.ERROR,
+      });
+    }
+  };
 
   return (
     <div className="">
       <div className="p-1 text-main-color-dark">
         <LastHeading title={"Création de formulaire GAP partie score"} />
       </div>
-
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
-            {/* =========================== POPULATION =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={
-                  "Informations sur les contact des personnes qui rapportent"
-                }
-              />
-
-              <div className="flex flex-wrap justify-between px-5 gap-5">
-                <CommonInputGap
-                  titleTooltip={
-                    TOOLTIP_GAP_FORM.ESTABLISHMENT_HAS_PF_OR_PCI_WITH_RESPONSIBILITY
-                  }
-                  required={true}
-                  label="    L’établissement a un PF  d’hygiène/PCI "
-                  pl="eg:200"
-                  onChange={() => console.log("first")}
-                  value={""}
-                />
-
-                <CommonInputGap
-                  titleTooltip={
-                    TOOLTIP_GAP_FORM.TDR_AVAILABLE_AND_THE_PF_KNOWS_IT
-                  }
-                  required={true}
-                  label="TDR disponible"
-                  pl="eg: 2000"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-                <CommonInputGap
-                  titleTooltip={
-                    TOOLTIP_GAP_FORM.TEMP_AND_SYMPTOMS_OF_MVE_ARE_VERIFIED
-                  }
-                  required={true}
-                  label="TDR disponible"
-                  pl="eg: 2000"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* =========================== TRIAGE EN PLACE =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.TWO_TRIAGE_EN_PLACE.mainTitle}
-              />
-
-              <div className="flex flex-wrap justify-between px-5 gap-5">
-                <CommonInputGap
-                  titleTooltip={GAP_SCORE_CARD_LABELS.TWO_TRIAGE_EN_PLACE.key_1}
-                  required={true}
-                  label="Température et symptômes de MVE vérifiés"
-                  pl="eg:200"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_MOVED}
-                  required={true}
-                  label="Fiche de triage et registre disponibles"
-                  pl="eg: 2000"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-                <CommonInputGap
-                  titleTooltip={GAP_SCORE_CARD_LABELS.TWO_TRIAGE_EN_PLACE.key_3}
-                  required={true}
-                  label="Util. correcte de la fiche et du registre de triage"
-                  pl="eg: 2000"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* =========================== IDENTIFICATION DE LA ZONE D’ISOLEMENT. =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.THREE_IDENTIF_ZONE.mainTitle}
-              />
-              <div className="flex flex-wrap justify-between px-5 gap-5">
-                <CommonInputGap
-                  titleTooltip={GAP_SCORE_CARD_LABELS.THREE_IDENTIF_ZONE.key_1}
-                  required={true}
-                  label="Zone bien identifiée et à l’écart des autres unités"
-                  pl="eg:200"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-                <CommonInputGap
-                  titleTooltip={GAP_SCORE_CARD_LABELS.THREE_IDENTIF_ZONE.key_2}
-                  required={true}
-                  label="Toilettes dédiées dans la zone d'isolement"
-                  pl="eg:200"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-                <CommonInputGap
-                  titleTooltip={GAP_SCORE_CARD_LABELS.THREE_IDENTIF_ZONE.key_3}
-                  required={true}
-                  label="L'espace d'isolement comprend: une station de lavage des mains, des fournitures , une zone pour mettre les EPI et une zone pour enlever les EPI"
-                  pl="eg:200"
-                  onChange={() => console.log("first")}
-                  value={""}
-                  // classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-
-            {/* =========================== LAVAGE DES MAINS / STATIONS POUR L’HYGIENE DES MAINS =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.FOUR_LAVAGE_MAINS.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.FOUR_LAVAGE_MAINS.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.FOUR_LAVAGE_MAINS.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.FOUR_LAVAGE_MAINS.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* =========================== DISPONIBILTE DE L'USAGE  DES EQUIPEMENTS DE PROTECTION INDIVIDUEL   =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.FIVE_DISP_ET_USAGE.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.FIVE_DISP_ET_USAGE.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.FIVE_DISP_ET_USAGE.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.FIVE_DISP_ET_USAGE.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* =========================== TRIE DES DECHETS =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.SIX_TRIAGE_DECHETS.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.SIX_TRIAGE_DECHETS.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.SIX_TRIAGE_DECHETS.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.SIX_TRIAGE_DECHETS.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* =========================== TRIE DES ELIMINATIONS DES DECHETS  =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.SEVEN_ELIM_DECHETS.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.SEVEN_ELIM_DECHETS.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.SEVEN_ELIM_DECHETS.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.SEVEN_ELIM_DECHETS.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* =========================== FORMATION DU PERSONEL  =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.EIGHT_FORMATION_PERS.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.EIGHT_FORMATION_PERS.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.EIGHT_FORMATION_PERS.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.EIGHT_FORMATION_PERS.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* ===========================  ALERTE DES  CAS SUSPECT INTRA-HOSPITALIER (AU NIVEAU DES FOSA) =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={
-                  GAP_SCORE_CARD_LABELS.NINE_ALERT_CAS_SUSPECTS_IN_HOSP
-                    .mainTitle
-                }
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={
-                    GAP_SCORE_CARD_LABELS.NINE_ALERT_CAS_SUSPECTS_IN_HOSP.key_1
-                  }
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={
-                    GAP_SCORE_CARD_LABELS.NINE_ALERT_CAS_SUSPECTS_IN_HOSP.key_2
-                  }
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={
-                    GAP_SCORE_CARD_LABELS.NINE_ALERT_CAS_SUSPECTS_IN_HOSP.key_3
-                  }
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* ===========================  STERILISATION =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.TEN_TRIAGE_EN_PLACE.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.TEN_TRIAGE_EN_PLACE.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.TEN_TRIAGE_EN_PLACE.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.TEN_TRIAGE_EN_PLACE.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* ===========================  BIO-NETTOYAGE DE L'ENVIROMENT DU PATIENT =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.ELEVEN_BIO_NETT.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.ELEVEN_BIO_NETT.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.ELEVEN_BIO_NETT.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.ELEVEN_BIO_NETT.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* ===========================  EXPORTATION D’UN AGENT DE SANTÉ À LA VIRUS EBOLA  =========================== */}
-            <div className={commonClassSection}>
-              <LastHeading
-                title={GAP_SCORE_CARD_LABELS.TWELVE_EXPOS_AGENT.mainTitle}
-              />
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.TWELVE_EXPOS_AGENT.key_1}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.TWELVE_EXPOS_AGENT.key_2}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label={GAP_SCORE_CARD_LABELS.TWELVE_EXPOS_AGENT.key_3}
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-            {/* ===========================  SCORE GLOBAL ============================ */}
-            <div className={commonClassSection}>
-              <LastHeading title={"Information sur le score global"} />
-              <div className="px-5">
-                <CommonInputGap
-                  required={true}
-                  label="Score"
-                  pl="eg: ..."
-                  onChange={() => console.log("first")}
-                  value={""}
-                  classNameHoverCard=" border-main-color"
-                />
-              </div>
-            </div>
-
-            <div className="btn p-3 flex justify-end ">
-              <Button
-                variant="primary"
-                style={{ border: "1px solid #2DAEC4" }}
-                className="ml-auto  rounded-md"
-              >
-                Enregistrer
-              </Button>
-            </div>
+            {idGap == "null" ? (
+              <Suspense fallback={<SkeletonAnimation className="px-5" />}>
+                <SelectGap />
+              </Suspense>
+            ) : (
+              <Suspense fallback={<TexttLoading />}>
+                <ShowTitleGap idGap={idGap || ""} token={user.token} />
+              </Suspense>
+            )}
           </section>
+          {infoLoading.loadEnteteScoreCard.status ? (
+            <SkeletonAnimation className="px-5" />
+          ) : (
+            <section className="mx-3">
+              {enteteScoreCard.map((item: any, key: number) => (
+                <div key={key} className={commonClassSection}>
+                  <LastHeading
+                    className="border-l-4 border-main-color pl-1"
+                    title={item.name_entete || ""}
+                  />
+                  {item?.dataquestion?.map((item_: any, key_: number) => (
+                    <div
+                      key={key_}
+                      className={`my-2 py-2 ${
+                        key_ + 1 !== item?.dataquestion.length && "border-b"
+                      }  `}
+                    >
+                      <label className="ml-4 text-gray-400 text-sm block mb-2">
+                        {item_.name_question}
+                      </label>
+
+                      <div className="flex flex-wrap justify-between px-5 gap-5">
+                        <div className="flex items-center space-x-2">
+                          <p className="flex items-center">
+                            <Checkbox
+                              id="terms_90"
+                              checked={item_.response === 1}
+                              // checked={}
+                              onClick={() =>
+                                handleClick({
+                                  enteteIndex: key,
+                                  questionIndex: key_,
+                                  value: true,
+                                })
+                              }
+                            />
+                            <label
+                              htmlFor="terms_90"
+                              className="mx-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              OUI
+                            </label>
+                          </p>
+                          <p className="flex items-center">
+                            <Checkbox
+                              id="terms"
+                              checked={item_.response === 0}
+                              onClick={() =>
+                                handleClick({
+                                  enteteIndex: key,
+                                  questionIndex: key_,
+                                  value: false,
+                                })
+                              }
+                            />
+                            <label
+                              htmlFor="terms"
+                              className="mx-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              NON
+                            </label>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+              <div className="btn p-3 flex justify-end ">
+                <CustomButton
+                  onClick={submitSccoreCard}
+                  statusLoading={infoLoading.sendScoreCard.status}
+                  disabled={infoLoading.sendScoreCard.status}
+                  label="Enregistrer"
+                  // style={{ border: "1px solid #2DAEC4" }}
+                  className="ml-auto  rounded-md"
+                />
+              </div>
+            </section>
+          )}
         </Grid>
       </Grid>
     </div>
@@ -514,3 +275,41 @@ function CreateScoreCard() {
 }
 
 export default CreateScoreCard;
+
+function SelectGap() {
+  const allGaps = useRecoilValue(getAllGaps) as unknown as IGap[];
+  const setCurrentGapID = useSetRecoilState(currentGapIDState);
+
+  return (
+    <div>
+      <SelectCommon
+        data={allGaps}
+        label="Selectionner les gaps"
+        keyObject="title"
+        onChange={setCurrentGapID}
+        value={"..."}
+      />
+    </div>
+  );
+}
+
+function ShowTitleGap({ idGap, token }: { idGap: string; token: string }) {
+  const detailGap = useRecoilValue(
+    getInfoGap({ idGap: idGap, token })
+  ) as unknown as any;
+
+  const commonClass = "border shadow rounded-lg p-2 my-5";
+  const commonClassSection = `${commonClass} `;
+
+  return (
+    <div
+      className={`${commonClassSection} flex flex-wrap justify-between items-center`}
+    >
+      <div>
+        <span className="text-sm text-gray-400">Titre du gap</span>
+        <div className="text-sm font-bold pl-4">{detailGap.title}</div>
+      </div>
+      <label className="text-sm bg-green-500 p-2 rounded-md ">CREATED</label>
+    </div>
+  );
+}

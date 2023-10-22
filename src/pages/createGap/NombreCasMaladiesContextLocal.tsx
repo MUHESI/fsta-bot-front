@@ -98,6 +98,7 @@ function NombreCasMaladiesContextLocal({
     <div>
       <div className={commonClassSection}>
         <LastHeading
+          className="border-l-4 border-main-color pl-1"
           title={
             "Nombre des cas des maladies liées au contexte local (cholera, Rougeole, Méningite, autres) "
           }

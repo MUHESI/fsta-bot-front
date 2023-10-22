@@ -10,6 +10,7 @@ import { MdCreateNewFolder } from "react-icons/md";
 import { FcOrganization } from "react-icons/fc";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
+import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 type MainMemnu =
   | "Aperçu"
@@ -137,13 +138,13 @@ export const dataMenus: IDataMenu[] = [
           {
             label: "Créer un gap",
             icon: <AiOutlineShoppingCart />,
-            path: "/gaps/create",
+            path: `/gaps/actions/${GAP_ACTIONS_STATUS.CREATE_GAP}/null`,
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
           {
             label: "Créer score card",
             icon: <AiOutlineShoppingCart />,
-            path: "/gaps/score-card/create",
+            path: "/gaps/score-card/create/null",
             permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,
           },
         ],

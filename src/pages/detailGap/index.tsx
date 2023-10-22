@@ -252,5 +252,4 @@ function DetailGap() {
     </div>
   );
 }
-
 export default DetailGap;

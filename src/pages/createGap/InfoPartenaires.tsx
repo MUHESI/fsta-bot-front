@@ -153,7 +153,10 @@ function InfoPartenaires({
   return (
     <div>
       <div className={commonClassSection}>
-        <LastHeading title={"Informations sur les partenaires"} />
+        <LastHeading
+          className="border-l-4 border-main-color pl-1"
+          title={"Informations sur les partenaires"}
+        />
         <div className="flex flex-wrap justify-between px-5 gap-5">
           <CommonSelectGap
             data={organizations}

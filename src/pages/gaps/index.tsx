@@ -10,7 +10,7 @@ import {
   getAllGaps,
   getProvincesState,
 } from "@/globalState/atoms";
-import { IGap } from "@/types/stateSchema/gap";
+import { GAP_ACTIONS_STATUS, IGap } from "@/types/stateSchema/gap";
 import SkeletonAnimation from "@/components/skeleton";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "@/components/core/Button";
@@ -50,7 +50,9 @@ function Gaps() {
         />
         <div className="">
           <CustomButton
-            onClick={() => navigate("/gaps/create")}
+            onClick={() =>
+              navigate(`/gaps/actions/${GAP_ACTIONS_STATUS.CREATE_GAP}/null`)
+            }
             label="Créer un nouveau"
             className="rounded-md"
             // statusLoading={true}

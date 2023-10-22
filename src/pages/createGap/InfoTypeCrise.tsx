@@ -215,10 +215,10 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                pop_handicap: Number(e.target.value),
+                pop_vulnerable: Number(e.target.value),
               });
             }}
-            value={formGap.pop_handicap}
+            value={formGap.pop_vulnerable}
             // classNameHoverCard=" border-main-color"
           />
           <CommonInputGap

@@ -24,7 +24,10 @@ function InfoVirusAutresMaldies() {
   return (
     <div>
       <div className={commonClassSection}>
-        <LastHeading title={"Informations sur les virus et autres maladies"} />
+        <LastHeading
+          className="border-l-4 border-main-color pl-1"
+          title={"Informations sur les virus et autres maladies"}
+        />
         <div className="flex flex-wrap justify-between px-5 gap-5">
           <CommonInputGap
             // titleTooltip={TOOLTIP_GAP_FORM}

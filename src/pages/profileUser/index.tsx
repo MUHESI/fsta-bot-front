@@ -1,11 +1,11 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useRef } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { AG_URL } from "@/constants/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 
-import { FaUserCircle } from "react-icons/fa";
+import { FaCameraRetro, FaUserCircle } from "react-icons/fa";
 import { RiFolderInfoFill } from "react-icons/ri";
 import { CgOrganisation } from "react-icons/cg";
 import { MdSettings } from "react-icons/md";
@@ -27,10 +27,13 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { postAPI, putAPI, updateAPI } from "@/utils/fetchData";
+import { BASE_URL_API, postAPI, putAPI, updateAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { CustomButton } from "@/components/core/Button";
 import { useParams } from "react-router";
+import { UploadFile } from "@/components/uploadFiles/controllerUpload";
+import { BiSolidEditAlt } from "react-icons/bi";
+import { LinearDeterminate } from "../loading";
 
 function ShowProfileUser() {
   const { idUser } = useParams();
@@ -43,7 +46,75 @@ function ShowProfileUser() {
     getInfoUser({ idUser: user.id, token: user.token })
   ) as unknown as any;
 
+  const [hovering, setHovering] = useState(false);
   const [currentUser, setCurrentUser] = useState<IUser | any>({});
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [image, setImage] = useState<{ uri: string | null; file: any }>({
+    uri: null,
+    file: null,
+  });
+  const [infoLoading, setInfoLoading] = useState<IStateLoading>({
+    updatePhotoProfile: {
+      status: false,
+      msg: "",
+    },
+    updateProfile: {
+      status: false,
+      msg: "",
+    },
+  });
+
+  const loadImage = (e: any) => {
+    const URI = URL.createObjectURL(e.target.files[0]);
+    setImage({ uri: URI, file: e.target.files[0] });
+    submitupdatePictureUser(e.target.files[0]);
+  };
+  const submitupdatePictureUser = async (file: any) => {
+    if (!file) return;
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updatePhotoProfile", lKey: "status" },
+          true
+        )
+      );
+      const res = await UploadFile.uploadFiles({
+        URL: `${BASE_URL_API}/api/users/editimage`,
+        files: [file],
+        typeFile: "image",
+        token: user.token,
+      });
+
+      if (res?.success) {
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "updatePhotoProfile", lKey: "status" },
+            false
+          )
+        );
+        return showToast({
+          msg: `Photo du profile modifiée`,
+          type: AG_Toast.statusToast.SUCCESS,
+        });
+      }
+    } catch (error) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updatePhotoProfile", lKey: "status" },
+          false
+        )
+      );
+      return showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${
+          (error as any as unknown as Error).message
+        }`,
+        type: StatusToast.ERROR,
+      });
+    }
+  };
 
   const checkAuthUser = () => {
     const dataSaved = LocalStorage.getItem<{
@@ -70,13 +141,6 @@ function ShowProfileUser() {
   const commonClassResume =
     "flex justify-start w-full gap-5 px-5 py-2  cursor-pointer items-center text-base hover:bg-white-hover hover:text-accent-foreground";
 
-  const [infoLoading, setInfoLoading] = useState<IStateLoading>({
-    updateProfile: {
-      status: false,
-      msg: "",
-    },
-  });
-
   const handleSubmitUpdateProfile = async () => {
     if (currentUser.full_name.trim().length < 3) {
       return showToast({
@@ -97,10 +161,7 @@ function ShowProfileUser() {
         currentUser,
         user.token
       );
-      //
-      console.clear();
-      console.log("data", data);
-      //
+
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
@@ -115,8 +176,6 @@ function ShowProfileUser() {
         });
       }
     } catch (error) {
-      console.clear();
-      console.log("error", error);
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
@@ -135,7 +194,13 @@ function ShowProfileUser() {
 
   return (
     <div className="">
-      <div className="p-1 text-main-color-dark">
+      <div
+        className="p-1 text-main-color-dark"
+        onClick={() => {
+          console.clear();
+          console.log("currentUser", currentUser_);
+        }}
+      >
         <LastHeading title={"Profile User"} />
       </div>
 
@@ -167,21 +232,66 @@ function ShowProfileUser() {
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
           <section className=" mx-3">
-            <div className={commonClass}>
-              {/* <div className="flex flex-wrap justify-between px-5 py-2 items-center text-base"> */}
+            <div className={`${commonClass}`}>
               <div className="flex flex-wrap justify-center sm:justify-between px-5 py-2 items-center text-base">
-                <div className="flex flex-col sm:flex-row  justify-center  gap-5 items-center ">
-                  <img
-                    alt="..."
-                    src={`${AG_URL.USER_IMG_PROFILE}`}
-                    className="w-20 h-20 object-cover"
+                <div
+                  className="flex flex-col sm:flex-row  justify-center  gap-5 items-center "
+                  onClick={() => {
+                    console.clear();
+                    console.log("currentUser", currentUser);
+                  }}
+                >
+                  <input
+                    onChange={loadImage}
+                    multiple={false}
+                    ref={fileInputRef}
+                    type="file"
+                    hidden
                   />
+                  <div
+                    className="border rounded-full "
+                    onClick={() => fileInputRef?.current?.click()}
+                    onMouseEnter={() => setHovering(true)}
+                    onMouseLeave={() => setHovering(false)}
+                    style={{
+                      backgroundImage: image?.uri
+                        ? `url(${image?.uri})`
+                        : currentUser
+                        ? `url(${currentUser?.profil})`
+                        : "",
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                      backgroundRepeat: "no-repeat",
+                      // ADDED STYLE
+                      width: "70px",
+                      height: "70px",
+                      display: "flex",
+                      justifyContent: "right",
+                      alignItems: "end",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {image.uri === null && hovering && (
+                      <>
+                        <div
+                          style={{
+                            transform: "translate(-10px)",
+                          }}
+                        >
+                          <BiSolidEditAlt className="duration-300 text-md text-main-color font-bold" />
+                        </div>
+                      </>
+                    )}
+                  </div>
                   <div className=" flex flex-col  text-center sm:text-left">
                     <strong> {currentUser?.full_name || ""} </strong>
                     <span>{currentUser?.affectation_p?.role?.name || ""} </span>
                   </div>
                 </div>
                 <div className="p-5"> Rendre off </div>
+              </div>
+              <div className="h-1 m-auto">
+                {infoLoading.updatePhotoProfile.status && <LinearDeterminate />}
               </div>
             </div>
             <div className={commonClassSection}>
@@ -323,7 +433,7 @@ function ShowProfileUser() {
                   value={currentUser?.affectation_p?.organisation?.email || ""}
                 />
               </div>
-              {/* <div className="btn p-3 flex justify-end ">
+              <div className="btn p-3 flex justify-end ">
                 <Button
                   variant="primary"
                   style={{ border: "1px solid #2DAEC4" }}
@@ -331,7 +441,7 @@ function ShowProfileUser() {
                 >
                   Enregistrer
                 </Button>
-              </div> */}
+              </div>
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Changer mot de passe"} />
@@ -382,9 +492,9 @@ function ShowProfileUser() {
               onClick={() => console.log("currentUser_", currentUser_)}
             >
               <LastHeading title={"Permissions de l'utilisateur"} />
-              <ShowPermissionUser
+              {/* <ShowPermissionUser
                 dataPermissions={currentUser_?.metaData?.permissions}
-              />
+              /> */}
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Parametres du compte"} />

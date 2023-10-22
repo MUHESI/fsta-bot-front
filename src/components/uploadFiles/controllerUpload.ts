@@ -1,7 +1,7 @@
 // import { IFile, IResUploadFiles } from './types';
 import { IResUploadFiles } from './types';
 import { IFetchData } from "../../types/commonTypes";
-import { postAPI } from "../../utils/fetchData";
+import { postAPI, postAPI_URL } from "../../utils/fetchData";
 
 import { StatusToast, showToast } from "../core/ToastAlert";
 
@@ -105,28 +105,28 @@ export class UploadFile {
     FILES: "files",
     iMAGES: "images"
   }
-  static uploadFiles = async ({ files, typeFile = this.typeFileToUpload.FILES, }: any) => {
+  static uploadFiles = async ({ URL, files, typeFile = this.typeFileToUpload.FILES, token }: any) => {
     const formData = new FormData();
     try {
       if (files.length > 0) {
         files.map((item: any) => formData.append(typeFile, item)) // images | files 
       }
-      // const { data } = await postAPI(`shared/${typeFile === this.typeFileToUpload.FILES ? 'uploadDuments' : 'uploadImages'}/${idFile}/${entity} `,
-      //   formData
-      // );
-      const { data } = await postAPI<IFetchData<any>, any>(
-        "login",
-        formData
+      const { data } = await postAPI_URL<IFetchData<any>, any>(
+        URL,
+        formData,
+        token
       );
+      console.clear()
+      console.log('data', data)
 
-      if (data.data.success) {
+      if (data.status === 1) {
         showToast({
           msg: "Fichiers chargés et telechargés avec succes.",
           type: StatusToast.SUCCESS
         });
-        return { documents: data.data.results.documents, success: true }
+        return { documents: data.data, success: true }
       }
-      if (!data.data.success) {
+      if (!data) {
         showToast({
           msg: "Oops , un problème est survenu. Veillez recharger la page et réessayer.",
           type: StatusToast.ERROR

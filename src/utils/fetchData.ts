@@ -7,7 +7,7 @@ export const REACT_MODE = import.meta.env.VITE_REACT_MODE;
 
 // export const BASE_URL_API = REACT_MODE === ModeApp.DEV ?
 //     BASE_URL_API_CLOUD_DEV : BASE_URL_API_CLOUD_PROD
-const BASE_URL_API = 'https://apiafiagap.cosamed.org'
+export const BASE_URL_API = 'https://apiafiagap.cosamed.org'
 
 export const postAPI = async<Tfecth, TData>(url: string, post: TData, token?: string) => {
     const res: Tfecth = await axios({
@@ -18,6 +18,17 @@ export const postAPI = async<Tfecth, TData>(url: string, post: TData, token?: st
     });
     return res;
 };
+
+export const postAPI_URL = async<Tfecth, TData>(url: string, post: TData, token?: string) => {
+    const res: Tfecth = await axios({
+        method: "post",
+        url: `${url}`,
+        data: post,
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    return res;
+};
+
 
 export const getAPI = async<TRes>(url: string, token?: string): Promise<TRes | undefined> => {
     try {

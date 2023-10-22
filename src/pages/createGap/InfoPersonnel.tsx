@@ -103,7 +103,10 @@ function InfoTypeCrise({
   return (
     <div>
       <div className={commonClassSection}>
-        <LastHeading title={"Informations sur le personnel"} />
+        <LastHeading
+          className="border-l-4 border-main-color pl-1"
+          title={"Informations sur le personnel"}
+        />
         <div className="flex flex-wrap justify-between items-center gap-5 m-1 px-5">
           <CommonSelectGap
             data={typePersonels}

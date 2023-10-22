@@ -24,6 +24,7 @@ export interface IDataPartenaire {
 }
 export interface ICreateGap {
     dateReportage: Date | string;
+    id?: string;
     //  ADDRESS
     provinceid: string;
     zoneid: string;
@@ -133,14 +134,14 @@ const partenairePresents = [
 export interface IGap extends ICreateGap {
     // TODO: FIX THIS LATER
     id: string;
+    titleGap: string;
+    title: string;
     created_at: Date | string;
     updated_at: Date | string;
     //
-
 }
-
-
-
-
-
-
+export enum GAP_ACTIONS_STATUS {
+    CREATE_GAP = "CREATE_GAP",
+    UPDATE_GAP = "UPDATE_GAP",
+    VALIDATE_GAP = "VALIDATE_GAP",
+}

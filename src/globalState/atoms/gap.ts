@@ -1,7 +1,6 @@
 import { atom, selector, selectorFamily } from "recoil";
-
 import { ICreateGap, IGap } from "../../types/stateSchema/gap";
-import { GAPS_KEYS } from "../keys";
+import { GAPS_KEYS, SCORE_CARD_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
 import { IFetchData } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
@@ -32,6 +31,12 @@ export const getAllGaps = selector({
     },
 });
 
+export const currentGapIDState = atom<string | null>({
+    key: GAPS_KEYS.CURRENT_GAP_ID_STATE,
+    default: null,
+});
+
+
 export const getInfoGap = selectorFamily({
     key: GAPS_KEYS.GET_INFO_GAP,
     get: params => async () => {
@@ -41,7 +46,11 @@ export const getInfoGap = selectorFamily({
             return { error: new Error('res is undefined') }
         } else if (res instanceof Error) {
             return { error: res }
-        } else return res?.data?.data
+        } else {
+            console.clear()
+            console.log('res?.data?.data', res?.data?.data)
+            return res?.data?.data
+        }
     },
 });
 
@@ -51,4 +60,14 @@ export const createGap = atom<ICreateGap>({
         ...INIT_FORM_CREATE_GAP
     }
 })
+
+
+//SCORE GARD
+export const createScoreCard = atom<ICreateGap>({
+    key: SCORE_CARD_KEYS.CREATE_SCORE_CARD,
+    default: {
+        ...INIT_FORM_CREATE_GAP
+    }
+})
+
 

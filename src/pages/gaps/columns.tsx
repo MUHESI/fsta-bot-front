@@ -11,9 +11,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { IGap } from "@/types/stateSchema/gap";
+import { GAP_ACTIONS_STATUS, IGap } from "@/types/stateSchema/gap";
 import { NavLink } from "react-router-dom";
 import { Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+// TODO:: Improve later
+// STYLE
+export const styles = {
+  DropdownMenuItemClass:
+    "duration-600 text-gray-400 hover:text-gray-500 hover:duration-500 cursor-pointer",
+};
 
 export const columnsListGaps: ColumnDef<IGap>[] = [
   {
@@ -57,7 +65,9 @@ export const columnsListGaps: ColumnDef<IGap>[] = [
     accessorKey: "ACTIONS",
     id: "actions",
     cell: ({ row }) => {
-      const payment: any = row.original;
+      const gap: any = row.original;
+      const navigate = useNavigate();
+      //
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -66,18 +76,29 @@ export const columnsListGaps: ColumnDef<IGap>[] = [
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="bg-white">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
+              className={`${styles.DropdownMenuItemClass}`}
               onClick={() => {
-                // navigator.clipboard.writeText(payment.id);
+                navigate(
+                  `/gaps/actions/${GAP_ACTIONS_STATUS.VALIDATE_GAP}/${gap.id}`
+                );
+              }}
+              // gaps/score-card/create
+            >
+              Investiguer
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                navigate(`/gaps/score-card/create/${gap.id}`);
               }}
             >
-              Copy payment ID
+              Lier scoreCard
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>Repondre</DropdownMenuItem>
+            <DropdownMenuItem>Modifier</DropdownMenuItem>
+            <DropdownMenuItem>Supprimer</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
