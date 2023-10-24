@@ -16,6 +16,7 @@ interface IProps {
   options: any;
   mainTitle: string;
   textBtn: string;
+  classNameMainTitle?: string;
 }
 
 export default function SwipeableCustom({
@@ -24,6 +25,7 @@ export default function SwipeableCustom({
   options,
   mainTitle,
   textBtn,
+  classNameMainTitle,
 }: React.PropsWithChildren<IProps>) {
   const [positionDawer] = React.useState(options?.position || "right");
   const [state, setState] = React.useState<any>({
@@ -57,7 +59,12 @@ export default function SwipeableCustom({
   return (
     <div>
       <React.Fragment>
-        <button onClick={toggleDrawer(positionDawer, true)}>{textBtn}</button>
+        <button
+          className={classNameMainTitle}
+          onClick={toggleDrawer(positionDawer, true)}
+        >
+          {textBtn}
+        </button>
         <SwipeableDrawer
           anchor={positionDawer}
           open={state[positionDawer]}
@@ -69,7 +76,7 @@ export default function SwipeableCustom({
             style={{ maxWidth: 650 }}
           >
             <div className=" text-main-color flex justify-between items-center gap-2">
-              <h2 className="text-xl">{mainTitle}</h2>
+              <h2 className={`text-xl`}>{mainTitle}</h2>
               <AiFillCloseCircle
                 className="cursor-pointer text-xl"
                 onClick={() => hundleDrawer(positionDawer, false)}
