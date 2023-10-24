@@ -244,7 +244,14 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
+// TODO: Consider this later
 export function verifyMobileScreenSize(screenSize: undefined | number) {
   return screenSize !== undefined && screenSize <= 700;
+}
+
+export function verifyScreenSize(
+  screenSize: undefined | number,
+  refValue: number
+) {
+  return screenSize !== undefined && screenSize <= refValue;
 }

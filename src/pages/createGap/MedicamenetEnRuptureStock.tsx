@@ -6,15 +6,19 @@ import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHa
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
 import { CommonInputGap } from "@/components/core/Inputs";
-import { createGap } from "@/globalState/atoms";
-import { useRecoilState } from "recoil";
+import { createGap, currentItemValidateGap } from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { IMedicament } from "@/types/stateSchema/medicament";
+import { useParams } from "react-router";
+import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 function MedicamenetEnRuptureStock({
   dataMedicaments,
 }: {
   dataMedicaments: IMedicament[];
 }) {
+  const { statusAction } = useParams();
+
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [formGap, setFormGap] = useRecoilState(createGap);
@@ -63,6 +67,28 @@ function MedicamenetEnRuptureStock({
       });
     }
   };
+
+  // FOR VALIDATE_GAP
+  const formValidateGap = useRecoilValue(currentItemValidateGap);
+  useEffect(() => {
+    if (
+      statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
+      Object.keys(formValidateGap).length > 0
+    ) {
+      console.clear();
+      console.log("formValidateGap", formValidateGap);
+      //TODO:: Refactor Later
+      let dataMedicaments_ = [];
+      for (
+        let index = 0;
+        index < formValidateGap.datamedicament.length;
+        index++
+      ) {
+        dataMedicaments_.push(formValidateGap.datamedicament[index].medicament);
+      }
+      setDataSelected_med(dataMedicaments_);
+    }
+  }, [formValidateGap]);
 
   return (
     <div>

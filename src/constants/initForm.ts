@@ -145,6 +145,10 @@ export const INIT_FORM_CREATE_ALERT: ICreateAlert = {
 }
 
 export const INIT_FORM_CREATE_GAP: ICreateGap = {
+    //
+    metaData: {
+        validateur: false
+    },
     provinceid: "",
     territoirid: "",
     zoneid: "",
@@ -179,14 +183,14 @@ export const INIT_FORM_CREATE_GAP: ICreateGap = {
     pourcentCleanWater: 0,
     //
     datacriseid: [""],
-    datapopulationeloigne: [
+    datapopulationeloigne: [// Good
         {
             localite: "",
             nbr: 0
         },
 
     ],
-    datamaladie: [
+    datamaladie: [ // good
         {
             nbrCas: 2,
             nbrDeces: 0,
@@ -199,7 +203,7 @@ export const INIT_FORM_CREATE_GAP: ICreateGap = {
             orgid: "",
             date_debut: "",
             date_fin: "",
-            email: "",
+            email: "", // SOUCIS
             datatindicateur: []
         },
     ],
@@ -210,7 +214,11 @@ export const INIT_FORM_CREATE_GAP: ICreateGap = {
         }
     ],
     dateReportage: "",
-    etat_infra: 'NO-DETRUITE',
+    etat_infra: 'NON DETRUITE',
     pop_retournes: 0
 
 }
+
+// datacriseid | allcrise
+// datamedocid | datamedicament
+// datamedocid | datamedicament

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AG_URL, defaultStateUserAuth } from "../../constants/constants";
 import { RiNotification3Line } from "react-icons/ri";
@@ -24,6 +24,10 @@ import {
 } from "@/globalState/atoms";
 import { verifyMobileScreenSize } from "./Sidebar";
 import { Tooltip } from "@mui/material";
+import { IAutherUSer } from "@/types/stateSchema/auth";
+import { IMetadataAuthUser } from "@/types/storageTypes";
+import { getInfoUser } from "@/globalState/atoms/user";
+import { IUser } from "@/types/stateSchema/user";
 
 type INavButtonProps = {
   customFunc: () => void;
@@ -85,6 +89,32 @@ const Navbar = () => {
     setActiveMenu(!activeMenu);
   };
 
+  // const [currentUser, setCurrentUser] = useState<IUser | any>({});
+
+  // const currentUser_ = useRecoilValue(
+  //   getInfoUser({ idUser: user.id, token: user.token })
+  // ) as unknown as any;
+
+  // const checkAuthUser = () => {
+  //   const dataSaved = LocalStorage.getItem<{
+  //     data: IAutherUSer;
+  //     metadata: IMetadataAuthUser | null;
+  //   }>(keyStorage.AFIAGAP_AUTH_USER);
+  //   if (dataSaved === null) {
+  //     return;
+  //   } else {
+  //     const { data } = dataSaved;
+  //     console.clear();
+  //     console.log("data, ", data);
+  //     // setcurrentUser(data);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (Object.keys(currentUser_).length > 0) {
+  //     setCurrentUser(currentUser_);
+  //   }
+  //   checkAuthUser();
+  // }, [currentUser_]);
   // DESKTOP_NAVBAR
   function DesktopNavbar() {
     return (
@@ -161,7 +191,7 @@ const Navbar = () => {
                   alt="user-profile"
                 />
               </Tooltip>
-              {/* <p>
+              {/* <p>m
               <span className="text-gray-400 text-lg ">Hi,</span>{" "}
               <span className="text-gray-400 font-bold ml-1 text-lg ">
                 Moses

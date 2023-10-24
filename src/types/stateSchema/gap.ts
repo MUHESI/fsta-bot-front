@@ -23,6 +23,12 @@ export interface IDataPartenaire {
     datatindicateur: string[]
 }
 export interface ICreateGap {
+    // META_DATA
+    metaData?: {
+        validateur: boolean,
+    }
+
+
     dateReportage: Date | string;
     id?: string;
     //  ADDRESS
@@ -71,8 +77,6 @@ export interface ICreateGap {
     datatypepersonnel: IDatatypepersonnel[];
 
 }
-
-
 
 // ===================
 const popEloigneStructureSante_MoreHour =

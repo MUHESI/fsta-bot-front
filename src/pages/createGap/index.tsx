@@ -9,10 +9,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   createGap,
   currentHalthAreaIDState,
+  currentItemValidateGap,
   currentProvinceIDState,
   currentStructureIDState,
   currentTerritoryIDState,
   currentZoneSanteIDState,
+  preProcessGap,
   userAuthenticatedState,
 } from "@/globalState/atoms";
 import { ICrise } from "@/types/stateSchema/crise";
@@ -40,7 +42,7 @@ import AlertMessage, {
   severityAlert,
 } from "@/components/core/Alert";
 import { motion } from "framer-motion";
-import { StatusToast, showToast } from "@/components/core/ToastAlert";
+import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { INIT_FORM_CREATE_GAP } from "@/constants/initForm";
 
 function CreateGap() {
@@ -69,6 +71,10 @@ function CreateGap() {
       status: false,
       msg: "",
     },
+    loadGapById: {
+      status: false,
+      msg: "",
+    },
   });
   const navigate = useNavigate();
 
@@ -80,6 +86,9 @@ function CreateGap() {
   const currentTerritoryId = useRecoilValue(currentTerritoryIDState);
   const currentZoneSanteId = useRecoilValue(currentZoneSanteIDState);
   const [formGap, setFormGap] = useRecoilState(createGap);
+  const [formValidateGap, setFormValidateGap] = useRecoilState(
+    currentItemValidateGap
+  );
 
   //
   const { statusAction, idGap } = useParams();
@@ -323,6 +332,43 @@ function CreateGap() {
     }
   };
 
+  const getGapById = async (id_gap: string) => {
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "loadGapById", lKey: "status" },
+          true
+        )
+      );
+      const res = await getAPI<IFetchData<IIndication[]> | undefined>(
+        `gap/detailgap/${id_gap}`,
+        user.token
+      );
+      console.clear();
+      if (res?.data) {
+        const formGapFromCurrentGap = preProcessGap(res?.data?.data);
+        setFormGap(formGapFromCurrentGap);
+        setFormValidateGap(res?.data?.data);
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "loadGapById", lKey: "status" },
+            false
+          )
+        );
+      }
+    } catch (error) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "loadGapById", lKey: "status" },
+          false
+        )
+      );
+    }
+  };
+
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
 
@@ -346,6 +392,7 @@ function CreateGap() {
     getPartenaires();
     getOrganizations();
     getMedicaments();
+    getGapById(idGap || "");
   }, []);
 
   const handleSubmit = async () => {
@@ -361,7 +408,7 @@ function CreateGap() {
         type: StatusToast.DARK,
       });
     }
-    const form = {
+    let form = {
       ...formGap,
       airid: currentHalthAreaID || "",
       structureid: currentStructureID || "",
@@ -369,21 +416,72 @@ function CreateGap() {
       territoirid: currentTerritoryId || "",
       zoneid: currentZoneSanteId || "",
     };
+    console.log("formValidateGap", formValidateGap);
+    if (statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP) {
+      form = {
+        ...form,
+        airid: formValidateGap.dataaire.id,
+        structureid: formValidateGap.datastructure.id,
+        provinceid: formValidateGap.dataprovince.id,
+        territoirid: formValidateGap.dataterritoir.id,
+        zoneid: formValidateGap.datazone.id,
+      };
+    } else {
+    }
+    setInfoLoading(
+      HandleFormObject.handleSecondLevel(
+        infoLoading,
+        { fKey: "createGap", lKey: "status" },
+        true
+      )
+    );
+    // TODO:: START VALIDATION GAP
+    if (statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP) {
+      return vaildateOldGap(form);
+    } else return createNewGap(form);
+  };
+  const catchError = (error: any) => {
+    showToast({
+      msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${error.response.data.message} `,
+      type: StatusToast.ERROR,
+    });
+    setInfoLoading(
+      HandleFormObject.handleSecondLevel(
+        infoLoading,
+        { fKey: "createGap", lKey: "status" },
+        false
+      )
+    );
+  };
+  const vaildateOldGap = async (form: ICreateGap) => {
     try {
-      setInfoLoading(
-        HandleFormObject.handleSecondLevel(
-          infoLoading,
-          { fKey: "createGap", lKey: "status" },
-          true
-        )
+      const res = await postAPI<IFetchData<ICreateGap>, ICreateGap>(
+        `gap/validegap/${formValidateGap.id}`,
+        { ...form },
+        user.token
       );
+      console.clear();
+      console.log("res", res.data);
+      if (res.data) {
+        setFormGap(INIT_FORM_CREATE_GAP);
+        showToast({
+          msg: `le gap a été validé avec succes`,
+          type: StatusToast.DARK,
+        });
+        return navigate("/gaps");
+      }
+    } catch (error) {
+      return catchError(error);
+    }
+  };
 
+  const createNewGap = async (form: ICreateGap) => {
+    try {
       const { data } = await postAPI<IFetchData<ICreateGap>, ICreateGap>(
         "gap/sendGap",
         { ...form },
         user.token
       );
-
       if (data) {
         setGapCreatedStatus(true);
         setIdGagCreated(data?.data?.id || "");
@@ -397,19 +495,18 @@ function CreateGap() {
         setFormGap(INIT_FORM_CREATE_GAP);
       }
     } catch (error) {
-      setInfoLoading(
-        HandleFormObject.handleSecondLevel(
-          infoLoading,
-          { fKey: "createGap", lKey: "status" },
-          false
-        )
-      );
+      return catchError(error);
     }
   };
   const [activeStep, setActiveStep] = React.useState(0);
   const [gapCreatedStatus, setGapCreatedStatus] = React.useState(false);
   const [idGagCreated, setIdGagCreated] = React.useState<null | string>(null);
 
+  useEffect(() => {
+    if (statusAction === GAP_ACTIONS_STATUS.CREATE_GAP) {
+      setFormGap(INIT_FORM_CREATE_GAP);
+    }
+  }, []);
   return (
     <div className="">
       {statusAction ? (
@@ -452,7 +549,6 @@ function CreateGap() {
                     className="border-l-4 border-main-color pl-1"
                     title={"Informations sur la population"}
                   />
-
                   <div className="flex flex-wrap justify-between px-5 gap-5">
                     <CommonInputGap
                       // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_AREA}
@@ -591,13 +687,25 @@ function CreateGap() {
 
                 <div className="btn p-3 flex justify-end ">
                   {!gapCreatedStatus ? (
-                    <CustomButton
-                      onClick={() => handleSubmit()}
-                      statusLoading={infoLoading.createGap.status}
-                      disabled={infoLoading.createGap.status}
-                      label="Enregistrer"
-                      className="ml-auto  rounded-md"
-                    />
+                    <>
+                      {statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP ? (
+                        <CustomButton
+                          onClick={() => handleSubmit()}
+                          statusLoading={infoLoading.createGap.status}
+                          disabled={infoLoading.createGap.status}
+                          label="Valider le gap"
+                          className="ml-auto  rounded-md"
+                        />
+                      ) : (
+                        <CustomButton
+                          onClick={() => handleSubmit()}
+                          statusLoading={infoLoading.createGap.status}
+                          disabled={infoLoading.createGap.status}
+                          label="Enregistrer"
+                          className="ml-auto  rounded-md"
+                        />
+                      )}
+                    </>
                   ) : (
                     <CustomButton
                       onClick={() =>

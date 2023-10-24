@@ -16,6 +16,7 @@ export const AG_URL = {
 }
 export const defaultStateUserAuth: IAutherUSer = {
     full_name: null,
+    // : null,
     email: null,
     token: '',
     id: null

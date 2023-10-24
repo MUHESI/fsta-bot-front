@@ -7,6 +7,7 @@ export interface IPropsCustomSelectField<TData> {
   disabled?: boolean;
   value: string | number;
   onChange: (e: any) => void;
+  typeByDefault?: { label: string; value: number | string } | null;
 }
 
 // IPropsCustomSelectField
@@ -15,6 +16,7 @@ function CustomSelectField<TData>({
   data,
   keyObject,
   onChange,
+  typeByDefault,
 }: IPropsCustomSelectField<TData>) {
   return (
     <select
@@ -30,7 +32,11 @@ function CustomSelectField<TData>({
 
         disabled:cursor-not-allowed disabled:opacity-50 px-3 py-2 text-sm text-gray-400 rounded h-10 p-2"
     >
-      <option value={""}> Choisir </option>
+      {typeByDefault ? (
+        <option value={typeByDefault.value}>{typeByDefault.label} </option>
+      ) : (
+        <option value={""}> Choisir </option>
+      )}
       {data?.map((item: any, key: number) => (
         <option
           key={key}
@@ -94,6 +100,7 @@ function CommonSelectGap<TData>({
   keyObject,
   classNameHoverCard,
   titleTooltip,
+  typeByDefault,
 }: {
   classNameHoverCard?: string;
   titleTooltip?: string;
@@ -106,6 +113,7 @@ function CommonSelectGap<TData>({
   disabled?: boolean;
   keyObject: keyof TData;
   onChange: (e: any) => void;
+  typeByDefault?: { label: string; value: number | string } | null;
 }) {
   return (
     <div className="flex-auto p-0 m-0  mb-2">
@@ -130,7 +138,7 @@ function CommonSelectGap<TData>({
         data={data}
         onChange={onChange}
         // label={"type"}
-        // typeByDefault={{ label: "oook" }}
+        typeByDefault={typeByDefault}
       />
     </div>
   );

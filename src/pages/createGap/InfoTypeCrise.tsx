@@ -8,14 +8,19 @@ import { CommonInputGap } from "@/components/core/Inputs";
 import { ICrise } from "@/types/stateSchema/crise";
 import { CommonSelectGap } from "@/components/core/select";
 import { CommonTextareaGap } from "@/components/core/TextareaCustom";
-import { useRecoilState } from "recoil";
-import { createGap } from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { createGap, currentItemValidateGap } from "@/globalState/atoms";
+import { useParams } from "react-router";
+import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
+  const { statusAction } = useParams();
+
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
 
   const [formGap, setFormGap] = useRecoilState(createGap);
+
   const [dataSelected, setDataSelected] = useState<any[]>([]);
   const [crises, setCrises] = useState<ICrise[]>([]);
 
@@ -55,6 +60,22 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
       });
     }
   };
+
+  // FOR VALIDATE_GAP
+  const formValidateGap = useRecoilValue(currentItemValidateGap);
+  useEffect(() => {
+    if (
+      statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
+      Object.keys(formValidateGap).length > 0
+    ) {
+      //TODO:: Refactor Later
+      let dataCrises_ = [];
+      for (let index = 0; index < formValidateGap.allcrise.length; index++) {
+        dataCrises_.push(formValidateGap.allcrise[index].crise);
+      }
+      setDataSelected(dataCrises_);
+    }
+  }, [formValidateGap]);
 
   return (
     <div>
@@ -127,7 +148,16 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
                 etat_infra: value as "DETRUITE" | "NON DETRUITE",
               });
             }}
-            value={""}
+            value={formGap.etat_infra}
+            typeByDefault={
+              Object.keys(formValidateGap).length === 0
+                ? null
+                : {
+                    label: formGap.etat_infra,
+                    value: formGap.etat_infra,
+                  }
+            }
+
             // classNameHoverCard=" border-main-color"
           />
         </div>

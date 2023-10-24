@@ -7,14 +7,18 @@ import { CommonSelectGap } from "@/components/core/select";
 import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
 import { CustomButton } from "@/components/core/Button";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useRecoilState } from "recoil";
-import { createGap } from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { createGap, currentItemValidateGap } from "@/globalState/atoms";
+import { useParams } from "react-router";
+import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 function InfoTypeCrise({
   dataTypePersonels,
 }: {
   dataTypePersonels: ITypePersonnel[];
 }) {
+  const { statusAction } = useParams();
+
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
 
@@ -99,6 +103,32 @@ function InfoTypeCrise({
       dataPersonels: dataPersonnel__,
     });
   };
+
+  // FOR VALIDATE_GAP
+  const formValidateGap = useRecoilValue(currentItemValidateGap);
+  useEffect(() => {
+    if (
+      statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
+      Object.keys(formValidateGap).length > 0
+    ) {
+      //TODO:: Refactor Later
+      let dataPersonels_ = [];
+      for (
+        let index = 0;
+        index < formValidateGap.datatypepersonnel.length;
+        index++
+      ) {
+        dataPersonels_.push({
+          ...formValidateGap.datatypepersonnel[index].typepersonnel,
+          nbr: formValidateGap.datatypepersonnel[index].nbr,
+        });
+      }
+      setFormPersonel({
+        ...formPersonel,
+        dataPersonels: dataPersonels_,
+      });
+    }
+  }, [formValidateGap]);
 
   return (
     <div>

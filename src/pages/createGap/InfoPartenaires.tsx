@@ -9,11 +9,13 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { CustomButton } from "@/components/core/Button";
 import { CommonSelectGap } from "@/components/core/select";
 import { IOrganization } from "@/types/stateSchema/organization";
-import { useRecoilState } from "recoil";
-import { createGap } from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { createGap, currentItemValidateGap } from "@/globalState/atoms";
 import { LastHeading } from "@/components/core/Heading";
 import DialogCustom from "@/components/core/DialogCustom";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
+import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
+import { useParams } from "react-router";
 
 const INITAL_FORM_PARTAINAIRE = {
   orgid: "",
@@ -33,6 +35,8 @@ function InfoPartenaires({
   dataIndicateurs: IIndication[];
   dataOrganizations: IOrganization[];
 }) {
+  const { statusAction } = useParams();
+
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
 
@@ -150,6 +154,58 @@ function InfoPartenaires({
     setIndicateurs(dataIndicateurs);
   };
 
+  const getIncateursFromValidateGap = (ind: any[]) => {
+    let data = [];
+    for (let index = 0; index < ind.length; index++) {
+      data.push({ id: ind[index].id, name: ind[index].paquetappui.name });
+    }
+    return data;
+  };
+
+  // FOR VALIDATE_GAP
+  const formValidateGap = useRecoilValue(currentItemValidateGap);
+  useEffect(() => {
+    if (
+      statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
+      Object.keys(formValidateGap).length > 0
+    ) {
+      //TODO:: Refactor Later
+      let local_data_item__: any[] = [];
+      console.log(
+        "formValidateGap.datapartenaire",
+        formValidateGap.datapartenaire
+      );
+      for (
+        let index = 0;
+        index < formValidateGap.datapartenaire.length;
+        index++
+      ) {
+        const dataPartenaire = formValidateGap.datapartenaire[index];
+
+        if (dataPartenaire.partenaire !== null) {
+          local_data_item__.push({
+            local_org: {
+              id: dataPartenaire.partenaire.id,
+              name: dataPartenaire.partenaire.name,
+              email: dataPartenaire.partenaire.email,
+            },
+            local_ind: getIncateursFromValidateGap(
+              dataPartenaire.partenaire.allindicateur
+            ),
+            date_debut: dataPartenaire.date_debut,
+            date_fin: dataPartenaire.date_fin,
+            email: dataPartenaire.contact_point_facal,
+          });
+        }
+      }
+
+      setFormPartenaire({
+        ...INITAL_FORM_PARTAINAIRE,
+        local_data: local_data_item__,
+      });
+    }
+  }, [formValidateGap]);
+
   return (
     <div>
       <div className={commonClassSection}>
@@ -263,15 +319,7 @@ function InfoPartenaires({
 
         <div className="flex  justify-end items-center m-2 pb-2 gap-5 mx-5 border-b">
           <CustomButton
-            onClick={() => {
-              addPartenaire();
-              // console.clear();
-              // console.log("formPartenaire", formPartenaire);
-              // console.log("formGap", formGap.datapartenaireid);
-              // console.log("indicateurs", indicateurs);
-            }}
-            // statusLoading={infoLoading.creataAlert.status}
-            // disabled={infoLoading.creataAlert.status}
+            onClick={() => addPartenaire()}
             label="Ajouter"
             className="ml-auto  rounded-md"
           />
@@ -290,12 +338,12 @@ function InfoPartenaires({
                   {item.local_org.name}
                 </label>
                 <p className="my-2">
-                  <span>
-                    Paquet:{" "}
+                  Paquet:
+                  <span className="flex flex-wrap ml-10">
                     {item.local_ind.map((item_, key_) => (
                       <span
                         key={key_}
-                        className="border border-main-color bg-main-color rounded-md px-1 mx-1"
+                        className="border border-main-color bg-main-color rounded-md px-1 m-1"
                       >
                         {item_.name}
                       </span>
@@ -318,7 +366,7 @@ function InfoPartenaires({
               </div>
               <MdOutlineDeleteOutline
                 onClick={() => removePartenaire(key)}
-                className=" cursor-pointer text-red-400 text-xl"
+                className=" cursor-pointer text-red-400 text-md"
               />
             </div>
           ))}

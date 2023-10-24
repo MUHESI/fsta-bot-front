@@ -5,14 +5,17 @@ import { CommonSelectGap } from "@/components/core/select";
 import { CustomButton } from "@/components/core/Button";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { IMaladie } from "@/types/stateSchema/maladie";
-import { useRecoilState } from "recoil";
-import { createGap } from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { createGap, currentItemValidateGap } from "@/globalState/atoms";
+import { useParams } from "react-router";
+import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 function NombreCasMaladiesContextLocal({
   dataMaladies,
 }: {
   dataMaladies: IMaladie[];
 }) {
+  const { statusAction } = useParams();
   const commonClass = "border border-main-color rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
 
@@ -93,6 +96,33 @@ function NombreCasMaladiesContextLocal({
       dataMaladies: dataMaladies__,
     });
   };
+
+  // FOR VALIDATE_GAP
+  const formValidateGap = useRecoilValue(currentItemValidateGap);
+  useEffect(() => {
+    if (
+      statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
+      Object.keys(formValidateGap).length > 0
+    ) {
+      //TODO:: Refactor Later
+      let dataMaladies__ = [];
+      console.log(
+        "formValidateGap.datamaladie",
+        formValidateGap.datamaladie.length
+      );
+      // for (let index = 0; index < formValidateGap.datamaladie.length; index++) {
+      //   dataMaladies__.push({
+      //     ...formValidateGap.datamaladie[index],
+      //     name: formValidateGap.datamaladie[index].maladie.name,
+      //   });
+      // }
+
+      // setFormMaladie({
+      //   ...formMaladie,
+      //   dataMaladies: dataMaladies__,
+      // });
+    }
+  }, [formValidateGap]);
 
   return (
     <div>
