@@ -198,7 +198,7 @@ function DeletePermissions({ currentUser }: IProps) {
 
   return (
     <div className="">
-      <section className="mx-3">
+      <section>
         <div className={commonClassSection}>
           <LastHeading title={"informations sur  l'E/S"} />
 
@@ -228,7 +228,7 @@ function DeletePermissions({ currentUser }: IProps) {
 
                 <div
                   data-testId="create-province"
-                  className="px-5 m-5 border rounded-md gap-5"
+                  className="px-2 m-1 border rounded-md gap-5"
                 >
                   <CustomChipBtn
                     label="Selectionner les privileges à supprimer"

@@ -1,39 +1,13 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import "../../styles/loadingStyle.css";
+import { FiRefreshCcw } from "react-icons/fi";
 
 function LoadingPage() {
   return (
-    <div
-      className="mainLoading"
-      style={{
-        textAlign: "center",
-        fontSize: "1.5rem",
-      }}
-    >
-      <div className="fancy-spinner">
-        <div
-          className="ring"
-          // style={{
-          //   color: "red",
-          //   borderColor: "red",
-          // }}
-        />
-        <div
-          className="ring"
-          // style={{
-          //   color: "red",
-          //   borderColor: "red",
-          // }}
-        />
-        <div
-          className="dot"
-          // style={{
-          //   color: "red",
-          //   borderColor: "red",
-          // }}
-        />
+    <div>
+      <div>
+        <FiRefreshCcw className="text-main-color text-8xl animate-spin" />
       </div>
     </div>
   );

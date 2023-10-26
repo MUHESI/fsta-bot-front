@@ -211,13 +211,13 @@ function AddPermissions({ currentUser }: IProps) {
 
   return (
     <div className="">
-      <section className="mx-3">
+      <section>
         <div className={commonClassSection}>
           <motion.div animate={{ height: "fit-content" }}>
             <Suspense fallback={<SkeletonAnimation className="px-5" />}>
               <section className="mx-3">
                 <LastHeading title={"Ajout des permissions"} />
-                <div className=" px-5">
+                <div className=" px-1 md:px-5">
                   <SelectCommon
                     data={listOrganizations}
                     onChange={setOrgId}
@@ -251,7 +251,7 @@ function AddPermissions({ currentUser }: IProps) {
                 </div>
                 <div
                   data-testId="create-province"
-                  className="px-5 m-5 border rounded-md gap-5"
+                  className="px-1 m-1 my-4 border rounded-md gap-5"
                 >
                   <CustomChipBtn
                     label="Selectionner les privileges"
@@ -265,7 +265,7 @@ function AddPermissions({ currentUser }: IProps) {
                 </div>
                 <div
                   data-testId="create-province"
-                  className="px-5 m-5 border rounded-md gap-5"
+                  className="px-1 m-1 my-4 border rounded-md gap-5"
                 >
                   <CustomChipBtn
                     data={dataSelected}

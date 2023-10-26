@@ -123,7 +123,7 @@ export function HandlePermission({ item }: { item: any }) {
         handleTabId={setTabId}
         defeaultTabId={tabId}
       />
-      <div className="m-4">
+      <div className="m-1">
         {tabId === 0 && (
           <>
             {item.metaData.permissions.map((item_: any, key: number) => (

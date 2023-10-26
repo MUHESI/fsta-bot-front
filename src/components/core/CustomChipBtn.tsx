@@ -26,8 +26,8 @@ export function CustomChipBtn<TData>({
   const handlerItem = (item: TData) => saveData(item);
 
   return (
-    <div className=" my-4">
-      <label className="text-sm">
+    <div className=" my-2">
+      <label className="text-sm pl-2">
         {label}
         <span className="text-red-500"> {`${required ? "*" : ""}`}</span>
       </label>
@@ -36,7 +36,7 @@ export function CustomChipBtn<TData>({
           <span className="duration-300 inline-flex" key={key}>
             <button
               onClick={() => !disabled && handlerItem(item)}
-              className=" text-white m-2 p-1 flex items-center gap-4  justify-between  border border-main-color bg-main-color rounded-full"
+              className=" text-white m-1 p-1 flex items-center gap-4  justify-between  border border-main-color bg-main-color rounded-full"
             >
               <span>{` ${item[keyObject]}`}</span>
               <span className="text-2xl cursor-pointer duration-300 hover:text-main-color-dark">

@@ -87,7 +87,7 @@ const Sidebar = () => {
         margin: "2px",
         marginRight: "1px",
         marginLeft: "0px",
-        // zIndex: 1000,
+        zIndex: 1000,
         background: "white",
       }}
     >
