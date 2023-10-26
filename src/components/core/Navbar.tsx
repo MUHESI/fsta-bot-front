@@ -267,9 +267,9 @@ const Navbar = () => {
             <NavButton
               title="Notification"
               // dotColor="rgb(254, 201, 15)"
-              customFunc={() => console.clear()}
+              customFunc={() => logout()}
               color={currentColor}
-              icon={<SlOptionsVertical />}
+              icon={<BiExit />}
             />
           </div>
         </div>

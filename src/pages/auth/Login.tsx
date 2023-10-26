@@ -126,8 +126,8 @@ function Login() {
               </h2>
               <div className="border-2 w-10 inline-block mb-2 border-main-color-dark"></div>
             </div>
-            <div className="flex flex-col items-center m-2">
-              <div className="bg-gray-100 w-64 ms:w-full p-2 flex items-center mb-3 rounded-lg">
+            <div className="flex flex-col items-center m-2 h-[250px]">
+              <div className="bg-gray-100 w-60 ms:w-full p-2 flex items-center mb-3 rounded-lg">
                 <FaRegEnvelope className="text-gray-400 m-2 text-sm" />
                 <InputAuth
                   data-testid="emailInput"
@@ -139,7 +139,7 @@ function Login() {
                   pl="Ton addresse email"
                 />
               </div>
-              <div className="bg-gray-100 w-64 ms:w-full p-2 flex items-center mb-3 rounded-lg">
+              <div className="bg-gray-100 w-50  ms:w-full p-2 flex items-center mb-3 rounded-lg">
                 <MdLockOutline className="text-gray-400 m-2 text-sm" />
                 <InputAuth
                   data-testid="passwordInput"
@@ -169,7 +169,7 @@ function Login() {
                   )}
                 </span>
               </div>
-              <div className="flex justify-between w-64 mb-5 ">
+              <div className="flex justify-between w-64 px-3 mb-5 ">
                 <label className="flex items-center text-xs focus:outline-none">
                   <input
                     data-testid="rememberMe"
@@ -186,7 +186,7 @@ function Login() {
                   Forgot password?
                 </NavLink>
               </div>
-              <div className="">
+              <div className="mt-4 md:mt-1">
                 <CustomButton
                   onClick={handleSubmitLogin}
                   label="Se connecter"

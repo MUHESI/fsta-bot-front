@@ -204,7 +204,7 @@ function DeletePermissions({ currentUser }: IProps) {
 
           <div
             data-testId="create-menage"
-            className="flex flex-wrap justify-between px-5 gap-5"
+            className="flex flex-wrap justify-between px-3 gap-5"
           >
             <SelectCommon
               data={organizationsUser}
@@ -222,13 +222,13 @@ function DeletePermissions({ currentUser }: IProps) {
       >
         {orgSelected && (
           <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-            <section className="mx-3">
+            <section>
               <div className={commonClassSection}>
                 <LastHeading title={"Suppressions des permissions"} />
 
                 <div
                   data-testId="create-province"
-                  className="px-2 m-1 border rounded-md gap-5"
+                  className="mx-3 mb-2 border rounded-md gap-5"
                 >
                   <CustomChipBtn
                     label="Selectionner les privileges à supprimer"
@@ -242,7 +242,7 @@ function DeletePermissions({ currentUser }: IProps) {
                 </div>
                 <div
                   data-testId="create-province"
-                  className="px-5 m-5 border rounded-md gap-5"
+                  className="mx-3 mt-2 border rounded-md gap-5"
                 >
                   <CustomChipBtn
                     data={dataSelected_del}
