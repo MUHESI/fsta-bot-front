@@ -66,9 +66,9 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
   useEffect(() => {
     if (
       statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
-      Object.keys(formValidateGap).length > 0
+      Object.keys(formValidateGap).length > 0 &&
+      formValidateGap.allcrise.length > 0
     ) {
-      //TODO:: Refactor Later
       let dataCrises_ = [];
       for (let index = 0; index < formValidateGap.allcrise.length; index++) {
         dataCrises_.push(formValidateGap.allcrise[index].crise);
@@ -187,7 +187,7 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                taux_occupation: Number(e.target.value),
+                taux_occupation: e.target.value,
               });
             }}
             value={formGap.taux_occupation}

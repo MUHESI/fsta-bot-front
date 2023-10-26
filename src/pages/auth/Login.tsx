@@ -17,7 +17,11 @@ import { CustomButton } from "@/components/core/Button";
 import { BiShow, BiSolidShow } from "react-icons/bi";
 import { InputAuth } from "@/components/core/Inputs";
 import { useSetRecoilState } from "recoil";
-import { userAuthenticatedState } from "@/globalState/atoms";
+import {
+  ICurrentUserPermission,
+  getPermissionsofCurrentUser,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
 import { IFetchData } from "@/types/commonTypes";
 
 function Login() {
@@ -63,8 +67,16 @@ function Login() {
             false
           )
         );
+        let data_ = {
+          ...data.data,
+          metaData: {
+            permissions: getPermissionsofCurrentUser(
+              data.data as any as unknown as ICurrentUserPermission
+            ),
+          },
+        };
         keepUserAuthInLocalStorage({
-          data: data.data,
+          data: { ...data_ },
           token: data.token ? data.token : "",
         });
         setUser({
@@ -72,6 +84,7 @@ function Login() {
           full_name: data.data.full_name,
           token: data.token ? data.token : "",
           id: data.data.id,
+          metaData: { ...data_.metaData },
         });
         navigate("/");
       }
@@ -200,8 +213,12 @@ function Login() {
 
 export default Login;
 
+interface IAuthInLocalStorage extends ICurrentUser {
+  metaData?: null | any;
+}
+
 export const keepUserAuthInLocalStorage = (data: {
-  data: ICurrentUser;
+  data: IAuthInLocalStorage;
   token: string;
 }) => {
   LocalStorage.setItem(

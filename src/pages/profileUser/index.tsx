@@ -1,11 +1,9 @@
 import React, { Suspense, useEffect, useState, useRef } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { AG_URL } from "@/constants/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-
-import { FaCameraRetro, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { RiFolderInfoFill } from "react-icons/ri";
 import { CgOrganisation } from "react-icons/cg";
 import { MdSettings } from "react-icons/md";
@@ -13,21 +11,15 @@ import { RiDeleteBin2Fill, RiLockPasswordFill } from "react-icons/ri";
 import { Grid } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import LocalStorage, {
-  keyStorage,
-} from "@/services/storage/localSTorageHandler";
-import { IAutherUSer } from "@/types/stateSchema/auth";
-import { IMetadataAuthUser } from "@/types/storageTypes";
 import { IUser } from "@/types/stateSchema/user";
 import ShowPermissionUser from "../showPermissionUser";
 import SkeletonAnimation from "@/components/skeleton";
 import { getInfoUser } from "@/globalState/atoms/user";
-import { CommonSelectGap, SelectCommon } from "@/components/core/select";
+import { SelectCommon } from "@/components/core/select";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
-import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { BASE_URL_API, postAPI, putAPI, updateAPI } from "@/utils/fetchData";
+import { BASE_URL_API, putAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { CustomButton } from "@/components/core/Button";
 import { useParams } from "react-router";
@@ -43,7 +35,7 @@ function ShowProfileUser() {
   // DATA
   const user = useRecoilValue(userAuthenticatedState);
   const currentUser_ = useRecoilValue(
-    getInfoUser({ idUser: user.id, token: user.token })
+    getInfoUser({ idUser: idUser, token: user.token })
   ) as unknown as any;
 
   const [hovering, setHovering] = useState(false);
@@ -116,26 +108,10 @@ function ShowProfileUser() {
     }
   };
 
-  const checkAuthUser = () => {
-    const dataSaved = LocalStorage.getItem<{
-      data: IAutherUSer;
-      metadata: IMetadataAuthUser | null;
-    }>(keyStorage.AFIAGAP_AUTH_USER);
-    if (dataSaved === null) {
-      return;
-    } else {
-      const { data } = dataSaved;
-      console.clear();
-      console.log("data, ", data);
-      // setcurrentUser(data);
-    }
-  };
-
   useEffect(() => {
     if (Object.keys(currentUser_).length > 0) {
       setCurrentUser(currentUser_);
     }
-    checkAuthUser();
   }, [currentUser_]);
 
   const commonClassResume =
@@ -194,13 +170,7 @@ function ShowProfileUser() {
 
   return (
     <div className="">
-      <div
-        className="p-1 text-main-color-dark"
-        onClick={() => {
-          console.clear();
-          console.log("currentUser", currentUser_);
-        }}
-      >
+      <div className="p-1 text-main-color-dark">
         <LastHeading title={"Profile User"} />
       </div>
 
@@ -234,13 +204,15 @@ function ShowProfileUser() {
           <section className=" mx-3">
             <div className={`${commonClass}`}>
               <div className="flex flex-wrap justify-center sm:justify-between px-5 py-2 items-center text-base">
-                <div
-                  className="flex flex-col sm:flex-row  justify-center  gap-5 items-center "
+                {/* <button
                   onClick={() => {
                     console.clear();
                     console.log("currentUser", currentUser);
                   }}
                 >
+                  Test
+                </button> */}
+                <div className="flex flex-col sm:flex-row  justify-center  gap-5 items-center ">
                   <input
                     onChange={loadImage}
                     multiple={false}
@@ -489,12 +461,31 @@ function ShowProfileUser() {
             {/* =====PERMISSIONS==== */}
             <div
               className={commonClassSection}
-              onClick={() => console.log("currentUser_", currentUser_)}
+              onClick={() => console.log("currentUser_", currentUser)}
             >
               <LastHeading title={"Permissions de l'utilisateur"} />
-              {/* <ShowPermissionUser
-                dataPermissions={currentUser_?.metaData?.permissions}
-              /> */}
+              <div className="px-5">
+                {currentUser?.metaData?.permissions?.map(
+                  (item_: any, key: number) => (
+                    <div key={key}>
+                      <h4 className="bordeer border-b pb-1">
+                        <span
+                          className="text-main-color text-sm"
+                          onClick={() => {
+                            console.clear();
+                            // console.log("item", item);
+                          }}
+                        >
+                          {item_?.organisation?.name}
+                        </span>
+                      </h4>
+                      <ShowPermissionUser
+                        dataPermissions={item_.allpermission}
+                      />
+                    </div>
+                  )
+                )}
+              </div>
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Parametres du compte"} />

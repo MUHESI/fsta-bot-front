@@ -91,7 +91,7 @@ function ShowPyramid() {
 function Pyramid() {
   return (
     <div>
-      <Suspense fallback={<TexttLoading />}>
+      <Suspense fallback={<TexttLoading className="p-5 min-h-[63px]" />}>
         <ShowPyramid />
       </Suspense>
     </div>

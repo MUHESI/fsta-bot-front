@@ -10,6 +10,7 @@ interface IDataPropos {
   width: DialogProps["maxWidth"];
   mainTitle: string;
   btnText: string;
+  classNameBtn?: string;
 }
 
 export default function DialogCustom({
@@ -17,6 +18,7 @@ export default function DialogCustom({
   children,
   mainTitle,
   btnText,
+  classNameBtn,
 }: PropsWithChildren<IDataPropos>) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
@@ -46,7 +48,7 @@ export default function DialogCustom({
       <CustomButton
         label={btnText}
         onClick={handleClickOpen}
-        className="rounded-md"
+        className={`rounded-md ${classNameBtn}`}
       />
       <Dialog
         fullWidth={fullWidth}

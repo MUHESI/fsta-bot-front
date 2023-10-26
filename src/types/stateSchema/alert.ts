@@ -3,6 +3,7 @@ import { IBaseInterfaceSchema } from "../commonTypes";
 export interface IAlert extends IBaseInterfaceSchema {
     name_point_focal: string,
     phone: string,
+    orgid: string,
     airid: string,
     date_notification: string,
     datealert: string,
@@ -32,6 +33,7 @@ export interface IAlert extends IBaseInterfaceSchema {
 }
 
 export interface ICreateAlert {
+    orgid: string;
     name_point_focal: string,
     phone: string,
     airid: string,

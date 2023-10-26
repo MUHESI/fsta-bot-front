@@ -25,12 +25,14 @@ export const getUsers = selector({
                     ...item,
                     metaData: {
                         permissions: getPermissionsofCurrentUser(item)
+
                     }
                 }
                 users.push(user)
-            })
 
+            })
             return users ?? []
+            // return res?.data?.data.data
         }
     },
 });
@@ -75,16 +77,14 @@ export const getInfoUser = selectorFamily({
             return { error: res }
         } else {
             // DATA IMPROVED BEFORE
-            console.clear()
-            console.log('res?.data?.data', res?.data?.data)
-            // let user = {
-            //     ...res?.data?.data,
-            //     metaData: {
-            //         permissions: getPermissionsofCurrentUser(res?.data?.data)
-            //     }
-            // }
-            // return user
-            return res?.data?.data
+            let user = {
+                ...res?.data?.data,
+                metaData: {
+                    permissions: getPermissionsofCurrentUser(res?.data?.data)
+                }
+            }
+            return user
+
         }
     },
 });

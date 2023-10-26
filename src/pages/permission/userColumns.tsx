@@ -15,6 +15,8 @@ import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import AddPermissions from "../addPermissions";
+import ShowPermissionUser from "../showPermissionUser";
+import { HandlePermission } from "./usersAssignments";
 
 export const columnsListUsers: ColumnDef<IUser>[] = [
   {
@@ -41,18 +43,18 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
       </NavLink>
     ),
   },
-  {
-    accessorKey: "organization",
-    header: "ORGANISATION",
-    cell: ({ row }: { row: { [key: string]: any } }) => {
-      const user: any = row.original;
-      const {
-        affectation_p: { organisation },
-      } = user;
+  // {
+  //   accessorKey: "organization",
+  //   header: "ORGANISATION",
+  //   cell: ({ row }: { row: { [key: string]: any } }) => {
+  //     const user: any = row.original;
+  //     const {
+  //       affectation_p: { organisation },
+  //     } = user;
 
-      return <div>{organisation?.name} </div>;
-    },
-  },
+  //     return <div>{organisation?.name} </div>;
+  //   },
+  // },
 
   {
     accessorKey: "phone",
@@ -71,17 +73,10 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
     accessorKey: "permissions",
     header: "PERMISSIONS",
     cell: ({ row }: any) => {
+      const user: any = row.original;
       return (
         <div>
-          <DialogCustom
-            btnText="Gerer"
-            mainTitle="Gestion des permissions"
-            width="sm"
-          >
-            <div className="">
-              <AddPermissions currentUser={row.original} />
-            </div>
-          </DialogCustom>
+          <HandlePermission item={user} />
         </div>
       );
     },

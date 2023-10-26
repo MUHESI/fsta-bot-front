@@ -29,8 +29,11 @@ import { CustomButton } from "@/components/core/Button";
 import Pyramid from "@/components/pyramid";
 import { IMaladie } from "@/types/stateSchema/maladie";
 import { TexttLoading } from "@/components/skeleton";
+import { IOrganization } from "@/types/stateSchema/organization";
+import { useNavigate } from "react-router";
 
 function CreateAlert() {
+  const navigate = useNavigate();
   const user = useRecoilValue(userAuthenticatedState);
   const currentMaladieId = useRecoilValue(currentMaladieIDState);
   const currentStructureID = useRecoilValue(currentStructureIDState);
@@ -74,17 +77,20 @@ function CreateAlert() {
       maladieid: currentMaladieId,
       airid: currentHalthAreaID,
     };
+    console.clear();
+    console.log("form_", form_);
+
     // VALIDATION
     // TODO: Improve later
     if (
+      form_.orgid.trim().length < 2 ||
       form_.airid.trim().length < 2 ||
       form_.name_point_focal.trim().length < 3 ||
       form_.phone.trim().length < 8 ||
       form_.date_notification.trim().length < 4 ||
       form_.datealert.trim().length < 2 ||
       form_.date_detection.trim().length < 2 ||
-      form_.time_detection.trim().length < 2 ||
-      form_.nbr_touche.trim().length < 2 ||
+      form_.time_detection.trim().length < 1 ||
       form_.animal_malade.trim().length < 2 ||
       form_.animal_mort.trim().length < 2 ||
       form_.evenement.trim().length < 2 ||
@@ -124,6 +130,7 @@ function CreateAlert() {
           type: AG_Toast.statusToast.SUCCESS,
         });
         // setFormCreateAlert({ ...INIT_FORM_CREATE_ALERT });
+        navigate("/alerts");
       }
     } catch (error) {
       setInfoLoading(
@@ -141,6 +148,21 @@ function CreateAlert() {
       });
     }
   };
+
+  // UTILIS FOR
+  const [organizationsUser, setOrganizationsUser] = useState<IOrganization[]>(
+    []
+  );
+  // const [orgSelected, setOrgSelected] = useState<string>("");
+  useEffect(() => {
+    let orgArray: IOrganization[] = [];
+    if (user.metaData) {
+      user.metaData.permissions.map((item: any) =>
+        orgArray.push(item.organisation)
+      );
+      setOrganizationsUser(orgArray);
+    }
+  }, [user]);
 
   return (
     <div className="">
@@ -164,6 +186,17 @@ function CreateAlert() {
             <div className={commonClassSection}>
               <LastHeading title={"Info. sur la localisation"} />
               <Pyramid />
+              <div className=" px-5 ">
+                <SelectCommon
+                  data={organizationsUser}
+                  label="Selectionner l'organisation"
+                  keyObject="name"
+                  onChange={(value: string) =>
+                    setFormCreateAlert({ ...formCreateAlert, orgid: value })
+                  }
+                  value={"..."}
+                />
+              </div>
               <div className="flex flex-wrap justify-between px-5  gap-5">
                 <CommonInputGap
                   // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_AREA}

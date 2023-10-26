@@ -73,11 +73,9 @@ function MedicamenetEnRuptureStock({
   useEffect(() => {
     if (
       statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
-      Object.keys(formValidateGap).length > 0
+      Object.keys(formValidateGap).length > 0 &&
+      formValidateGap.datamedicament.length > 0
     ) {
-      console.clear();
-      console.log("formValidateGap", formValidateGap);
-      //TODO:: Refactor Later
       let dataMedicaments_ = [];
       for (
         let index = 0;

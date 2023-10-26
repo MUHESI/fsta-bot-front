@@ -26,17 +26,31 @@ export interface IAffectation {
     name: string,
     psedo: string,
     id: string
+    permission: {}
+    oragnization: any;
 }
-export const getPermissionsofCurrentUser = (currentUser: { affectation_p: { allpermission: any[] } }): IAffectation[] => {
+
+export interface ICurrentUserPermission {
+    affectation: { allpermission: any[], oragnisation: any }[]
+}
+export const getPermissionsofCurrentUser = (currentUser: ICurrentUserPermission): IAffectation[] => {
     let tapPermissions: IAffectation[] = []
     if (Object.keys(currentUser).length > 0) {
-        currentUser.affectation_p.allpermission.map((item: any) => {
-            item = {
+        currentUser.affectation.map((item: any) => {
+            let permissions: any[] = []
+            item.allpermission.map((perm: any) => {
+                perm = {
+                    ...perm,
+                    psedo: perm.permission.psedo,
+                    name: perm.permission.name,
+                    permission: {}
+                }
+                permissions.push(perm)
+            })
+            tapPermissions.push({
                 ...item,
-                psedo: item.permission.psedo,
-                name: item.permission.name
-            }
-            tapPermissions.push(item)
+                allpermission: permissions
+            })
         });
         return tapPermissions
     }

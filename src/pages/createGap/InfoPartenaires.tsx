@@ -165,40 +165,36 @@ function InfoPartenaires({
   // FOR VALIDATE_GAP
   const formValidateGap = useRecoilValue(currentItemValidateGap);
   useEffect(() => {
+    let local_data_item__: any[] = [];
     if (
       statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
       Object.keys(formValidateGap).length > 0
     ) {
-      //TODO:: Refactor Later
-      let local_data_item__: any[] = [];
-      console.log(
-        "formValidateGap.datapartenaire",
-        formValidateGap.datapartenaire
-      );
-      for (
-        let index = 0;
-        index < formValidateGap.datapartenaire.length;
-        index++
-      ) {
-        const dataPartenaire = formValidateGap.datapartenaire[index];
+      if (formValidateGap.datapartenaire.length > 0) {
+        for (
+          let index = 0;
+          index < formValidateGap.datapartenaire.length;
+          index++
+        ) {
+          const dataPartenaire = formValidateGap.datapartenaire[index];
 
-        if (dataPartenaire.partenaire !== null) {
-          local_data_item__.push({
-            local_org: {
-              id: dataPartenaire.partenaire.id,
-              name: dataPartenaire.partenaire.name,
-              email: dataPartenaire.partenaire.email,
-            },
-            local_ind: getIncateursFromValidateGap(
-              dataPartenaire.partenaire.allindicateur
-            ),
-            date_debut: dataPartenaire.date_debut,
-            date_fin: dataPartenaire.date_fin,
-            email: dataPartenaire.contact_point_facal,
-          });
+          if (dataPartenaire.partenaire !== null) {
+            local_data_item__.push({
+              local_org: {
+                id: dataPartenaire?.partenaire?.id,
+                name: dataPartenaire?.partenaire?.name,
+                email: dataPartenaire?.partenaire?.email,
+              },
+              local_ind: getIncateursFromValidateGap(
+                dataPartenaire?.partenaire?.allindicateur
+              ),
+              date_debut: dataPartenaire?.date_debut,
+              date_fin: dataPartenaire?.date_fin,
+              email: dataPartenaire?.contact_point_facal,
+            });
+          }
         }
       }
-
       setFormPartenaire({
         ...INITAL_FORM_PARTAINAIRE,
         local_data: local_data_item__,

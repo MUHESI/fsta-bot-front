@@ -3,50 +3,112 @@ import { LastHeading } from "@/components/core/Heading";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import { columnsListPermissions } from "./columns";
-import CustomPagination from "@/components/core/Pagination";
 import SkeletonAnimation from "@/components/skeleton";
-import { getPermissions } from "@/globalState/atoms";
+import {
+  currentProvinceIDState,
+  getPermissions,
+  screenSizeState,
+} from "@/globalState/atoms";
 import { IPermission } from "@/types/stateSchema/permission";
 import CreatePermission from "../createPermission";
 import DialogCustom from "@/components/core/DialogCustom";
 import { CustomButton } from "@/components/core/Button";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { verifyScreenSize } from "@/components/core/Sidebar";
+import { useNavigate } from "react-router";
 
 function Permissions() {
   const listPermissions = useRecoilValue(
     getPermissions
   ) as unknown as IPermission[];
+  const screenSize = useRecoilValue(screenSizeState);
 
   return (
     <div>
       <div className="p-5">
-        <DataTable
-          searchField="psedo"
-          columns={columnsListPermissions}
-          data={listPermissions || []}
-        >
-          <CustomButton
-            onClick={() => ""}
-            label="Actualiser"
-            className="rounded-md"
-            // statusLoading={true}
-          />
-
-          <DialogCustom
-            btnText="Nouvelle permission"
-            mainTitle="Création d'une nouvelle permission"
-            width="sm"
-          >
-            <CreatePermission />
-          </DialogCustom>
-        </DataTable>
-
-        <CustomPagination
-          dataPagination={dataPagination.pagination}
-          nextPage={() => console.log("next")}
-          previousPage={async () => {}}
-        />
+        {verifyScreenSize(screenSize, 700) ? (
+          <>
+            <MobileScreenPermissions dataPermissions={listPermissions} />
+          </>
+        ) : (
+          <>
+            <DesktopScreenPermission listPermissions={listPermissions} />{" "}
+          </>
+        )}
       </div>
+    </div>
+  );
+}
+
+function MobileScreenPermissions({
+  dataPermissions,
+}: {
+  dataPermissions: IPermission[];
+}) {
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      {dataPermissions.map((item: any, key: number) => (
+        <div
+          key={key}
+          className="my-2 border shadow hover:shadow-md rounded  flex justify-between items-center p-1 py-2"
+        >
+          <div
+            className="cursor-pointer"
+            title="voir le detail"
+            onClick={() => console.log(">>", item)}
+          >
+            <div className="">
+              <h4 className="text-sm text-gray-400">Noms</h4>
+              <div className="text-sm p-0 m-0 pl-2 font-bold ">
+                {item.full_name}
+              </div>
+            </div>
+            <div className="">
+              <h4 className="text-sm text-gray-400">Telephone</h4>
+              <div className="text-sm pl-2 font-bold">{`${item.phone}`}</div>
+            </div>
+          </div>
+          <div>
+            <div className="text-sm pl-2">{/* <Actions gap={item} /> */}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DesktopScreenPermission({
+  listPermissions,
+}: {
+  listPermissions: any[];
+}) {
+  const navigate = useNavigate();
+  const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
+
+  return (
+    <div>
+      <DataTable
+        searchField="psedo"
+        columns={columnsListPermissions}
+        data={listPermissions || []}
+      >
+        <CustomButton
+          onClick={() => ""}
+          label="Actualiser"
+          className="rounded-md"
+          // statusLoading={true}
+        />
+
+        <DialogCustom
+          btnText="Nouvelle permission"
+          mainTitle="Création d'une nouvelle permission"
+          width="sm"
+        >
+          <CreatePermission />
+        </DialogCustom>
+      </DataTable>
     </div>
   );
 }

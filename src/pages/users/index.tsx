@@ -16,15 +16,33 @@ function Users() {
   return (
     <div>
       <div className="p-5">
-        <DataTable
+        <Button
+          variant="outline"
+          className="ml-auto rounded-full"
+          onClick={() => {
+            console.clear();
+            console.log("listUsers", listUsers);
+          }}
+        >
+          <FiRefreshCcw />
+        </Button>
+
+        {/* <DataTable
           searchField="full_name"
           columns={columnsListUsers}
           data={listUsers}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
+          <Button
+            variant="outline"
+            className="ml-auto rounded-full"
+            onClick={() => {
+              console.clear();
+              console.log("listUsers", listUsers);
+            }}
+          >
             <FiRefreshCcw />
           </Button>
-        </DataTable>
+        </DataTable>  */}
         <CustomPagination
           dataPagination={dataPagination.pagination}
           nextPage={() => console.log("next")}

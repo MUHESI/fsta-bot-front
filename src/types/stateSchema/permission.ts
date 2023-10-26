@@ -5,7 +5,6 @@ export interface IPermission extends IBaseInterfaceSchema {
     name: string;
     psedo: string;
 }
-
 export type ICreatePermission = {
     name: GLOBAL_PERMISSIONS | ''
     psedo: string;

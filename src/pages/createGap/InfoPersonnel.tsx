@@ -12,7 +12,7 @@ import { createGap, currentItemValidateGap } from "@/globalState/atoms";
 import { useParams } from "react-router";
 import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
-function InfoTypeCrise({
+function InfoPersonnel({
   dataTypePersonels,
 }: {
   dataTypePersonels: ITypePersonnel[];
@@ -107,11 +107,12 @@ function InfoTypeCrise({
   // FOR VALIDATE_GAP
   const formValidateGap = useRecoilValue(currentItemValidateGap);
   useEffect(() => {
+    // TODO VERIFY
     if (
       statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
-      Object.keys(formValidateGap).length > 0
+      Object.keys(formValidateGap).length > 0 &&
+      formValidateGap.datatypepersonnel.length > 0
     ) {
-      //TODO:: Refactor Later
       let dataPersonels_ = [];
       for (
         let index = 0;
@@ -189,4 +190,4 @@ function InfoTypeCrise({
   );
 }
 
-export default InfoTypeCrise;
+export default InfoPersonnel;

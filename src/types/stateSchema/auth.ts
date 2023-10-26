@@ -9,6 +9,7 @@ export interface IAutherUSer {
     full_name: string | null,
     token: string,
     id: string | null,
+    metaData?: null | any //TODO type this later
 }
 export interface ICurrentUser extends IBaseInterfaceSchema {
     email: string | null,
@@ -17,7 +18,6 @@ export interface ICurrentUser extends IBaseInterfaceSchema {
     address: string;
     roles: { id: number; name: string }[];
     date_created: string;
-
 }
 export interface IResetPassword {
     email: string,

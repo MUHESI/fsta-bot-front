@@ -44,6 +44,8 @@ import AlertMessage, {
 import { motion } from "framer-motion";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { INIT_FORM_CREATE_GAP } from "@/constants/initForm";
+import { SelectCommon } from "@/components/core/select";
+import { validateSteps } from "./validation";
 
 function CreateGap() {
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
@@ -106,7 +108,6 @@ function CreateGap() {
         "crise/list",
         user.token
       );
-
       if (res?.data) {
         setCrises(res?.data?.data);
         setInfoLoading(
@@ -398,10 +399,11 @@ function CreateGap() {
   const handleSubmit = async () => {
     // TODO:: VALIDATION
     if (
-      currentHalthAreaID === "" ||
-      currentStructureID === "" ||
-      currentProvinceId === "" ||
-      currentTerritoryId === ""
+      (currentHalthAreaID === "" ||
+        currentStructureID === "" ||
+        currentProvinceId === "" ||
+        currentTerritoryId === "") &&
+      statusAction === GAP_ACTIONS_STATUS.CREATE_GAP
     ) {
       return showToast({
         msg: `Remplissez tous les champs récquis`,
@@ -416,7 +418,9 @@ function CreateGap() {
       territoirid: currentTerritoryId || "",
       zoneid: currentZoneSanteId || "",
     };
-    console.log("formValidateGap", formValidateGap);
+    console.clear();
+
+    console.log("formGap", formGap);
     if (statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP) {
       form = {
         ...form,
@@ -507,6 +511,64 @@ function CreateGap() {
       setFormGap(INIT_FORM_CREATE_GAP);
     }
   }, []);
+
+  // UTILIS FOR
+  const [organizationsUser, setOrganizationsUser] = useState<IOrganization[]>(
+    []
+  );
+  // const [orgSelected, setOrgSelected] = useState<string>("");
+  useEffect(() => {
+    let orgArray: IOrganization[] = [];
+    if (user.metaData) {
+      user.metaData.permissions.map((item: any) =>
+        orgArray.push(item.organisation)
+      );
+      setOrganizationsUser(orgArray);
+    }
+  }, [user]);
+  const handleStep = (type: "NEXT" | "PREVIOUS", currentStep: number) => {
+    switch (type) {
+      case "NEXT":
+        // VALIDATION
+        if (currentStep === 0) {
+          const { dataError, success } = validateSteps.first(formGap);
+          if (!success)
+            showToast({
+              msg: `ERROR: ${dataError?.arrayIssuesString}`,
+              type: StatusToast.DARK,
+              // autoClose: false,
+            });
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        if (currentStep === 1) {
+          const { dataError, success } = validateSteps.second(formGap);
+          if (!success)
+            showToast({
+              msg: `ERROR: ${dataError?.arrayIssuesString}`,
+              type: StatusToast.DARK,
+              // autoClose: false,
+            });
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        if (currentStep === 2) {
+          const { dataError, success } = validateSteps.third(formGap);
+          if (!success)
+            showToast({
+              msg: `ERROR: ${dataError?.arrayIssuesString}`,
+              type: StatusToast.DARK,
+              // autoClose: false,
+            });
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        break;
+      case "PREVIOUS":
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        break;
+
+      default:
+        break;
+    }
+  };
   return (
     <div className="">
       {statusAction ? (
@@ -518,12 +580,8 @@ function CreateGap() {
       )}
       <div className="flex flex-wrap justify-center px-5 gap-5">
         <CustomStepper
-          handleNextStep={() =>
-            setActiveStep((prevActiveStep) => prevActiveStep + 1)
-          }
-          handlePreviousStep={() =>
-            setActiveStep((prevActiveStep) => prevActiveStep - 1)
-          }
+          handleNextStep={() => handleStep("NEXT", activeStep)}
+          handlePreviousStep={() => handleStep("PREVIOUS", activeStep)}
           currentStep={activeStep}
           stepsLabel={[
             "Addresse, pop., crises",
@@ -542,6 +600,17 @@ function CreateGap() {
                   <Suspense fallback={<SkeletonAnimation className="px-5" />}>
                     <Pyramid />
                   </Suspense>
+                  <div className=" px-5 ">
+                    <SelectCommon
+                      data={organizationsUser}
+                      label="Selectionner l'organisation"
+                      keyObject="name"
+                      onChange={(value: string) =>
+                        setFormGap({ ...formGap, orgid: value })
+                      }
+                      value={"..."}
+                    />
+                  </div>
                 </div>
                 {/* =========================== POPULATION =========================== */}
                 <div className={commonClassSection}>
@@ -630,10 +699,10 @@ function CreateGap() {
                       onChange={(e) => {
                         setFormGap({
                           ...formGap,
-                          dateReportage: e.target.value,
+                          dateadd: e.target.value,
                         });
                       }}
-                      value={formGap.dateReportage}
+                      value={formGap.dateadd}
                     />
                   </div>
                 </div>

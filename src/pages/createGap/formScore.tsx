@@ -77,7 +77,7 @@ function CreateScoreCard() {
         let dataOrigin: any[] = [];
         let data: any[] = [];
         for (let i = 0; i < res?.data?.data.length; i++) {
-          res?.data?.data[i].dataquestion.map((item: any, key: number) => {
+          res?.data?.data[i].dataquestion.map((item: any) => {
             data.push({ ...item, response: null });
           });
           dataOrigin.push({ ...res?.data?.data[i], dataquestion: data });
@@ -118,7 +118,7 @@ function CreateScoreCard() {
   const submitSccoreCard = async () => {
     let dataQuestion: any[] = [];
     for (let i = 0; i < enteteScoreCard.length; i++) {
-      enteteScoreCard[i].dataquestion.map((item: any, key: number) => {
+      enteteScoreCard[i].dataquestion.map((item: any) => {
         if (item.response !== null) {
           dataQuestion.push({
             questionid: item.id,

@@ -19,7 +19,11 @@ import { CustomButton } from "@/components/core/Button";
 import { InputAuth } from "@/components/core/Inputs";
 import { BiShow, BiSolidShow } from "react-icons/bi";
 import { useSetRecoilState } from "recoil";
-import { userAuthenticatedState } from "@/globalState/atoms";
+import {
+  ICurrentUserPermission,
+  getPermissionsofCurrentUser,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
 import { IFetchData } from "@/types/commonTypes";
 import { keepUserAuthInLocalStorage } from "./Login";
 
@@ -85,9 +89,17 @@ function ResetPassword() {
               false
             )
           );
+          let data_ = {
+            ...data.data,
+            metaData: {
+              permissions: getPermissionsofCurrentUser(
+                data.data as any as unknown as ICurrentUserPermission
+              ),
+            },
+          };
           LocalStorage.removeItem(keyStorage.AFIAGAP_FORGORT_PASSWORD);
           keepUserAuthInLocalStorage({
-            data: data.data,
+            data: { ...data_ },
             token: data.token ? data.token : "",
           });
           setUser({
@@ -95,6 +107,7 @@ function ResetPassword() {
             full_name: data.data.full_name,
             id: data.data.id,
             token: data.token ? data.token : "",
+            metaData: { ...data_.metaData },
           });
           navigate("/");
         }

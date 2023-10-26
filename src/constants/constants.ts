@@ -16,10 +16,11 @@ export const AG_URL = {
 }
 export const defaultStateUserAuth: IAutherUSer = {
     full_name: null,
-    // : null,
     email: null,
     token: '',
-    id: null
+    id: null,
+    metaData: null
+
 }
 export const token = "13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4"
 // TODO: Fixe me later

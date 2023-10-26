@@ -102,25 +102,21 @@ function NombreCasMaladiesContextLocal({
   useEffect(() => {
     if (
       statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP &&
-      Object.keys(formValidateGap).length > 0
+      Object.keys(formValidateGap).length > 0 &&
+      formValidateGap.datamaladie.length > 0
     ) {
-      //TODO:: Refactor Later
       let dataMaladies__ = [];
-      console.log(
-        "formValidateGap.datamaladie",
-        formValidateGap.datamaladie.length
-      );
-      // for (let index = 0; index < formValidateGap.datamaladie.length; index++) {
-      //   dataMaladies__.push({
-      //     ...formValidateGap.datamaladie[index],
-      //     name: formValidateGap.datamaladie[index].maladie.name,
-      //   });
-      // }
+      for (let index = 0; index < formValidateGap.datamaladie.length; index++) {
+        dataMaladies__.push({
+          ...formValidateGap?.datamaladie[index],
+          name: formValidateGap?.datamaladie[index]?.maladie?.name,
+        });
+      }
 
-      // setFormMaladie({
-      //   ...formMaladie,
-      //   dataMaladies: dataMaladies__,
-      // });
+      setFormMaladie({
+        ...formMaladie,
+        dataMaladies: dataMaladies__,
+      });
     }
   }, [formValidateGap]);
 
@@ -173,7 +169,7 @@ function NombreCasMaladiesContextLocal({
             className="ml-auto  rounded-md"
           />
         </div>
-        {formMaladie.dataMaladies.map((item, key) => (
+        {formMaladie?.dataMaladies?.map((item, key) => (
           <div className="flex bg-main-color justify-between items-center m-1 mx-5 p-2 rounded-md gap-5 ">
             <div className="text-sm">
               <label>{item.name}</label>

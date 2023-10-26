@@ -28,8 +28,8 @@ export interface ICreateGap {
         validateur: boolean,
     }
 
-
-    dateReportage: Date | string;
+    orgid: string
+    dateadd: string; //dateReportage 
     id?: string;
     //  ADDRESS
     provinceid: string;
@@ -41,26 +41,26 @@ export interface ICreateGap {
     // POPULATION
     population: number;
     pop_deplace: number;
-    pop_retournes: number;
-    pop_site: number;
-    pop_retourne: number;
-    pop_handicap: number;
+    pop_retournes: number | string;
+    pop_site: number | string;
+    pop_retourne: number | string;
+    pop_handicap: number | string;
     //
-    semaine_epid: number;
+    semaine_epid: number | string;
     annee_epid: number;
     etat_infra: "DETRUITE" | "NON DETRUITE";
 
     equipement: string;
-    nbr_lit: number;
-    nbr_reco: number;
-    pop_eloigne: number;
-    pop_vulnerable: number;
-    cout_ambulatoire: number;
-    cout_hospitalisation: number;
-    cout_accouchement: number;
-    cout_cesarienne: number;
-    barriere: number;
-    taux_occupation: number;
+    nbr_lit: number | string;
+    nbr_reco: number | string;
+    pop_eloigne: number | string;
+    pop_vulnerable: number | string;
+    cout_ambulatoire: number | string;
+    cout_hospitalisation: number | string;
+    cout_accouchement: number | string;
+    cout_cesarienne: number | string;
+    barriere: number | string;
+    taux_occupation: number | string;
     couvertureDtc3: number;
     mortaliteLessfiveyear: number;
     covid19_nbrcas: number;

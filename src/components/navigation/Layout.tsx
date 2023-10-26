@@ -29,6 +29,7 @@ export default function Layout() {
         email: data.email,
         id: data.id,
         token: dataSaved.metadata?.token || "",
+        metaData: data.metaData ? data.metaData : null,
       });
     }
   };

@@ -119,6 +119,7 @@ export const INIT_FORM_CREATE_AFFECTATION: {
     }
 }
 export const INIT_FORM_CREATE_ALERT: ICreateAlert = {
+    orgid: "",
     name_point_focal: "",
     phone: "",
     airid: "",
@@ -149,6 +150,8 @@ export const INIT_FORM_CREATE_GAP: ICreateGap = {
     metaData: {
         validateur: false
     },
+    orgid: "",
+    // id: "",
     provinceid: "",
     territoirid: "",
     zoneid: "",
@@ -213,12 +216,8 @@ export const INIT_FORM_CREATE_GAP: ICreateGap = {
             nbr: 0
         }
     ],
-    dateReportage: "",
+    dateadd: "", //dateReportage: "",
     etat_infra: 'NON DETRUITE',
     pop_retournes: 0
 
 }
-
-// datacriseid | allcrise
-// datamedocid | datamedicament
-// datamedocid | datamedicament
