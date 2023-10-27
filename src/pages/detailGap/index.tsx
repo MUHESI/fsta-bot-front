@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { getInfoGap, userAuthenticatedState } from "@/globalState/atoms";
 import { useParams } from "react-router";
+import ActionsGap from "../gaps/Actions";
 
 function Gap() {
   // const user = useRecoilValue(userAuthenticatedState);
@@ -22,15 +23,18 @@ function Gap() {
   return (
     <div className="p-4">
       <div
-        className={`${commonClassSection} flex flex-wrap justify-between items-center`}
+        className={`${commonClassSection} flex flex-wrap justify-between sm:items-center   flex-col sm:flex-row`}
       >
         <div>
           <span className="text-sm text-gray-400">Titre du gap</span>
-          <div className="text-sm  font-bold px-4">{detailGap?.title}</div>
+          <div className="text-sm  font-bold px-4 flex items-center gap-2">
+            <span> {`${detailGap?.title} `}</span>
+            <span className="p-1 border rounded-md bg-gray-200 ">CREATED </span>
+          </div>
         </div>
-        <label className="text-sm bg-green-500 p-2 rounded-md font-bold">
-          CREATED
-        </label>
+        <div className=" flex justify-end">
+          <ActionsGap gap={detailGap} />
+        </div>
       </div>
       <Grid container spacing={1}>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -75,7 +79,7 @@ function Gap() {
           >
             <div>
               <main className="flex gap-2 flex-wrap justify-between">
-                <div className="flex-auto">
+                <div className="">
                   <div className="text-sm">
                     <label>Pop. de l'aire</label>
                     <strong> {detailGap?.population} </strong>
@@ -85,7 +89,7 @@ function Gap() {
                     <strong> {detailGap?.pop_deplace} </strong>
                   </div>
                 </div>
-                <div className="flex-auto">
+                <div className="">
                   <div className="text-sm">
                     <label>Pop. du site </label>
                     <strong> {detailGap?.pop_site} </strong>
@@ -97,10 +101,10 @@ function Gap() {
                 </div>
                 {/* ------ */}
               </main>
-              <main className="flex gap-2 flex-wrap justify-between flex-auto ">
+              <main className="flex gap-2 flex-wrap justify-between  mt-2 sm:mt-0 ">
                 <div>
-                  <div className="text-sm flex flex-col">
-                    <label>Pop. elognée de la struc. de santé</label>
+                  <div className="text-sm flex  sm:flex-col">
+                    <label>Pop. elognée de la struc. de santé {` `} </label>
                     <strong> {detailGap?.suite1?.pop_eloigne} </strong>
                   </div>
                 </div>
@@ -168,7 +172,7 @@ function Gap() {
                       {`${key + 1}.`}
                       <strong> {item?.medicament?.name} </strong>
                     </label>
-                    <div className="pl-4">
+                    <div className="pl-2">
                       <p>
                         <label>
                           Etat du top <strong>{item.etat_top} </strong>
@@ -274,14 +278,14 @@ function Gap() {
             <div>
               <main className="flex gap-2 flex-wrap justify-between  px-2">
                 <div>
-                  <div className="text-sm flex flex-col border-b sm:border-none">
+                  <div className="text-sm flex flex-col mb-1 sm:mb-0 border-b sm:border-none ">
                     <label>Coût des soins de snaté ambulatoire </label>
                     <strong>
                       {detailGap?.suite1?.suite2?.cout_ambulatoire}
                       {"$"}
                     </strong>
                   </div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>Coût d'accouchement </label>
 
                     <strong>
@@ -289,14 +293,14 @@ function Gap() {
                       {"$"}
                     </strong>
                   </div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>Coût d'hospitalisation </label>
                     <strong>
                       {detailGap?.suite1?.suite2?.cout_hospitalisation}
                       {"$"}
                     </strong>
                   </div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>Coût des soins cesarienne </label>
                     <strong>
                       {detailGap?.suite1?.suite2?.cout_cesarienne}
@@ -305,23 +309,23 @@ function Gap() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>Couverture en DTC</label>
                     <strong>{detailGap?.suite1?.suite2?.couvertureDtc3}</strong>
                   </div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>Mortalité de moins de 5 ans </label>
                     <strong>
                       {detailGap?.suite1?.suite2?.mortaliteLessfiveyear}
                     </strong>
                   </div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>% l'eau propre </label>
                     <strong>
                       {detailGap?.suite1?.suite2?.pourcentCleanWater}
                     </strong>
                   </div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none mb-1 sm:mb-0">
                     <label>Malnutrition</label>
                     <strong>{detailGap?.suite1?.suite2?.malnutrition}</strong>
                   </div>
@@ -355,11 +359,11 @@ function Gap() {
                 </div>
                 <div>
                   <div className="text-sm flex flex-col">
-                    <label>Semaine epidemiologique </label>
+                    <label>Semaine epid </label>
                     <strong>{detailGap?.semaine_epid}</strong>
                   </div>
                   <div className="text-sm flex flex-col">
-                    <label>Année epidemiologique </label>
+                    <label>Année epid </label>
                     <strong>{detailGap?.annee_epid}</strong>
                   </div>
                 </div>
