@@ -74,8 +74,8 @@ function Gap() {
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-between flex-auto ">
-                <div>
+              <main className="flex gap-2 flex-wrap justify-between">
+                <div className="flex-auto">
                   <div className="text-sm">
                     <label>Pop. de l'aire</label>
                     <strong> {detailGap?.population} </strong>
@@ -85,7 +85,7 @@ function Gap() {
                     <strong> {detailGap?.pop_deplace} </strong>
                   </div>
                 </div>
-                <div>
+                <div className="flex-auto">
                   <div className="text-sm">
                     <label>Pop. du site </label>
                     <strong> {detailGap?.pop_site} </strong>
@@ -97,7 +97,7 @@ function Gap() {
                 </div>
                 {/* ------ */}
               </main>
-              <main className="flex gap-2 justify-between flex-auto ">
+              <main className="flex gap-2 flex-wrap justify-between flex-auto ">
                 <div>
                   <div className="text-sm flex flex-col">
                     <label>Pop. elognée de la struc. de santé</label>
@@ -251,7 +251,7 @@ function Gap() {
                       {`${key + 1}.`}
                       <strong> {item?.typepersonnel?.name} </strong>
                     </label>
-                    <div className="pl-4">
+                    <div className="pl-2">
                       <p>
                         <label>
                           Nbr. <strong>{item.nbr}</strong>
@@ -272,9 +272,9 @@ function Gap() {
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-between flex-auto px-2">
+              <main className="flex gap-2 flex-wrap justify-between  px-2">
                 <div>
-                  <div className="text-sm flex flex-col">
+                  <div className="text-sm flex flex-col border-b sm:border-none">
                     <label>Coût des soins de snaté ambulatoire </label>
                     <strong>
                       {detailGap?.suite1?.suite2?.cout_ambulatoire}
