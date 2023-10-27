@@ -210,14 +210,14 @@ function AddPermissions({ currentUser }: IProps) {
   }, []);
 
   return (
-    <div className="">
+    <div className="mx-2">
       <section>
         <div className={commonClassSection}>
           <motion.div animate={{ height: "fit-content" }}>
             <Suspense fallback={<SkeletonAnimation className="px-5" />}>
               <section className="mx-3">
                 <LastHeading title={"Ajout des permissions"} />
-                <div className=" px-1 md:px-5">
+                <div className=" px-1 md:px-1">
                   <SelectCommon
                     data={listOrganizations}
                     onChange={setOrgId}

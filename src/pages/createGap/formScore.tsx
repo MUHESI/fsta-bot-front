@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { LastHeading, SecondHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
+import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -55,8 +54,6 @@ function CreateScoreCard() {
       setidGap_(currentGapId as string);
     }
   }, [idGap, currentGapId]);
-
-  const classNameLasHeading = "border-l-4 border-main-color pl-1";
 
   const getEnteteScoreCard = async () => {
     try {
@@ -179,8 +176,10 @@ function CreateScoreCard() {
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
             {idGap == "null" ? (
-              <Suspense fallback={<SkeletonAnimation className="px-5" />}>
-                <SelectGap />
+              <Suspense fallback={<SkeletonAnimation className="px-2" />}>
+                <div className="px-0.5">
+                  <SelectGap />
+                </div>
               </Suspense>
             ) : (
               <Suspense fallback={<TexttLoading />}>

@@ -7,17 +7,16 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ColumnDef } from "@tanstack/table-core";
 import { GAP_ACTIONS_STATUS, IGap } from "@/types/stateSchema/gap";
-import { NavLink } from "react-router-dom";
-import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { styles } from "./columns";
+import { FaEye, FaLink } from "react-icons/fa";
+import { AiOutlineEye, AiTwotoneDelete, AiTwotoneEdit } from "react-icons/ai";
+import { GrValidate } from "react-icons/gr";
 
-function Actions({ gap }: { gap: any }) {
+function ActionsGap({ gap }: { gap: any }) {
   const navigate = useNavigate();
 
   return (
@@ -29,14 +28,19 @@ function Actions({ gap }: { gap: any }) {
             <MoreHorizontal className="h-4 w-4 font-bold" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="bg-white">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuContent
+          align="end"
+          className="bg-white min-w-[200px] border"
+        >
+          <DropdownMenuLabel className="border-b">Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => {
               navigate(`/gaps/detail/${gap.id}`);
             }}
+            className={`${styles.DropdownMenuItemClass}`}
           >
-            Detail
+            <AiOutlineEye />
+            <span>voir detail</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -48,22 +52,41 @@ function Actions({ gap }: { gap: any }) {
             }}
             // gaps/score-card/create
           >
-            Investiguer
+            <GrValidate />
+            <span>Investiguer</span>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
               navigate(`/gaps/score-card/create/${gap.id}`);
             }}
+            className={`${styles.DropdownMenuItemClass} text-green-400 hover:text-green-500`}
           >
-            Lier scoreCard
+            <FaLink />
+            <span>Lier le score</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>Repondre</DropdownMenuItem>
-          <DropdownMenuItem>Modifier</DropdownMenuItem>
-          <DropdownMenuItem>Supprimer</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              navigate(`/gaps/score-card/create/${gap.id}`);
+            }}
+            className={`${styles.DropdownMenuItemClass}`}
+          >
+            <FaEye />
+            <span>Voir le score</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className={`${styles.DropdownMenuItemClass}`}>
+            <AiTwotoneEdit />
+            <span>Editer</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className={`${styles.DropdownMenuItemClass} text-red-400 hover:text-red-500`}
+          >
+            <AiTwotoneDelete />
+            <span>Supprimer</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
   );
 }
 
-export default Actions;
+export default ActionsGap;

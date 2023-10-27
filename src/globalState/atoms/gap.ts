@@ -46,8 +46,6 @@ export const getInfoGap = selectorFamily({
         } else if (res instanceof Error) {
             return { error: res }
         } else {
-            console.clear()
-            console.log('res?.data?.data', res?.data?.data)
             return res?.data?.data
         }
     },

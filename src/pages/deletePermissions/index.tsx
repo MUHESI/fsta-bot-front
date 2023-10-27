@@ -89,8 +89,6 @@ function DeletePermissions({ currentUser }: IProps) {
         )
       );
     } catch (error) {
-      // console.clear();
-      // console.log("error", error);
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
@@ -107,27 +105,6 @@ function DeletePermissions({ currentUser }: IProps) {
     }
   };
 
-  // TODO Improve later
-  const [dataSelected, setDataSelected] = useState<any[]>([]);
-  const removeItemFromDataToSelect = (item: any) => {
-    const newDataToSelect = HandleFormArrayOfObject.deleteItem(
-      permissions,
-      item
-    );
-    setPermissions(newDataToSelect);
-    const newDataSelected = HandleFormArrayOfObject.AddItem(dataSelected, item);
-    setDataSelected(newDataSelected);
-  };
-  const removeItemFromDataSelected = (item: any) => {
-    const newDataSelected = HandleFormArrayOfObject.deleteItem(
-      dataSelected,
-      item
-    );
-    setDataSelected(newDataSelected);
-    const newDataToSelect = HandleFormArrayOfObject.AddItem(permissions, item);
-    setPermissions(newDataToSelect);
-  };
-  const [permissions, setPermissions] = useState<IPermission[]>([]);
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -197,7 +174,7 @@ function DeletePermissions({ currentUser }: IProps) {
   }, [orgSelected]);
 
   return (
-    <div className="">
+    <div className="mx-2">
       <section>
         <div className={commonClassSection}>
           <LastHeading title={"informations sur  l'E/S"} />
@@ -257,9 +234,6 @@ function DeletePermissions({ currentUser }: IProps) {
                 <div className="btn block text-center py-2 px-5 md:flex justify-end ">
                   <CustomButton
                     onClick={() => {
-                      console.clear();
-                      console.log(currentUser);
-                      // return;
                       handleDeleteAffectations();
                     }}
                     statusLoading={infoLoading.creeatePermission.status}

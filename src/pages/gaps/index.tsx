@@ -18,7 +18,7 @@ import { CustomButton } from "@/components/core/Button";
 import { IProvince } from "@/types/stateSchema/province";
 import { SelectCommon } from "@/components/core/select";
 import { verifyScreenSize } from "@/components/core/Sidebar";
-import Actions from "./Actions";
+import ActionsGap from "./Actions";
 
 function Gaps() {
   const allGaps = useRecoilValue(getAllGaps) as unknown as IGap[];
@@ -81,7 +81,7 @@ function MobileScreenGaps({ dataGaps }: { dataGaps: any[] }) {
           </div>
           <div>
             <div className="text-sm pl-2">
-              <Actions gap={item} />
+              <ActionsGap gap={item} />
             </div>
           </div>
         </div>

@@ -27,10 +27,12 @@ export function CustomChipBtn<TData>({
 
   return (
     <div className=" my-2">
-      <label className="text-sm pl-2">
-        {label}
-        <span className="text-red-500"> {`${required ? "*" : ""}`}</span>
-      </label>
+      {label && (
+        <label className="text-sm pl-2">
+          {label}
+          <span className="text-red-500"> {`${required ? "*" : ""}`}</span>
+        </label>
+      )}
       <div className={`text-sm ${className} rounded-lg`}>
         {data.map((item: any, key: number) => (
           <span className="duration-300 inline-flex" key={key}>

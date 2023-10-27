@@ -6,7 +6,6 @@ import { Grid } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import { getInfoGap, userAuthenticatedState } from "@/globalState/atoms";
 import { useParams } from "react-router";
-import { DETAIL_GAP } from "@/constants/constants";
 
 function Gap() {
   // const user = useRecoilValue(userAuthenticatedState);
@@ -26,8 +25,8 @@ function Gap() {
         className={`${commonClassSection} flex flex-wrap justify-between items-center`}
       >
         <div>
-          <span className="text-xl text-gray-400">Titre du gap</span>
-          <div className="text-xl pl-4">{detailGap.title}</div>
+          <span className="text-sm text-gray-400">Titre du gap</span>
+          <div className="text-sm  font-bold px-4">{detailGap?.title}</div>
         </div>
         <label className="text-sm bg-green-500 p-2 rounded-md font-bold">
           CREATED
@@ -42,23 +41,23 @@ function Gap() {
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-center md:justify-between flex-auto px-2">
+              <main className="flex gap-2 justify-between flex-auto px-2">
                 <div>
-                  <div className="text-sm">
+                  <div className="text-sm flex flex-col">
                     <label>Povince</label>
                     <strong> {detailGap.dataprovince.name} </strong>
                   </div>
-                  <div className="text-sm">
+                  <div className="text-sm flex flex-col">
                     <label>Territire</label>
                     <strong> {detailGap.dataterritoir.name} </strong>
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm">
+                  <div className="text-sm flex flex-col">
                     <label>Zone de santé</label>
                     <strong> {detailGap.datazone.name} </strong>
                   </div>
-                  <div className="text-sm">
+                  <div className="text-sm flex flex-col">
                     <label>Aire de santé</label>
                     <strong> {detailGap.dataaire.name} </strong>
                   </div>
@@ -75,25 +74,44 @@ function Gap() {
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-center md:justify-between flex-auto px-2">
+              <main className="flex gap-2 justify-between flex-auto ">
                 <div>
                   <div className="text-sm">
-                    <label>Tot pop</label>
-                    <strong> {detailGap.population} </strong>
+                    <label>Pop. de l'aire</label>
+                    <strong> {detailGap?.population} </strong>
                   </div>
                   <div className="text-sm">
                     <label>Pop. déplacée </label>
-                    <strong> {detailGap.pop_deplace} </strong>
+                    <strong> {detailGap?.pop_deplace} </strong>
                   </div>
                 </div>
                 <div>
                   <div className="text-sm">
-                    <label>Pop. retournée</label>
-                    <strong> {detailGap.pop_retourne} </strong>
+                    <label>Pop. du site </label>
+                    <strong> {detailGap?.pop_site} </strong>
                   </div>
                   <div className="text-sm">
-                    <label>Pop. su site </label>
-                    <strong> {detailGap.pop_site} </strong>
+                    <label>Pop. retournée</label>
+                    <strong> {detailGap?.pop_retourne} </strong>
+                  </div>
+                </div>
+                {/* ------ */}
+              </main>
+              <main className="flex gap-2 justify-between flex-auto ">
+                <div>
+                  <div className="text-sm flex flex-col">
+                    <label>Pop. elognée de la struc. de santé</label>
+                    <strong> {detailGap?.suite1?.pop_eloigne} </strong>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm">
+                    <label>Pop. handicapée </label>
+                    <strong> {detailGap?.suite1?.suite2?.pop_handicap} </strong>
+                  </div>
+                  <div className="text-sm">
+                    <label>Pop. vulnerable </label>
+                    <strong> {detailGap?.suite1?.pop_vulnerable} </strong>
                   </div>
                 </div>
               </main>
@@ -109,22 +127,22 @@ function Gap() {
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-center md:justify-between flex-wrap px-2">
-                {detailGap.datamaladie.map((item: any, key: number) => (
+              <main className="flex gap-2 justify-between flex-wrap px-2">
+                {detailGap?.datamaladie?.map((item: any, key: number) => (
                   <div className="text-sm" key={key}>
                     <label className="font-bold text-main-color p-1 ">
                       {`${key + 1}.`}
-                      <strong> {item.maladie.name} </strong>
+                      <strong> {item?.maladie?.name || ""} </strong>
                     </label>
                     <div className="pl-4">
                       <p>
                         <label>
-                          Nb des cas : <strong>{item.nbrCas} </strong>
+                          Nb des cas : <strong>{item?.nbrCas} </strong>
                         </label>
                       </p>
                       <p>
                         <label>
-                          Nb des décès : <strong>{item.nbrDeces} </strong>
+                          Nb des décès : <strong>{item?.nbrDeces} </strong>
                         </label>
                       </p>
                     </div>
@@ -143,12 +161,12 @@ function Gap() {
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-center md:justify-between flex-wrap px-2">
-                {detailGap.datamedicament.map((item: any, key: number) => (
+              <main className="flex gap-2 justify-between flex-wrap px-2">
+                {detailGap?.datamedicament?.map((item: any, key: number) => (
                   <div className="text-sm" key={key}>
                     <label className="font-bold text-main-color p-1">
                       {`${key + 1}.`}
-                      <strong> {item.medicament.name} </strong>
+                      <strong> {item?.medicament?.name} </strong>
                     </label>
                     <div className="pl-4">
                       <p>
@@ -167,40 +185,49 @@ function Gap() {
           {/* ====================INFO PARTENAIRES===================== */}
 
           <CustomAccordion
-            mainTitle="Info les partenaires d'appuits"
+            mainTitle="Info les partenaires présents"
             classNameChidren="text-xl"
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-center md:justify-between flex-wrap px-2">
-                {DETAIL_GAP.datapartenaire.map((item: any, key: number) => (
-                  <div className="text-sm" key={key}>
-                    <label className="font-bold text-main-color p-1">
-                      {`${key + 1}.`}
-                      <strong> {item.partenaire.name} </strong>
-                    </label>
-                    <div className="pl-4">
-                      <p>
-                        <label>
-                          Telephone <strong>{item.partenaire.phone} </strong>
-                        </label>
+              <main className="flex gap-2 justify-between flex-wrap px-2">
+                {detailGap?.datapartenaire?.map((item: any, key: number) => (
+                  <div
+                    className="flex bg-[#96d4df] justify-between items-center m-1 mx-5 p-2 rounded-md gap-5"
+                    key={key}
+                  >
+                    <div className="text-sm text-white">
+                      <label className="font-bold text-xl">
+                        {item?.partenaire?.name}
+                      </label>
+                      <p className="my-2">
+                        Paquet:
+                        <span className="flex flex-wrap ml-10">
+                          {item?.partenaire?.allindicateur?.map(
+                            (item_: any, key_: number) => (
+                              <span
+                                key={key_}
+                                className="border border-main-color bg-main-color rounded-md px-1 m-1"
+                              >
+                                {item_?.paquetappui?.name}
+                              </span>
+                            )
+                          )}
+                        </span>
                       </p>
-                      <p>
-                        <label>
-                          Point focal
-                          <strong>{item.partenaire.pointfocal || "-"} </strong>
-                        </label>
+                      <p className="flex gap-4 justify-between">
+                        <span>
+                          debut: <strong> {item.date_debut} </strong>
+                        </span>
+                        <span>
+                          Fin: <strong> {item.date_fin}</strong>
+                        </span>
                       </p>
-                      <div>
-                        <label className="font-bold text-gray-400">
-                          Indicateurs
-                        </label>
-                        <div className="px-2">
-                          {item.indicateurs.map((item: any, key: number) => (
-                            <p key={key}> - {item.indicator.name} </p>
-                          ))}
-                        </div>
-                      </div>
+                      <p className="flex gap-4 justify-between">
+                        <span>
+                          Contact: <strong> {item.contact_point_facal} </strong>
+                        </span>
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -212,21 +239,140 @@ function Gap() {
           {/* ====================INFO PERSONNELS===================== */}
 
           <CustomAccordion
-            mainTitle="Info les personnels"
+            mainTitle="Info sur les personnels"
             classNameChidren="text-xl"
             classNameMainTitle="text-sm"
           >
             <div>
-              <main className="flex gap-2 justify-center md:justify-between flex-wrap px-2">
-                {detailGap.datatypepersonnel.map((item: any, key: number) => (
+              <main className="flex gap-2 justify-between flex-wrap px-2">
+                {detailGap?.datatypepersonnel?.map((item: any, key: number) => (
                   <div className="text-sm" key={key}>
-                    <label className="font-bold text-main-color p-1">
-                      <strong>
-                        {` - ${item.typepersonnel.name}: ${item.nbr} `}
-                      </strong>
+                    <label className="font-bold text-main-color p-1 ">
+                      {`${key + 1}.`}
+                      <strong> {item?.typepersonnel?.name} </strong>
                     </label>
+                    <div className="pl-4">
+                      <p>
+                        <label>
+                          Nbr. <strong>{item.nbr}</strong>
+                        </label>
+                      </p>
+                    </div>
                   </div>
                 ))}
+              </main>
+            </div>
+          </CustomAccordion>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+          {/* ====================Medicament en rupt===================== */}
+          <CustomAccordion
+            mainTitle="Medicaments en rupture de stock"
+            classNameChidren="text-xl"
+            classNameMainTitle="text-sm"
+          >
+            <div>
+              <main className="flex gap-2 justify-between flex-auto px-2">
+                <div>
+                  <div className="text-sm flex flex-col">
+                    <label>Coût des soins de snaté ambulatoire </label>
+                    <strong>
+                      {detailGap?.suite1?.suite2?.cout_ambulatoire}
+                      {"$"}
+                    </strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Coût d'accouchement </label>
+
+                    <strong>
+                      {detailGap?.suite1?.suite2?.cout_accouchement}
+                      {"$"}
+                    </strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Coût d'hospitalisation </label>
+                    <strong>
+                      {detailGap?.suite1?.suite2?.cout_hospitalisation}
+                      {"$"}
+                    </strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Coût des soins cesarienne </label>
+                    <strong>
+                      {detailGap?.suite1?.suite2?.cout_cesarienne}
+                      {"$"}
+                    </strong>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm flex flex-col">
+                    <label>Couverture en DTC</label>
+                    <strong>{detailGap?.suite1?.suite2?.couvertureDtc3}</strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Mortalité de moins de 5 ans </label>
+                    <strong>
+                      {detailGap?.suite1?.suite2?.mortaliteLessfiveyear}
+                    </strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>% l'eau propre </label>
+                    <strong>
+                      {detailGap?.suite1?.suite2?.pourcentCleanWater}
+                    </strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Malnutrition</label>
+                    <strong>{detailGap?.suite1?.suite2?.malnutrition}</strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Taux d'occuptation</label>
+                    <strong>{detailGap?.suite1?.taux_occupation}</strong>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </CustomAccordion>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+          {/* ====================Medicament en rupt===================== */}
+          <CustomAccordion
+            mainTitle="Autre informations"
+            classNameChidren="text-xl"
+            classNameMainTitle="text-sm"
+          >
+            <div>
+              <main className="flex gap-2 justify-between flex-auto px-2">
+                <div>
+                  <div className="text-sm flex flex-col">
+                    <label>Etat de la structure</label>
+                    <strong>{detailGap?.suite1?.etat_infra}</strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Barrieres </label>
+                    <strong>{detailGap?.suite1?.suite2?.barriere}</strong>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm flex flex-col">
+                    <label>Semaine epidemiologique </label>
+                    <strong>{detailGap?.semaine_epid}</strong>
+                  </div>
+                  <div className="text-sm flex flex-col">
+                    <label>Année epidemiologique </label>
+                    <strong>{detailGap?.annee_epid}</strong>
+                  </div>
+                </div>
+              </main>
+              <main className="px-2">
+                <div>
+                  <div className="text-sm">
+                    <label>Equipéments(volésou dispo...) </label>
+                    <p className="border my-2 p-2 rounded">
+                      {detailGap?.suite1?.equipement}
+                    </p>
+                  </div>
+                </div>
               </main>
             </div>
           </CustomAccordion>

@@ -15,12 +15,13 @@ import { GAP_ACTIONS_STATUS, IGap } from "@/types/stateSchema/gap";
 import { NavLink } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ActionsGap from "./Actions";
 
 // TODO:: Improve later
 // STYLE
 export const styles = {
   DropdownMenuItemClass:
-    "duration-600 text-gray-400 hover:text-gray-500 hover:duration-500 cursor-pointer",
+    "duration-600 text-gray-400 hover:text-gray-500 hover:duration-500 cursor-pointer flex gap-1",
 };
 
 export const columnsListGaps: ColumnDef<IGap>[] = [
@@ -66,42 +67,7 @@ export const columnsListGaps: ColumnDef<IGap>[] = [
     id: "actions",
     cell: ({ row }) => {
       const gap: any = row.original;
-      const navigate = useNavigate();
-      //
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-white">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className={`${styles.DropdownMenuItemClass}`}
-              onClick={() => {
-                navigate(
-                  `/gaps/actions/${GAP_ACTIONS_STATUS.VALIDATE_GAP}/${gap.id}`
-                );
-              }}
-              // gaps/score-card/create
-            >
-              Investiguer
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                navigate(`/gaps/score-card/create/${gap.id}`);
-              }}
-            >
-              Lier scoreCard
-            </DropdownMenuItem>
-            <DropdownMenuItem>Repondre</DropdownMenuItem>
-            <DropdownMenuItem>Modifier</DropdownMenuItem>
-            <DropdownMenuItem>Supprimer</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <ActionsGap gap={gap} />;
     },
   },
 ];

@@ -123,9 +123,9 @@ export function HandlePermission({ item }: { item: any }) {
         handleTabId={setTabId}
         defeaultTabId={tabId}
       />
-      <div className="m-1">
+      <div className="my-2">
         {tabId === 0 && (
-          <>
+          <div className="my-2  mx-2 px-2 border rounded-md">
             {item.metaData.permissions.map((item_: any, key: number) => (
               <div key={key}>
                 <h4 className="bordeer border-b pb-1">
@@ -133,8 +133,6 @@ export function HandlePermission({ item }: { item: any }) {
                     className="text-main-color"
                     onClick={() => {
                       navigate(`/users/profile/${item.id}`);
-                      // console.clear();
-                      // console.log("item", item);
                     }}
                   >
                     {item_?.organisation?.name}{" "}
@@ -143,7 +141,7 @@ export function HandlePermission({ item }: { item: any }) {
                 <ShowPermissionUser dataPermissions={item_.allpermission} />
               </div>
             ))}
-          </>
+          </div>
         )}
         {tabId === 1 && <DeletePermissions currentUser={item} />}
         {tabId === 2 && <AddPermissions currentUser={item} />}
@@ -164,5 +162,4 @@ function ListUsersAssignments() {
     </div>
   );
 }
-
 export default ListUsersAssignments;
