@@ -21,14 +21,14 @@ function Gap() {
   ) as unknown as any;
 
   return (
-    <div className="p-4">
+    <div className="px-4 pb-8 ">
       <div
         className={`${commonClassSection} flex flex-wrap justify-between sm:items-center   flex-col sm:flex-row`}
       >
         <div>
           <span className="text-sm text-gray-400">Titre du gap</span>
           <div className="text-sm  font-bold px-4 flex items-center gap-2">
-            <span> {`${detailGap?.title} `}</span>
+            <span>{`${detailGap?.title} `}</span>
             <span className="p-1 border rounded-md bg-gray-200 ">CREATED </span>
           </div>
         </div>

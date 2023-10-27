@@ -7,7 +7,11 @@ import { columnsListUsers } from "./userColumns";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import SkeletonAnimation from "@/components/skeleton";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import { getUsers } from "@/globalState/atoms/user";
 import { IUser } from "@/types/stateSchema/user";
 import { verifyScreenSize } from "@/components/core/Sidebar";
@@ -25,7 +29,7 @@ function UsersAssignments() {
 
   return (
     <div>
-      <div className="p-5">
+      <div className="px-5">
         {verifyScreenSize(screenSize, 700) ? (
           <>
             <MobileScreenPermissions dataUsers={listUsers} />
@@ -82,6 +86,7 @@ function MobileScreenPermissions({ dataUsers }: { dataUsers: IUser[] }) {
 
 function DesktopScreenUsers({ dataUsers }: { dataUsers: any[] }) {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
+  const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
 
   return (
     <div>
@@ -91,7 +96,7 @@ function DesktopScreenUsers({ dataUsers }: { dataUsers: any[] }) {
         data={dataUsers}
       >
         <Button
-          onClick={() => {}}
+          onClick={() => refreshUsers()}
           variant="outline"
           className="ml-auto rounded-full"
         >

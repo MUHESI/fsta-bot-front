@@ -4,7 +4,11 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { columnsListGaps } from "./columns";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import {
   currentProvinceIDState,
   getAllGaps,
@@ -30,7 +34,7 @@ function Gaps() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       {verifyScreenSize(screenSize, 700) ? (
         <>
           <SelectCommon
@@ -97,6 +101,7 @@ function DesktopScreenGaps({ dataGaps }: { dataGaps: any[] }) {
     getProvincesState
   ) as unknown as IProvince[];
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
+  const refreshGaps = useRecoilRefresher_UNSTABLE(getAllGaps);
 
   return (
     <div>
@@ -115,7 +120,7 @@ function DesktopScreenGaps({ dataGaps }: { dataGaps: any[] }) {
           // type=""
         />
         <CustomButton
-          onClick={() => navigate("/organizations/create")}
+          onClick={() => refreshGaps()}
           label="Actualiser"
           className="rounded-md"
           // statusLoading={true}

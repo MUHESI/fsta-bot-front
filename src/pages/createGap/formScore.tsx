@@ -14,11 +14,12 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { IFetchData } from "@/types/commonTypes";
 import { getAPI, postAPI } from "@/utils/fetchData";
-import { ICreateGap, IGap } from "@/types/stateSchema/gap";
+import { IGap } from "@/types/stateSchema/gap";
 import SkeletonAnimation, { TexttLoading } from "@/components/skeleton";
 import { SelectCommon } from "@/components/core/select";
 import { AG_Toast, showToast } from "@/components/core/ToastAlert";
 import { CustomButton } from "@/components/core/Button";
+import ActionsGap from "../gaps/Actions";
 
 function CreateScoreCard() {
   // TODO: Improve this later
@@ -64,6 +65,19 @@ function CreateScoreCard() {
           true
         )
       );
+      let datascorecardGap: {
+        id: string;
+        reponse: string;
+        questionid: string;
+      }[] = [];
+      // TODO: type this later
+      const detailGap: any = await getAPI<IFetchData<any[]> | undefined>(
+        `gap/detailgap/${idGap}`,
+        user.token
+      );
+      if (detailGap.data.data) {
+        datascorecardGap = detailGap?.data?.data?.datascorecard || [];
+      }
       // TODO: typp this laater
       const res = await getAPI<IFetchData<any[]> | undefined>(
         "scorecard/listentete",
@@ -75,7 +89,20 @@ function CreateScoreCard() {
         let data: any[] = [];
         for (let i = 0; i < res?.data?.data.length; i++) {
           res?.data?.data[i].dataquestion.map((item: any) => {
-            data.push({ ...item, response: null });
+            // TODO: type this later
+            if (datascorecardGap.length > 0) {
+              datascorecardGap.map((item_) => {
+                if (item.id === item_.questionid) {
+                  item = {
+                    ...item,
+                    response: item_.reponse === "1" ? 1 : 0,
+                  };
+                }
+              });
+            } else {
+              item = { ...item, response: null };
+            }
+            data.push({ ...item });
           });
           dataOrigin.push({ ...res?.data?.data[i], dataquestion: data });
           data = [];
@@ -302,13 +329,18 @@ function ShowTitleGap({ idGap, token }: { idGap: string; token: string }) {
 
   return (
     <div
-      className={`${commonClassSection} flex flex-wrap justify-between items-center`}
+      className={`${commonClassSection} flex flex-wrap justify-between sm:items-center   flex-col sm:flex-row`}
     >
       <div>
         <span className="text-sm text-gray-400">Titre du gap</span>
-        <div className="text-sm font-bold pl-4">{detailGap.title}</div>
+        <div className="text-sm  font-bold px-4 flex items-center gap-2">
+          <span>{`${detailGap?.title} `}</span>
+          <span className="p-1 border rounded-md bg-gray-200 ">CREATED </span>
+        </div>
       </div>
-      <label className="text-sm bg-green-500 p-2 rounded-md ">CREATED</label>
+      <div className=" flex justify-end">
+        <ActionsGap gap={detailGap} />
+      </div>
     </div>
   );
 }

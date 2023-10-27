@@ -15,7 +15,7 @@ function Users() {
   const listUsers = useRecoilValue(getUsers) as unknown as IUser[];
   return (
     <div>
-      <div className="p-5">
+      <div className="px-5">
         <Button
           variant="outline"
           className="ml-auto rounded-full"

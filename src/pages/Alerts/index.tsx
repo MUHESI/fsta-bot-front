@@ -7,7 +7,7 @@ import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListAlerts } from "./columns";
 import { useNavigate } from "react-router";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { IAlert } from "@/types/stateSchema/alert";
 import { getAllAlerts, screenSizeState } from "@/globalState/atoms";
 import SkeletonAnimation from "@/components/skeleton";
@@ -25,7 +25,7 @@ function Alerts() {
 
   return (
     <div>
-      <div className="p-5">
+      <div className="px-5">
         {verifyScreenSize(screenSize, 700) ? (
           <>
             <MobileScreenAlerts dataAlerts={allAlert} />
@@ -112,6 +112,8 @@ function MobileScreenAlerts({ dataAlerts }: { dataAlerts: any[] }) {
 }
 
 function DesktopScreenAlerts({ allAlert }: { allAlert: any }) {
+  const refreshAlerts = useRecoilRefresher_UNSTABLE(getAllAlerts);
+
   return (
     <div>
       <DataTable
@@ -119,7 +121,11 @@ function DesktopScreenAlerts({ allAlert }: { allAlert: any }) {
         columns={columnsListAlerts}
         data={allAlert}
       >
-        <Button variant="outline" className="ml-auto rounded-full">
+        <Button
+          variant="outline"
+          className="ml-auto rounded-full"
+          onClick={() => refreshAlerts()}
+        >
           <FiRefreshCcw />
         </Button>
       </DataTable>

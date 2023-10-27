@@ -20,7 +20,7 @@ function Crises() {
   const allCrises = useRecoilValue(getCrises) as unknown as ICrise[];
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       <DataTable
         searchField="name"
         columns={columnsListCrises}

@@ -36,7 +36,7 @@ function ZoneSantes() {
   return (
     <div>
       <div>
-        <div className="p-5">
+        <div className="px-5">
           <div className="flex justify-between gap-6">
             <SelectCommon
               data={allProvinces}

@@ -21,7 +21,7 @@ function Indicators() {
   ) as unknown as IIndication[];
   return (
     <div>
-      <div className="p-5">
+      <div className="px-5">
         <DataTable
           searchField="name"
           columns={columnsListIndications}

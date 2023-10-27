@@ -22,7 +22,7 @@ function TypePersonnel() {
   ) as unknown as IMaladie[];
 
   return (
-    <div className="p-5">
+    <div className="px-5">
       <DataTable
         searchField="name"
         columns={columnstypePersonnels}

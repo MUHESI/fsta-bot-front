@@ -40,7 +40,7 @@ function ActionsGap({ gap }: { gap: any }) {
             className={`${styles.DropdownMenuItemClass}`}
           >
             <AiOutlineEye />
-            <span>voir detail</span>
+            <span>Voir detail</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem

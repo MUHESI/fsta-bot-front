@@ -25,7 +25,7 @@ function Permissions() {
 
   return (
     <div>
-      <div className="p-5">
+      <div className="px-5">
         {verifyScreenSize(screenSize, 700) ? (
           <>
             <MobileScreenPermissions dataPermissions={listPermissions} />

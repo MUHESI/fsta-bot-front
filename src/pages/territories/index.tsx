@@ -32,7 +32,7 @@ function Territories() {
   return (
     <div>
       <div>
-        <div className="p-5">
+        <div className="px-5">
           <SelectCommon
             data={allProvinces}
             required={true}
