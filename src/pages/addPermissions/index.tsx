@@ -10,6 +10,7 @@ import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { useRecoilValue } from "recoil";
 import {
   getOrganizations,
+  getPermissions,
   getRoles,
   userAuthenticatedState,
 } from "@/globalState/atoms";
@@ -195,9 +196,9 @@ function AddPermissions({ currentUser }: IProps) {
   ) as unknown as IResRecoil<IOrganization[]>;
   const resRoles = useRecoilValue(getRoles) as unknown as IResRecoil<IRole[]>;
 
-  const resPermissions = useRecoilValue(getRoles) as unknown as IResRecoil<
-    IPermission[]
-  >;
+  const resPermissions = useRecoilValue(
+    getPermissions
+  ) as unknown as IResRecoil<IPermission[]>;
 
   const [permissions, setPermissions] = useState<IPermission[]>([]);
   const [orgId, setOrgId] = useState("");
