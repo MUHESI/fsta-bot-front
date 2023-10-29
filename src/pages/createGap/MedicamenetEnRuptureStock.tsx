@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import DialogCustom from "@/components/core/DialogCustom";
+import DialogCustom, {
+  commonClassNameBtnLastBtnDialog,
+} from "@/components/core/DialogCustom";
 import { IMaladie } from "@/types/stateSchema/maladie";
 import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
@@ -100,6 +102,11 @@ function MedicamenetEnRuptureStock({
             btnText="Medicaments en rupture"
             mainTitle="Selectionner les maladies"
             width="sm"
+            lastBtnOptions={{
+              btnText: "Valider",
+              closeAfterAction: true,
+              classNameBtn: commonClassNameBtnLastBtnDialog,
+            }}
           >
             <div
               data-testId="create-province"
@@ -152,6 +159,7 @@ function MedicamenetEnRuptureStock({
             required={true}
             label="Ambalatoire(Cout en $)"
             pl="eg:20"
+            type="number"
             onChange={(e) => {
               setFormGap({
                 ...formGap,
@@ -166,6 +174,7 @@ function MedicamenetEnRuptureStock({
             required={true}
             label="Hospitalisation(Cout en $)"
             pl="eg: 200"
+            type="number"
             onChange={(e) => {
               setFormGap({
                 ...formGap,
@@ -182,6 +191,7 @@ function MedicamenetEnRuptureStock({
             required={true}
             label="Accouchement(Cout en $)"
             pl="eg:20"
+            type="number"
             onChange={(e) => {
               setFormGap({
                 ...formGap,
@@ -196,6 +206,7 @@ function MedicamenetEnRuptureStock({
             required={true}
             label="Cesarienne(Cout en $)"
             pl="eg: 200"
+            type="number"
             onChange={(e) => {
               setFormGap({
                 ...formGap,
@@ -210,8 +221,9 @@ function MedicamenetEnRuptureStock({
           <CommonInputGap
             // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
             required={true}
-            label="Couverture en DTC"
+            label="Nombre de cCouverture en DTC (en %)"
             pl="eg: ..."
+            type="number"
             onChange={(e) => {
               setFormGap({
                 ...formGap,
@@ -224,8 +236,9 @@ function MedicamenetEnRuptureStock({
           <CommonInputGap
             // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
             required={true}
-            label="Mortalité de moins de 5ans"
+            label="Nombre de mortalité de moins de 5ans %"
             pl="eg: ..."
+            type="number"
             onChange={(e) => {
               setFormGap({
                 ...formGap,

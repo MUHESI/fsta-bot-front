@@ -35,16 +35,17 @@ function Structure() {
     getProvincesState
   ) as unknown as IResRecoil<IProvince[]>;
 
-  const allTerritoriesByProvince = useRecoilValue(
+  const resTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<any[]>;
+
   const resListHealthAreasByZone = useRecoilValue(
     getListHealthAreasByZone
   ) as unknown as IResRecoil<IHealthArea[]>;
 
-  const allListStructureHealth = useRecoilValue(
+  const resListStructureHealth = useRecoilValue(
     getListStuctureHealthByAreas
-  ) as unknown as IStructureHealth[];
+  ) as unknown as IResRecoil<IStructureHealth[]>;
 
   const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
@@ -64,7 +65,7 @@ function Structure() {
               // type=""
             />
             <SelectCommon
-              data={allTerritoriesByProvince}
+              data={resTerritoriesByProvince.data}
               label="Territoire"
               keyObject="name"
               onChange={setCurrentTerritoryID}
@@ -91,7 +92,7 @@ function Structure() {
           <DataTable
             searchField="name"
             columns={columnsListHealthAreas}
-            data={allListStructureHealth}
+            data={resListStructureHealth.data}
           >
             <DialogCustom
               btnText="Nouvelle  structure"

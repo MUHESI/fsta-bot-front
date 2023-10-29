@@ -18,7 +18,7 @@ export const fStep_GapSchema = z.object({
     semaine_epid: z.number(),
     annee_epid: z.number(),
     dateadd: z.string({ description: "please specify the date of creeation" }).min(3),
-    barriere: z.number(),
+    barriere: z.string(),
     //
 })
 

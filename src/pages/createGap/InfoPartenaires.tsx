@@ -12,10 +12,13 @@ import { IOrganization } from "@/types/stateSchema/organization";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { createGap, currentItemValidateGap } from "@/globalState/atoms";
 import { LastHeading } from "@/components/core/Heading";
-import DialogCustom from "@/components/core/DialogCustom";
+import DialogCustom, {
+  commonClassNameBtnLastBtnDialog,
+} from "@/components/core/DialogCustom";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 import { useParams } from "react-router";
+import { StatusToast, showToast } from "@/components/core/ToastAlert";
 
 const INITAL_FORM_PARTAINAIRE = {
   orgid: "",
@@ -114,7 +117,10 @@ function InfoPartenaires({
       formPartenaire.date_fin === "" ||
       formPartenaire.email === ""
     ) {
-      return;
+      return showToast({
+        msg: `Remplissez tous les champs récquis: Organisation, Date debut, Date fin, Contact`,
+        type: StatusToast.ERROR,
+      });
     }
     let dataSelected_paId = [];
     for (let index = 0; index < dataSelected_pa.length; index++) {
@@ -267,6 +273,11 @@ function InfoPartenaires({
             btnText="Paquet d'appui"
             mainTitle="Selectionner les paquets d'appui"
             width="sm"
+            lastBtnOptions={{
+              btnText: "Valider",
+              closeAfterAction: true,
+              classNameBtn: commonClassNameBtnLastBtnDialog,
+            }}
           >
             <div
               data-testId="create-province"

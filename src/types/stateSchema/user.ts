@@ -9,5 +9,6 @@ export interface IUser extends IBaseInterfaceSchema {
     roles: { id: number; name: string }[];
     date_created: string;
     phone: string;
+    pofil: string;
     organization: { id: number; name: string, [key: string]: string | number };
 };

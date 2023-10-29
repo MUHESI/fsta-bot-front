@@ -60,6 +60,7 @@ const Navbar = () => {
   const isClicked = useRecoilValue(isCLickedState);
   const [activeMenu, setActiveMenu] = useRecoilState(activeMenuState);
   const [screenSize, setScreenSize] = useRecoilState(screenSizeState);
+  const [currentUser, setCurrentUser] = useState<IUser | any>({});
 
   const logout = () => {
     setUser({ ...defaultStateUserAuth });
@@ -116,6 +117,14 @@ const Navbar = () => {
   //   checkAuthUser();
   // }, [currentUser_]);
   // DESKTOP_NAVBAR
+
+  useEffect(() => {
+    if (Object.keys(user).length > 0) {
+      setCurrentUser(user);
+      // updateDataLocaStorage();
+    }
+  }, [user]);
+
   function DesktopNavbar() {
     return (
       <div className="flex m-0 justify-between">
@@ -187,7 +196,7 @@ const Navbar = () => {
                 <img
                   onClick={() => navigate(`/users/profile/${user.id}`)}
                   className="rounded-full w-8 h-8"
-                  src={AG_URL.USER_IMG_PROFILE}
+                  src={currentUser.profil || AG_URL.USER_IMG_PROFILE}
                   alt="user-profile"
                 />
               </Tooltip>

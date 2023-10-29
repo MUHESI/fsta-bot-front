@@ -5,6 +5,7 @@ import { getAPI } from "../../utils/fetchData";
 import { IFetchData, IResRecoil } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
 import { RES_RECOIL } from "@/constants/initForm";
+import { IUser } from "@/types/stateSchema/user";
 
 
 export const getPermissions = selector({
@@ -41,7 +42,7 @@ export interface IAffectation {
     oragnization: any;
 }
 
-export interface ICurrentUserPermission {
+export interface ICurrentUserPermission extends IUser {
     affectation: { allpermission: any[], oragnisation: any }[]
 }
 export const getPermissionsofCurrentUser = (currentUser: ICurrentUserPermission): IAffectation[] => {

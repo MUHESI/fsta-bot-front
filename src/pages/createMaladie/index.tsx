@@ -14,9 +14,8 @@ import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
 import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 
-function CreateTypesPersonnel() {
+function CreateMaladie() {
   const user = useRecoilValue(userAuthenticatedState);
-
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
@@ -48,7 +47,7 @@ function CreateTypesPersonnel() {
       const { data } = await postAPI<
         IFetchData<IBaseData>,
         ICreateTypePersonnel
-      >("personnel/addtypepersonnel", formMaladie, user.token);
+      >("maladie/addmaladie", formMaladie, user.token);
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
@@ -59,7 +58,7 @@ function CreateTypesPersonnel() {
         );
 
         showToast({
-          msg: `Le type de personnel ${formMaladie.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `La maladie ${formMaladie.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
         setMaladie({ ...INIT_FORM_CREATE_MALADIE });
@@ -119,4 +118,4 @@ function CreateTypesPersonnel() {
   );
 }
 
-export default CreateTypesPersonnel;
+export default CreateMaladie;

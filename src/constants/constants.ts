@@ -1,9 +1,7 @@
 import { IOrganization, Type } from "@/types/stateSchema/organization";
 import { keyStorage } from "../services/storage/localSTorageHandler";
 import { IDataStoredLocalStorage } from "../types/storageTypes";
-import { IUser } from '@/types/stateSchema/user'
 import { IDataPagination } from '@/types/commonTypes'
-import { IAlert } from '@/types/stateSchema/alert'
 import { IProvince } from "@/types/stateSchema/province";
 import { ITerritory } from "@/types/stateSchema/territory";
 import { IAutherUSer } from "@/types/stateSchema/auth";
@@ -19,8 +17,8 @@ export const defaultStateUserAuth: IAutherUSer = {
     email: null,
     token: '',
     id: null,
+    profil: null,
     metaData: null
-
 }
 export const token = "13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4"
 // TODO: Fixe me later
@@ -489,7 +487,7 @@ export const dataGaProvince: IGapProvince[] = [
 
 // DASHBOARD
 export const getEpidemioLogicWeek = (): { id: number | string, value: number }[] => {
-    let count = 57
+    let count = 52
     let data = []
     for (let i = 0; i <= count; i++) {
         data.push({

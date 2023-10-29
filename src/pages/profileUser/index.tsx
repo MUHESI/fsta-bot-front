@@ -1,15 +1,9 @@
 import React, { Suspense, useEffect, useState, useRef } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { FaUserCircle } from "react-icons/fa";
-import { RiFolderInfoFill } from "react-icons/ri";
-import { CgOrganisation } from "react-icons/cg";
-import { MdSettings } from "react-icons/md";
-import { RiDeleteBin2Fill, RiLockPasswordFill } from "react-icons/ri";
 import { Grid } from "@mui/material";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
 import { IUser } from "@/types/stateSchema/user";
 import ShowPermissionUser from "../showPermissionUser";
@@ -19,13 +13,24 @@ import { SelectCommon } from "@/components/core/select";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { BASE_URL_API, putAPI } from "@/utils/fetchData";
+import { BASE_URL_API, getAPI, putAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { CustomButton } from "@/components/core/Button";
 import { useParams } from "react-router";
 import { UploadFile } from "@/components/uploadFiles/controllerUpload";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { LinearDeterminate } from "../loading";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
+import LocalStorage, {
+  keyStorage,
+} from "@/services/storage/localSTorageHandler";
+import { IAuthInLocalStorage, keepUserAuthInLocalStorage } from "../auth/Login";
+import { IAutherUSer } from "@/types/stateSchema/auth";
+import { IMetadataAuthUser } from "@/types/storageTypes";
 
 function ShowProfileUser() {
   const { idUser } = useParams();
@@ -33,11 +38,16 @@ function ShowProfileUser() {
   const commonClass = "border rounded-lg my-5 ";
   const commonClassSection = `${commonClass} pb-5`;
   // DATA
+  // const [user, setUser] = useRecoilState(userAuthenticatedState);
   const user = useRecoilValue(userAuthenticatedState);
-  const currentUser_ = useRecoilValue(
-    getInfoUser({ idUser: idUser, token: user.token })
-  ) as unknown as any;
 
+  const resCurrentUser = useRecoilValue(
+    getInfoUser({ idUser: idUser, token: user.token })
+  ) as unknown as IResRecoil<IUser>;
+  const refreshCurrentUser = useRecoilRefresher_UNSTABLE(
+    getInfoUser({ idUser: idUser, token: user.token })
+  );
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
   const [hovering, setHovering] = useState(false);
   const [currentUser, setCurrentUser] = useState<IUser | any>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,6 +61,10 @@ function ShowProfileUser() {
       msg: "",
     },
     updateProfile: {
+      status: false,
+      msg: "",
+    },
+    getCurrentUser: {
       status: false,
       msg: "",
     },
@@ -86,10 +100,7 @@ function ShowProfileUser() {
             false
           )
         );
-        return showToast({
-          msg: `Photo du profile modifiée`,
-          type: AG_Toast.statusToast.SUCCESS,
-        });
+        updateDataLocaStorage();
       }
     } catch (error) {
       setInfoLoading(
@@ -108,12 +119,45 @@ function ShowProfileUser() {
     }
   };
 
-  useEffect(() => {
-    if (Object.keys(currentUser_).length > 0) {
-      setCurrentUser(currentUser_);
-    }
-  }, [currentUser_]);
+  const updateDataLocaStorage = async () => {
+    const res = await getAPI<any>(`users/getuserid/${idUser}`, user.token);
+    if (res?.data) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "getCurrentUser", lKey: "status" },
+          false
+        )
+      );
+      const data_ = res.data.data as any as unknown as IAutherUSer;
+      const dataLocal_ = data_ as any as unknown as IAuthInLocalStorage;
 
+      const dataSaved = LocalStorage.getItem<{
+        data: IAutherUSer;
+        metadata: IMetadataAuthUser | null;
+      }>(keyStorage.AFIAGAP_AUTH_USER);
+      if (dataSaved === null) {
+        return;
+      }
+      LocalStorage.removeItem(keyStorage.AFIAGAP_AUTH_USER);
+      keepUserAuthInLocalStorage({
+        data: {
+          ...dataLocal_,
+          metaData: dataSaved?.data?.metaData || null,
+        },
+        token: dataSaved.metadata?.token || "",
+      });
+      window.location.href = window.location.href.toString() || "/";
+
+      // window.location.href = "/";
+    }
+  };
+
+  useEffect(() => {
+    if (Object.keys(resCurrentUser.data).length > 0) {
+      setCurrentUser(resCurrentUser.data);
+    }
+  }, [resCurrentUser]);
   const commonClassResume =
     "flex justify-start w-full gap-5 px-5 py-2  cursor-pointer items-center text-base hover:bg-white-hover hover:text-accent-foreground";
 
@@ -150,6 +194,7 @@ function ShowProfileUser() {
           msg: `les informations de ${currentUser.full_name} ont été enregistré avec succès`,
           type: AG_Toast.statusToast.SUCCESS,
         });
+        refreshCurrentUser();
       }
     } catch (error) {
       setInfoLoading(
@@ -169,13 +214,25 @@ function ShowProfileUser() {
   };
 
   return (
-    <div className="">
+    <div className="w-full md:w-[75%] m-auto">
+      {resCurrentUser.message && (
+        <AlertMessage
+          severity={severityAlert.INFO}
+          message={{
+            title: "Information",
+            description: resCurrentUser.message,
+          }}
+          openAlert={alert.open}
+          closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+          width={98}
+        />
+      )}
       <div className="p-1 text-main-color-dark">
         <LastHeading title={"Profile User"} />
       </div>
 
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+        {/* <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <section
             className={`${commonClass}  min-h-max hover:text-scale-110 mx-3 flex flex-col justify-start items-start `}
           >
@@ -197,10 +254,9 @@ function ShowProfileUser() {
             <div className={commonClassResume}>
               <RiDeleteBin2Fill /> <span> Desactiver le compte </span>
             </div>
-            {/* </div> */}
           </section>
-        </Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+        </Grid> */}
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className=" mx-3">
             <div className={`${commonClass}`}>
               <div className="flex flex-wrap justify-center sm:justify-between px-5 py-2 items-center text-base">
@@ -376,43 +432,6 @@ function ShowProfileUser() {
                   label="Mettre en jour"
                   className="ml-auto  rounded-md"
                 />
-              </div>
-            </div>
-            <div className={commonClassSection}>
-              <LastHeading title={"Organisations"} />
-              <div className="flex flex-wrap justify-between px-5 gap-5">
-                <InputCommon
-                  required={true}
-                  disabled={true}
-                  label="Nom"
-                  onChange={() => console.log("first")}
-                  value={currentUser?.affectation_p?.organisation?.name || ""}
-                />
-                <InputCommon
-                  required={true}
-                  label="Telephone"
-                  disabled={true}
-                  onChange={() => console.log("first")}
-                  value={currentUser?.affectation_p?.organisation?.phone || ""}
-                />
-              </div>
-              <div className="flex flex-wrap justify-between px-5 gap-5">
-                <InputCommon
-                  required={true}
-                  disabled={true}
-                  label="Addresse mail"
-                  onChange={() => console.log("first")}
-                  value={currentUser?.affectation_p?.organisation?.email || ""}
-                />
-              </div>
-              <div className="btn p-3 flex justify-end ">
-                <Button
-                  variant="primary"
-                  style={{ border: "1px solid #2DAEC4" }}
-                  className="ml-auto  rounded-md"
-                >
-                  Enregistrer
-                </Button>
               </div>
             </div>
             <div className={commonClassSection}>

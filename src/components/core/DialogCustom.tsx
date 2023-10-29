@@ -6,11 +6,21 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { LastHeading } from "./Heading";
 import { CustomButton } from "./Button";
 
+export const commonClassNameBtnLastBtnDialog =
+  "border-green-400 bg-green-400 hover:bg-white hover:text-green-400 text-white";
+
+interface ILastBtnOptions {
+  btnText: string;
+  onClick?: () => void;
+  closeAfterAction?: boolean;
+  classNameBtn?: string;
+}
 interface IDataPropos {
   width: DialogProps["maxWidth"];
   mainTitle: string;
   btnText: string;
   classNameBtn?: string;
+  lastBtnOptions?: ILastBtnOptions;
 }
 
 export default function DialogCustom({
@@ -19,6 +29,7 @@ export default function DialogCustom({
   mainTitle,
   btnText,
   classNameBtn,
+  lastBtnOptions,
 }: PropsWithChildren<IDataPropos>) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
@@ -43,6 +54,14 @@ export default function DialogCustom({
     setFullWidth(event.target.checked);
   };
 
+  const handleLastBtn = () => {
+    if (lastBtnOptions?.onClick) {
+      lastBtnOptions?.onClick();
+    }
+    if (lastBtnOptions?.closeAfterAction) {
+      return handleClose();
+    }
+  };
   return (
     <React.Fragment>
       <CustomButton
@@ -63,7 +82,18 @@ export default function DialogCustom({
             onClick={handleClose}
           />
         </div>
-        <DialogContent>{children}</DialogContent>
+        <DialogContent>
+          {children}
+          {lastBtnOptions && (
+            <div className="flex justify-end px-5">
+              <CustomButton
+                label={lastBtnOptions.btnText}
+                onClick={handleLastBtn}
+                className={`rounded-md ${lastBtnOptions.classNameBtn}`}
+              />
+            </div>
+          )}
+        </DialogContent>
       </Dialog>
     </React.Fragment>
   );

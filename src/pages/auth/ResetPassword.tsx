@@ -108,6 +108,7 @@ function ResetPassword() {
             id: data.data.id,
             token: data.token ? data.token : "",
             metaData: { ...data_.metaData },
+            profil: data?.data?.profil || "",
           });
           navigate("/");
         }

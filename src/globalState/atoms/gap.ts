@@ -8,12 +8,10 @@ import { currentProvinceIDState } from './province'
 import { INIT_FORM_CREATE_GAP } from "@/constants/initForm";
 import { RES_RECOIL } from "@/constants/initForm";
 
-
-
 export const getAllGaps = selector({
     key: GAPS_KEYS.GET_GAPS,
     get: async ({ get }) => {
-        let resData: IResRecoil<any[]> = { ...RES_RECOIL, keyResource: GAPS_KEYS.GET_GAPS, }
+        let resData: IResRecoil<any[]> = { ...RES_RECOIL, data: [], keyResource: GAPS_KEYS.GET_GAPS, }
         const { token } = get(userAuthenticatedState)
         const provinceId = get(currentProvinceIDState)
         // TODO: Type this correctly  later

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import DialogCustom from "@/components/core/DialogCustom";
+import DialogCustom, {
+  commonClassNameBtnLastBtnDialog,
+} from "@/components/core/DialogCustom";
 import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
@@ -87,6 +89,11 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             btnText="Type des crises"
             mainTitle="Selectionner les type de crises"
             width="sm"
+            lastBtnOptions={{
+              btnText: "Valider",
+              closeAfterAction: true,
+              classNameBtn: commonClassNameBtnLastBtnDialog,
+            }}
           >
             <div
               data-testId="create-province"
@@ -201,7 +208,7 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                nbr_lit: Number(e.target.value),
+                nbr_lit: e.target.value,
               });
             }}
             value={formGap.nbr_lit}
@@ -216,7 +223,7 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                nbr_reco: Number(e.target.value),
+                nbr_reco: e.target.value,
               });
             }}
             value={formGap.nbr_reco}
@@ -232,7 +239,7 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                pop_handicap: Number(e.target.value),
+                pop_handicap: e.target.value,
               });
             }}
             value={formGap.pop_handicap}
@@ -245,7 +252,7 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                pop_vulnerable: Number(e.target.value),
+                pop_vulnerable: e.target.value,
               });
             }}
             value={formGap.pop_vulnerable}
@@ -259,7 +266,7 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
             onChange={(e) => {
               setFormGap({
                 ...formGap,
-                pop_eloigne: Number(e.target.value),
+                pop_eloigne: e.target.value,
               });
             }}
             value={formGap.pop_eloigne}

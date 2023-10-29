@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { getTypePersonnels } from "@/globalState/atoms";
 import SkeletonAnimation from "@/components/skeleton";
 import DialogCustom from "@/components/core/DialogCustom";
-import CreateTypesPersonnel from "../createMaladie";
+import CreateMaladie from "../createMaladie";
 import { CustomButton } from "@/components/core/Button";
 import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
 import { IResRecoil } from "@/types/commonTypes";
@@ -53,7 +53,7 @@ function TypePersonnel() {
           mainTitle="Création de type de personnel"
           width="sm"
         >
-          <CreateTypesPersonnel />
+          <CreateMaladie />
         </DialogCustom>
       </DataTable>
       <CustomPagination

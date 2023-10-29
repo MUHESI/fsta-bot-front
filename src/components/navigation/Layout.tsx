@@ -27,6 +27,7 @@ export default function Layout() {
       setUser({
         full_name: data.full_name,
         email: data.email,
+        profil: data?.profil,
         id: data.id,
         token: dataSaved.metadata?.token || "",
         metaData: data.metaData ? data.metaData : null,

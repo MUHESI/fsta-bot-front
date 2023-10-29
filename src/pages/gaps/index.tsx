@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
@@ -24,6 +24,10 @@ import { SelectCommon } from "@/components/core/select";
 import { verifyScreenSize } from "@/components/core/Sidebar";
 import ActionsGap from "./Actions";
 import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function Gaps() {
   const resGaps = useRecoilValue(getAllGaps) as unknown as IResRecoil<IGap[]>;
@@ -33,9 +37,24 @@ function Gaps() {
   ) as unknown as IResRecoil<IProvince[]>;
 
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div className="px-5">
+      {(resGaps.message || resProvinces.message) && (
+        <AlertMessage
+          severity={severityAlert.INFO}
+          message={{
+            title: "Information",
+            description: `${resGaps.keyResource}@@${resGaps.message} ${resGaps.error}
+              ${resProvinces.keyResource}@@${resProvinces.message} ${resProvinces.error}
+              `,
+          }}
+          openAlert={alert.open}
+          closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+          width={98}
+        />
+      )}
       {verifyScreenSize(screenSize, 700) ? (
         <>
           <SelectCommon
@@ -45,11 +64,11 @@ function Gaps() {
             onChange={setCurrentProvinceID}
             value={"..."}
           />
-          <MobileScreenGaps dataGaps={resGaps.data} />
+          <MobileScreenGaps dataGaps={resGaps.data || []} />
         </>
       ) : (
         <>
-          <DesktopScreenGaps dataGaps={resGaps.data} />
+          <DesktopScreenGaps dataGaps={resGaps.data || []} />
         </>
       )}
     </div>
@@ -98,9 +117,9 @@ function MobileScreenGaps({ dataGaps }: { dataGaps: any[] }) {
 function DesktopScreenGaps({ dataGaps }: { dataGaps: any[] }) {
   const navigate = useNavigate();
 
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const refreshGaps = useRecoilRefresher_UNSTABLE(getAllGaps);
 
@@ -112,7 +131,7 @@ function DesktopScreenGaps({ dataGaps }: { dataGaps: any[] }) {
         data={dataGaps || []}
       >
         <SelectCommon
-          data={allProvinces}
+          data={resProvinces.data}
           // required={true}
           label=""
           keyObject="name"

@@ -39,15 +39,23 @@ export interface ICreateGap {
     structureid: string;
 
     // POPULATION
-    population: number;
-    pop_deplace: number;
+    // population: number | string;
+    // pop_deplace: number | string;
+    // pop_retournes: number | string;
+    // pop_site: number | string;
+    // pop_retourne: number | string;
+    // pop_handicap: number | string;
+
+    population: number | string;
+    pop_deplace: number | string;
     pop_retournes: number | string;
     pop_site: number | string;
     pop_retourne: number | string;
     pop_handicap: number | string;
+
     //
     semaine_epid: number | string;
-    annee_epid: number;
+    annee_epid: number | string;
     etat_infra: "DETRUITE" | "NON DETRUITE";
 
     equipement: string;

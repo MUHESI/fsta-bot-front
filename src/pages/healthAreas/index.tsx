@@ -1,10 +1,7 @@
 import React, { Suspense } from "react";
-import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListHealthAreas } from "./columns";
 import { SelectCommon } from "@/components/core/select";
 import SkeletonAnimation from "@/components/skeleton";
@@ -34,9 +31,12 @@ function HealthAreas() {
   const resProvinces = useRecoilValue(
     getProvincesState
   ) as unknown as IResRecoil<IProvince[]>;
-  const allTerritoriesByProvince = useRecoilValue(
+
+  //
+  const resTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<any[]>;
+
   const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
   ) as unknown as IResRecoil<IZoneSante[]>;
@@ -60,7 +60,7 @@ function HealthAreas() {
               // type=""
             />
             <SelectCommon
-              data={allTerritoriesByProvince}
+              data={resTerritoriesByProvince.data}
               required={true}
               label="Selectionner le territoire"
               keyObject="name"

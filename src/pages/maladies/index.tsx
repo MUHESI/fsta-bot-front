@@ -4,19 +4,21 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { columnsListMaladies } from "./columns";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getMaladies } from "@/globalState/atoms";
 import { IMaladie } from "@/types/stateSchema/maladie";
 import SkeletonAnimation from "@/components/skeleton";
-import { useNavigate } from "react-router-dom";
 import { CustomButton } from "@/components/core/Button";
 import { IResRecoil } from "@/types/commonTypes";
+import DialogCustom from "@/components/core/DialogCustom";
+import CreateMaladie from "../createMaladie";
 
 function Maladies() {
-  const navigate = useNavigate();
   const resMaladies = useRecoilValue(getMaladies) as unknown as IResRecoil<
     IMaladie[]
   >;
+  // CreateMaladie;
+  const refreshMaldie = useRecoilRefresher_UNSTABLE(getMaladies);
 
   return (
     <div className="px-5">
@@ -26,19 +28,17 @@ function Maladies() {
         data={resMaladies.data || []}
       >
         <CustomButton
-          onClick={() => ""}
+          onClick={() => refreshMaldie()}
           label="Actualiser"
           className="rounded-md "
-          // statusLoading={true}
         />
-        <div className="">
-          <CustomButton
-            onClick={() => navigate("/gaps/create")}
-            label="Créer un nouveau"
-            className="rounded-md"
-            // statusLoading={true}
-          />
-        </div>
+        <DialogCustom
+          btnText="Nouvelle maladie"
+          mainTitle="Création d'unnouveau medicament"
+          width="sm"
+        >
+          <CreateMaladie />
+        </DialogCustom>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

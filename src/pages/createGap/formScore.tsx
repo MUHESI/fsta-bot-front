@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentGapIDState,
   getAllGaps,
@@ -12,7 +12,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { IFetchData } from "@/types/commonTypes";
+import { IFetchData, IResRecoil } from "@/types/commonTypes";
 import { getAPI, postAPI } from "@/utils/fetchData";
 import { IGap } from "@/types/stateSchema/gap";
 import SkeletonAnimation, { TexttLoading } from "@/components/skeleton";
@@ -20,6 +20,10 @@ import { SelectCommon } from "@/components/core/select";
 import { AG_Toast, showToast } from "@/components/core/ToastAlert";
 import { CustomButton } from "@/components/core/Button";
 import ActionsGap from "../gaps/Actions";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function CreateScoreCard() {
   // TODO: Improve this later
@@ -31,7 +35,8 @@ function CreateScoreCard() {
 
   // recoil
   const user = useRecoilValue(userAuthenticatedState);
-  const currentGapId = useRecoilValue(currentGapIDState);
+  // const currentGapId = useRecoilValue(currentGapIDState);
+  const [currentGapId, setCurrentGapId] = useRecoilState(currentGapIDState);
 
   const { idGap } = useParams();
   const [idGap_, setidGap_] = useState<string>("");
@@ -49,14 +54,16 @@ function CreateScoreCard() {
 
   useEffect(() => {
     if (idGap !== "null") {
-      setidGap_(currentGapId as string);
       setidGap_(idGap as string);
+      setCurrentGapId("");
+      getEnteteScoreCard({ argIdGap: idGap || "" });
     } else {
       setidGap_(currentGapId as string);
+      getEnteteScoreCard({ argIdGap: currentGapId || "" });
     }
   }, [idGap, currentGapId]);
 
-  const getEnteteScoreCard = async () => {
+  const getEnteteScoreCard = async ({ argIdGap }: { argIdGap: string }) => {
     try {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
@@ -72,10 +79,12 @@ function CreateScoreCard() {
       }[] = [];
       // TODO: type this later
       const detailGap: any = await getAPI<IFetchData<any[]> | undefined>(
-        `gap/detailgap/${idGap}`,
+        `gap/detailgap/${argIdGap}`,
         user.token
       );
-      if (detailGap.data.data) {
+      console.clear();
+      console.log("detailGap?.data?.data", detailGap?.data?.data);
+      if (detailGap?.data?.data) {
         datascorecardGap = detailGap?.data?.data?.datascorecard || [];
       }
       // TODO: typp this laater
@@ -126,10 +135,6 @@ function CreateScoreCard() {
       );
     }
   };
-
-  useEffect(() => {
-    getEnteteScoreCard();
-  }, []);
 
   const handleClick = ({ enteteIndex, questionIndex, value }: any) => {
     const enteteScoreCard_ = [...enteteScoreCard];
@@ -196,6 +201,7 @@ function CreateScoreCard() {
 
   return (
     <div className="">
+      {/* {currentGapId || "-"} */}
       <div className="p-1 text-main-color-dark">
         <LastHeading title={"Création de formulaire GAP partie score"} />
       </div>
@@ -303,13 +309,34 @@ function CreateScoreCard() {
 export default CreateScoreCard;
 
 function SelectGap() {
-  const allGaps = useRecoilValue(getAllGaps) as unknown as IGap[];
+  const resGaps = useRecoilValue(getAllGaps) as unknown as IResRecoil<IGap[]>;
   const setCurrentGapID = useSetRecoilState(currentGapIDState);
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div>
+      {/* <span
+        onClick={() => {
+          console.clear();
+          console.log("resGaps", resGaps);
+        }}
+      >
+        Test
+      </span> */}
+      {resGaps.message && (
+        <AlertMessage
+          severity={severityAlert.INFO}
+          message={{
+            title: "Information",
+            description: `${resGaps.keyResource}@@${resGaps.message} ${resGaps.error}`,
+          }}
+          openAlert={alert.open}
+          closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+          width={98}
+        />
+      )}
       <SelectCommon
-        data={allGaps}
+        data={resGaps.data}
         label="Selectionner les gaps"
         keyObject="title"
         onChange={setCurrentGapID}

@@ -28,9 +28,10 @@ function ZoneSantes() {
     getProvincesState
   ) as unknown as IResRecoil<IProvince[]>;
 
-  const allTerritoriesByProvince = useRecoilValue(
+  const resTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
+
   const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
   ) as unknown as IResRecoil<IZoneSante[]>;
@@ -50,7 +51,7 @@ function ZoneSantes() {
               // type=""
             />
             <SelectCommon
-              data={allTerritoriesByProvince}
+              data={resTerritoriesByProvince.data}
               required={true}
               label="Selectionner le territoire"
               keyObject="name"

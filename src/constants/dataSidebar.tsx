@@ -28,7 +28,7 @@ type LabelMenus =
   | "ALERTES"
   | "Organisations"
   | "Utilisateurs"
-  | "Gestion des DPS"
+  | "PYRAMIDE SANITAIRE"
   | "Territoires"
   | "Zones de sante"
   | "Aires de santé"
@@ -252,7 +252,7 @@ export const dataMenus: IDataMenu[] = [
     mainMenu: "PYRAMIDE",
     menus: [
       {
-        label: "Gestion des DPS",
+        label: "PYRAMIDE SANITAIRE",
         icon: <FaUsers />,
         path: "/pyramid",
         permissions: GLOBAL_PERMISSIONS.MANAGE_GAP,

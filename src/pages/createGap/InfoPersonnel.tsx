@@ -11,6 +11,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { createGap, currentItemValidateGap } from "@/globalState/atoms";
 import { useParams } from "react-router";
 import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
+import { StatusToast, showToast } from "@/components/core/ToastAlert";
 
 function InfoPersonnel({
   dataTypePersonels,
@@ -59,7 +60,10 @@ function InfoPersonnel({
 
   const addPersonnel = () => {
     if (formPersonel.typepersonnelid === "" || formPersonel.nbr === 0) {
-      return;
+      return showToast({
+        msg: `Remplissez tous les champs récquis: Type de personnel et le nombre`,
+        type: StatusToast.ERROR,
+      });
     }
     let personnelItem: ITypePersonnel = typePersonels.filter(
       (item: ITypePersonnel) => item.id === formPersonel.typepersonnelid
@@ -153,7 +157,7 @@ function InfoPersonnel({
           <CommonInputGap
             // titleTooltip={TOOLTIP_GAP_FORM.REMOTE_POPULATION}
             required={true}
-            label="Nombre de la pop. eloignée"
+            label="Nombre"
             pl="eg:200"
             onChange={(value: any) =>
               handlePersonnel("nbr", value.target.value)

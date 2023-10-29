@@ -76,16 +76,21 @@ function Login() {
             ),
           },
         };
+
         keepUserAuthInLocalStorage({
           data: { ...data_ },
-          token: data.token ? data.token : "",
+          token: data.token ? data.token : "AA",
         });
+        console.clear();
+        console.log("token", data.token);
+        console.log("data", data);
         setUser({
           email: data.data.email,
           full_name: data.data.full_name,
           token: data.token ? data.token : "",
           id: data.data.id,
           metaData: { ...data_.metaData },
+          profil: data?.data?.profil || null,
         });
         navigate("/");
       }
@@ -214,7 +219,7 @@ function Login() {
 
 export default Login;
 
-interface IAuthInLocalStorage extends ICurrentUser {
+export interface IAuthInLocalStorage extends ICurrentUser {
   metaData?: null | any;
 }
 

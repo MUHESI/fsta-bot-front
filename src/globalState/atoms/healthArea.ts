@@ -14,7 +14,16 @@ export const getListHealthAreasByZone = selector({
         let resData: IResRecoil<any> = { ...RES_RECOIL, keyResource: HEALTH_AREAS_KEYS.GET_HEALTH_AREAS_BY_PROPS_STATE, }
         const zoneSanteId = get(currentZoneSanteIDState)
         const { token } = get(userAuthenticatedState)
-        if (zoneSanteId === null) return [];
+        if (zoneSanteId === null) {
+            resData = {
+                ...resData,
+                success: false,
+                data: [],
+                error: new Error("res is undefined"),
+                message: "zoneSanteId is null, data not found"
+            }
+            return resData
+        };
         const res = await getAPI<IFetchData<IHealthArea[]> | undefined>(`listair/${zoneSanteId}`, token);
         if (res instanceof Error || res === undefined) {
             resData = {

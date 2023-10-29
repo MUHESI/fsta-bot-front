@@ -44,8 +44,15 @@ import AlertMessage, {
 import { motion } from "framer-motion";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { INIT_FORM_CREATE_GAP } from "@/constants/initForm";
-import { SelectCommon } from "@/components/core/select";
+import { CommonSelectGap, SelectCommon } from "@/components/core/select";
 import { validateSteps } from "./validation";
+import {
+  getEpidemioLogicWeek,
+  getYearsInInterval,
+} from "@/constants/constants";
+
+const messageForGapCreatedSuccessfuly =
+  "La création de ce gap a été fait avec succès. Vous pouvez cliquer sur le bouton ci-dessous pour créer le scorecard qui y est associé.";
 
 function CreateGap() {
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
@@ -79,7 +86,6 @@ function CreateGap() {
     },
   });
   const navigate = useNavigate();
-
   // RECOIL
   const user = useRecoilValue(userAuthenticatedState);
   const currentProvinceId = useRecoilValue(currentProvinceIDState);
@@ -496,6 +502,10 @@ function CreateGap() {
             false
           )
         );
+        return showToast({
+          msg: `${messageForGapCreatedSuccessfuly}`,
+          type: StatusToast.ERROR,
+        });
         setFormGap(INIT_FORM_CREATE_GAP);
       }
     } catch (error) {
@@ -595,7 +605,7 @@ function CreateGap() {
                 <div className={commonClassSection}>
                   <LastHeading
                     className="border-l-4 border-main-color pl-1"
-                    title={"Informations basiques"}
+                    title={"Informations basiques "}
                   />
                   <Suspense fallback={<SkeletonAnimation className="px-5" />}>
                     <Pyramid />
@@ -623,6 +633,7 @@ function CreateGap() {
                       // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_AREA}
                       required={true}
                       label="Population de l'aire"
+                      type="number"
                       pl="eg:200"
                       onChange={(e) => {
                         setFormGap({
@@ -639,6 +650,7 @@ function CreateGap() {
                       required={true}
                       label="Population déplacée"
                       pl="eg: 2000"
+                      type="number"
                       onChange={(e) => {
                         setFormGap({
                           ...formGap,
@@ -652,6 +664,7 @@ function CreateGap() {
                       required={true}
                       label="Population retournée"
                       pl="eg: 2000"
+                      type="number"
                       onChange={(e) => {
                         setFormGap({
                           ...formGap,
@@ -664,32 +677,30 @@ function CreateGap() {
                   </div>
 
                   <div className="flex flex-wrap justify-between px-5 gap-5">
-                    <CommonInputGap
-                      // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_AREA}
-                      required={true}
+                    <CommonSelectGap
+                      data={getEpidemioLogicWeek()}
                       label="Semaine épidemiologique"
-                      pl="eg:1"
-                      onChange={(e) => {
+                      keyObject="value"
+                      onChange={(value: number | string) => {
                         setFormGap({
                           ...formGap,
-                          semaine_epid: Number(e.target.value),
+                          semaine_epid: Number(value),
                         });
                       }}
                       value={formGap.semaine_epid}
                     />
-                    <CommonInputGap
-                      // titleTooltip={TOOLTIP_GAP_FORM.NUMBER_OF_POPULATION_AREA}
-                      required={true}
+
+                    <CommonSelectGap
+                      data={getYearsInInterval(2020, 2030)}
                       label="Année épidemiologique"
-                      pl="eg:2023"
-                      onChange={(e) => {
+                      keyObject="value"
+                      onChange={(value: number | string) => {
                         setFormGap({
                           ...formGap,
-                          annee_epid: Number(e.target.value),
+                          annee_epid: Number(value),
                         });
                       }}
                       value={formGap.annee_epid}
-                      // classNameHoverCard=" border-main-color"
                     />
                     <CommonInputGap
                       required={true}
@@ -717,11 +728,11 @@ function CreateGap() {
                       // titleTooltip={TOOLTIP_GAP_FORM.CONTACT_MCZ}
                       required={true}
                       label="Barrières d'accès aux soins de santé"
-                      pl="eg: ..."
+                      pl="eg: Decrivez la situation"
                       onChange={(e) => {
                         setFormGap({
                           ...formGap,
-                          barriere: Number(e.target.value),
+                          barriere: e.target.value,
                         });
                       }}
                       value={formGap.barriere}
@@ -829,9 +840,6 @@ function ShowMainTilleGapAction({
 }
 
 function ShowAletForGapCreated() {
-  const message =
-    "La création de ce gap a été créé avec succès. Vous pouvez cliquer sur le bouton ci-dessous pour créer le scorecard qui y est associé.";
-
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL });
 
   return (
@@ -840,7 +848,7 @@ function ShowAletForGapCreated() {
         severity={severityAlert.SUCCESS}
         message={{
           title: alert.message.title,
-          description: message,
+          description: messageForGapCreatedSuccessfuly,
         }}
         openAlert={true}
         closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
