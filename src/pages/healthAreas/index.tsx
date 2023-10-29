@@ -25,25 +25,25 @@ import DialogCustom from "@/components/core/DialogCustom";
 import { IHealthArea } from "@/types/stateSchema/healthArea";
 import CreateHealthArea from "../createHealthArea";
 import { CustomButton } from "@/components/core/Button";
+import { IResRecoil } from "@/types/commonTypes";
 
 function HealthAreas() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const setCurrentTerritoryID = useSetRecoilState(currentTerritoryIDState);
   const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
-
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
-  const allListZoneSanteByTerritory = useRecoilValue(
+  const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
-  ) as unknown as IZoneSante[];
+  ) as unknown as IResRecoil<IZoneSante[]>;
 
-  const allListHealthAreasByTerritory = useRecoilValue(
+  const resListHealthAreasByTerritory = useRecoilValue(
     getListHealthAreasByZone
-  ) as unknown as IHealthArea[];
+  ) as unknown as IResRecoil<IHealthArea[]>;
 
   return (
     <div>
@@ -51,7 +51,7 @@ function HealthAreas() {
         <div className="px-5">
           <div className="flex justify-between gap-6">
             <SelectCommon
-              data={allProvinces}
+              data={resProvinces.data}
               required={true}
               label="Selectionner la province"
               keyObject="name"
@@ -69,7 +69,7 @@ function HealthAreas() {
               // type=""
             />
             <SelectCommon
-              data={allListZoneSanteByTerritory}
+              data={resZoneSante.data}
               required={true}
               label="Selectionner la zone de snaté"
               keyObject="name"
@@ -81,7 +81,7 @@ function HealthAreas() {
           <DataTable
             searchField="name"
             columns={columnsListHealthAreas}
-            data={allListHealthAreasByTerritory}
+            data={resListHealthAreasByTerritory.data}
           >
             <CustomButton
               onClick={() => ""}

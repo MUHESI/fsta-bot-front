@@ -18,20 +18,22 @@ import DialogCustom from "@/components/core/DialogCustom";
 import CreateHealthArea from "../createHealthArea";
 import { CustomButton } from "@/components/core/Button";
 import { IZoneSante } from "@/types/stateSchema/zoneSante";
+import { IResRecoil } from "@/types/commonTypes";
 
 function ZoneSantes() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const setCurrentTerritoryID = useSetRecoilState(currentTerritoryIDState);
 
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
+
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
-  const allListZoneSantes = useRecoilValue(
+  const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
-  ) as unknown as IZoneSante[];
+  ) as unknown as IResRecoil<IZoneSante[]>;
 
   return (
     <div>
@@ -39,7 +41,7 @@ function ZoneSantes() {
         <div className="px-5">
           <div className="flex justify-between gap-6">
             <SelectCommon
-              data={allProvinces}
+              data={resProvinces.data}
               required={true}
               label="Selectionner la province"
               keyObject="name"
@@ -61,7 +63,7 @@ function ZoneSantes() {
           <DataTable
             searchField="name"
             columns={columnsListZoneSante}
-            data={allListZoneSantes}
+            data={resZoneSante.data}
           >
             <CustomButton
               onClick={() => ""}

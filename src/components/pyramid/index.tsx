@@ -1,6 +1,6 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { SelectCommon } from "@/components/core/select";
-import SkeletonAnimation, { TexttLoading } from "@/components/skeleton";
+import { TexttLoading } from "@/components/skeleton";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   currentHalthAreaIDState,
@@ -18,6 +18,8 @@ import { IProvince } from "@/types/stateSchema/province";
 import { IHealthArea } from "@/types/stateSchema/healthArea";
 import { IZoneSante } from "@/types/stateSchema/zoneSante";
 import { IStructureHealth } from "@/types/stateSchema/StructureHealth";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, { INIT_ALERT_MODEL, severityAlert } from "../core/Alert";
 
 function ShowPyramid() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
@@ -26,36 +28,57 @@ function ShowPyramid() {
   const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
   const setCurrentStructureID = useSetRecoilState(currentStructureIDState);
 
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
-  const allTerritoriesByProvince = useRecoilValue(
+  ) as unknown as IResRecoil<IProvince[]>;
+  const resTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
-  ) as unknown as IProvince[];
-  const allListZoneSantes = useRecoilValue(
+  ) as unknown as IResRecoil<IProvince[]>;
+  const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
-  ) as unknown as IZoneSante[];
+  ) as unknown as IResRecoil<IZoneSante[]>;
 
-  const allListHealthAreasByZone = useRecoilValue(
+  const resListHealthAreasByZone = useRecoilValue(
     getListHealthAreasByZone
-  ) as unknown as IHealthArea[];
+  ) as unknown as IResRecoil<IHealthArea[]>;
 
-  const allListStructureHealth = useRecoilValue(
+  const resListStructureHealth = useRecoilValue(
     getListStuctureHealthByAreas
-  ) as unknown as IStructureHealth[];
+  ) as unknown as IResRecoil<IStructureHealth[]>;
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div className="mb-2">
+      {(resZoneSante.message ||
+        resTerritoriesByProvince.message ||
+        resProvinces.message ||
+        resListStructureHealth.message) && (
+        <AlertMessage
+          severity={severityAlert.INFO}
+          message={{
+            title: "Information",
+            description: `${resZoneSante.keyResource}@@${resZoneSante.message} 
+              ${resTerritoriesByProvince.keyResource}@@${resTerritoriesByProvince.message}
+               ${resListStructureHealth.keyResource}@@${resListStructureHealth.message}
+               ${resProvinces.keyResource}@@${resProvinces.message}
+               
+               `,
+          }}
+          openAlert={alert.open}
+          closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+          width={98}
+        />
+      )}
       <div className="flex flex-wrap justify-between px-5 gap-5">
         <SelectCommon
-          data={allProvinces}
+          data={resProvinces.data}
           label="Province(DPS)"
           keyObject="name"
           onChange={setCurrentProvinceID}
           value={"..."}
         />
         <SelectCommon
-          data={allTerritoriesByProvince}
+          data={resTerritoriesByProvince.data}
           label="Territoire"
           keyObject="name"
           onChange={setCurrentTerritoryID}
@@ -63,21 +86,21 @@ function ShowPyramid() {
         />
 
         <SelectCommon
-          data={allListZoneSantes}
+          data={resZoneSante.data}
           label="Zone de santé"
           keyObject="name"
           onChange={setCurrentZoneSanteID}
           value={"..."}
         />
         <SelectCommon
-          data={allListHealthAreasByZone}
+          data={resListHealthAreasByZone.data}
           label="Aire de santé"
           keyObject="name"
           onChange={setCurrentHalthAreaID}
           value={"..."}
         />
         <SelectCommon
-          data={allListStructureHealth}
+          data={resListStructureHealth.data}
           label="Structure de santé"
           keyObject="name"
           onChange={setCurrentStructureID}

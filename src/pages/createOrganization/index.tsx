@@ -16,12 +16,17 @@ import { CustomButton } from "@/components/core/Button";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData } from "@/types/commonTypes";
+import { IBaseData, IFetchData, IResRecoil } from "@/types/commonTypes";
 import SkeletonAnimation from "@/components/skeleton";
 import { token } from "@/constants/constants";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function CreateOrg() {
   // TODO: Improve this later
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
@@ -31,9 +36,9 @@ function CreateOrg() {
       msg: "",
     },
   });
-  const allTypeOrganizations = useRecoilValue(
+  const resTypeOrganizations = useRecoilValue(
     getTypeOrganizations
-  ) as unknown as ITypeOrganization[];
+  ) as unknown as IResRecoil<ITypeOrganization[]>;
 
   const [formOrganization, setFormOrganization] = useState<ICreateOrganization>(
     INIT_FORM_CREATE_ORGANIZATION
@@ -93,6 +98,18 @@ function CreateOrg() {
   return (
     <div className="">
       <Grid container spacing={1}>
+        {resTypeOrganizations.message && (
+          <AlertMessage
+            severity={severityAlert.INFO}
+            message={{
+              title: "Information",
+              description: resTypeOrganizations.message,
+            }}
+            openAlert={alert.open}
+            closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+            width={98}
+          />
+        )}
         {/* <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
           <section
             className={`${commonClass} mx-3 min-h-60 flex justify-center items-center `}
@@ -145,7 +162,7 @@ function CreateOrg() {
                   // classNameHoverCard=" border-main-color"
                 />
                 <CommonSelectGap
-                  data={allTypeOrganizations}
+                  data={resTypeOrganizations.data}
                   required={true}
                   keyObject="name"
                   label="Selectionner le type d'org."

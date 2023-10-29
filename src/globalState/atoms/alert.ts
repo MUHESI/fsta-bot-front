@@ -20,7 +20,6 @@ export const getAllAlerts = selector({
         }
     },
 });
-
 export const getInfoAlert = selectorFamily({
     key: ALERTS_KEYS.GET_ALERTS,
     get: params => async () => {

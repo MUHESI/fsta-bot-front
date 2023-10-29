@@ -4,7 +4,7 @@ import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHa
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
 import { CommonInputGap } from "@/components/core/Inputs";
 import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
-import { IIndication } from "@/types/stateSchema/indication";
+import { IIndicateur } from "@/types/stateSchema/indication";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { CustomButton } from "@/components/core/Button";
 import { CommonSelectGap } from "@/components/core/select";
@@ -32,7 +32,7 @@ function InfoPartenaires({
   dataOrganizations,
 }: {
   dataPartenaires: ITypePersonnel[];
-  dataIndicateurs: IIndication[];
+  dataIndicateurs: IIndicateur[];
   dataOrganizations: IOrganization[];
 }) {
   const { statusAction } = useParams();

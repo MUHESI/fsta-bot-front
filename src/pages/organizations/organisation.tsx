@@ -1,10 +1,8 @@
 import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListOrganizations } from "./columns";
 import { useRecoilValue } from "recoil";
 import { getOrganizations } from "@/globalState/atoms";
@@ -12,12 +10,13 @@ import { IOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
 import { CustomButton } from "@/components/core/Button";
 import { useNavigate } from "react-router-dom";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Organizations() {
   const navigate = useNavigate();
-  const listOrganizations = useRecoilValue(
+  const resOrganizations = useRecoilValue(
     getOrganizations
-  ) as unknown as IOrganization[];
+  ) as unknown as IResRecoil<IOrganization[]>;
 
   return (
     <div>
@@ -25,7 +24,7 @@ function Organizations() {
         <DataTable
           searchField="name"
           columns={columnsListOrganizations}
-          data={listOrganizations}
+          data={resOrganizations.data}
         >
           {/* <Button variant="outline" className="ml-auto rounded-full">
             <FiRefreshCcw />

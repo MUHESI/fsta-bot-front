@@ -13,9 +13,6 @@ import {
 import { IUser } from "@/types/stateSchema/user";
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
-import DialogCustom from "@/components/core/DialogCustom";
-import AddPermissions from "../addPermissions";
-import ShowPermissionUser from "../showPermissionUser";
 import { HandlePermission } from "./usersAssignments";
 
 export const columnsListUsers: ColumnDef<IUser>[] = [

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
@@ -13,19 +13,37 @@ import DialogCustom from "@/components/core/DialogCustom";
 import CreateMedicament from "../createMedicament";
 import { getMedicaments } from "../../globalState/atoms";
 import { IMedicament } from "../../types/stateSchema/medicament";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function Medicaments() {
   const navigate = useNavigate();
-  const allMedicaments = useRecoilValue(
+  const { data, message } = useRecoilValue(
     getMedicaments
-  ) as unknown as IMedicament[];
+  ) as unknown as IResRecoil<IMedicament[]>;
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div className="px-5">
+      {message && (
+        <AlertMessage
+          severity={severityAlert.INFO}
+          message={{
+            title: "Information",
+            description: message,
+          }}
+          openAlert={alert.open}
+          closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+          width={98}
+        />
+      )}
       <DataTable
         searchField="name"
         columns={columnsListMedicaments}
-        data={allMedicaments || []}
+        data={data || []}
       >
         <Button variant="outline" className="ml-auto rounded-md ">
           <FiRefreshCcw />

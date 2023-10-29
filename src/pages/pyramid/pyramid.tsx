@@ -23,6 +23,7 @@ import { IHealthArea } from "@/types/stateSchema/healthArea";
 import CreateStructureHealt from "../createStructureHealth";
 import { IStructureHealth } from "@/types/stateSchema/StructureHealth";
 import { IZoneSante } from "@/types/stateSchema/zoneSante";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Structure() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
@@ -30,23 +31,24 @@ function Structure() {
   const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
   const setCurrentHalthAreaID = useSetRecoilState(currentHalthAreaIDState);
 
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
+
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
-  const allListHealthAreasByZone = useRecoilValue(
+  const resListHealthAreasByZone = useRecoilValue(
     getListHealthAreasByZone
-  ) as unknown as IHealthArea[];
+  ) as unknown as IResRecoil<IHealthArea[]>;
 
   const allListStructureHealth = useRecoilValue(
     getListStuctureHealthByAreas
   ) as unknown as IStructureHealth[];
 
-  const allListZoneSantes = useRecoilValue(
+  const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
-  ) as unknown as IZoneSante[];
+  ) as unknown as IResRecoil<IZoneSante[]>;
 
   return (
     <div>
@@ -54,7 +56,7 @@ function Structure() {
         <div className="px-5">
           <div className="flex justify-between gap-6">
             <SelectCommon
-              data={allProvinces}
+              data={resProvinces.data}
               label="Province"
               keyObject="name"
               onChange={setCurrentProvinceID}
@@ -69,7 +71,7 @@ function Structure() {
               value={"..."}
             />
             <SelectCommon
-              data={allListZoneSantes}
+              data={resZoneSante.data}
               label="Zone de santé"
               keyObject="name"
               onChange={setCurrentZoneSanteID}
@@ -77,7 +79,7 @@ function Structure() {
               // type=""
             />
             <SelectCommon
-              data={allListHealthAreasByZone}
+              data={resListHealthAreasByZone.data}
               label="Aire de santé"
               keyObject="name"
               onChange={setCurrentHalthAreaID}

@@ -23,7 +23,7 @@ import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { IFetchData } from "@/types/commonTypes";
 import { getAPI, postAPI } from "@/utils/fetchData";
 import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
-import { IIndication } from "@/types/stateSchema/indication";
+import { IIndicateur } from "@/types/stateSchema/indication";
 import MedicamenetEnRuptureStock from "./MedicamenetEnRuptureStock";
 import { IMaladie } from "@/types/stateSchema/maladie";
 import InfoTypeCrise from "./InfoTypeCrise";
@@ -239,7 +239,7 @@ function CreateGap() {
           true
         )
       );
-      const res = await getAPI<IFetchData<IIndication[]> | undefined>(
+      const res = await getAPI<IFetchData<IIndicateur[]> | undefined>(
         "liste_indicateur",
         user.token
       );
@@ -342,7 +342,7 @@ function CreateGap() {
           true
         )
       );
-      const res = await getAPI<IFetchData<IIndication[]> | undefined>(
+      const res = await getAPI<IFetchData<IIndicateur[]> | undefined>(
         `gap/detailgap/${id_gap}`,
         user.token
       );
@@ -381,7 +381,7 @@ function CreateGap() {
   // TODO Improve later
   const [maladies, setMaladies] = useState<IMaladie[]>([]);
   const [typePersonels, setTypePersonels] = useState<ITypePersonnel[]>([]);
-  const [indicateurs, setIndicateurs] = useState<IIndication[]>([]);
+  const [indicateurs, setIndicateurs] = useState<IIndicateur[]>([]);
   const [organizations, setOrganizations] = useState<IOrganization[]>([]);
   const [medicaments, setMedicaments] = useState<IMedicament[]>([]);
 
@@ -595,7 +595,7 @@ function CreateGap() {
                 <div className={commonClassSection}>
                   <LastHeading
                     className="border-l-4 border-main-color pl-1"
-                    title={"Informations basiques col"}
+                    title={"Informations basiques"}
                   />
                   <Suspense fallback={<SkeletonAnimation className="px-5" />}>
                     <Pyramid />

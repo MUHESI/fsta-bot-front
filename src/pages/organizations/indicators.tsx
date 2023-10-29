@@ -9,16 +9,16 @@ import { columnsListIndications } from "./columnsIndication";
 import { useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { useNavigate } from "react-router-dom";
-import { getIndications } from "@/globalState/atoms/indication";
-import { IIndication } from "@/types/stateSchema/indication";
+import { getIndicateurs } from "@/globalState/atoms/indication";
+import { IIndicateur } from "@/types/stateSchema/indication";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateIndication from "../createInidication";
 
 function Indicators() {
   const navigate = useNavigate();
   const listIndicators = useRecoilValue(
-    getIndications
-  ) as unknown as IIndication[];
+    getIndicateurs
+  ) as unknown as IIndicateur[];
   return (
     <div>
       <div className="px-5">

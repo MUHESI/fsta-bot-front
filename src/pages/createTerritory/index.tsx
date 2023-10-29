@@ -11,7 +11,7 @@ import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
 import { SelectCommon } from "@/components/core/select";
 import { ICreateTerritory } from "@/types/stateSchema/territory";
-import { IFetchData } from "@/types/commonTypes";
+import { IFetchData, IResRecoil } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { getProvincesState, userAuthenticatedState } from "@/globalState/atoms";
 import { IAutherUSer } from "@/types/stateSchema/auth";
@@ -33,9 +33,9 @@ function CreateTerritory() {
     userAuthenticatedState
   ) as unknown as IAutherUSer;
 
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
 
   const handleSubmitCreateTerritory = async () => {
     if (
@@ -108,7 +108,7 @@ function CreateTerritory() {
               <LastHeading title={"Informations basiques"} />
               <div className=" px-5" data-testId="select-province">
                 <SelectCommon
-                  data={allProvinces}
+                  data={resProvinces.data}
                   onChange={keepCurrentProvince}
                   label="Selectionner la province"
                   required={true}

@@ -10,7 +10,6 @@ import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { useRecoilValue } from "recoil";
 import {
   getOrganizations,
-  getPermissions,
   getRoles,
   userAuthenticatedState,
 } from "@/globalState/atoms";
@@ -23,7 +22,7 @@ import { IRole } from "@/types/stateSchema/permissionRole";
 import SkeletonAnimation from "@/components/skeleton";
 import { IPermission } from "@/types/stateSchema/permission";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData } from "@/types/commonTypes";
+import { IBaseData, IFetchData, IResRecoil } from "@/types/commonTypes";
 
 // TODO:: FIXE ME LATER
 interface IProps {
@@ -191,13 +190,14 @@ function AddPermissions({ currentUser }: IProps) {
     setPermissions(newDataToSelect);
   };
   // GET DATA
-  const listOrganizations = useRecoilValue(
+  const resOrganizations = useRecoilValue(
     getOrganizations
-  ) as unknown as IOrganization[];
-  const allRoles = useRecoilValue(getRoles) as unknown as IRole[];
-  const listPermissions = useRecoilValue(
-    getPermissions
-  ) as unknown as IPermission[];
+  ) as unknown as IResRecoil<IOrganization[]>;
+  const resRoles = useRecoilValue(getRoles) as unknown as IResRecoil<IRole[]>;
+
+  const resPermissions = useRecoilValue(getRoles) as unknown as IResRecoil<
+    IPermission[]
+  >;
 
   const [permissions, setPermissions] = useState<IPermission[]>([]);
   const [orgId, setOrgId] = useState("");
@@ -206,7 +206,7 @@ function AddPermissions({ currentUser }: IProps) {
 
   useEffect(() => {
     setUserId(currentUser.id);
-    setPermissions(listPermissions || []);
+    setPermissions(resPermissions.data || []);
   }, []);
 
   return (
@@ -219,7 +219,7 @@ function AddPermissions({ currentUser }: IProps) {
                 <LastHeading title={"Ajout des permissions"} />
                 <div className=" px-1 md:px-1">
                   <SelectCommon
-                    data={listOrganizations}
+                    data={resOrganizations.data}
                     onChange={setOrgId}
                     label="Selectionner l'organisation"
                     // required={true}
@@ -229,7 +229,7 @@ function AddPermissions({ currentUser }: IProps) {
                     // type=""
                   />
                   <SelectCommon
-                    data={allRoles}
+                    data={resRoles.data}
                     onChange={setRoleId}
                     label="Selectionner le role"
                     // required={true}

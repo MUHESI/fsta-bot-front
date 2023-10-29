@@ -1,11 +1,9 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import { columnsListRoles } from "./columns";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { getRoles } from "@/globalState/atoms";
@@ -13,17 +11,36 @@ import { IRole } from "@/types/stateSchema/permissionRole";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateRole from "../createRole";
 import { CustomButton } from "@/components/core/Button";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function Roles() {
-  const allRoles = useRecoilValue(getRoles) as unknown as IRole[];
+  const resRoles = useRecoilValue(getRoles) as unknown as IResRecoil<IRole[]>;
+
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div>
       <div className="px-5">
+        {resRoles.message && (
+          <AlertMessage
+            severity={severityAlert.INFO}
+            message={{
+              title: "Information",
+              description: resRoles.message,
+            }}
+            openAlert={alert.open}
+            closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+            width={98}
+          />
+        )}
         <DataTable
           searchField="name"
           columns={columnsListRoles}
-          data={allRoles || []}
+          data={resRoles.data || []}
         >
           <CustomButton
             onClick={() => ""}
@@ -49,7 +66,6 @@ function Roles() {
     </div>
   );
 }
-
 function ListRoles() {
   return (
     <div>
@@ -64,20 +80,3 @@ function ListRoles() {
 }
 
 export default ListRoles;
-
-//  <Button
-//    onClick={async () => {
-//      try {
-//        console.clear();
-//        const token = "13|6j40bGlo9LYE3OJv42eWVJdFzLFfFrLEtaqt5cI4";
-//        console.log("============LOG====================");
-//        const res = await getAPI("role/list", token);
-//        console.log("res", res);
-//      } catch (error) {
-//        console.clear();
-//        console.log("error", error);
-//      }
-//    }}
-//  >
-//    click
-//  </Button>;

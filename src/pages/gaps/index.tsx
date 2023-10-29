@@ -23,14 +23,15 @@ import { IProvince } from "@/types/stateSchema/province";
 import { SelectCommon } from "@/components/core/select";
 import { verifyScreenSize } from "@/components/core/Sidebar";
 import ActionsGap from "./Actions";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Gaps() {
-  const allGaps = useRecoilValue(getAllGaps) as unknown as IGap[];
+  const resGaps = useRecoilValue(getAllGaps) as unknown as IResRecoil<IGap[]>;
   const screenSize = useRecoilValue(screenSizeState);
-
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
+
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
 
   return (
@@ -38,17 +39,17 @@ function Gaps() {
       {verifyScreenSize(screenSize, 700) ? (
         <>
           <SelectCommon
-            data={allProvinces}
+            data={resProvinces.data}
             label=""
             keyObject="name"
             onChange={setCurrentProvinceID}
             value={"..."}
           />
-          <MobileScreenGaps dataGaps={allGaps} />
+          <MobileScreenGaps dataGaps={resGaps.data} />
         </>
       ) : (
         <>
-          <DesktopScreenGaps dataGaps={allGaps} />
+          <DesktopScreenGaps dataGaps={resGaps.data} />
         </>
       )}
     </div>

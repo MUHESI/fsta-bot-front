@@ -1,24 +1,36 @@
-import { atom, selector } from "recoil";
+import { selector } from "recoil";
 import { IRole } from "../../types/stateSchema/permissionRole";
 import { PERMISSIONS_ROLES_KEYS } from "../keys";
 import { getAPI } from "../../utils/fetchData";
-import { IFetchData } from "../../types/commonTypes";
+import { IFetchData, IResRecoil } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
-// import { token } from "@/constants/constants";
+import { RES_RECOIL } from "@/constants/initForm";
+
 
 export const getRoles = selector({
     key: PERMISSIONS_ROLES_KEYS.GET_ROLES,
     get: async ({ get }) => {
+        let resData: IResRecoil<any> = { ...RES_RECOIL, keyResource: PERMISSIONS_ROLES_KEYS.GET_ROLES }
         const { token } = get(userAuthenticatedState)
         const res = await getAPI<IFetchData<IRole[]> | undefined>(`role/list`, token);
-
-        if (res === undefined) {
-            return { error: new Error('res is undefined') }
-        } else if (res instanceof Error) {
-            return { error: res }
-        } else {
+        if (res instanceof Error || res === undefined) {
+            resData = {
+                ...resData,
+                success: false,
+                data: [],
+                error: new Error("res is undefined"),
+                message: "Opps, something went wrong, please try again."
+            }
+            return resData
         }
-        return res?.data?.data ?? []
+        resData = {
+            ...resData,
+            success: true,
+            data: res?.data?.data ?? [],
+            error: null,
+            message: "",
+        }
+        return resData
     },
 });
 

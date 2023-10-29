@@ -48,6 +48,7 @@ function ForgotPassword() {
               false
             )
           );
+          // console.clear();
           // LOCAL_STORAGE
           const dataStorage = handleBaseFormLocalStorage({
             data: { email },

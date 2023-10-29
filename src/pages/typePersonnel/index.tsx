@@ -1,32 +1,46 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnstypePersonnels } from "./columns";
 import { useRecoilValue } from "recoil";
 import { getTypePersonnels } from "@/globalState/atoms";
-import { IMaladie } from "@/types/stateSchema/maladie";
 import SkeletonAnimation from "@/components/skeleton";
-import { useNavigate } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateTypesPersonnel from "../createMaladie";
 import { CustomButton } from "@/components/core/Button";
+import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function TypePersonnel() {
-  const navigate = useNavigate();
-  const allTypePersonnels = useRecoilValue(
+  const resTypePersonnels = useRecoilValue(
     getTypePersonnels
-  ) as unknown as IMaladie[];
+  ) as unknown as IResRecoil<ITypePersonnel[]>;
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div className="px-5">
+      {resTypePersonnels.message && (
+        <AlertMessage
+          severity={severityAlert.INFO}
+          message={{
+            title: "Information",
+            description: resTypePersonnels.message,
+          }}
+          openAlert={alert.open}
+          closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+          width={98}
+        />
+      )}
       <DataTable
         searchField="name"
         columns={columnstypePersonnels}
-        data={allTypePersonnels || []}
+        data={resTypePersonnels.data || []}
       >
         <CustomButton
           onClick={() => ""}

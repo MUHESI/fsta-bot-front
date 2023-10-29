@@ -18,13 +18,14 @@ import { IProvince } from "@/types/stateSchema/province";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateTerritory from "../createTerritory";
 import { CustomButton } from "@/components/core/Button";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Territories() {
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
-
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
+
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
@@ -34,7 +35,7 @@ function Territories() {
       <div>
         <div className="px-5">
           <SelectCommon
-            data={allProvinces}
+            data={resProvinces.data}
             required={true}
             label="Selectionner la province"
             keyObject="name"

@@ -11,7 +11,7 @@ import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
 import { INIT_FORM_CREATE_INDICATION } from "../../constants/initForm";
-import { ICreateIndication } from "@/types/stateSchema/indication";
+import { ICreateIndicateur } from "@/types/stateSchema/indication";
 
 function CreateIndication() {
   const user = useRecoilValue(userAuthenticatedState);
@@ -24,7 +24,7 @@ function CreateIndication() {
       msg: "",
     },
   });
-  const [formInidaction, setIndication] = useState<ICreateIndication>(
+  const [formInidaction, setIndication] = useState<ICreateIndicateur>(
     INIT_FORM_CREATE_INDICATION
   );
   const handleSubmitIndication = async () => {
@@ -44,7 +44,7 @@ function CreateIndication() {
       );
       console.clear();
       console.log("formInidaction", formInidaction);
-      const { data } = await postAPI<IFetchData<IBaseData>, ICreateIndication>(
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateIndicateur>(
         "addindic",
         formInidaction,
         user.token

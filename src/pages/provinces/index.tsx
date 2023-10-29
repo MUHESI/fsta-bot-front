@@ -12,18 +12,19 @@ import SkeletonAnimation from "@/components/skeleton";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateProvince from "../createProvince";
 import { CustomButton } from "@/components/core/Button";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Provinces() {
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
 
   return (
     <div className="px-5">
       <DataTable
         searchField="name"
         columns={columnsListProvinces}
-        data={allProvinces || []}
+        data={resProvinces.data || []}
       >
         <CustomButton
           onClick={() => ""}

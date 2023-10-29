@@ -14,7 +14,7 @@ import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { getAPI, postAPI } from "@/utils/fetchData";
 import { SelectCommon } from "@/components/core/select";
 import { ITerritory } from "@/types/stateSchema/territory";
-import { IFetchData } from "@/types/commonTypes";
+import { IFetchData, IResRecoil } from "@/types/commonTypes";
 import { useRecoilValue } from "recoil";
 import { getProvincesState, userAuthenticatedState } from "@/globalState/atoms";
 import { IAutherUSer } from "@/types/stateSchema/auth";
@@ -45,10 +45,9 @@ function CreateStructureHealt() {
   const { token } = useRecoilValue(
     userAuthenticatedState
   ) as unknown as IAutherUSer;
-
-  const allProvinces = useRecoilValue(
+  const resProvinces = useRecoilValue(
     getProvincesState
-  ) as unknown as IProvince[];
+  ) as unknown as IResRecoil<IProvince[]>;
 
   const handleSubmitCreateStructure = async () => {
     if (
@@ -173,7 +172,7 @@ function CreateStructureHealt() {
               <LastHeading title={"Informations basiques"} />
               <div className=" px-5">
                 <SelectCommon
-                  data={allProvinces}
+                  data={resProvinces.data}
                   onChange={setAireSanteId}
                   label="Selectionner l'aire de santé"
                   required={true}

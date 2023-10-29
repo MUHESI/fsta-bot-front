@@ -11,9 +11,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/table-core";
-import { IIndication } from "@/types/stateSchema/indication";
+import { IIndicateur } from "@/types/stateSchema/indication";
 
-export const columnsListIndications: ColumnDef<IIndication>[] = [
+export const columnsListIndications: ColumnDef<IIndicateur>[] = [
   {
     accessorKey: "name",
     header: "NOMS",

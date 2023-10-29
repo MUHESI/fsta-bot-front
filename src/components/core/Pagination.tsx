@@ -8,12 +8,14 @@ export const classPag = `cursor-pointer rounded-full border bg-light-gray-100 ho
 interface PaginationProps {
   previousPage: () => void;
   nextPage: () => void;
-  dataPagination: IDataPagination;
+  dataPagination: Partial<IDataPagination>;
+  disabled?: boolean;
 }
 function CustomPagination({
   previousPage,
   nextPage,
   dataPagination,
+  disabled,
 }: PaginationProps) {
   return (
     <div className="my-3 px-1 flex items-center justify-between text-text-xl text-gray-400 gap-3">
@@ -22,10 +24,18 @@ function CustomPagination({
       </div>
       <div className="flex justify-end gap-3 ">
         <Tooltip title="Page avant">
-          <MdNavigateBefore className={`${classPag}`} onLick={previousPage} />
+          <MdNavigateBefore
+            className={`${classPag}`}
+            disabled={disabled}
+            onClick={previousPage}
+          />
         </Tooltip>
         <Tooltip title="Page suivante">
-          <MdNavigateNext className={`${classPag}`} onLick={nextPage} />
+          <MdNavigateNext
+            disabled={disabled}
+            className={`${classPag}`}
+            onClick={nextPage}
+          />
         </Tooltip>
       </div>
     </div>

@@ -6,7 +6,7 @@ export type ForgotPswdScreen = {
 export type IDataPagination = {
     limit: number;
     page: number;
-    count: number;
+    count?: number;
     previousPage: number;
     nextPage: number;
 }
@@ -28,7 +28,18 @@ export interface IFetchData<TData> {
         status?: number
         token?: string
     }
-    // headers
+}
+export interface IResRecoil<TData> {
+    data: TData,
+    keyResource: string,
+    message?: string
+    error: Error | null
+    success: boolean
+    metaData?: {
+        pagination?: Partial<IDataPagination> | IDataPagination
+    }
 
 }
+
+
 

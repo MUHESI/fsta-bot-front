@@ -1,25 +1,38 @@
 import { ICreateHealthArea } from "@/types/stateSchema/healthArea";
-import { ForgotPswdScreen } from "../types/commonTypes";
+import { ForgotPswdScreen, IResRecoil } from "../types/commonTypes";
 import { ILogin, IResetPassword } from "../types/stateSchema/auth";
 import { ICreateProvince } from "../types/stateSchema/province";
 import { ICreateMenage } from "../types/stateSchema/menage";
-// import { GLOBAL_PERMISSIONS } from "@/types/permissions";
 import { ICreateTerritory } from "../types/stateSchema/territory";
 import { ICreatePermission, ICreateAffectation } from "@/types/stateSchema/permission";
 import { ICreateOrganization } from "@/types/stateSchema/organization";
 import { ICreateTypeOrganization } from "../types/stateSchema/organization";
-import { ICreateIndication } from "@/types/stateSchema/indication";
+import { ICreateIndicateur } from "@/types/stateSchema/indication";
 import { ICreateMaladie } from "@/types/stateSchema/maladie";
 import { ICreateMedicament } from "@/types/stateSchema/medicament";
 import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 import { ICreateStructureHealth } from "@/types/stateSchema/StructureHealth";
 import { ICreateAlert } from "@/types/stateSchema/alert";
 import { ICreateGap } from "@/types/stateSchema/gap";
+import { defaultPaginationProperty } from "@/globalState/atoms/user";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
     pswd: ''
 }
+export const RES_RECOIL: IResRecoil<any> = {
+    success: false,
+    keyResource: '',
+    data: {},
+    error: null,
+    message: "",
+    metaData: {
+        pagination: defaultPaginationProperty
+    }
+}
+
+
+
 export const INIT_FORM_RESET_PASSWORD: IResetPassword = {
     email: '',
     pswd: '',
@@ -77,7 +90,7 @@ export const INIT_FORM_CREATE_TYPE_ORGANIZATION: ICreateTypeOrganization = {
     email: '',
     name: ''
 }
-export const INIT_FORM_CREATE_INDICATION: ICreateIndication = {
+export const INIT_FORM_CREATE_INDICATION: ICreateIndicateur = {
     name: '',
     value: ''
 }

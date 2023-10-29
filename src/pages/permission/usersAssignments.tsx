@@ -2,43 +2,74 @@ import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
-import { dataPagination, dataUsers } from "@/constants/constants";
+import { dataPagination } from "@/constants/constants";
 import { columnsListUsers } from "./userColumns";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import SkeletonAnimation from "@/components/skeleton";
 import {
   useRecoilRefresher_UNSTABLE,
+  useRecoilState,
   useRecoilValue,
-  useSetRecoilState,
 } from "recoil";
-import { getUsers } from "@/globalState/atoms/user";
+import { getUsers, handlePaginationUsers } from "@/globalState/atoms/user";
 import { IUser } from "@/types/stateSchema/user";
 import { verifyScreenSize } from "@/components/core/Sidebar";
-import { currentProvinceIDState, screenSizeState } from "@/globalState/atoms";
+import { screenSizeState } from "@/globalState/atoms";
 import { useNavigate } from "react-router";
 import ShowPermissionUser from "../showPermissionUser";
 import DialogCustom from "@/components/core/DialogCustom";
 import TabMenuCustom from "@/components/core/tabMenuCustom";
 import DeletePermissions from "../deletePermissions";
 import AddPermissions from "../addPermissions";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function UsersAssignments() {
-  const listUsers = useRecoilValue(getUsers) as unknown as IUser[];
+  const { data, metaData, message } = useRecoilValue(
+    getUsers
+  ) as unknown as IResRecoil<IUser[]>;
   const screenSize = useRecoilValue(screenSizeState);
+  const [pagination, setPagination] = useRecoilState(handlePaginationUsers);
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div>
       <div className="px-5">
+        {message && (
+          <AlertMessage
+            severity={severityAlert.INFO}
+            message={{
+              title: "Information",
+              description: message,
+            }}
+            openAlert={alert.open}
+            closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+            width={98}
+          />
+        )}
         {verifyScreenSize(screenSize, 700) ? (
           <>
-            <MobileScreenPermissions dataUsers={listUsers} />
+            <MobileScreenPermissions dataUsers={data} />
           </>
         ) : (
           <>
-            <DesktopScreenUsers dataUsers={listUsers} />
+            <DesktopScreenUsers dataUsers={data} />
           </>
         )}
+        <CustomPagination
+          disabled={metaData?.pagination?.page === 1 ? true : false}
+          dataPagination={metaData?.pagination || dataPagination.pagination}
+          nextPage={() => {
+            setPagination({ ...pagination, page: pagination.page + 1 });
+          }}
+          previousPage={() =>
+            setPagination({ ...pagination, page: pagination.page - 1 })
+          }
+        />
       </div>
     </div>
   );
@@ -85,7 +116,6 @@ function MobileScreenPermissions({ dataUsers }: { dataUsers: IUser[] }) {
 }
 
 function DesktopScreenUsers({ dataUsers }: { dataUsers: any[] }) {
-  const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
 
   return (
@@ -103,11 +133,6 @@ function DesktopScreenUsers({ dataUsers }: { dataUsers: any[] }) {
           <FiRefreshCcw />
         </Button>
       </DataTable>
-      <CustomPagination
-        dataPagination={dataPagination.pagination}
-        nextPage={() => console.log("next")}
-        previousPage={() => console.log("next")}
-      />
     </div>
   );
 }

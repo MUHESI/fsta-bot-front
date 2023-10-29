@@ -2,26 +2,38 @@ import { atom, selector } from "recoil";
 import { IHealthArea } from "../../types/stateSchema/healthArea";
 import { HEALTH_AREAS_KEYS, } from "../keys";
 import { getAPI } from "../../utils/fetchData";
-import { IFetchData } from "../../types/commonTypes";
+import { IFetchData, IResRecoil } from "../../types/commonTypes";
 import { userAuthenticatedState } from './auth';
 import { currentZoneSanteIDState } from './zoneSante'
+import { RES_RECOIL } from "@/constants/initForm";
+
 
 export const getListHealthAreasByZone = selector({
     key: HEALTH_AREAS_KEYS.GET_HEALTH_AREAS_BY_PROPS_STATE,
     get: async ({ get }) => {
+        let resData: IResRecoil<any> = { ...RES_RECOIL, keyResource: HEALTH_AREAS_KEYS.GET_HEALTH_AREAS_BY_PROPS_STATE, }
         const zoneSanteId = get(currentZoneSanteIDState)
         const { token } = get(userAuthenticatedState)
         if (zoneSanteId === null) return [];
         const res = await getAPI<IFetchData<IHealthArea[]> | undefined>(`listair/${zoneSanteId}`, token);
-        if (res === undefined) {
-            return { error: new Error('res is undefined') }
-        } else if (res instanceof Error) {
-            return { error: res }
-        } else {
-
-            return res?.data?.data ?? []
+        if (res instanceof Error || res === undefined) {
+            resData = {
+                ...resData,
+                success: false,
+                data: [],
+                error: new Error("res is undefined"),
+                message: "Opps, something went wrong, please try again."
+            }
+            return resData
         }
-
+        resData = {
+            ...resData,
+            success: true,
+            data: res?.data?.data ?? [],
+            error: null,
+            message: "",
+        }
+        return resData
     },
 });
 export const currentHalthAreaIDState = atom<string | null>({

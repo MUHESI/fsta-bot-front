@@ -41,6 +41,7 @@ function Login() {
     },
   });
   const handleSubmitLogin = async () => {
+    localStorage.removeItem(keyStorage.AFIAGAP_FORGORT_PASSWORD);
     if (formLogin.email.trim().length < 4 || formLogin.pswd.trim().length < 4) {
       return showToast({
         msg: `Remplissez tous les champs`,

@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { DataTable } from "@/components/core/tableTemplate";
-import { dataPagination } from "@/constants/constants";
 import { columnsListPermissions } from "./columns";
 import SkeletonAnimation from "@/components/skeleton";
 import {
@@ -16,11 +15,12 @@ import { CustomButton } from "@/components/core/Button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { verifyScreenSize } from "@/components/core/Sidebar";
 import { useNavigate } from "react-router";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Permissions() {
-  const listPermissions = useRecoilValue(
+  const resPermissions = useRecoilValue(
     getPermissions
-  ) as unknown as IPermission[];
+  ) as unknown as IResRecoil<IPermission[]>;
   const screenSize = useRecoilValue(screenSizeState);
 
   return (
@@ -28,11 +28,11 @@ function Permissions() {
       <div className="px-5">
         {verifyScreenSize(screenSize, 700) ? (
           <>
-            <MobileScreenPermissions dataPermissions={listPermissions} />
+            <MobileScreenPermissions dataPermissions={resPermissions.data} />
           </>
         ) : (
           <>
-            <DesktopScreenPermission listPermissions={listPermissions} />{" "}
+            <DesktopScreenPermission listPermissions={resPermissions.data} />{" "}
           </>
         )}
       </div>
@@ -45,8 +45,6 @@ function MobileScreenPermissions({
 }: {
   dataPermissions: IPermission[];
 }) {
-  const navigate = useNavigate();
-
   return (
     <div>
       {dataPermissions.map((item: any, key: number) => (
@@ -54,11 +52,7 @@ function MobileScreenPermissions({
           key={key}
           className="my-2 border shadow hover:shadow-md rounded  flex justify-between items-center p-1 py-2"
         >
-          <div
-            className="cursor-pointer"
-            title="voir le detail"
-            onClick={() => console.log(">>", item)}
-          >
+          <div className="cursor-pointer" title="voir le detail">
             <div className="">
               <h4 className="text-sm text-gray-400">Noms</h4>
               <div className="text-sm p-0 m-0 pl-2 font-bold ">

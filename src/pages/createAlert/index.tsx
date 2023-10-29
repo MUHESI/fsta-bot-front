@@ -16,7 +16,7 @@ import { INIT_FORM_CREATE_ALERT } from "@/constants/initForm";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData } from "@/types/commonTypes";
+import { IBaseData, IFetchData, IResRecoil } from "@/types/commonTypes";
 import {
   currentHalthAreaIDState,
   currentMaladieIDState,
@@ -525,13 +525,16 @@ function CreateAlert() {
 export default CreateAlert;
 
 function SelectMaladie() {
-  const allMaladies = useRecoilValue(getMaladies) as unknown as IMaladie[];
+  const resMaladies = useRecoilValue(getMaladies) as unknown as IResRecoil<
+    IMaladie[]
+  >;
+
   const setCurrentMaladieIDState = useSetRecoilState(currentMaladieIDState);
 
   return (
     <div>
       <SelectCommon
-        data={allMaladies}
+        data={resMaladies.data}
         label="Selectionner le type de maladie"
         keyObject="name"
         onChange={setCurrentMaladieIDState}

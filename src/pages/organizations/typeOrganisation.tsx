@@ -1,34 +1,48 @@
 "use client";
 import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListTypeOrganizations } from "./columnsTypeOrganisation";
 import { useRecoilValue } from "recoil";
 import { getTypeOrganizations } from "@/globalState/atoms";
 import { ITypeOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
 import { CustomButton } from "@/components/core/Button";
-import { useNavigate } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateTypeOrganazition from "../createTypeOrganazition";
+import { IResRecoil } from "@/types/commonTypes";
+import AlertMessage, {
+  INIT_ALERT_MODEL,
+  severityAlert,
+} from "@/components/core/Alert";
 
 function TypeOrganizations() {
-  const navigate = useNavigate();
-  const listTypeOrganizations = useRecoilValue(
+  const resTypeOrganizations = useRecoilValue(
     getTypeOrganizations
-  ) as unknown as ITypeOrganization[];
+  ) as unknown as IResRecoil<ITypeOrganization[]>;
+  const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
 
   return (
     <div>
       <div className="px-5">
+        {resTypeOrganizations.message && (
+          <AlertMessage
+            severity={severityAlert.INFO}
+            message={{
+              title: "Information",
+              description: resTypeOrganizations.message,
+            }}
+            openAlert={alert.open}
+            closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
+            width={98}
+          />
+        )}
         <DataTable
           searchField="name"
           columns={columnsListTypeOrganizations}
-          data={listTypeOrganizations}
+          data={resTypeOrganizations.data}
         >
           <CustomButton
             onClick={() => ""}
