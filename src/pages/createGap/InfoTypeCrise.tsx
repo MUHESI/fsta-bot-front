@@ -11,9 +11,14 @@ import { ICrise } from "@/types/stateSchema/crise";
 import { CommonSelectGap } from "@/components/core/select";
 import { CommonTextareaGap } from "@/components/core/TextareaCustom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { createGap, currentItemValidateGap } from "@/globalState/atoms";
+import {
+  createGap,
+  currentItemValidateGap,
+  screenSizeState,
+} from "@/globalState/atoms";
 import { useParams } from "react-router";
 import { GAP_ACTIONS_STATUS } from "@/types/stateSchema/gap";
+import { verifyScreenSize } from "@/components/core/Sidebar";
 
 function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
   const { statusAction } = useParams();
@@ -78,17 +83,18 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
       setDataSelected(dataCrises_);
     }
   }, [formValidateGap]);
+  const screenSize = useRecoilValue(screenSizeState);
 
   return (
     <div>
       <div className={commonClassSection}>
         <LastHeading title={"Informations sur le type de crise"} />
 
-        <div className="flex flex-wrap justify-between px-5 gap-5">
+        <div className=" mt-2 flex flex-wrap justify-between px-5 gap-5">
           <DialogCustom
             btnText="Type des crises"
             mainTitle="Selectionner les type de crises"
-            width="sm"
+            width={verifyScreenSize(screenSize, 700) ? "sm" : "sm"}
             lastBtnOptions={{
               btnText: "Valider",
               closeAfterAction: true,

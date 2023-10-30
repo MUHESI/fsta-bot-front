@@ -42,8 +42,8 @@ export function LastHeading({ title, className }: IHeadingProps) {
 }
 export const ContentTitle = styled.div`
   margin: 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 4px;
+  margin-bottom: 0px;
 
   & h1 {
     font-size: 1.7em;

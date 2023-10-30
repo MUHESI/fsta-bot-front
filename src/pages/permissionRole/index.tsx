@@ -4,7 +4,7 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import { columnsListRoles } from "./columns";
 import CustomPagination from "@/components/core/Pagination";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
 import { getRoles } from "@/globalState/atoms";
 import { IRole } from "@/types/stateSchema/permissionRole";
@@ -19,8 +19,8 @@ import AlertMessage, {
 
 function Roles() {
   const resRoles = useRecoilValue(getRoles) as unknown as IResRecoil<IRole[]>;
-
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+  const refreshRoles = useRecoilRefresher_UNSTABLE(getRoles);
 
   return (
     <div>
@@ -42,19 +42,21 @@ function Roles() {
           columns={columnsListRoles}
           data={resRoles.data || []}
         >
-          <CustomButton
-            onClick={() => ""}
-            label="Actualiser"
-            className="rounded-md"
-            // statusLoading={true}
-          />
-          <DialogCustom
-            btnText="Nouveau role"
-            mainTitle="Création d'un nouveau role"
-            width="sm"
-          >
-            <CreateRole />
-          </DialogCustom>
+          <div className="flex flex-wrap justify-between gap-2">
+            <CustomButton
+              onClick={() => refreshRoles()}
+              label="Actualiser"
+              className="rounded-md"
+              // statusLoading={true}
+            />
+            <DialogCustom
+              btnText="Nouveau role"
+              mainTitle="Création d'un nouveau role"
+              width="sm"
+            >
+              <CreateRole />
+            </DialogCustom>
+          </div>
         </DataTable>
 
         <CustomPagination

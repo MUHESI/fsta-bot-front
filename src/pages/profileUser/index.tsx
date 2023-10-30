@@ -71,6 +71,12 @@ function ShowProfileUser() {
   });
 
   const loadImage = (e: any) => {
+    if (user.id !== currentUser.id) {
+      return showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | No Access !`,
+        type: StatusToast.ERROR,
+      });
+    }
     const URI = URL.createObjectURL(e.target.files[0]);
     setImage({ uri: URI, file: e.target.files[0] });
     submitupdatePictureUser(e.target.files[0]);
@@ -260,14 +266,6 @@ function ShowProfileUser() {
           <section className=" mx-3">
             <div className={`${commonClass}`}>
               <div className="flex flex-wrap justify-center sm:justify-between px-5 py-2 items-center text-base">
-                {/* <button
-                  onClick={() => {
-                    console.clear();
-                    console.log("currentUser", currentUser);
-                  }}
-                >
-                  Test
-                </button> */}
                 <div className="flex flex-col sm:flex-row  justify-center  gap-5 items-center ">
                   <input
                     onChange={loadImage}
@@ -424,15 +422,18 @@ function ShowProfileUser() {
                   // classNameHoverCard=" border-main-color"
                 />
               </div>
-              <div className="btn p-3 flex justify-end ">
-                <CustomButton
-                  onClick={handleSubmitUpdateProfile}
-                  statusLoading={infoLoading.updateProfile.status}
-                  disabled={infoLoading.updateProfile.status}
-                  label="Mettre en jour"
-                  className="ml-auto  rounded-md"
-                />
-              </div>
+
+              {user.id === currentUser.id && (
+                <div className="btn p-3 flex justify-end ">
+                  <CustomButton
+                    onClick={handleSubmitUpdateProfile}
+                    statusLoading={infoLoading.updateProfile.status}
+                    disabled={infoLoading.updateProfile.status}
+                    label="Mettre en jour"
+                    className="ml-auto  rounded-md"
+                  />
+                </div>
+              )}
             </div>
             <div className={commonClassSection}>
               <LastHeading title={"Changer mot de passe"} />
@@ -478,10 +479,7 @@ function ShowProfileUser() {
               </div> */}
             </div>
             {/* =====PERMISSIONS==== */}
-            <div
-              className={commonClassSection}
-              onClick={() => console.log("currentUser_", currentUser)}
-            >
+            <div className={commonClassSection}>
               <LastHeading title={"Permissions de l'utilisateur"} />
               <div className="px-5">
                 {currentUser?.metaData?.permissions?.map(
@@ -491,7 +489,6 @@ function ShowProfileUser() {
                         <span
                           className="text-main-color text-sm"
                           onClick={() => {
-                            console.clear();
                             // console.log("item", item);
                           }}
                         >

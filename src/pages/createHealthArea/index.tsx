@@ -12,8 +12,12 @@ import { getAPI, postAPI } from "@/utils/fetchData";
 import { SelectCommon } from "@/components/core/select";
 import { ITerritory } from "@/types/stateSchema/territory";
 import { IFetchData, IResRecoil } from "@/types/commonTypes";
-import { useRecoilValue } from "recoil";
-import { getProvincesState, userAuthenticatedState } from "@/globalState/atoms";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
+import {
+  getListZoneSanteByTerritory,
+  getProvincesState,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
 import { IAutherUSer } from "@/types/stateSchema/auth";
 import { getTerritoriesByProvinceState } from "../../globalState/atoms/territory";
 import { ICreateHealthArea } from "@/types/stateSchema/healthArea";
@@ -31,6 +35,9 @@ function CreateHealthArea() {
       msg: "",
     },
   });
+  const refreshZoneSante = useRecoilRefresher_UNSTABLE(
+    getListZoneSanteByTerritory
+  );
 
   const [formHealthArea, setFormHealthArea] = useState<ICreateHealthArea>(
     INIT_FORM_CREATE_HEALTH_AREA
@@ -80,6 +87,7 @@ function CreateHealthArea() {
             false
           )
         );
+        refreshZoneSante();
         setFormHealthArea({ ...INIT_FORM_CREATE_HEALTH_AREA });
         return showToast({
           msg: `le territoire ${formHealthArea.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,

@@ -53,7 +53,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-2 justify-between py-4">
+      <div className="flex flex-wrap  gap-2 justify-between my-3 flex-col md:flex-row">
         <Input
           placeholder={`Rechercher par ${searchField_} ...`}
           value={
@@ -62,11 +62,11 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn(searchField_)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm rounded-md"
+          className="md:max-w-sm rounded-md text-sm shrink grow "
         />
-        <div className="flex flex-wrap justify-center items-center  gap-2">
-          {children}
-        </div>
+        {/* <div className="flex flex-wrap justify-center items-center  gap-2"> */}
+        {children}
+        {/* </div> */}
       </div>
       <div className="rounded-md border ">
         <Table>

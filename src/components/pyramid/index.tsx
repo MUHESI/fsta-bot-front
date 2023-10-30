@@ -49,7 +49,7 @@ function ShowPyramid() {
 
   return (
     <div className="mb-2">
-      {(resZoneSante.message ||
+      {/* {(resZoneSante.message ||
         resTerritoriesByProvince.message ||
         resProvinces.message ||
         resListStructureHealth.message) && (
@@ -68,7 +68,7 @@ function ShowPyramid() {
           closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
           width={98}
         />
-      )}
+      )} */}
       <div className="flex flex-wrap justify-between px-5 gap-5">
         <SelectCommon
           data={resProvinces.data}

@@ -26,23 +26,23 @@ function Organizations() {
           columns={columnsListOrganizations}
           data={resOrganizations.data}
         >
-          {/* <Button variant="outline" className="ml-auto rounded-full">
-            <FiRefreshCcw />
-          </Button> */}
-          <CustomButton
-            onClick={() => {
-              ("");
-            }}
-            label="Actualiser"
-            className="rounded-md"
-            // statusLoading={true}
-          />
-          <CustomButton
-            onClick={() => navigate("/organizations/create")}
-            label="Nouvelle org."
-            className="rounded-md "
-            // statusLoading={true}
-          />
+          <div className="flex flex-wrap justify-between gap-2">
+            <CustomButton
+              onClick={() => {
+                ("");
+              }}
+              label="Actualiser"
+              className="rounded-md "
+              // statusLoading={true}
+            />
+
+            <CustomButton
+              onClick={() => navigate("/organizations/create")}
+              label="Nouvelle org."
+              className="rounded-md "
+              // statusLoading={true}
+            />
+          </div>
         </DataTable>
         <CustomPagination
           dataPagination={dataPagination.pagination}

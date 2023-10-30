@@ -63,6 +63,14 @@ export const columnsListUsers: ColumnDef<IUser>[] = [
       const user: any = row.original;
       return (
         <div>
+          {/* <span
+            onClick={() => {
+              console.clear();
+              console.log("user", user.id);
+            }}
+          >
+            logmuhesi
+          </span> */}
           <HandlePermission item={user} />
         </div>
       );

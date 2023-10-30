@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
@@ -27,18 +27,21 @@ function Maladies() {
         columns={columnsListMaladies}
         data={resMaladies.data || []}
       >
-        <CustomButton
-          onClick={() => refreshMaldie()}
-          label="Actualiser"
-          className="rounded-md "
-        />
-        <DialogCustom
-          btnText="Nouvelle maladie"
-          mainTitle="Création d'unnouveau medicament"
-          width="sm"
-        >
-          <CreateMaladie />
-        </DialogCustom>
+        <div className="flex flex-wrap justify-between gap-2">
+          <CustomButton
+            onClick={() => refreshMaldie()}
+            label="Actualiser"
+            className="rounded-md "
+          />
+          <DialogCustom
+            btnText="Nouvelle maladie"
+            mainTitle="Création d'unnouveau medicament"
+            width="sm"
+            // openDilog={open}
+          >
+            <CreateMaladie />
+          </DialogCustom>
+        </div>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

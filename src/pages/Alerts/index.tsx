@@ -2,7 +2,7 @@ import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
-import { dataAlerts, dataPagination } from "@/constants/constants";
+import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListAlerts } from "./columns";
@@ -17,22 +17,32 @@ import DetailAlert from "@/components/alert/moreDetail";
 import SwipeableCustom, {
   allOptionsDrawer,
 } from "@/components/core/SwipeableDrawerCustom";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Alerts() {
-  const navigate = useNavigate();
-  const allAlert = useRecoilValue(getAllAlerts) as unknown as IAlert[];
   const screenSize = useRecoilValue(screenSizeState);
+  const resAlerts = useRecoilValue(getAllAlerts) as unknown as IResRecoil<
+    IAlert[]
+  >;
 
   return (
     <div>
       <div className="px-5">
         {verifyScreenSize(screenSize, 700) ? (
           <>
-            <MobileScreenAlerts dataAlerts={allAlert} />
+            <MobileScreenAlerts dataAlerts={resAlerts.data} />
           </>
         ) : (
           <>
-            <DesktopScreenAlerts allAlert={allAlert} />
+            {/* <span
+              onClick={() => {
+                console.clear();
+                console.log("dataAlerts", resAlerts);
+              }}
+            >
+              Test
+            </span> */}
+            <DesktopScreenAlerts dataAlerts={resAlerts.data} />
           </>
         )}
         {/* */}
@@ -111,7 +121,7 @@ function MobileScreenAlerts({ dataAlerts }: { dataAlerts: any[] }) {
   );
 }
 
-function DesktopScreenAlerts({ allAlert }: { allAlert: any }) {
+function DesktopScreenAlerts({ dataAlerts }: { dataAlerts: any }) {
   const refreshAlerts = useRecoilRefresher_UNSTABLE(getAllAlerts);
 
   return (
@@ -119,7 +129,7 @@ function DesktopScreenAlerts({ allAlert }: { allAlert: any }) {
       <DataTable
         searchField="description"
         columns={columnsListAlerts}
-        data={allAlert}
+        data={dataAlerts}
       >
         <Button
           variant="outline"

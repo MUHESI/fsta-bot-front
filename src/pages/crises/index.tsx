@@ -4,43 +4,44 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListCrises } from "./columns";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getCrises } from "@/globalState/atoms";
 import SkeletonAnimation from "@/components/skeleton";
-import { useNavigate } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import { ICrise } from "@/types/stateSchema/crise";
 import CreateCrise from "../createCrise";
 import { CustomButton } from "@/components/core/Button";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Crises() {
-  const navigate = useNavigate();
-  const allCrises = useRecoilValue(getCrises) as unknown as ICrise[];
+  const resCrises = useRecoilValue(getCrises) as unknown as IResRecoil<
+    ICrise[]
+  >;
+  const refreshCrises = useRecoilRefresher_UNSTABLE(getCrises);
 
   return (
     <div className="px-5">
       <DataTable
         searchField="name"
         columns={columnsListCrises}
-        data={allCrises || []}
+        data={resCrises.data || []}
       >
-        <CustomButton
-          onClick={() => {
-            ("");
-          }}
-          label="Actualiser"
-          className="rounded-md"
-          // statusLoading={true}
-        />
-        <DialogCustom
-          btnText="Nouvelle crise"
-          mainTitle="Création de la nouvelle crise"
-          width="sm"
-        >
-          <CreateCrise />
-        </DialogCustom>
+        <div className="flex flex-wrap justify-between gap-2">
+          <CustomButton
+            onClick={() => refreshCrises()}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
+          <DialogCustom
+            btnText="Nouvelle crise"
+            mainTitle="Création de la nouvelle crise"
+            width="sm"
+          >
+            <CreateCrise />
+          </DialogCustom>
+        </div>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

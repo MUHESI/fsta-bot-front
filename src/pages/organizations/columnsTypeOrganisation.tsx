@@ -18,15 +18,15 @@ export const columnsListTypeOrganizations: ColumnDef<ITypeOrganization>[] = [
     accessorKey: "name",
     header: "NOMS",
   },
-  {
-    accessorKey: "status",
-    header: "STATUS",
-    cell: ({ row }: any) => (
-      <div className="font-semibold text-green-600">
-        {row.getValue("status")}{" "}
-      </div>
-    ),
-  },
+  // {
+  //   accessorKey: "status",
+  //   header: "STATUS",
+  //   cell: ({ row }: any) => (
+  //     <div className="font-semibold text-green-600">
+  //       {row.getValue("status")}{" "}
+  //     </div>
+  //   ),
+  // },
   {
     accessorKey: "ACTIONS",
     id: "actions",

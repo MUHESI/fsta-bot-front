@@ -1,11 +1,10 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import { columnsListUsers } from "./userColumns";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import SkeletonAnimation from "@/components/skeleton";
 import {
   useRecoilRefresher_UNSTABLE,
@@ -27,6 +26,7 @@ import AlertMessage, {
   INIT_ALERT_MODEL,
   severityAlert,
 } from "@/components/core/Alert";
+import { CustomButton } from "@/components/core/Button";
 
 function UsersAssignments() {
   const { data, metaData, message } = useRecoilValue(
@@ -125,13 +125,12 @@ function DesktopScreenUsers({ dataUsers }: { dataUsers: any[] }) {
         columns={columnsListUsers}
         data={dataUsers}
       >
-        <Button
+        <CustomButton
           onClick={() => refreshUsers()}
-          variant="outline"
-          className="ml-auto rounded-full"
-        >
-          <FiRefreshCcw />
-        </Button>
+          label="Actualiser"
+          className="rounded-md "
+          // statusLoading={true}
+        />
       </DataTable>
     </div>
   );
@@ -141,6 +140,7 @@ export function HandlePermission({ item }: { item: any }) {
   const navigate = useNavigate();
 
   const [tabId, setTabId] = useState<number>(0);
+
   return (
     <DialogCustom
       btnText="Gerer"

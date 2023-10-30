@@ -1,10 +1,12 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { LastHeading } from "./Heading";
 import { CustomButton } from "./Button";
+import { tooggleDialogState } from "@/globalState/atoms";
+import { useRecoilState } from "recoil";
 
 export const commonClassNameBtnLastBtnDialog =
   "border-green-400 bg-green-400 hover:bg-white hover:text-green-400 text-white";
@@ -31,16 +33,31 @@ export default function DialogCustom({
   classNameBtn,
   lastBtnOptions,
 }: PropsWithChildren<IDataPropos>) {
+  const [openDilog, setOpenDilog] = useRecoilState(tooggleDialogState);
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] =
     React.useState<DialogProps["maxWidth"]>(width);
 
+  // useEffect(() => {
+  //   if (openDilog) {
+  //     setOpen(true);
+  //   } else {
+  //     setOpen(false);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    console.log("openDilog", openDilog);
+  }, []);
+
   const handleClickOpen = () => {
+    // setOpenDilog(true);
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    // setOpenDilog(false);
   };
   const handleMaxWidthChange = (event: SelectChangeEvent<typeof maxWidth>) => {
     setMaxWidth(
@@ -75,7 +92,7 @@ export default function DialogCustom({
         open={open}
         onClose={handleClose}
       >
-        <div className="flex border-b m-2 justify-between items-center">
+        <div className="flex border-b mx-2 py-2 justify-between items-center">
           <LastHeading title={mainTitle} />
           <AiOutlineCloseCircle
             className="cursor-pointer text-2xl"

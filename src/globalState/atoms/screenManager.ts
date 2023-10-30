@@ -38,5 +38,9 @@ export const initialState = atom<any>({
     key: SCREEN_MANAGER_KEYS.INITIAL_STATE,
     default: IinitialState
 })
+export const tooggleDialogState = atom<boolean>({
+    key: SCREEN_MANAGER_KEYS.TOOGLE_DIALOG_STATE,
+    default: false
+})
 
 

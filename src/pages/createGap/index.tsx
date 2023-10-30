@@ -580,7 +580,7 @@ function CreateGap() {
     }
   };
   return (
-    <div className="">
+    <div className="pb-4">
       {statusAction ? (
         <ShowMainTilleGapAction
           statusAction={statusAction as GAP_ACTIONS_STATUS}

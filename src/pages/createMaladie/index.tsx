@@ -10,11 +10,21 @@ import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
-import { useRecoilValue } from "recoil";
-import { userAuthenticatedState } from "@/globalState/atoms";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import {
+  getMaladies,
+  tooggleDialogState,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
 import { ICreateTypePersonnel } from "@/types/stateSchema/typePersonnel";
 
 function CreateMaladie() {
+  const refreshMaldie = useRecoilRefresher_UNSTABLE(getMaladies);
+  const setOpenDilog = useSetRecoilState(tooggleDialogState);
   const user = useRecoilValue(userAuthenticatedState);
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
@@ -62,6 +72,8 @@ function CreateMaladie() {
           type: AG_Toast.statusToast.SUCCESS,
         });
         setMaladie({ ...INIT_FORM_CREATE_MALADIE });
+        setOpenDilog(false);
+        refreshMaldie();
       }
     } catch (error: any) {
       setInfoLoading(

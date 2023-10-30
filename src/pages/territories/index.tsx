@@ -8,7 +8,11 @@ import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListTerritories } from "./columns";
 import { SelectCommon } from "@/components/core/select";
 import SkeletonAnimation from "@/components/skeleton";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import {
   currentProvinceIDState,
   getProvincesState,
@@ -29,6 +33,7 @@ function Territories() {
   const allTerritoriesByProvince = useRecoilValue(
     getTerritoriesByProvinceState
   ) as unknown as IProvince[];
+  const refreshProvinces = useRecoilRefresher_UNSTABLE(getProvincesState);
 
   return (
     <div>
@@ -48,19 +53,21 @@ function Territories() {
             columns={columnsListTerritories}
             data={allTerritoriesByProvince}
           >
-            <CustomButton
-              onClick={() => ""}
-              label="Actualiser"
-              className="rounded-md"
-              // statusLoading={true}
-            />
-            <DialogCustom
-              btnText="Nouveau territoire"
-              mainTitle="Création du nouveau territoire"
-              width="sm"
-            >
-              <CreateTerritory />
-            </DialogCustom>
+            <div className="flex flex-wrap justify-between gap-2">
+              <CustomButton
+                onClick={() => refreshProvinces()}
+                label="Actualiser"
+                className="rounded-md"
+                // statusLoading={true}
+              />
+              <DialogCustom
+                btnText="Nouveau territoire"
+                mainTitle="Création du nouveau territoire"
+                width="sm"
+              >
+                <CreateTerritory />
+              </DialogCustom>
+            </div>
           </DataTable>
           <CustomPagination
             dataPagination={dataPagination.pagination}

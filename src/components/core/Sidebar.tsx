@@ -204,7 +204,9 @@ const Sidebar = () => {
                                 <NavLink
                                   to={`${item.path}`}
                                   key={index_}
-                                  className={`cursor-pointer font-normal ${
+                                  className={`
+                                  
+                                  cursor-pointer font-normal${
                                     subMenuOpen.labelMenu === menu.label &&
                                     subMenuOpen.index === idx &&
                                     subMenuOpen.status
@@ -215,7 +217,7 @@ const Sidebar = () => {
                                   title={item.hoverTitle || ""}
                                 >
                                   <p
-                                    className={`flex text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
+                                    className={`my-3 flex  text-gray-400 items-center space-x-1.4 text-sm m-1 duration-300 hover:text-main-color-dark`}
                                   >
                                     <span>
                                       <MdChevronRight />

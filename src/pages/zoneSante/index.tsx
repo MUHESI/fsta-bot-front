@@ -5,7 +5,11 @@ import CustomPagination from "@/components/core/Pagination";
 import { columnsListZoneSante } from "./columns";
 import { SelectCommon } from "@/components/core/select";
 import SkeletonAnimation from "@/components/skeleton";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import {
   currentProvinceIDState,
   currentTerritoryIDState,
@@ -35,6 +39,9 @@ function ZoneSantes() {
   const resZoneSante = useRecoilValue(
     getListZoneSanteByTerritory
   ) as unknown as IResRecoil<IZoneSante[]>;
+  const refreshZoneSante = useRecoilRefresher_UNSTABLE(
+    getListZoneSanteByTerritory
+  );
 
   return (
     <div>
@@ -66,19 +73,21 @@ function ZoneSantes() {
             columns={columnsListZoneSante}
             data={resZoneSante.data}
           >
-            <CustomButton
-              onClick={() => ""}
-              label="Actualiser"
-              className="rounded-md"
-              // statusLoading={true}
-            />
-            <DialogCustom
-              btnText="Nouvelle zone de santé"
-              mainTitle="Création d'une nouvelle zone de santé"
-              width="sm"
-            >
-              <CreateHealthArea />
-            </DialogCustom>
+            <div className="flex flex-wrap justify-between gap-2">
+              <CustomButton
+                onClick={() => refreshZoneSante()}
+                label="Actualiser"
+                className="rounded-md"
+                // statusLoading={true}
+              />
+              <DialogCustom
+                btnText="Nouvelle zone de santé"
+                mainTitle="Création d'une nouvelle zone de santé"
+                width="sm"
+              >
+                <CreateHealthArea />
+              </DialogCustom>
+            </div>
           </DataTable>
           <CustomPagination
             dataPagination={dataPagination.pagination}

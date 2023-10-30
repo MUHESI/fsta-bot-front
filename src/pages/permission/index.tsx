@@ -12,7 +12,11 @@ import { IPermission } from "@/types/stateSchema/permission";
 import CreatePermission from "../createPermission";
 import DialogCustom from "@/components/core/DialogCustom";
 import { CustomButton } from "@/components/core/Button";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import { verifyScreenSize } from "@/components/core/Sidebar";
 import { useNavigate } from "react-router";
 import { IResRecoil } from "@/types/commonTypes";
@@ -80,6 +84,7 @@ function DesktopScreenPermission({
 }) {
   const navigate = useNavigate();
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
+  const refreshPermissions = useRecoilRefresher_UNSTABLE(getPermissions);
 
   return (
     <div>
@@ -88,20 +93,22 @@ function DesktopScreenPermission({
         columns={columnsListPermissions}
         data={listPermissions || []}
       >
-        <CustomButton
-          onClick={() => ""}
-          label="Actualiser"
-          className="rounded-md"
-          // statusLoading={true}
-        />
+        <div className="flex flex-wrap justify-between gap-2">
+          <CustomButton
+            onClick={() => refreshPermissions()}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
 
-        <DialogCustom
-          btnText="Nouvelle permission"
-          mainTitle="Création d'une nouvelle permission"
-          width="sm"
-        >
-          <CreatePermission />
-        </DialogCustom>
+          <DialogCustom
+            btnText="Nouvelle permission"
+            mainTitle="Création d'une nouvelle permission"
+            width="sm"
+          >
+            <CreatePermission />
+          </DialogCustom>
+        </div>
       </DataTable>
     </div>
   );

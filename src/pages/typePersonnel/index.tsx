@@ -4,7 +4,7 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { columnstypePersonnels } from "./columns";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getTypePersonnels } from "@/globalState/atoms";
 import SkeletonAnimation from "@/components/skeleton";
 import DialogCustom from "@/components/core/DialogCustom";
@@ -22,6 +22,7 @@ function TypePersonnel() {
     getTypePersonnels
   ) as unknown as IResRecoil<ITypePersonnel[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+  const refreshTypePers = useRecoilRefresher_UNSTABLE(getTypePersonnels);
 
   return (
     <div className="px-5">
@@ -42,19 +43,21 @@ function TypePersonnel() {
         columns={columnstypePersonnels}
         data={resTypePersonnels.data || []}
       >
-        <CustomButton
-          onClick={() => ""}
-          label="Actualiser"
-          className="rounded-md"
-          // statusLoading={true}
-        />
-        <DialogCustom
-          btnText="Nouvelle type de pers."
-          mainTitle="Création de type de personnel"
-          width="sm"
-        >
-          <CreateMaladie />
-        </DialogCustom>
+        <div className="flex flex-wrap justify-between gap-2">
+          <CustomButton
+            onClick={() => refreshTypePers()}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
+          <DialogCustom
+            btnText="Nouvelle type de pers."
+            mainTitle="Création de type de personnel"
+            width="sm"
+          >
+            <CreateMaladie />
+          </DialogCustom>
+        </div>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

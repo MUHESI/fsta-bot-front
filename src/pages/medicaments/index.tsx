@@ -6,9 +6,8 @@ import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListMedicaments } from "./columns";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
-import { useNavigate } from "react-router-dom";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateMedicament from "../createMedicament";
 import { getMedicaments } from "../../globalState/atoms";
@@ -18,13 +17,14 @@ import AlertMessage, {
   INIT_ALERT_MODEL,
   severityAlert,
 } from "@/components/core/Alert";
+import { CustomButton } from "@/components/core/Button";
 
 function Medicaments() {
-  const navigate = useNavigate();
   const { data, message } = useRecoilValue(
     getMedicaments
   ) as unknown as IResRecoil<IMedicament[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+  const refreshMedicaments = useRecoilRefresher_UNSTABLE(getMedicaments);
 
   return (
     <div className="px-5">
@@ -45,16 +45,21 @@ function Medicaments() {
         columns={columnsListMedicaments}
         data={data || []}
       >
-        <Button variant="outline" className="ml-auto rounded-md ">
-          <FiRefreshCcw />
-        </Button>
-        <DialogCustom
-          btnText="Nouveau medicament"
-          mainTitle="Création d'unnouveau medicament"
-          width="sm"
-        >
-          <CreateMedicament />
-        </DialogCustom>
+        <div className="flex flex-wrap justify-between gap-2">
+          <CustomButton
+            onClick={() => refreshMedicaments()}
+            label="Actualiser"
+            className="rounded-md "
+            // statusLoading={true}
+          />
+          <DialogCustom
+            btnText="Nouveau medic"
+            mainTitle="Création d'un nouveau medicament"
+            width="sm"
+          >
+            <CreateMedicament />
+          </DialogCustom>
+        </div>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

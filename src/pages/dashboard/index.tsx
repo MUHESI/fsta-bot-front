@@ -203,9 +203,9 @@ function Home() {
       <main className=" my-2  bg-white rounded shadow">
         <ListGapsByDPS />
       </main>
-      <main className=" my-4 p-2  bg-white rounded shadow">
+      {/* <main className=" my-4 p-2  bg-white rounded shadow">
         <ArcMapView />
-      </main>
+      </main> */}
     </div>
   );
 }

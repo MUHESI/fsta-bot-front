@@ -16,7 +16,7 @@ function ScreenManagerOrg() {
         handleTabId={setTabId}
         defeaultTabId={tabId}
       />
-      <div className=" m-4 ">
+      <div className="">
         {tabId === 0 && <ListOrganizations />}
         {tabId === 1 && <ListTypeOrganizations />}
         {tabId === 2 && <ListIndicators />}

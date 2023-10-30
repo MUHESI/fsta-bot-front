@@ -15,6 +15,7 @@ import AlertMessage, {
   severityAlert,
 } from "@/components/core/Alert";
 import { IResRecoil } from "@/types/commonTypes";
+import { CustomButton } from "@/components/core/Button";
 
 function GAPByDPS() {
   const navigate = useNavigate();
@@ -26,15 +27,7 @@ function GAPByDPS() {
 
   return (
     <div>
-      <div className="px-5">
-        <span
-          onClick={() => {
-            console.clear();
-            console.log("data", data);
-          }}
-        >
-          Test{" "}
-        </span>
+      <div className="px-5 py-2">
         {message && (
           <AlertMessage
             severity={severityAlert.INFO}
@@ -52,9 +45,14 @@ function GAPByDPS() {
           columns={columnsListGaps}
           data={dataGaProvince}
         >
-          <Button variant="outline" className="ml-auto rounded-full">
-            <FiRefreshCcw />
-          </Button>
+          <div className="flex flex-wrap justify-between gap-2">
+            <CustomButton
+              onClick={() => ""}
+              label="Actualiser"
+              className="rounded-md "
+              // statusLoading={true}
+            />
+          </div>
         </DataTable>
         <CustomPagination
           dataPagination={dataPagination.pagination}

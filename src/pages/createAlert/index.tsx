@@ -40,7 +40,7 @@ function CreateAlert() {
   const currentHalthAreaID = useRecoilValue(currentHalthAreaIDState);
 
   const commonClass = "border border-main-color rounded-lg my-5";
-  const commonClassSection = `${commonClass} pb-5`;
+  const commonClassSection = `${commonClass} pb-5 pt-2`;
   const message =
     "Formulaire de notification d’alerte communautaire [Envoyez ce formulaire immédiatement à votre superviseur ou à l’établissement de santé le plus proche]";
 
@@ -184,7 +184,10 @@ function CreateAlert() {
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <section className="mx-3">
             <div className={commonClassSection}>
-              <LastHeading title={"Info. sur la localisation"} />
+              <LastHeading
+                title={"Info. sur la localisation"}
+                className="border-l-4 border-main-color pl-1"
+              />
               <Pyramid />
               <div className=" px-5 ">
                 <SelectCommon
@@ -233,6 +236,7 @@ function CreateAlert() {
             <div className={commonClassSection}>
               <LastHeading
                 title={"Type de maladie / d’affection / d’événement"}
+                className="border-l-4 border-main-color pl-1"
               />
               <div className="px-5">
                 <Suspense fallback={<TexttLoading />}>
@@ -275,7 +279,10 @@ function CreateAlert() {
             </div>
             {/* =========================== PERSONNEL =========================== */}
             <div className={commonClassSection}>
-              <LastHeading title={"Informations"} />
+              <LastHeading
+                title={"Autres informations"}
+                className="border-l-4 border-main-color pl-1"
+              />
 
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <CommonInputGap
@@ -368,7 +375,10 @@ function CreateAlert() {
             {/* ---------------------------------------- */}
 
             <div className={commonClassSection}>
-              <LastHeading title={"Informations concernant les décès"} />
+              <LastHeading
+                title={"Informations concernant les décès"}
+                className="border-l-4 border-main-color pl-1"
+              />
 
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <RowRadioButtonsGroup
@@ -475,7 +485,10 @@ function CreateAlert() {
             {/* -------------------------------MEUREE------------------------------------- */}
 
             <div className={commonClassSection}>
-              <LastHeading title={"Informations concernant les mesures"} />
+              <LastHeading
+                title={"Informations concernant les mesures"}
+                className="border-l-4 border-main-color pl-1"
+              />
               <div className="px-5">
                 <RowRadioButtonsGroup
                   label="L’événement est-il en cours au moment de la présente notification"

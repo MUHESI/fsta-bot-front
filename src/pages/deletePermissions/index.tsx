@@ -5,8 +5,15 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { useRecoilValue } from "recoil";
-import { userAuthenticatedState } from "@/globalState/atoms";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import {
+  tooggleDialogState,
+  userAuthenticatedState,
+} from "@/globalState/atoms";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
 import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
 import { SelectCommon } from "@/components/core/select";
@@ -17,6 +24,7 @@ import { IPermission } from "@/types/stateSchema/permission";
 import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { INIT_ALERT_MODEL } from "@/components/core/Alert";
+import { getUsers } from "@/globalState/atoms/user";
 
 // TODO:: FIXE ME LATER
 interface IProps {
@@ -25,6 +33,8 @@ interface IProps {
 }
 
 function DeletePermissions({ currentUser }: IProps) {
+  const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
+  const setOpenDilog = useSetRecoilState(tooggleDialogState);
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
@@ -74,6 +84,9 @@ function DeletePermissions({ currentUser }: IProps) {
           msg: `Les ${tabAffectationsId.length} permissions ont été supprimé ave succès `,
           type: AG_Toast.statusToast.SUCCESS,
         });
+        setDataSelected_del([]);
+        setOpenDilog(false);
+        refreshUsers();
       } else {
         showToast({
           msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG}| Try again`,
@@ -193,7 +206,6 @@ function DeletePermissions({ currentUser }: IProps) {
           </div>
         </div>
       </section>
-
       <motion.div
         animate={orgSelected !== "" ? { height: "fit-content" } : { height: 0 }}
       >
@@ -212,7 +224,7 @@ function DeletePermissions({ currentUser }: IProps) {
                     data={permissions_del}
                     saveData={removeItemFromDataToSelect_del}
                     required={true}
-                    keyObject={"name"}
+                    keyObject={"psedo"}
                   >
                     <AiFillPlusCircle />
                   </CustomChipBtn>
@@ -223,7 +235,7 @@ function DeletePermissions({ currentUser }: IProps) {
                 >
                   <CustomChipBtn
                     data={dataSelected_del}
-                    keyObject={"name"}
+                    keyObject={"psedo"}
                     label="Les privileges selectionnés à supprimer"
                     saveData={removeItemFromDataSelected_del}
                     className="text-sm"
@@ -231,15 +243,16 @@ function DeletePermissions({ currentUser }: IProps) {
                     <AiFillCloseCircle />
                   </CustomChipBtn>
                 </div>
-                <div className="btn block text-center py-2 px-5 md:flex justify-end ">
+                <div className="btn  py-2 px-3 md:flex justify-end ">
                   <CustomButton
                     onClick={() => {
                       handleDeleteAffectations();
                     }}
-                    statusLoading={infoLoading.creeatePermission.status}
-                    disabled={infoLoading.creeatePermission.status}
+                    statusLoading={infoLoading.delPermission.status}
+                    disabled={infoLoading.delPermission.status}
                     label="Supprimer"
-                    className="rounded-md bg-red-400 text-white border border-red-400 hover:bg-red-400"
+                    // className="ml-auto  rounded-md  w-full md:max-w-[200px]  grow"
+                    className="ml-auto  rounded-md  w-full md:max-w-[200px]  grow rounded-md bg-red-400 text-white border border-red-400 hover:bg-red-400"
                   />
                 </div>
               </div>

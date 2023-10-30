@@ -63,6 +63,7 @@ function Gaps() {
             keyObject="name"
             onChange={setCurrentProvinceID}
             value={"..."}
+            className="border border-main-color"
           />
           <MobileScreenGaps dataGaps={resGaps.data || []} />
         </>
@@ -130,22 +131,22 @@ function DesktopScreenGaps({ dataGaps }: { dataGaps: any[] }) {
         columns={columnsListGaps}
         data={dataGaps || []}
       >
-        <SelectCommon
-          data={resProvinces.data}
-          // required={true}
-          label=""
-          keyObject="name"
-          onChange={setCurrentProvinceID}
-          value={"..."}
-          // type=""
-        />
-        <CustomButton
-          onClick={() => refreshGaps()}
-          label="Actualiser"
-          className="rounded-md"
-          // statusLoading={true}
-        />
-        <div className="">
+        <div className="flex flex-wrap justify-between gap-2">
+          <SelectCommon
+            data={resProvinces.data}
+            // required={true}
+            label=""
+            keyObject="name"
+            onChange={setCurrentProvinceID}
+            value={"..."}
+            className={"border-main-color text-main-color"}
+          />
+          <CustomButton
+            onClick={() => refreshGaps()}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
           <CustomButton
             onClick={() =>
               navigate(`/gaps/actions/${GAP_ACTIONS_STATUS.CREATE_GAP}/null`)

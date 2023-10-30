@@ -5,7 +5,7 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { columnsListProvinces } from "./columns";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getProvincesState } from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
 import SkeletonAnimation from "@/components/skeleton";
@@ -18,6 +18,7 @@ function Provinces() {
   const resProvinces = useRecoilValue(
     getProvincesState
   ) as unknown as IResRecoil<IProvince[]>;
+  const refreshProvinces = useRecoilRefresher_UNSTABLE(getProvincesState);
 
   return (
     <div className="px-5">
@@ -26,19 +27,21 @@ function Provinces() {
         columns={columnsListProvinces}
         data={resProvinces.data || []}
       >
-        <CustomButton
-          onClick={() => ""}
-          label="Actualiser"
-          className="rounded-md"
-          // statusLoading={true}
-        />
-        <DialogCustom
-          btnText="Nouvelle province"
-          mainTitle="Création de la nouvelle province"
-          width="sm"
-        >
-          <CreateProvince />
-        </DialogCustom>
+        <div className="flex flex-wrap justify-between gap-2">
+          <CustomButton
+            onClick={() => refreshProvinces()}
+            label="Actualiser"
+            className="rounded-md"
+            // statusLoading={true}
+          />
+          <DialogCustom
+            btnText="Nouvelle province"
+            mainTitle="Création de la nouvelle province"
+            width="sm"
+          >
+            <CreateProvince />
+          </DialogCustom>
+        </div>
       </DataTable>
       <CustomPagination
         dataPagination={dataPagination.pagination}

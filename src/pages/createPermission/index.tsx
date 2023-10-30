@@ -20,7 +20,7 @@ function CreatePermission() {
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
-  const commonClassSection = `${commonClass} pb-5`;
+  const commonClassSection = `${commonClass} pb-5 pt-2`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
     createPermission: {
       status: false,
@@ -83,9 +83,6 @@ function CreatePermission() {
     }
   };
   const keepCurrentPermission = (option: number) => {
-    console.clear();
-    console.log("formPermission", formPermission);
-
     // const tab = convertEnumToArray(GLOBAL_PERMISSIONS);
     setPermission({
       ...formPermission,
@@ -100,7 +97,7 @@ function CreatePermission() {
           <section className="mx-3">
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
-              <div className=" px-5" data-testId="select-province">
+              <div className=" px-5" data-testId="select-permission">
                 <SelectCommon
                   data={convertEnumToArray(GLOBAL_PERMISSIONS)}
                   onChange={keepCurrentPermission}

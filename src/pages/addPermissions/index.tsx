@@ -7,11 +7,16 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { useRecoilValue } from "recoil";
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import {
   getOrganizations,
   getPermissions,
   getRoles,
+  tooggleDialogState,
   userAuthenticatedState,
 } from "@/globalState/atoms";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
@@ -24,6 +29,7 @@ import SkeletonAnimation from "@/components/skeleton";
 import { IPermission } from "@/types/stateSchema/permission";
 import { postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData, IResRecoil } from "@/types/commonTypes";
+import { getUsers } from "@/globalState/atoms/user";
 
 // TODO:: FIXE ME LATER
 interface IProps {
@@ -34,6 +40,8 @@ const messageOrgSelected =
   "Vous avez sélectionné une organisation dont cet utilisateur fait partie, par conséquent ces nouvelles permissions vont s’ajouter dans cette organisation.";
 
 function AddPermissions({ currentUser }: IProps) {
+  const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
+  const setOpenDilog = useSetRecoilState(tooggleDialogState);
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
@@ -140,6 +148,9 @@ function AddPermissions({ currentUser }: IProps) {
           type: AG_Toast.statusToast.SUCCESS,
         });
         setFormAffectation({ ...INIT_FORM_CREATE_AFFECTATION });
+        setOpenDilog(false);
+        refreshUsers();
+        setDataSelected([]);
       } else {
         showToast({
           msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG}| Try again`,
@@ -259,7 +270,7 @@ function AddPermissions({ currentUser }: IProps) {
                     data={permissions}
                     saveData={removeItemFromDataToSelect}
                     required={true}
-                    keyObject={"name"}
+                    keyObject={"psedo"}
                   >
                     <AiFillPlusCircle />
                   </CustomChipBtn>
@@ -270,7 +281,7 @@ function AddPermissions({ currentUser }: IProps) {
                 >
                   <CustomChipBtn
                     data={dataSelected}
-                    keyObject={"name"}
+                    keyObject={"psedo"}
                     label="Les privileges selectionnés"
                     saveData={removeItemFromDataSelected}
                     className="text-sm"
@@ -278,7 +289,7 @@ function AddPermissions({ currentUser }: IProps) {
                     <AiFillCloseCircle />
                   </CustomChipBtn>
                 </div>
-                <div className="btn block text-center py-2 px-5 md:flex justify-end ">
+                <div className="btn block text-center py-2 md:flex justify-end ">
                   <CustomButton
                     onClick={() => {
                       handleSubmitAffectation();
@@ -287,7 +298,7 @@ function AddPermissions({ currentUser }: IProps) {
                     disabled={infoLoading.creeatePermission.status}
                     label="Enregistrer"
                     // style={{ border: "1px solid #2DAEC4" }}
-                    className="ml-auto  rounded-md"
+                    className="ml-auto  rounded-md  w-full md:max-w-[200px]  grow"
                   />
                 </div>
               </section>

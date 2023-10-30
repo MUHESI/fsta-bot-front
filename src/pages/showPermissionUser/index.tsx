@@ -32,7 +32,7 @@ function ShowPermissionUser({ dataPermissions }: IProps) {
               data={dataPermissions}
               label=""
               saveData={removeItemFromDataToSelect}
-              keyObject={"name"}
+              keyObject={"psedo"}
               disabled={true}
             >
               <MdOutlineDone />

@@ -5,7 +5,7 @@ import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
 import { columnsListTypeOrganizations } from "./columnsTypeOrganisation";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getTypeOrganizations } from "@/globalState/atoms";
 import { ITypeOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
@@ -23,6 +23,7 @@ function TypeOrganizations() {
     getTypeOrganizations
   ) as unknown as IResRecoil<ITypeOrganization[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+  const refreshTypeOrgs = useRecoilRefresher_UNSTABLE(getTypeOrganizations);
 
   return (
     <div>
@@ -44,19 +45,21 @@ function TypeOrganizations() {
           columns={columnsListTypeOrganizations}
           data={resTypeOrganizations.data}
         >
-          <CustomButton
-            onClick={() => ""}
-            label="Actualiser"
-            className="rounded-md "
-            // statusLoading={true}
-          />
-          <DialogCustom
-            btnText="Création d'un type org."
-            mainTitle="Création d'un type orgonisation"
-            width="sm"
-          >
-            <CreateTypeOrganazition />
-          </DialogCustom>
+          <div className="flex flex-wrap justify-between gap-2">
+            <CustomButton
+              onClick={() => refreshTypeOrgs()}
+              label="Actualiser"
+              className="rounded-md "
+              // statusLoading={true}
+            />
+            <DialogCustom
+              btnText="Création d'un type org."
+              mainTitle="Création d'un type orgonisation"
+              width="sm"
+            >
+              <CreateTypeOrganazition />
+            </DialogCustom>
+          </div>
         </DataTable>
         <div className="">
           <CustomPagination
