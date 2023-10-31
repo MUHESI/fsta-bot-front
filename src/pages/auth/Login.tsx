@@ -23,6 +23,7 @@ import {
   userAuthenticatedState,
 } from "@/globalState/atoms";
 import { IFetchData } from "@/types/commonTypes";
+import { motion } from "framer-motion";
 
 function Login() {
   const navigate = useNavigate();
@@ -112,108 +113,110 @@ function Login() {
   };
 
   return (
-    <div className="duration-300  w-full flex flex-col justify-center min-h-screen py-2 bg-gray-100">
-      <div className="border flex flex-col  items-center justify-center w-full flex-1 px-20  text-center ">
-        <main
-          className={`bg-white rounded-tl-2xl rounded-bl-2xl rounded-tr-2xl rounded-br-2xl   rounder-2xl shadow-2xl flex  max-w-4xl md:w-full`}
-        >
-          <div className="rounded-tl-2xl rounded-bl-2xl  md:w-full my-2 ">
-            <div className="text-center flex justify-center">
-              <img
-                src={AG_URL.LOGO_AFIA_GAP}
-                alt="logo-AFIA-GAP"
-                className=" object-cover"
-                style={{ height: "112px" }}
-              />
-            </div>
-            <div className="p-0">
-              <h2 className="text-xl sm:text-3xl font-bold text-main-color-dark ">
-                Connexion
-              </h2>
-              <div className="border-2 w-10 inline-block mb-2 border-main-color-dark"></div>
-            </div>
-            <div className="flex flex-col items-center m-2 h-[250px]">
-              <div className="bg-gray-100 w-60 ms:w-full p-2 flex items-center mb-3 rounded-lg">
-                <FaRegEnvelope className="text-gray-400 m-2 text-sm" />
-                <InputAuth
-                  data-testid="emailInput"
-                  value={formLogin.email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setFormLogin({ ...formLogin, email: e.target.value })
-                  }
-                  type="email"
-                  pl="Ton addresse email"
+    <motion.div animate={{ height: "fit-content" }}>
+      <div className="duration-300  w-full flex flex-col justify-center min-h-screen py-2 bg-gray-100">
+        <div className="border flex flex-col  items-center justify-center w-full flex-1 px-20  text-center ">
+          <main
+            className={`bg-white rounded-tl-2xl rounded-bl-2xl rounded-tr-2xl rounded-br-2xl   rounder-2xl shadow-2xl flex  max-w-4xl md:w-full`}
+          >
+            <div className="rounded-tl-2xl rounded-bl-2xl  md:w-full my-2 ">
+              <div className="text-center flex justify-center">
+                <img
+                  src={AG_URL.LOGO_AFIA_GAP}
+                  alt="logo-AFIA-GAP"
+                  className=" object-cover"
+                  style={{ height: "112px" }}
                 />
               </div>
-              <div className="bg-gray-100 w-50  ms:w-full p-2 flex items-center mb-3 rounded-lg">
-                <MdLockOutline className="text-gray-400 m-2 text-sm" />
-                <InputAuth
-                  data-testid="passwordInput"
-                  value={formLogin?.pswd}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setFormLogin({ ...formLogin, pswd: e.target.value })
-                  }
-                  type={`${showPswd ? "text" : "password"}`}
-                  pl="Ton mot de passe"
-                />
-
-                <span
-                  data-testid="eye-icon"
-                  className="text-gray-400 m-2 text-sm cursor-pointer"
-                  onClick={() => setShowPswd(!showPswd)}
-                >
-                  {showPswd ? (
-                    <BiShow
-                    // className="text-gray-400 m-2 text-sm cursor-pointer"
-                    />
-                  ) : (
-                    <BiSolidShow
-                    // data-testid="eye-icon"
-                    // className="text-gray-400 m-2 text-sm cursor-pointer"
-                    // onClick={() => setShowPswd(!showPswd)}
-                    />
-                  )}
-                </span>
+              <div className="p-0">
+                <h2 className="text-xl sm:text-3xl font-bold text-main-color-dark ">
+                  Connexion
+                </h2>
+                <div className="border-2 w-10 inline-block mb-2 border-main-color-dark"></div>
               </div>
-              <div className="flex justify-between w-64 px-3 mb-5 ">
-                <label className="flex items-center text-xs focus:outline-none">
-                  <input
-                    data-testid="rememberMe"
-                    className="mr-1"
-                    type="checkbox"
+              <div className="flex flex-col items-center m-2 h-[250px]">
+                <div className="bg-gray-100 w-60 ms:w-full p-2 flex items-center mb-3 rounded-lg">
+                  <FaRegEnvelope className="text-gray-400 m-2 text-sm" />
+                  <InputAuth
+                    data-testid="emailInput"
+                    value={formLogin.email}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setFormLogin({ ...formLogin, email: e.target.value })
+                    }
+                    type="email"
+                    pl="Ton addresse email"
                   />
-                  Remember me
-                </label>
-                <NavLink
-                  to="/auth/forgot-password"
-                  className="text-xs"
-                  data-testid="forgotPassword"
-                >
-                  Forgot password?
-                </NavLink>
-              </div>
-              <div className="mt-4 md:mt-1">
-                <CustomButton
-                  onClick={handleSubmitLogin}
-                  label="Se connecter"
-                  statusLoading={infoLoading.loadingLogin.status}
-                  className="rounded-full"
-                  disabled={!formLogin.email || !formLogin.pswd}
-                />
+                </div>
+                <div className="bg-gray-100 w-50  ms:w-full p-2 flex items-center mb-3 rounded-lg">
+                  <MdLockOutline className="text-gray-400 m-2 text-sm" />
+                  <InputAuth
+                    data-testid="passwordInput"
+                    value={formLogin?.pswd}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setFormLogin({ ...formLogin, pswd: e.target.value })
+                    }
+                    type={`${showPswd ? "text" : "password"}`}
+                    pl="Ton mot de passe"
+                  />
+
+                  <span
+                    data-testid="eye-icon"
+                    className="text-gray-400 m-2 text-sm cursor-pointer"
+                    onClick={() => setShowPswd(!showPswd)}
+                  >
+                    {showPswd ? (
+                      <BiShow
+                      // className="text-gray-400 m-2 text-sm cursor-pointer"
+                      />
+                    ) : (
+                      <BiSolidShow
+                      // data-testid="eye-icon"
+                      // className="text-gray-400 m-2 text-sm cursor-pointer"
+                      // onClick={() => setShowPswd(!showPswd)}
+                      />
+                    )}
+                  </span>
+                </div>
+                <div className="flex justify-between w-64 px-3 mb-5 ">
+                  <label className="flex items-center text-xs focus:outline-none">
+                    <input
+                      data-testid="rememberMe"
+                      className="mr-1"
+                      type="checkbox"
+                    />
+                    Remember me
+                  </label>
+                  <NavLink
+                    to="/auth/forgot-password"
+                    className="text-xs"
+                    data-testid="forgotPassword"
+                  >
+                    Forgot password?
+                  </NavLink>
+                </div>
+                <div className="mt-4 md:mt-1">
+                  <CustomButton
+                    onClick={handleSubmitLogin}
+                    label="Se connecter"
+                    statusLoading={infoLoading.loadingLogin.status}
+                    className="rounded-full"
+                    disabled={!formLogin.email || !formLogin.pswd}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="w-2/5 md:block hidden  bg-main-color-dark text-white rounded-tr-2xl rounded-br-2xl py-36 px-12">
-            <h2 className="text-3xl font-body mb-2"> AFIAGAP </h2>
-            <div className="border-2 w-10 inline-block mb-2 border-white"></div>
-            <p className="text-xs mb-2">
-              Bienvenue sur la plateforme <strong>AfiaGap</strong>. Un outil du
-              monitoring de la préparation et la réponse aux urgences
-            </p>
-          </div>
-        </main>
+            <div className="w-2/5 md:block hidden  bg-main-color-dark text-white rounded-tr-2xl rounded-br-2xl py-36 px-12">
+              <h2 className="text-3xl font-body mb-2"> AFIAGAP </h2>
+              <div className="border-2 w-10 inline-block mb-2 border-white"></div>
+              <p className="text-xs mb-2">
+                Bienvenue sur la plateforme <strong>AfiaGap</strong>. Un outil
+                du monitoring de la préparation et la réponse aux urgences
+              </p>
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

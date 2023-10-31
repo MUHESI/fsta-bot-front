@@ -98,9 +98,7 @@ function CreateGap() {
     currentItemValidateGap
   );
 
-  //
   const { statusAction, idGap } = useParams();
-
   const getAllTypeCrises = async () => {
     try {
       setInfoLoading(
