@@ -8,7 +8,6 @@ import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getTypePersonnels } from "@/globalState/atoms";
 import SkeletonAnimation from "@/components/skeleton";
 import DialogCustom from "@/components/core/DialogCustom";
-import CreateMaladie from "../createMaladie";
 import { CustomButton } from "@/components/core/Button";
 import { ITypePersonnel } from "@/types/stateSchema/typePersonnel";
 import { IResRecoil } from "@/types/commonTypes";
@@ -16,12 +15,14 @@ import AlertMessage, {
   INIT_ALERT_MODEL,
   severityAlert,
 } from "@/components/core/Alert";
+import CreateTypePersonnel from "../createTypePersonnel";
 
 function TypePersonnel() {
   const resTypePersonnels = useRecoilValue(
     getTypePersonnels
   ) as unknown as IResRecoil<ITypePersonnel[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+  const [closeDiaolg, setCloseDialog] = useState(0);
   const refreshTypePers = useRecoilRefresher_UNSTABLE(getTypePersonnels);
 
   return (
@@ -48,14 +49,17 @@ function TypePersonnel() {
             onClick={() => refreshTypePers()}
             label="Actualiser"
             className="rounded-md"
-            // statusLoading={true}
           />
           <DialogCustom
-            btnText="Nouvelle type de pers."
+            openDilog={closeDiaolg}
+            mainBtnOptions={{
+              btnText: "Nouveau type de pers.",
+              useBtn: true,
+            }}
             mainTitle="Création de type de personnel"
             width="sm"
           >
-            <CreateMaladie />
+            <CreateTypePersonnel setCloseDialog={setCloseDialog} />
           </DialogCustom>
         </div>
       </DataTable>

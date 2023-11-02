@@ -12,3 +12,11 @@ export interface IUser extends IBaseInterfaceSchema {
     pofil: string;
     organization: { id: number; name: string, [key: string]: string | number };
 };
+
+export interface IUpdatedPasswordUser {
+    old_pswd: string;
+    new_pass: string;
+    confirmPswd: string;
+
+};
+

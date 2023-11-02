@@ -30,9 +30,7 @@ function CreateRole({ itemToUpdate, setCloseDialog }: IPropsSettings) {
       msg: "",
     },
   });
-
   const [formRole, setRole] = useState<ICreateRole>(INIT_FORM_CREATE_ROLE);
-
   useEffect(() => {
     if (itemToUpdate) {
       setRole({ ...itemToUpdate });

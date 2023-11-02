@@ -17,6 +17,7 @@ function Maladies() {
   const resMaladies = useRecoilValue(getMaladies) as unknown as IResRecoil<
     IMaladie[]
   >;
+  const [closeDiaolg, setCloseDialog] = useState(0);
   // CreateMaladie;
   const refreshMaldie = useRecoilRefresher_UNSTABLE(getMaladies);
 
@@ -34,6 +35,7 @@ function Maladies() {
             className="rounded-md "
           />
           <DialogCustom
+            openDilog={closeDiaolg}
             mainBtnOptions={{
               btnText: "Nouvelle maladie",
               useBtn: true,
@@ -42,7 +44,7 @@ function Maladies() {
             width="sm"
             // openDilog={open}
           >
-            <CreateMaladie />
+            <CreateMaladie setCloseDialog={setCloseDialog} />
           </DialogCustom>
         </div>
       </DataTable>

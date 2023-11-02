@@ -15,6 +15,7 @@ import { ICreateStructureHealth } from "@/types/stateSchema/StructureHealth";
 import { ICreateAlert } from "@/types/stateSchema/alert";
 import { ICreateGap } from "@/types/stateSchema/gap";
 import { defaultPaginationProperty } from "@/globalState/atoms/user";
+import { IUpdatedPasswordUser } from "@/types/stateSchema/user";
 
 export const INIT_FORM_LOGIN: ILogin = {
     email: '',
@@ -30,9 +31,11 @@ export const RES_RECOIL: IResRecoil<any> = {
         pagination: defaultPaginationProperty
     }
 }
-
-
-
+export const INIT_FORM_UPDATE_PASSWORD_USER: IUpdatedPasswordUser = {
+    confirmPswd: '',
+    new_pass: '',
+    old_pswd: ""
+}
 export const INIT_FORM_RESET_PASSWORD: IResetPassword = {
     email: '',
     pswd: '',

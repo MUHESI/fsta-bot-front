@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Grid } from "@mui/material";
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { userAuthenticatedState } from "@/globalState/atoms";
-import { IUser } from "@/types/stateSchema/user";
+import { IUpdatedPasswordUser, IUser } from "@/types/stateSchema/user";
 import ShowPermissionUser from "../showPermissionUser";
 import SkeletonAnimation from "@/components/skeleton";
 import { getInfoUser } from "@/globalState/atoms/user";
@@ -13,7 +13,7 @@ import { SelectCommon } from "@/components/core/select";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import { BASE_URL_API, getAPI, putAPI } from "@/utils/fetchData";
+import { BASE_URL_API, getAPI, postAPI, putAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData } from "@/types/commonTypes";
 import { CustomButton } from "@/components/core/Button";
 import { useParams } from "react-router";
@@ -31,6 +31,7 @@ import LocalStorage, {
 import { IAuthInLocalStorage, keepUserAuthInLocalStorage } from "../auth/Login";
 import { IAutherUSer } from "@/types/stateSchema/auth";
 import { IMetadataAuthUser } from "@/types/storageTypes";
+import { INIT_FORM_UPDATE_PASSWORD_USER } from "@/constants/initForm";
 
 function ShowProfileUser() {
   const { idUser } = useParams();
@@ -50,6 +51,9 @@ function ShowProfileUser() {
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
   const [hovering, setHovering] = useState(false);
   const [currentUser, setCurrentUser] = useState<IUser | any>({});
+  const [formUpdatePwd, setFormUpdatePwd] = useState<IUpdatedPasswordUser>({
+    ...INIT_FORM_UPDATE_PASSWORD_USER,
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<{ uri: string | null; file: any }>({
     uri: null,
@@ -65,6 +69,10 @@ function ShowProfileUser() {
       msg: "",
     },
     getCurrentUser: {
+      status: false,
+      msg: "",
+    },
+    changePwdUser: {
       status: false,
       msg: "",
     },
@@ -167,6 +175,72 @@ function ShowProfileUser() {
   const commonClassResume =
     "flex justify-start w-full gap-5 px-5 py-2  cursor-pointer items-center text-base hover:bg-white-hover hover:text-accent-foreground";
 
+  const submitUpdatePasswordUser = async () => {
+    if (
+      formUpdatePwd.confirmPswd.length < 4 ||
+      formUpdatePwd.new_pass.length < 4 ||
+      formUpdatePwd.old_pswd.length < 4
+    ) {
+      return showToast({
+        msg: `Remplissez tous les champs`,
+        type: StatusToast.DARK,
+      });
+    }
+    console.clear();
+    console.log("formUpdatePwd", formUpdatePwd);
+    if (formUpdatePwd.confirmPswd !== formUpdatePwd.new_pass) {
+      return showToast({
+        msg: `les mots de passe ne sont pas identiques, veillez verifier svp.`,
+        type: StatusToast.DARK,
+      });
+    }
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "changePwdUser", lKey: "status" },
+          true
+        )
+      );
+      const { data } = await postAPI<
+        IFetchData<IBaseData>,
+        IUpdatedPasswordUser
+      >("users/changepswdprofil", formUpdatePwd, user.token);
+      //
+      console.clear();
+      console.log("data", data);
+      //
+      if (data) {
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "changePwdUser", lKey: "status" },
+            false
+          )
+        );
+        showToast({
+          msg: `le mot de pass de a été enregistré avec succès`,
+          type: AG_Toast.statusToast.SUCCESS,
+        });
+        setFormUpdatePwd({ ...INIT_FORM_UPDATE_PASSWORD_USER });
+        refreshCurrentUser();
+      }
+    } catch (error) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "changePwdUser", lKey: "status" },
+          false
+        )
+      );
+      return showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${
+          (error as any as unknown as Error).message
+        }`,
+        type: StatusToast.ERROR,
+      });
+    }
+  };
   const handleSubmitUpdateProfile = async () => {
     if (currentUser.full_name.trim().length < 3) {
       return showToast({
@@ -440,46 +514,54 @@ function ShowProfileUser() {
               <div className="py-2 px-5 gap-5">
                 <InputCommon
                   required={true}
-                  disabled={true}
                   label="Ancien mot de passe"
                   type="password"
                   pl="Entrer votre ancien mot de passe"
-                  onChange={() => console.log("first")}
-                  value={"root12345-ROOT"}
+                  onChange={(e: any) =>
+                    setFormUpdatePwd({
+                      ...formUpdatePwd,
+                      old_pswd: e.target.value,
+                    })
+                  }
+                  value={formUpdatePwd.old_pswd}
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5 gap-5">
                 <InputCommon
                   required={true}
-                  disabled={true}
                   label="Nouveau mot de passe"
+                  pl="Aumoins 6 caracteres"
                   type="password"
-                  // pl="Entrer votre adresse mail"
-                  onChange={() => console.log("first")}
-                  value={"cosamed@gmail.com"}
+                  onChange={(e: any) =>
+                    setFormUpdatePwd({
+                      ...formUpdatePwd,
+                      new_pass: e.target.value,
+                    })
+                  }
+                  value={formUpdatePwd.new_pass}
                 />
                 <InputCommon
                   required={true}
-                  disabled={true}
                   type="password"
-                  label=" Confirmer votrenouveau mot de passe"
-                  pl="Entrer votre role"
-                  onChange={() => console.log("first")}
-                  value={"Niveau 1"}
+                  label=" Confirmer votre nouveau mot de passe"
+                  pl="Aumoins 6 caracteres"
+                  onChange={(e: any) =>
+                    setFormUpdatePwd({
+                      ...formUpdatePwd,
+                      confirmPswd: e.target.value,
+                    })
+                  }
+                  value={formUpdatePwd.confirmPswd}
                 />
               </div>
               <div className="btn p-3 flex justify-end ">
-                <button
-                  // variant="primary"
-                  onClick={() => {
-                    console.clear();
-                    console.log("user", user);
-                  }}
-                  style={{ border: "1px solid #2DAEC4" }}
+                <CustomButton
+                  onClick={submitUpdatePasswordUser}
+                  statusLoading={infoLoading.changePwdUser.status}
+                  disabled={infoLoading.changePwdUser.status}
+                  label="Enregistrer"
                   className="ml-auto  rounded-md"
-                >
-                  Enregistrer | Test
-                </button>
+                />
               </div>
             </div>
             {/* =====PERMISSIONS==== */}

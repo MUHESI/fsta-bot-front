@@ -1,35 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
 import { INIT_FORM_CREATE_ROLE } from "@/constants/initForm";
-import { ICreateProvince } from "@/types/stateSchema/province";
 import { CustomButton } from "@/components/core/Button";
 import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData } from "@/types/commonTypes";
-import { useRecoilValue } from "recoil";
-import { userAuthenticatedState } from "@/globalState/atoms";
+import { IBaseData, IFetchData, IPropsSettings } from "@/types/commonTypes";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
+import { getTypePersonnels, userAuthenticatedState } from "@/globalState/atoms";
 import { ICreateRole } from "@/types/stateSchema/permissionRole";
 import { ICreateTypePersonnel } from "../../types/stateSchema/typePersonnel";
-import { token } from "@/constants/constants";
+import { closeDialog } from "@/components/core/DialogCustom";
 
-function CreateTypePersonnel() {
+function CreateTypePersonnel({ itemToUpdate, setCloseDialog }: IPropsSettings) {
   const user = useRecoilValue(userAuthenticatedState);
-
+  const refreshTypePers = useRecoilRefresher_UNSTABLE(getTypePersonnels);
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
-    createRole: {
+    createTypePers: {
+      status: false,
+      msg: "",
+    },
+    updateTypePers: {
       status: false,
       msg: "",
     },
   });
-
   const [formTypePersonnel, setFormTypePersonnel] =
     useState<ICreateTypePersonnel>(INIT_FORM_CREATE_ROLE);
+
+  useEffect(() => {
+    if (itemToUpdate) {
+      setFormTypePersonnel({ ...itemToUpdate });
+    }
+  }, []);
 
   const handleSubmitTypePersonnel = async () => {
     if (formTypePersonnel.name.trim().length < 2) {
@@ -42,36 +50,90 @@ function CreateTypePersonnel() {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createTypePersonnel", lKey: "status" },
+          { fKey: "createTypePers", lKey: "status" },
           true
         )
       );
       const { data } = await postAPI<IFetchData<IBaseData>, ICreateRole>(
         "personnel/addtypepersonnel",
         formTypePersonnel,
-        // user.token
-        token
+        user.token
       );
       if (data) {
         setInfoLoading(
           HandleFormObject.handleSecondLevel(
             infoLoading,
-            { fKey: "createTypePersonnel", lKey: "status" },
+            { fKey: "createTypePers", lKey: "status" },
             false
           )
         );
 
         showToast({
-          msg: `le role ${formTypePersonnel.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `La création du type de personnel ${formTypePersonnel.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
         setFormTypePersonnel({ ...INIT_FORM_CREATE_ROLE });
+        refreshTypePers();
+        if (setCloseDialog) setCloseDialog(closeDialog());
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
-          { fKey: "createTypePersonnel", lKey: "status" },
+          { fKey: "createTypePers", lKey: "status" },
+          false
+        )
+      );
+      return showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${error.response.data.message}`,
+        type: StatusToast.ERROR,
+      });
+    }
+  };
+  const submitUpdateTypePersonnel = async () => {
+    if (itemToUpdate === undefined) return;
+    if (formTypePersonnel.name.trim().length < 2 && itemToUpdate.id !== "") {
+      return showToast({
+        msg: `Remplissez tous les champs`,
+        type: StatusToast.DARK,
+      });
+    }
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updateTypePers", lKey: "status" },
+          true
+        )
+      );
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateRole>(
+        "personnel/addtypepersonnel",
+        formTypePersonnel,
+        user.token
+        // token
+      );
+      if (data) {
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "updateTypePers", lKey: "status" },
+            false
+          )
+        );
+
+        showToast({
+          msg: `La modification du type de personnel ${formTypePersonnel.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          type: AG_Toast.statusToast.SUCCESS,
+        });
+        setFormTypePersonnel({ ...INIT_FORM_CREATE_ROLE });
+        refreshTypePers();
+        if (setCloseDialog) setCloseDialog(closeDialog());
+      }
+    } catch (error: any) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updateTypePers", lKey: "status" },
           false
         )
       );
@@ -108,14 +170,23 @@ function CreateTypePersonnel() {
                 />
               </div>
               <div className="btn py-2 px-5 flex justify-end">
-                <CustomButton
-                  onClick={handleSubmitTypePersonnel}
-                  statusLoading={infoLoading.createRole.status}
-                  disabled={infoLoading.createRole.status}
-                  label="Enregistrer"
-                  // style={{ border: "1px solid #2DAEC4" }}
-                  className="ml-auto  rounded-md"
-                />
+                {itemToUpdate ? (
+                  <CustomButton
+                    onClick={submitUpdateTypePersonnel}
+                    statusLoading={infoLoading.updateTypePers.status}
+                    disabled={infoLoading.updateTypePers.status}
+                    label="Mettre en jour "
+                    className="ml-auto  rounded-md"
+                  />
+                ) : (
+                  <CustomButton
+                    onClick={handleSubmitTypePersonnel}
+                    statusLoading={infoLoading.createTypePers.status}
+                    disabled={infoLoading.createTypePers.status}
+                    label="Enregistrer"
+                    className="ml-auto  rounded-md"
+                  />
+                )}
               </div>
             </div>
           </section>
