@@ -1,10 +1,8 @@
 import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/core/tableTemplate";
 import { dataPagination } from "@/constants/constants";
 import CustomPagination from "@/components/core/Pagination";
-import { FiRefreshCcw } from "react-icons/fi";
 import { columnsListMedicaments } from "./columns";
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import SkeletonAnimation from "@/components/skeleton";
@@ -25,6 +23,7 @@ function Medicaments() {
   ) as unknown as IResRecoil<IMedicament[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
   const refreshMedicaments = useRecoilRefresher_UNSTABLE(getMedicaments);
+  const [closeDiaolg, setCloseDialog] = useState(0);
 
   return (
     <div className="px-5">
@@ -53,6 +52,7 @@ function Medicaments() {
             // statusLoading={true}
           />
           <DialogCustom
+            openDilog={closeDiaolg}
             mainBtnOptions={{
               btnText: "Nouveau medic",
               useBtn: true,
@@ -60,7 +60,7 @@ function Medicaments() {
             mainTitle="Création d'un nouveau medicament"
             width="sm"
           >
-            <CreateMedicament />
+            <CreateMedicament setCloseDialog={setCloseDialog} />
           </DialogCustom>
         </div>
       </DataTable>

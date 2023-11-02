@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { Grid } from "@mui/material";
 import { InputCommon } from "@/components/core/Inputs";
@@ -9,14 +9,15 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData } from "@/types/commonTypes";
-import { useRecoilValue } from "recoil";
-import { userAuthenticatedState } from "@/globalState/atoms";
+import { IBaseData, IFetchData, IPropsSettings } from "@/types/commonTypes";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
+import { getMedicaments, userAuthenticatedState } from "@/globalState/atoms";
 import { ICreateMedicament } from "@/types/stateSchema/medicament";
+import { closeDialog } from "@/components/core/DialogCustom";
 
-function CreateMedicament() {
+function CreateMedicament({ itemToUpdate, setCloseDialog }: IPropsSettings) {
   const user = useRecoilValue(userAuthenticatedState);
-
+  const refreshMedicaments = useRecoilRefresher_UNSTABLE(getMedicaments);
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
@@ -24,14 +25,23 @@ function CreateMedicament() {
       status: false,
       msg: "",
     },
+    updateMedicament: {
+      status: false,
+      msg: "",
+    },
   });
 
-  const [formRole, setRole] = useState<ICreateMedicament>(
+  const [formMedoc, setMedoc] = useState<ICreateMedicament>(
     INIT_FORM_CREATE_MEDICAMENT
   );
+  useEffect(() => {
+    if (itemToUpdate) {
+      setMedoc({ ...itemToUpdate });
+    }
+  }, []);
 
   const handleSubmitCreatMaladie = async () => {
-    if (formRole.name.trim().length < 2) {
+    if (formMedoc.name.trim().length < 2) {
       return showToast({
         msg: `Remplissez tous les champs`,
         type: StatusToast.DARK,
@@ -48,7 +58,7 @@ function CreateMedicament() {
 
       const { data } = await postAPI<IFetchData<IBaseData>, ICreateMaladie>(
         "medicament/addmedicament",
-        formRole,
+        formMedoc,
         user.token
       );
       if (data) {
@@ -61,16 +71,77 @@ function CreateMedicament() {
         );
 
         showToast({
-          msg: `le medicament ${formRole.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          msg: `le medicament ${formMedoc.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
           type: AG_Toast.statusToast.SUCCESS,
         });
-        setRole({ ...INIT_FORM_CREATE_MEDICAMENT });
+        setMedoc({ ...INIT_FORM_CREATE_MEDICAMENT });
+        refreshMedicaments();
+        if (setCloseDialog) setCloseDialog(closeDialog());
       }
     } catch (error: any) {
       setInfoLoading(
         HandleFormObject.handleSecondLevel(
           infoLoading,
           { fKey: "createMedicament", lKey: "status" },
+          false
+        )
+      );
+      return showToast({
+        msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG} | ${error.response.data.message}`,
+        type: StatusToast.ERROR,
+      });
+    }
+  };
+  const submitUpdateMaladie = async () => {
+    if (itemToUpdate === undefined) return;
+    if (formMedoc.name.trim().length < 2 && itemToUpdate.id !== "") {
+      return showToast({
+        msg: `Remplissez tous les champs`,
+        type: StatusToast.DARK,
+      });
+    }
+    if (formMedoc.name.trim().length < 2) {
+      return showToast({
+        msg: `Remplissez tous les champs`,
+        type: StatusToast.DARK,
+      });
+    }
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updateMedicament", lKey: "status" },
+          true
+        )
+      );
+
+      const { data } = await postAPI<IFetchData<IBaseData>, ICreateMaladie>(
+        `medicament/UpdateMedicament/${itemToUpdate.id}`,
+        formMedoc,
+        user.token
+      );
+      if (data) {
+        setInfoLoading(
+          HandleFormObject.handleSecondLevel(
+            infoLoading,
+            { fKey: "updateMedicament", lKey: "status" },
+            false
+          )
+        );
+
+        showToast({
+          msg: `La modification du medicament ${formMedoc.name} ${AG_Toast.textPatterns.SUCCESS_MSG}`,
+          type: AG_Toast.statusToast.SUCCESS,
+        });
+        setMedoc({ ...INIT_FORM_CREATE_MEDICAMENT });
+        refreshMedicaments();
+        if (setCloseDialog) setCloseDialog(closeDialog());
+      }
+    } catch (error: any) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "updateMedicament", lKey: "status" },
           false
         )
       );
@@ -97,21 +168,32 @@ function CreateMedicament() {
                   label="Nom"
                   // data-testId="create-province"
                   pl="eg: Entrer le nom d medicament"
-                  value={formRole.name}
+                  value={formMedoc.name}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setRole({ ...formRole, name: e.target.value })
+                    setMedoc({ ...formMedoc, name: e.target.value })
                   }
                 />
               </div>
               <div className="btn py-2 px-5 flex justify-end">
-                <CustomButton
-                  onClick={handleSubmitCreatMaladie}
-                  statusLoading={infoLoading.createMedicament.status}
-                  disabled={infoLoading.createMedicament.status}
-                  label="Enregistrer"
-                  // style={{ border: "1px solid #2DAEC4" }}
-                  className="ml-auto  rounded-md"
-                />
+                {itemToUpdate ? (
+                  <CustomButton
+                    onClick={submitUpdateMaladie}
+                    statusLoading={infoLoading.updateMedicament.status}
+                    disabled={infoLoading.updateMedicament.status}
+                    label="Mettre en jour"
+                    // style={{ border: "1px solid #2DAEC4" }}
+                    className="ml-auto  rounded-md"
+                  />
+                ) : (
+                  <CustomButton
+                    onClick={handleSubmitCreatMaladie}
+                    statusLoading={infoLoading.createMedicament.status}
+                    disabled={infoLoading.createMedicament.status}
+                    label="Enregistrer"
+                    // style={{ border: "1px solid #2DAEC4" }}
+                    className="ml-auto  rounded-md"
+                  />
+                )}
               </div>
             </div>
           </section>
