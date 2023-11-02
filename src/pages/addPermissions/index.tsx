@@ -7,16 +7,11 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import {
-  useRecoilRefresher_UNSTABLE,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import {
   getOrganizations,
   getPermissions,
   getRoles,
-  tooggleDialogState,
   userAuthenticatedState,
 } from "@/globalState/atoms";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
@@ -28,20 +23,23 @@ import { IRole } from "@/types/stateSchema/permissionRole";
 import SkeletonAnimation from "@/components/skeleton";
 import { IPermission } from "@/types/stateSchema/permission";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData, IResRecoil } from "@/types/commonTypes";
+import {
+  IBaseData,
+  IFetchData,
+  IPropsSettings,
+  IResRecoil,
+} from "@/types/commonTypes";
 import { getUsers } from "@/globalState/atoms/user";
+import { closeDialog } from "@/components/core/DialogCustom";
 
-// TODO:: FIXE ME LATER
-interface IProps {
-  // currentUser: IUser | any;
+interface IProps extends IPropsSettings {
   currentUser: any;
 }
 const messageOrgSelected =
   "Vous avez sélectionné une organisation dont cet utilisateur fait partie, par conséquent ces nouvelles permissions vont s’ajouter dans cette organisation.";
 
-function AddPermissions({ currentUser }: IProps) {
+function AddPermissions({ currentUser, setCloseDialog }: IProps) {
   const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
-  const setOpenDilog = useSetRecoilState(tooggleDialogState);
   const user = useRecoilValue(userAuthenticatedState);
 
   const commonClass = "border rounded-lg my-5";
@@ -148,9 +146,9 @@ function AddPermissions({ currentUser }: IProps) {
           type: AG_Toast.statusToast.SUCCESS,
         });
         setFormAffectation({ ...INIT_FORM_CREATE_AFFECTATION });
-        setOpenDilog(false);
         refreshUsers();
         setDataSelected([]);
+        if (setCloseDialog) setCloseDialog(closeDialog());
       } else {
         showToast({
           msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG}| Try again`,

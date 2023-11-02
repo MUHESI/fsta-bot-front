@@ -5,15 +5,8 @@ import { IStateLoading } from "@/types/stateSchema/loading";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
 import { CustomChipBtn } from "@/components/core/CustomChipBtn";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
-import {
-  useRecoilRefresher_UNSTABLE,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
-import {
-  tooggleDialogState,
-  userAuthenticatedState,
-} from "@/globalState/atoms";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
+import { userAuthenticatedState } from "@/globalState/atoms";
 import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
 import { HandleFormArrayOfObject } from "@/services/stateHandler/formDataArrayHandler";
 import { SelectCommon } from "@/components/core/select";
@@ -22,21 +15,18 @@ import { IOrganization } from "@/types/stateSchema/organization";
 import SkeletonAnimation from "@/components/skeleton";
 import { IPermission } from "@/types/stateSchema/permission";
 import { postAPI } from "@/utils/fetchData";
-import { IBaseData, IFetchData } from "@/types/commonTypes";
+import { IBaseData, IFetchData, IPropsSettings } from "@/types/commonTypes";
 import { INIT_ALERT_MODEL } from "@/components/core/Alert";
 import { getUsers } from "@/globalState/atoms/user";
+import { closeDialog } from "@/components/core/DialogCustom";
 
-// TODO:: FIXE ME LATER
-interface IProps {
-  // currentUser: IUser | any;
+interface IProps extends IPropsSettings {
   currentUser: any;
 }
-
-function DeletePermissions({ currentUser }: IProps) {
+function DeletePermissions({ currentUser, setCloseDialog }: IProps) {
   const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
-  const setOpenDilog = useSetRecoilState(tooggleDialogState);
+  // const setOpenDilog = useSetRecoilState(tooggleDialogState);
   const user = useRecoilValue(userAuthenticatedState);
-
   const commonClass = "border rounded-lg my-5";
   const commonClassSection = `${commonClass} pb-5`;
   const [infoLoading, setInfoLoading] = useState<IStateLoading>({
@@ -85,8 +75,8 @@ function DeletePermissions({ currentUser }: IProps) {
           type: AG_Toast.statusToast.SUCCESS,
         });
         setDataSelected_del([]);
-        setOpenDilog(false);
         refreshUsers();
+        if (setCloseDialog) setCloseDialog(closeDialog());
       } else {
         showToast({
           msg: `${AG_Toast.textPatterns.SOMETHING_WENT_WRONG}| Try again`,

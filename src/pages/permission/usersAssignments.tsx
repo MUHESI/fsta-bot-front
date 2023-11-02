@@ -138,15 +138,19 @@ function DesktopScreenUsers({ dataUsers }: { dataUsers: any[] }) {
 
 export function HandlePermission({ item }: { item: any }) {
   const navigate = useNavigate();
-
   const [tabId, setTabId] = useState<number>(0);
+  const [closeDiaolg, setCloseDialog] = useState(0);
 
   return (
     <DialogCustom
-      btnText="Gerer"
+      openDilog={closeDiaolg}
+      mainBtnOptions={{
+        btnText: "Gerer",
+        useBtn: true,
+        classNameBtn: "max-w-[80px]",
+      }}
       mainTitle="Gestion des permissions"
       width="sm"
-      classNameBtn="max-w-[80px]"
     >
       <TabMenuCustom
         dataTabs={["Permissions", "Supprimer", "Affectater"]}
@@ -173,8 +177,15 @@ export function HandlePermission({ item }: { item: any }) {
             ))}
           </div>
         )}
-        {tabId === 1 && <DeletePermissions currentUser={item} />}
-        {tabId === 2 && <AddPermissions currentUser={item} />}
+        {tabId === 1 && (
+          <DeletePermissions
+            currentUser={item}
+            setCloseDialog={setCloseDialog}
+          />
+        )}
+        {tabId === 2 && (
+          <AddPermissions currentUser={item} setCloseDialog={setCloseDialog} />
+        )}
       </div>
     </DialogCustom>
   );

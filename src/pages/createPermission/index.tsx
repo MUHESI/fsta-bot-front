@@ -165,18 +165,33 @@ function CreatePermission({ itemToUpdate, setCloseDialog }: IPropsSettings) {
             <div className={commonClassSection}>
               <LastHeading title={"Informations basiques"} />
               <div className=" px-5" data-testId="select-permission">
-                <SelectCommon
-                  data={convertEnumToArray(GLOBAL_PERMISSIONS)}
-                  onChange={keepCurrentPermission}
-                  label="Selectionner la permission"
-                  required={true}
-                  keyObject="value"
-                  value={"..."}
-                  // type=""
-                />
+                {itemToUpdate ? (
+                  <InputCommon
+                    required={true}
+                    disabled={true}
+                    label="Nom"
+                    pl="eg: Entrer le nom"
+                    value={formPermission.name || ""}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setPermission({
+                        ...formPermission,
+                        psedo: e.target.value,
+                      })
+                    }
+                  />
+                ) : (
+                  <SelectCommon
+                    data={convertEnumToArray(GLOBAL_PERMISSIONS)}
+                    onChange={keepCurrentPermission}
+                    label="Selectionner la permission"
+                    required={true}
+                    keyObject="value"
+                    value={"..."}
+                  />
+                )}
                 <InputCommon
                   required={true}
-                  label="Nom"
+                  label="Pseudo"
                   pl="eg: Entrer le pseudo"
                   value={formPermission.psedo || ""}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

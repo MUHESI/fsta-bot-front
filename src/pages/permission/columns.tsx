@@ -1,19 +1,13 @@
 "use client";
-import React from "react";
-import { MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React, { useState } from "react";
 import { ColumnDef } from "@tanstack/table-core";
 import { NavLink } from "react-router-dom";
 import { IRole } from "@/types/stateSchema/permissionRole";
 import { IPermission } from "@/types/stateSchema/permission";
+import DialogCustom from "@/components/core/DialogCustom";
+import { AiFillEdit, AiTwotoneDelete } from "react-icons/ai";
+import CreatePermission from "../createPermission";
+import { styles } from "../gaps/columns";
 
 export const columnsListPermissions: ColumnDef<IPermission>[] = [
   {
@@ -49,30 +43,32 @@ export const columnsListPermissions: ColumnDef<IPermission>[] = [
   {
     accessorKey: "ACTIONS",
     id: "actions",
-    // cell: ({ row }) => {
-    cell: () => {
+    cell: ({ row }) => {
+      const role: IRole = row.original;
+      const [closeDiaolg, setCloseDialog] = useState(0);
+
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                // navigator.clipboard.writeText(payment.id);
-              }}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-1">
+          <DialogCustom
+            openDilog={closeDiaolg}
+            mainTitle="Modification d'une permission"
+            width="sm"
+            mainBtnOptions={{
+              icon: <AiFillEdit />,
+              useIcon: true,
+            }}
+          >
+            <CreatePermission
+              itemToUpdate={role}
+              setCloseDialog={setCloseDialog}
+            />
+          </DialogCustom>
+          <span className={`${styles.DropdownMenuItemClass} text-red-400`}>
+            <span>
+              <AiTwotoneDelete />
+            </span>
+          </span>
+        </div>
       );
     },
   },
