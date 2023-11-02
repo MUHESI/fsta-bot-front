@@ -31,7 +31,10 @@ function AddMemberInMenage() {
       <div className="p-1 flex justify-between text-main-color-dark">
         <LastHeading title={"Ajout d'un memebre dans un ménage"} />
         <DialogCustom
-          btnText="Nouveau menage"
+          mainBtnOptions={{
+            btnText: "Nouveau menage",
+            useBtn: true,
+          }}
           mainTitle="Création d'un menage"
           width="sm"
         >

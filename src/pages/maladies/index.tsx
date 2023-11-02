@@ -34,7 +34,10 @@ function Maladies() {
             className="rounded-md "
           />
           <DialogCustom
-            btnText="Nouvelle maladie"
+            mainBtnOptions={{
+              btnText: "Nouvelle maladie",
+              useBtn: true,
+            }}
             mainTitle="Création d'unnouveau medicament"
             width="sm"
             // openDilog={open}

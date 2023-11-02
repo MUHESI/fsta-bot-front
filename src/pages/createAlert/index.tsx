@@ -77,8 +77,6 @@ function CreateAlert() {
       maladieid: currentMaladieId,
       airid: currentHalthAreaID,
     };
-    console.clear();
-    console.log("form_", form_);
 
     // VALIDATION
     // TODO: Improve later
@@ -153,7 +151,6 @@ function CreateAlert() {
   const [organizationsUser, setOrganizationsUser] = useState<IOrganization[]>(
     []
   );
-  // const [orgSelected, setOrgSelected] = useState<string>("");
   useEffect(() => {
     let orgArray: IOrganization[] = [];
     if (user.metaData) {
@@ -161,6 +158,14 @@ function CreateAlert() {
         orgArray.push(item.organisation)
       );
       setOrganizationsUser(orgArray);
+    }
+
+    const affectationSelected = user.metaData.affectationSelected;
+    if (affectationSelected[0].organisation) {
+      setFormCreateAlert({
+        ...formCreateAlert,
+        orgid: affectationSelected[0].organisation.id,
+      });
     }
   }, [user]);
 
@@ -190,14 +195,13 @@ function CreateAlert() {
               />
               <Pyramid />
               <div className=" px-5 ">
-                <SelectCommon
-                  data={organizationsUser}
-                  label="Selectionner l'organisation"
-                  keyObject="name"
-                  onChange={(value: string) =>
-                    setFormCreateAlert({ ...formCreateAlert, orgid: value })
-                  }
-                  value={"..."}
+                <CommonInputGap
+                  required={true}
+                  disabled={true}
+                  label="Organisation selectionnée"
+                  type="string"
+                  onChange={(e) => e}
+                  value={user.metaData.affectationSelected[0].organisation.name}
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5  gap-5">

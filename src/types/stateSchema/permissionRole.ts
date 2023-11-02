@@ -7,4 +7,5 @@ export interface IRole extends IBaseInterfaceSchema {
 
 export type ICreateRole = {
     name: string;
+    id?: string;
 };

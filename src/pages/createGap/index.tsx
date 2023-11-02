@@ -350,7 +350,6 @@ function CreateGap() {
         `gap/detailgap/${id_gap}`,
         user.token
       );
-      console.clear();
       if (res?.data) {
         const formGapFromCurrentGap = preProcessGap(res?.data?.data);
         setFormGap(formGapFromCurrentGap);
@@ -468,8 +467,6 @@ function CreateGap() {
         { ...form },
         user.token
       );
-      console.clear();
-      console.log("res", res.data);
       if (res.data) {
         setFormGap(INIT_FORM_CREATE_GAP);
         showToast({
@@ -519,6 +516,18 @@ function CreateGap() {
       setFormGap(INIT_FORM_CREATE_GAP);
     }
   }, []);
+
+  useEffect(() => {
+    if (statusAction === GAP_ACTIONS_STATUS.CREATE_GAP) {
+      const affectationSelected = user.metaData.affectationSelected;
+      if (affectationSelected[0].organisation) {
+        setFormGap({
+          ...formGap,
+          orgid: affectationSelected[0].organisation.id,
+        });
+      }
+    }
+  }, [user]);
 
   // UTILIS FOR
   const [organizationsUser, setOrganizationsUser] = useState<IOrganization[]>(
@@ -609,14 +618,23 @@ function CreateGap() {
                     <Pyramid />
                   </Suspense>
                   <div className=" px-5 ">
-                    <SelectCommon
-                      data={organizationsUser}
-                      label="Selectionner l'organisation"
-                      keyObject="name"
-                      onChange={(value: string) =>
-                        setFormGap({ ...formGap, orgid: value })
+                    <CommonInputGap
+                      required={true}
+                      disabled={true}
+                      label="Organisation selectionnée"
+                      type="string"
+                      onChange={(e) => {
+                        console.log("e", e);
+                        setFormGap({
+                          ...formGap,
+                          orgid:
+                            user.metaData.affectationSelected[0].organisation
+                              .id,
+                        });
+                      }}
+                      value={
+                        user.metaData.affectationSelected[0].organisation.name
                       }
-                      value={"..."}
                     />
                   </div>
                 </div>

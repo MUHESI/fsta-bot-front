@@ -1,15 +1,17 @@
-import React, { PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { LastHeading } from "./Heading";
 import { CustomButton } from "./Button";
-import { tooggleDialogState } from "@/globalState/atoms";
-import { useRecoilState } from "recoil";
+import { styles } from "@/pages/gaps/columns";
+import { cn } from "@/lib/utils";
 
 export const commonClassNameBtnLastBtnDialog =
   "border-green-400 bg-green-400 hover:bg-white hover:text-green-400 text-white";
+
+export const closeDialog = () => Math.random();
 
 interface ILastBtnOptions {
   btnText: string;
@@ -17,39 +19,45 @@ interface ILastBtnOptions {
   closeAfterAction?: boolean;
   classNameBtn?: string;
 }
+interface IMainBtnOptions {
+  useBtn?: boolean;
+  useIcon?: boolean;
+  btnText?: string;
+  iconText?: string;
+  icon?: React.ReactElement;
+  classNameBtn?: string;
+}
+
 interface IDataPropos {
   width: DialogProps["maxWidth"];
   mainTitle: string;
-  btnText: string;
-  classNameBtn?: string;
+  // btnText: string;
+  // classNameBtn?: string;
   lastBtnOptions?: ILastBtnOptions;
+  mainBtnOptions?: IMainBtnOptions;
+  openDilog?: number;
 }
 
 export default function DialogCustom({
   width,
   children,
   mainTitle,
-  btnText,
-  classNameBtn,
+  // btnText,
+  // classNameBtn,
   lastBtnOptions,
+  mainBtnOptions,
+  openDilog,
 }: PropsWithChildren<IDataPropos>) {
-  const [openDilog, setOpenDilog] = useRecoilState(tooggleDialogState);
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] =
     React.useState<DialogProps["maxWidth"]>(width);
 
-  // useEffect(() => {
-  //   if (openDilog) {
-  //     setOpen(true);
-  //   } else {
-  //     setOpen(false);
-  //   }
-  // }, []);
-
   useEffect(() => {
-    console.log("openDilog", openDilog);
-  }, []);
+    if (openDilog !== 0) {
+      setOpen(false);
+    }
+  }, [openDilog]);
 
   const handleClickOpen = () => {
     // setOpenDilog(true);
@@ -81,11 +89,30 @@ export default function DialogCustom({
   };
   return (
     <React.Fragment>
-      <CustomButton
+      {/* <CustomButton
         label={btnText}
         onClick={handleClickOpen}
         className={`rounded-md ${classNameBtn}`}
-      />
+      /> */}
+      {mainBtnOptions?.useBtn && (
+        <CustomButton
+          label={mainBtnOptions.btnText || ""}
+          onClick={handleClickOpen}
+          className={`rounded-md ${mainBtnOptions.classNameBtn}`}
+        />
+      )}
+      {mainBtnOptions?.useIcon && (
+        <span
+          className={cn(
+            styles.DropdownMenuItemClass,
+            mainBtnOptions.classNameBtn
+          )}
+          onClick={handleClickOpen}
+        >
+          <span>{mainBtnOptions.icon} </span>
+          <span>{mainBtnOptions.iconText || ""} </span>
+        </span>
+      )}
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}

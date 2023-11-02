@@ -68,4 +68,3 @@ export const getPermissionsofCurrentUser = (currentUser: ICurrentUserPermission)
     }
     return tapPermissions
 }
-

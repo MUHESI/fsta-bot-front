@@ -35,7 +35,10 @@ function Crises() {
             // statusLoading={true}
           />
           <DialogCustom
-            btnText="Nouvelle crise"
+            mainBtnOptions={{
+              btnText: "Nouvelle crise",
+              useBtn: true,
+            }}
             mainTitle="Création de la nouvelle crise"
             width="sm"
           >

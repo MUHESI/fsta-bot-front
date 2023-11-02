@@ -37,7 +37,10 @@ function Indicators() {
             />
 
             <DialogCustom
-              btnText="Création d'indicateur"
+              mainBtnOptions={{
+                btnText: "nouveau indicateur",
+                useBtn: true,
+              }}
               mainTitle="Création d'un nouveau indicateur"
               width="sm"
             >

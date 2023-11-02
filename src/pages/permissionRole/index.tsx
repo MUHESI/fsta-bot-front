@@ -21,6 +21,7 @@ function Roles() {
   const resRoles = useRecoilValue(getRoles) as unknown as IResRecoil<IRole[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
   const refreshRoles = useRecoilRefresher_UNSTABLE(getRoles);
+  const [closeDiaolg, setCloseDialog] = useState(0);
 
   return (
     <div>
@@ -50,11 +51,15 @@ function Roles() {
               // statusLoading={true}
             />
             <DialogCustom
-              btnText="Nouveau role"
+              openDilog={closeDiaolg}
+              mainBtnOptions={{
+                btnText: "Nouveau role",
+                useBtn: true,
+              }}
               mainTitle="Création d'un nouveau role"
               width="sm"
             >
-              <CreateRole />
+              <CreateRole setCloseDialog={setCloseDialog} />
             </DialogCustom>
           </div>
         </DataTable>

@@ -41,5 +41,13 @@ export interface IResRecoil<TData> {
 
 }
 
+export interface IPropsSettings {
+    itemToUpdate?: {
+        id: string;
+        name: string;
+        psedo?: string;
+    };
+    setCloseDialog?: (data: number) => void;
+}
 
 

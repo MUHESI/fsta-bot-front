@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { LastHeading } from "@/components/core/Heading";
 import { DataTable } from "@/components/core/tableTemplate";
 import { columnsListPermissions } from "./columns";
@@ -85,6 +85,7 @@ function DesktopScreenPermission({
   const navigate = useNavigate();
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const refreshPermissions = useRecoilRefresher_UNSTABLE(getPermissions);
+  const [closeDiaolg, setCloseDialog] = useState(0);
 
   return (
     <div>
@@ -100,13 +101,16 @@ function DesktopScreenPermission({
             className="rounded-md"
             // statusLoading={true}
           />
-
           <DialogCustom
-            btnText="Nouvelle permission"
+            openDilog={closeDiaolg}
+            mainBtnOptions={{
+              btnText: "Nouvelle permission",
+              useBtn: true,
+            }}
             mainTitle="Création d'une nouvelle permission"
             width="sm"
           >
-            <CreatePermission />
+            <CreatePermission setCloseDialog={setCloseDialog} />
           </DialogCustom>
         </div>
       </DataTable>

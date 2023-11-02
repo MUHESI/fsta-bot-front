@@ -98,7 +98,10 @@ function HealthAreas() {
                 // statusLoading={true}
               />
               <DialogCustom
-                btnText="Nouvelle zone de santé"
+                mainBtnOptions={{
+                  btnText: "Nouvelle zone de santé",
+                  useBtn: true,
+                }}
                 mainTitle="Création d'une nouvelle zone de santé"
                 width="sm"
               >

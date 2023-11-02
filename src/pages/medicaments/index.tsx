@@ -53,7 +53,10 @@ function Medicaments() {
             // statusLoading={true}
           />
           <DialogCustom
-            btnText="Nouveau medic"
+            mainBtnOptions={{
+              btnText: "Nouveau medic",
+              useBtn: true,
+            }}
             mainTitle="Création d'un nouveau medicament"
             width="sm"
           >

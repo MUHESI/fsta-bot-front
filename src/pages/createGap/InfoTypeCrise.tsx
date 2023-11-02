@@ -92,7 +92,10 @@ function InfoTypeCrise({ dataCrises }: { dataCrises: ICrise[] }) {
 
         <div className=" mt-2 flex flex-wrap justify-between px-5 gap-5">
           <DialogCustom
-            btnText="Type des crises"
+            mainBtnOptions={{
+              btnText: "Type des crises",
+              useBtn: true,
+            }}
             mainTitle="Selectionner les type de crises"
             width={verifyScreenSize(screenSize, 700) ? "sm" : "sm"}
             lastBtnOptions={{

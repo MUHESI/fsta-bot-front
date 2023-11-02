@@ -270,9 +270,12 @@ function InfoPartenaires({
         </div>
         <div className="flex flex-wrap justify-between px-5 gap-5">
           <DialogCustom
-            btnText="Paquet d'appui"
             mainTitle="Selectionner les paquets d'appui"
             width="sm"
+            mainBtnOptions={{
+              btnText: "Paquet d'appui",
+              useBtn: true,
+            }}
             lastBtnOptions={{
               btnText: "Valider",
               closeAfterAction: true,

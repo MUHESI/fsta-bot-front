@@ -26,6 +26,7 @@ import ListTypePersonnels from "@/pages/typePersonnel";
 import ListMaladies from "@/pages/maladies";
 import Pyramid from "@/pages/pyramid/";
 import ListUsersAssignments from "@/pages/permission/usersAssignments";
+import SellectOrganization from "../pages/SelectOrganization";
 
 function GlobalRoutes() {
   return (
@@ -34,6 +35,7 @@ function GlobalRoutes() {
         {/* PUBLIC ROUTES */}
         {/* AUTH ROUTES */}
         <Route path="/login" element={<Login />} />
+        <Route path="/select-organization" element={<SellectOrganization />} />
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/auth/forgot-password" element={<ForgotPaswdProcess />} />
         {/*  PROTECTED ROUTES */}

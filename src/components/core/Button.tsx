@@ -55,7 +55,7 @@ export function CustomButton({
       // className={`${className}  `}
       style={{ height: "30px" }}
       className={cn(
-        " flex items-center justify-center gap-4 border-main-color duration-300 border text-main-color text-sm px-8 cursor-pointer   font-semibold hover:bg-main-color  hover:text-white md:px-5 ",
+        "flex items-center justify-center gap-4 border-main-color duration-300 border text-main-color text-sm px-8 cursor-pointer   font-semibold hover:bg-main-color  hover:text-white md:px-5 ",
         className
       )}
     >

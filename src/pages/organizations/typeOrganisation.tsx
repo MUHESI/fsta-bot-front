@@ -53,7 +53,10 @@ function TypeOrganizations() {
               // statusLoading={true}
             />
             <DialogCustom
-              btnText="Création d'un type org."
+              mainBtnOptions={{
+                btnText: "Nouveau type org",
+                useBtn: true,
+              }}
               mainTitle="Création d'un type orgonisation"
               width="sm"
             >

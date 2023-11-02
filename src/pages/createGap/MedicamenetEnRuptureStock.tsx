@@ -99,7 +99,10 @@ function MedicamenetEnRuptureStock({
         />
         <div className="flex flex-wrap justify-between px-5 gap-5">
           <DialogCustom
-            btnText="Medicaments en rupture"
+            mainBtnOptions={{
+              btnText: "Medicaments en rupture",
+              useBtn: true,
+            }}
             mainTitle="Selectionner les maladies"
             width="sm"
             lastBtnOptions={{

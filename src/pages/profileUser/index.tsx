@@ -468,21 +468,25 @@ function ShowProfileUser() {
                   value={"Niveau 1"}
                 />
               </div>
-              {/* <div className="btn p-3 flex justify-end ">
-                <Button
-                  variant="primary"
+              <div className="btn p-3 flex justify-end ">
+                <button
+                  // variant="primary"
+                  onClick={() => {
+                    console.clear();
+                    console.log("user", user);
+                  }}
                   style={{ border: "1px solid #2DAEC4" }}
                   className="ml-auto  rounded-md"
                 >
-                  Enregistrer
-                </Button>
-              </div> */}
+                  Enregistrer | Test
+                </button>
+              </div>
             </div>
             {/* =====PERMISSIONS==== */}
             <div className={commonClassSection}>
               <LastHeading title={"Permissions de l'utilisateur"} />
               <div className="px-5">
-                {currentUser?.metaData?.permissions?.map(
+                {user?.metaData.affectationSelected?.map(
                   (item_: any, key: number) => (
                     <div key={key}>
                       <h4 className="bordeer border-b pb-1">
