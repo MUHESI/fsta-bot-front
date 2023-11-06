@@ -35,7 +35,7 @@ function GlobalRoutes() {
         {/* PUBLIC ROUTES */}
         {/* AUTH ROUTES */}
         <Route path="/login" element={<Login />} />
-        <Route path="/select-organization" element={<SellectOrganization />} />
+        {/* <Route path="/select-organization" element={<SellectOrganization />} /> */}
         <Route path="/loading" element={<LoadingPage />} />
         <Route path="/auth/forgot-password" element={<ForgotPaswdProcess />} />
         {/*  PROTECTED ROUTES */}
@@ -90,6 +90,10 @@ function GlobalRoutes() {
 
           {/* ALERTS */}
           <Route path="/alerts/create" element={<CreateAlert />} />
+          <Route
+            path="/alerts/actions/:statusAction/:idAlert"
+            element={<CreateAlert />}
+          />
           <Route path="/alerts/" element={<ListAlerts />} />
 
           {/* VULNERABILTY */}

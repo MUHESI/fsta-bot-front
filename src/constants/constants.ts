@@ -432,7 +432,7 @@ export const getYearsInInterval = (minYear: number, maxYear: number): { id: numb
 }
 
 
-export const DETAIL_GAP = {
+export const DETAIL_GAP = [{
     "id": "9a459acc-2328-4b3c-b52e-235c3386540a",
     "title": "Centre de santé DON BOSCO 2023-10-02 00:00:0009:03:24",
     "provinceid": "99cd151b-dc63-4437-b9fc-514a1cf8fd89",
@@ -751,3 +751,4 @@ export const DETAIL_GAP = {
         }
     ]
 }
+]

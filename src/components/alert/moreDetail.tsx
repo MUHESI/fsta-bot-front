@@ -1,7 +1,11 @@
 import React from "react";
 import { IAlert } from "../../types/stateSchema/alert";
+import { CustomButton } from "../core/Button";
+import { useNavigate } from "react-router";
+import { ALERT_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 export default function DetailAlert({ alert }: { alert: IAlert }) {
+  const navigate = useNavigate();
   return (
     <div>
       <MoreDetailAlert label="Air de Santé" content={alert.dataaire.name} />
@@ -65,8 +69,23 @@ export default function DetailAlert({ alert }: { alert: IAlert }) {
         label="L’événement est-il en cours au moment de la présente notification ? "
         content={alert.evenement === "non" ? "NON" : "OUI"}
       />
-
       <MoreDetailAlert label="Mesures prises" content={alert.mesure} />
+      <div className="pt-2 mx-2 flex justify-end gap-2">
+        <CustomButton
+          onClick={() => ""}
+          label="Modifier"
+          className="ml-auto  rounded-md"
+        />
+        <CustomButton
+          onClick={() =>
+            navigate(
+              `/alerts/actions/${ALERT_ACTIONS_STATUS.VALIDATE_ALERT}/${alert.id}`
+            )
+          }
+          label="Investiguer"
+          className="ml-auto  rounded-md"
+        />
+      </div>
     </div>
   );
 }

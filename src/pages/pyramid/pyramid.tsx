@@ -95,7 +95,10 @@ function Structure() {
             data={resListStructureHealth.data}
           >
             <DialogCustom
-              btnText="Nouvelle  structure"
+              mainBtnOptions={{
+                btnText: "Nouvelle  structure",
+                useBtn: true,
+              }}
               mainTitle="Création d'une nouvelle structure"
               width="sm"
             >

@@ -7,42 +7,48 @@ import { columnsListUsers } from "./columns";
 import CustomPagination from "@/components/core/Pagination";
 import { FiRefreshCcw } from "react-icons/fi";
 import SkeletonAnimation from "@/components/skeleton";
-import { useRecoilValue } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 import { getUsers } from "@/globalState/atoms/user";
 import { IUser } from "@/types/stateSchema/user";
+import { IResRecoil } from "@/types/commonTypes";
 
 function Users() {
-  const listUsers = useRecoilValue(getUsers) as unknown as IUser[];
+  // const listUsers = useRecoilValue(getUsers) as unknown as IUser[];
+  const refreshUsers = useRecoilRefresher_UNSTABLE(getUsers);
+  const { data, metaData, message } = useRecoilValue(
+    getUsers
+  ) as unknown as IResRecoil<IUser[]>;
+
   return (
     <div>
       <div className="px-5">
-        <Button
+        {/* <Button
           variant="outline"
           className="ml-auto rounded-full"
           onClick={() => {
             console.clear();
-            console.log("listUsers", listUsers);
+            console.log("listUsers", data, message);
           }}
         >
           <FiRefreshCcw />
-        </Button>
+        </Button> */}
 
-        {/* <DataTable
+        <DataTable
           searchField="full_name"
           columns={columnsListUsers}
-          data={listUsers}
+          data={data}
         >
-          <Button
+          {/* <Button
             variant="outline"
             className="ml-auto rounded-full"
             onClick={() => {
               console.clear();
-              console.log("listUsers", listUsers);
+              console.log("listUsers", data);
             }}
           >
             <FiRefreshCcw />
-          </Button>
-        </DataTable>  */}
+          </Button> */}
+        </DataTable>
         <CustomPagination
           dataPagination={dataPagination.pagination}
           nextPage={() => console.log("next")}

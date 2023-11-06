@@ -7,7 +7,6 @@ import ChartComponent from "@/components/chrats/Line";
 import { BarChart } from "@/components/chrats/Bart";
 import { MainTitle, SelectField } from "./components";
 import ListGapsByDPS from "./ListGaps";
-import { ArcMapView } from "@/components/arcGis-components/arcMapView";
 import {
   getEpidemioLogicWeek,
   getYearsInInterval,
@@ -26,6 +25,7 @@ import AlertMessage, {
   INIT_ALERT_MODEL,
   severityAlert,
 } from "@/components/core/Alert";
+import Filter from "./Filter";
 
 function Home() {
   const resProvinces = useRecoilValue(
@@ -45,7 +45,7 @@ function Home() {
           severity={severityAlert.INFO}
           message={{
             title: "Information",
-            description: resMaladies.message,
+            description: `${resMaladies.keyResource}@@${resMaladies.message}`,
           }}
           openAlert={alert.open}
           closeAlert={() => setAlert({ ...INIT_ALERT_MODEL })}
@@ -70,57 +70,10 @@ function Home() {
                     <span className="text-xs">Gaps repondus</span>
                   </div>
                 </div> */}
-                  <div>
-                    <div className="flex gap-2">
-                      <SelectField
-                        data={getYearsInInterval(2022, 2030)}
-                        onChange={(e: any) => {
-                          console.clear();
-                          console.log("e", e);
-                        }}
-                        label={"Choisir l'année epid."}
-                        tooltipTitle="Année epidemiologie"
-                        keyObject="value"
-                        value={"..."}
-                      />
-                      <SelectField
-                        data={getEpidemioLogicWeek()}
-                        label={"Sem. epid."}
-                        onChange={(e: any) => {
-                          console.clear();
-                          console.log("e", e);
-                        }}
-                        tooltipTitle="La semaine epidemiologie"
-                        keyObject="value"
-                        value={"..."}
-                      />
-                    </div>
-                    <div className="flex gap-2">
-                      <SelectField
-                        data={resProvinces.data}
-                        defaultValue={{ label: "ALL", value: "ALL" }}
-                        label={"DPS"}
-                        onChange={(e: any) => {
-                          console.clear();
-                          console.log("e", e);
-                        }}
-                        tooltipTitle="Choisir le DPS"
-                        keyObject="name"
-                        value={"..."}
-                      />
-                      <SelectField
-                        data={resMaladies.data}
-                        defaultValue={{ label: "ALL", value: "ALL" }}
-                        onChange={(e: any) => {
-                          console.clear();
-                          console.log("e", e);
-                        }}
-                        tooltipTitle="Choisir la maladie"
-                        keyObject="name"
-                        value={"..."}
-                      />
-                    </div>
-                  </div>
+
+                  <Suspense fallback={<SkeletonAnimation className="px-5" />}>
+                    <Filter />
+                  </Suspense>
                 </div>
               </section>
               <section className={commonClassMain}>

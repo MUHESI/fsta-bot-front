@@ -29,7 +29,8 @@ function Organizations() {
           <div className="flex flex-wrap justify-between gap-2">
             <CustomButton
               onClick={() => {
-                ("");
+                console.clear();
+                console.log("resOrganizations", resOrganizations);
               }}
               label="Actualiser"
               className="rounded-md "

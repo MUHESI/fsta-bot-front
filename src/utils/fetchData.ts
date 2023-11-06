@@ -68,8 +68,17 @@ export const updateAPI = async<Tfecth, TData>(url: string, post: TData, token?: 
     });
     return res;
 };
-export const deleteAPI = async (url: string, id: string) => {
-    const res = await axios.delete(`${BASE_URL_API}api/${url}/${id}`);
+// export const deleteAPI = async (url: string, id: string) => {
+//     const res = await axios.delete(`${BASE_URL_API}api/${url}/${id}`);
+//     return res;
+// };
+export const deleteAPI = async<Tfecth, TData>(url: string, post?: TData, token?: string) => {
+    const res: Tfecth = await axios({
+        method: "delete",
+        url: `${BASE_URL_API}/api/${url}`,
+        data: post || null,
+        headers: { Authorization: `Bearer ${token}` },
+    });
     return res;
 };
 export function setAuthorizationToken(token: string) {

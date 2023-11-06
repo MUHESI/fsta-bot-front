@@ -19,7 +19,8 @@ export const getUsers = selector({
                 ...resData,
                 success: false,
                 data: [],
-                error: new Error("res is undefined"),
+                // error: new Error("res is undefined"),
+                error: res,
                 message: "Opps, something went wrong, please try again."
             }
             return resData

@@ -11,11 +11,11 @@ import AlertMessage, {
 } from "@/components/core/Alert";
 import RowRadioButtonsGroup from "@/components/core/RadioGroup";
 import { IStateLoading } from "@/types/stateSchema/loading";
-import { ICreateAlert } from "@/types/stateSchema/alert";
+import { IAlert, ICreateAlert } from "@/types/stateSchema/alert";
 import { INIT_FORM_CREATE_ALERT } from "@/constants/initForm";
 import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 import { AG_Toast, StatusToast, showToast } from "@/components/core/ToastAlert";
-import { postAPI } from "@/utils/fetchData";
+import { getAPI, postAPI } from "@/utils/fetchData";
 import { IBaseData, IFetchData, IResRecoil } from "@/types/commonTypes";
 import {
   currentHalthAreaIDState,
@@ -30,13 +30,16 @@ import Pyramid from "@/components/pyramid";
 import { IMaladie } from "@/types/stateSchema/maladie";
 import { TexttLoading } from "@/components/skeleton";
 import { IOrganization } from "@/types/stateSchema/organization";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { ALERT_ACTIONS_STATUS } from "@/types/stateSchema/gap";
 
 function CreateAlert() {
   const navigate = useNavigate();
+  const { statusAction, idAlert } = useParams();
+
   const user = useRecoilValue(userAuthenticatedState);
   const currentMaladieId = useRecoilValue(currentMaladieIDState);
-  const currentStructureID = useRecoilValue(currentStructureIDState);
+  // const currentStructureID = useRecoilValue(currentStructureIDState);
   const currentHalthAreaID = useRecoilValue(currentHalthAreaIDState);
 
   const commonClass = "border border-main-color rounded-lg my-5";
@@ -62,6 +65,61 @@ function CreateAlert() {
     },
   });
 
+  const getAlertById = async (id_Alert: string) => {
+    const { metaData } = user;
+    if (!metaData?.affectationSelected) {
+      // ${metaData?.affectationSelected[0]?.organisation.id}
+    }
+    try {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "loadGapById", lKey: "status" },
+          true
+        )
+      );
+      const res = await getAPI<IFetchData<IAlert> | undefined>(
+        `alert/detailAlert/${id_Alert}`,
+        user.token
+      );
+      if (res?.data) {
+        console.clear();
+        console.log("res?.data", res?.data);
+        setFormCreateAlert(res.data.data);
+        //   const formGapFromCurrentGap = preProcessGap(res?.data?.data);
+        //   setFormGap(formGapFromCurrentGap);
+        //   setFormValidateGap(res?.data?.data);
+        //   setInfoLoading(
+        //     HandleFormObject.handleSecondLevel(
+        //       infoLoading,
+        //       { fKey: "loadGapById", lKey: "status" },
+        //       false
+        //     )
+        //   );
+      }
+    } catch (error) {
+      setInfoLoading(
+        HandleFormObject.handleSecondLevel(
+          infoLoading,
+          { fKey: "loadGapById", lKey: "status" },
+          false
+        )
+      );
+    }
+  };
+  useEffect(() => {
+    if (statusAction === ALERT_ACTIONS_STATUS.VALIDATE_ALERT) {
+      getAlertById(idAlert || "");
+      // const elart = {}
+      // const affectationSelected = user.metaData.affectationSelected;
+      // if (affectationSelected[0].organisation) {
+      //   setFormGap({
+      //     ...formGap,
+      //     orgid: affectationSelected[0].organisation.id,
+      //   });
+      // }
+    }
+  }, [user]);
   const [formCreateAlert, setFormCreateAlert] = useState<ICreateAlert>(
     INIT_FORM_CREATE_ALERT
   );

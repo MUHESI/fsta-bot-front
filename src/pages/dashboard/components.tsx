@@ -15,6 +15,7 @@ export interface IPropsCustomSelectField<TData> {
   value: string | number;
   defaultValue?: { label: string; value: string | number };
   onChange: (e: any) => void;
+  includeALLItems?: { label: string; value: string | number };
 }
 
 export function SelectField<TData>({
@@ -25,6 +26,7 @@ export function SelectField<TData>({
   tooltipTitle,
   label,
   defaultValue,
+  includeALLItems,
 }: IPropsCustomSelectField<TData>) {
   return (
     <Tooltip title={tooltipTitle}>
@@ -40,13 +42,27 @@ export function SelectField<TData>({
         disabled:cursor-not-allowed disabled:opacity-50 px-3 py-1  text-gray-400 rounded   text-[0.3em]"
       >
         {defaultValue ? (
-          <option value={defaultValue.value} className="">
-            {defaultValue.label}
-          </option>
+          <>
+            <option value={defaultValue.value} className="">
+              {defaultValue.label}
+            </option>
+            {includeALLItems && (
+              <option value={includeALLItems.value} className="">
+                {includeALLItems.label}
+              </option>
+            )}
+          </>
         ) : (
-          <option value={""} className="">
-            {label}
-          </option>
+          <>
+            <option value={""} className="">
+              {label}
+            </option>
+            {includeALLItems && (
+              <option value={includeALLItems.value} className="">
+                {includeALLItems.label}
+              </option>
+            )}
+          </>
         )}
         {data?.map((item: any, key: number) => (
           <option

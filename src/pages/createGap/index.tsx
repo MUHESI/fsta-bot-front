@@ -421,9 +421,6 @@ function CreateGap() {
       territoirid: currentTerritoryId || "",
       zoneid: currentZoneSanteId || "",
     };
-    console.clear();
-
-    console.log("formGap", formGap);
     if (statusAction === GAP_ACTIONS_STATUS.VALIDATE_GAP) {
       form = {
         ...form,
@@ -519,7 +516,7 @@ function CreateGap() {
 
   useEffect(() => {
     if (statusAction === GAP_ACTIONS_STATUS.CREATE_GAP) {
-      const affectationSelected = user.metaData.affectationSelected;
+      const affectationSelected = user?.metaData?.affectationSelected || [];
       if (affectationSelected[0].organisation) {
         setFormGap({
           ...formGap,
