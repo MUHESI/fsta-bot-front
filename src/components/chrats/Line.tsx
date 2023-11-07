@@ -12,6 +12,7 @@ import {
   PointElement,
   Filler,
 } from "chart.js";
+import { handleDate } from "@/helpers/handleDate";
 // import { handleDate } from "../handleDate";
 
 ChartJS.register(
@@ -80,25 +81,38 @@ export const DATA_CHART = {
   ],
 };
 
-function ChartComponent() {
+interface IData {
+  dataAxis: number[];
+  legend: string;
+}
+
+interface IProps {
+  dataLine: IData[];
+}
+
+function ChartComponent({ dataLine }: IProps) {
   const [data, setData] = useState({ ...DATA_CHART });
   const [showStatus, setShowStatus] = useState(false);
 
-  // useEffect(() => {
-  //   if (dataAxis) {
-  //     let data_ = { ...data };
-  //     data_.labels = data.labels.slice(0, handleDate.currentMonth);
-  //     data_.datasets[0].data = dataAxis;
-  //     data_.datasets[0].label = legend;
-  //     setData(data_);
-  //   }
-  // }, [dataAxis]);
+  const loadData = () => {
+    let data_ = { ...data };
+    data_.labels = data.labels.slice(0, handleDate.currentMonth + 1);
+    for (let i = 0; i < dataLine.length; i++) {
+      data_.datasets[i].data = [...dataLine[i].dataAxis];
+      data_.datasets[i].label = dataLine[i].legend;
+    }
+    setData(data_);
+  };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowStatus(true);
-  //   }, 50);
-  // }, []);
+  // useEffect(() => {}, []);
+
+  useEffect(() => {
+    setShowStatus(false);
+    loadData();
+    setTimeout(() => {
+      setShowStatus(true);
+    }, 50);
+  }, [dataLine]);
   return (
     <div
       style={{
@@ -107,7 +121,7 @@ function ChartComponent() {
         // paddingTop: " 20px",
       }}
     >
-      <Line data={data} />
+      {showStatus && <Line data={data} />}
     </div>
   );
 }

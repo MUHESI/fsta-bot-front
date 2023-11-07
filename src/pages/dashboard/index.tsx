@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { MdNotificationsActive } from "react-icons/md";
 import { GiCaveman, GiStrongMan } from "react-icons/gi";
@@ -11,8 +11,12 @@ import {
   getEpidemioLogicWeek,
   getYearsInInterval,
 } from "@/constants/constants";
-import { useRecoilValue } from "recoil";
-import { getMaladies, getProvincesState } from "@/globalState/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  dashobard_getAllGaps,
+  getMaladies,
+  getProvincesState,
+} from "@/globalState/atoms";
 import { IProvince } from "@/types/stateSchema/province";
 import SkeletonAnimation from "@/components/skeleton";
 import { IMaladie } from "@/types/stateSchema/maladie";
@@ -26,17 +30,89 @@ import AlertMessage, {
   severityAlert,
 } from "@/components/core/Alert";
 import Filter from "./Filter";
+import {
+  IDataFilter,
+  IPopulation,
+  appyFilterDashboard,
+  filterDashboardState,
+  getSumPopulation,
+} from "@/globalState/atoms/dashboard";
+import { TabMenuDashboard } from "@/components/core/tabMenuCustom";
+import { HandleFormObject } from "@/services/stateHandler/formDataHandler";
 
 function Home() {
   const resProvinces = useRecoilValue(
     getProvincesState
   ) as unknown as IResRecoil<IProvince[]>;
 
+  const [formFilter, setFormFilter] = useRecoilState(filterDashboardState);
+  const [dataResFilter, setDataResFilter] = useState<IDataFilter>();
   const resMaladies = useRecoilValue(getMaladies) as unknown as IResRecoil<
     IMaladie[]
   >;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+  const [popOfData, setPopOfData] = useState<IPopulation>();
   const commonClassMain = "border my-2 p-1 rounded";
+  const dashboard_resGaps = useRecoilValue(
+    dashobard_getAllGaps
+  ) as unknown as IResRecoil<{
+    reference: any[];
+    refValidated: any[];
+    refUnValidated: any[];
+    refAnswered: any[];
+  }>;
+
+  // const [formApplyFilter, setFormApplyFilter] =
+  //   useRecoilState(appyFilterDashboard);
+
+  useEffect(() => {
+    if (dashboard_resGaps.data) {
+      const res = appyFilterDashboard({
+        resDBLocal: dashboard_resGaps.data,
+        resFilter: formFilter,
+      });
+      setDataResFilter(res);
+    }
+  }, [dashboard_resGaps.data, formFilter]);
+
+  const [tabId, setTabId] = useState<number>(0);
+
+  useEffect(() => {
+    switch (tabId) {
+      case 0:
+        const pop = getSumPopulation(
+          dataResFilter?.dataGaps.dataFiltered.unValidated || []
+        );
+        setPopOfData(pop);
+        break;
+      case 1:
+        const pop_ = getSumPopulation(
+          dataResFilter?.dataGaps.dataFiltered.validated || []
+        );
+        setPopOfData(pop_);
+        break;
+      case 2:
+        const pop__ = getSumPopulation(
+          dataResFilter?.dataGaps.dataFiltered.answered || []
+        );
+        setPopOfData(pop__);
+        break;
+      default:
+        break;
+    }
+  }, [dataResFilter, tabId]);
+  const handleStatus = (status_: number) => {
+    setFormFilter(
+      HandleFormObject.handleSecondLevel(
+        formFilter,
+        {
+          fKey: "statusItem",
+          lKey: "value",
+        },
+        status_
+      )
+    );
+  };
 
   return (
     <div className="p-1 bg-[#f3f4f6]">
@@ -53,6 +129,11 @@ function Home() {
         />
       )}
       <main className=" my-4 p-2  bg-white rounded shadow">
+        {/* <TabMenuDashboard
+          dataTabs={["REMONTES", "INVESTIGUES", "REPONDUS"]}
+          handleTabId={setTabId}
+          defeaultTabId={tabId}
+        /> */}
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
             <div className="">
@@ -77,8 +158,36 @@ function Home() {
                 </div>
               </section>
               <section className={commonClassMain}>
-                <MainTitle title="Total PIN" />
-                <BarChart />
+                <div className="">
+                  <MainTitle title="Total PIN" />
+                  <SelectField
+                    data={[
+                      { id: 0, value: "NON VALIDEES" },
+                      { id: 1, value: "VALIDEES" },
+                      { id: 2, value: "REPONDUS" },
+                    ]}
+                    onChange={(value: string) => {
+                      setTabId(Number(value));
+                      console.clear();
+                      console.log("formFilter", formFilter);
+                    }}
+                    label={"Choisir status "}
+                    tooltipTitle=" NON VALIDES ? VALIDES ? REPONDU ?"
+                    keyObject="value"
+                    value={"..."}
+                  />
+                </div>
+                {popOfData && (
+                  <BarChart
+                    dataAxis={{
+                      pin: popOfData.pin,
+                      pop_deplace: popOfData.pop_deplace,
+                      pop_eloigne: popOfData.pop_eloigne,
+                      pop_retourne: popOfData.pop_retourne,
+                      // pop_site: dataResFilter?.dataGaps.sumPopulation.pop_site,
+                    }}
+                  />
+                )}
               </section>
             </div>
           </Grid>
@@ -87,8 +196,11 @@ function Home() {
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                   <CardNumberItem
-                    tag="Alerts signalés"
-                    numberItems="4.56"
+                    tag="Alertes signalés"
+                    numberItems={
+                      dataResFilter?.dataAlerts?.lenghtAlertsByStatus
+                        .noValidated || ""
+                    }
                     link="/gaps"
                   >
                     <MdNotificationsActive />
@@ -96,8 +208,12 @@ function Home() {
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                   <CardNumberItem
-                    tag="Personnes retorunées"
-                    numberItems="2.56"
+                    tag="Alertes investigués"
+                    // numberItems="2.56"
+                    numberItems={
+                      dataResFilter?.dataAlerts?.lenghtAlertsByStatus
+                        .validated || ""
+                    }
                     link="/gaps"
                   >
                     <GiStrongMan />
@@ -105,8 +221,23 @@ function Home() {
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                   <CardNumberItem
-                    tag="Personnes deplacées"
-                    numberItems="1.26"
+                    tag="Alertes répondus"
+                    numberItems={
+                      dataResFilter?.dataAlerts?.lenghtAlertsByStatus
+                        .answered || ""
+                    }
+                    link="/gaps"
+                  >
+                    <GiStrongMan />
+                  </CardNumberItem>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                  <CardNumberItem
+                    tag="Gaps remontés"
+                    numberItems={
+                      dataResFilter?.dataGaps?.lenghtGapsByStatus.noValidated ||
+                      ""
+                    }
                     link="/gaps"
                   >
                     <GiCaveman />
@@ -114,16 +245,50 @@ function Home() {
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                   <CardNumberItem
-                    tag="Alerts signalés"
-                    numberItems="4.56"
+                    tag="Gaps investigués"
+                    numberItems={
+                      dataResFilter?.dataGaps?.lenghtGapsByStatus.validated ||
+                      ""
+                    }
                     link="/gaps"
                   >
-                    <MdNotificationsActive />
+                    <GiCaveman />
+                  </CardNumberItem>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                  <CardNumberItem
+                    tag="Gaps répondues"
+                    numberItems={
+                      dataResFilter?.dataGaps?.lenghtGapsByStatus.answered || ""
+                    }
+                    link="/gaps"
+                  >
+                    <GiCaveman />
                   </CardNumberItem>
                 </Grid>
               </Grid>
               <section className={commonClassMain}>
-                <ChartComponent />
+                {dataResFilter && (
+                  <ChartComponent
+                    dataLine={[
+                      {
+                        dataAxis:
+                          dataResFilter.dataGaps.lineData.dataAxisNoValidated,
+                        legend: "Remontés",
+                      },
+                      {
+                        dataAxis:
+                          dataResFilter.dataGaps.lineData.dataAxisValidated,
+                        legend: "Validés",
+                      },
+                      {
+                        dataAxis:
+                          dataResFilter.dataGaps.lineData.dataAxisAnswered,
+                        legend: "Repondus",
+                      },
+                    ]}
+                  />
+                )}
               </section>
             </section>
           </Grid>
@@ -148,7 +313,7 @@ function Home() {
 
             <section className={commonClassMain}>
               <MainTitle title="Total PIN" />
-              <BarChart bgColor="true" />
+              {/* <BarChart bgColor="true" /> */}
             </section>
           </Grid>
         </Grid>
@@ -173,3 +338,10 @@ function Dashboard() {
   );
 }
 export default Dashboard;
+
+// // TODO Move this later
+// export interface IProps {
+//   dataTabs: string[];
+//   handleTabId: (id: number) => void;
+//   defeaultTabId?: number;
+// }

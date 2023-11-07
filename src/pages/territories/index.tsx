@@ -61,7 +61,11 @@ function Territories() {
                 // statusLoading={true}
               />
               <DialogCustom
-                btnText="Nouveau territoire"
+                // btnText="Nouveau territoire"
+                mainBtnOptions={{
+                  btnText: "Nouveau territoire",
+                  useBtn: true,
+                }}
                 mainTitle="Création du nouveau territoire"
                 width="sm"
               >

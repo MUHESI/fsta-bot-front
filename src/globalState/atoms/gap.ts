@@ -12,12 +12,22 @@ export const getAllGaps = selector({
     key: GAPS_KEYS.GET_GAPS,
     get: async ({ get }) => {
         let resData: IResRecoil<any[]> = { ...RES_RECOIL, data: [], keyResource: GAPS_KEYS.GET_GAPS, }
-        const { token } = get(userAuthenticatedState)
+        const { token, metaData } = get(userAuthenticatedState)
+        if (metaData?.affectationSelected === undefined) {
+            resData = {
+                ...resData,
+                success: false,
+                data: [],
+                error: new Error("res is undefined"),
+                message: "Opps, something went wrong, Affectation selected not found, verify logout and login again"
+            }
+            return resData
+        }
         const provinceId = get(currentProvinceIDState)
         // TODO: Type this correctly  later
         let res: any = {}
         if (provinceId === null) {
-            res = await getAPI<IFetchData<IGap[]> | undefined>('gap/listgap', token);
+            res = await getAPI<IFetchData<IGap[]> | undefined>(`gap/listgap/${metaData?.affectationSelected[0]?.organisation.id}`, token);
         }
         else {
             res = await getAPI<IFetchData<IGap[]> | undefined>(`gap/listgap_province/${provinceId}`, token);
@@ -77,8 +87,6 @@ export const currentItemValidateGap = atom<any | {}>({
     // }
     default: {}
 })
-
-
 
 //SCORE GARD
 export const createScoreCard = atom<ICreateGap>({
@@ -175,3 +183,69 @@ export const preProcessGap = (ItemGap: any) => {
     // gap.covid19_nbrcas = gap.suite1.suite2.malnutrition
     // gap.taux_occupation = gap.suite1.suite2.taux_occupation
 }
+
+export const dashobard_getAllGaps = selector({
+    key: GAPS_KEYS.GET_GAPS,
+    get: async ({ get }) => {
+        let resData: IResRecoil<any> = { ...RES_RECOIL, data: {}, keyResource: GAPS_KEYS.GET_GAPS, }
+        //TODO: IMPROVE THIS LATER 
+        const { token, metaData } = get(userAuthenticatedState)
+        if (metaData?.affectationSelected === undefined) {
+            resData = {
+                ...resData,
+                success: false,
+                data: [],
+                error: new Error("res is undefined"),
+                message: "Opps, something went wrong, Affectation selected not found, verify logout and login again"
+            }
+            return resData
+        }
+        const provinceId = get(currentProvinceIDState)
+        // GAPS NON VAILDATED |GAPS VAILDATED|GAPS ANSWERED
+        // let resGaps: any = {
+        //     reference: [],
+        //     refValited: [],
+        //     refUnValited: [],
+        //     refAnswered: [],
+
+        // }
+        let resGapsUnValidated: any = []
+        let resGapsValidated: any = []
+        let resGapsAnswered: any = []
+        if (provinceId === null) {
+            resGapsUnValidated = await getAPI<IFetchData<any> | undefined>(`gap/listgap/${metaData?.affectationSelected[0]?.organisation.id}`, token);
+            resGapsValidated = await getAPI<IFetchData<any> | undefined>(`gap/listgap_valide/${metaData?.affectationSelected[0]?.organisation.id} `, token);
+            resGapsAnswered = await getAPI<IFetchData<any> | undefined>(`gap/list_gap_validerepondu/${metaData?.affectationSelected[0]?.organisation.id} `, token);
+            // resGaps.refValited = resGaps.reference
+            // resGaps.refUnValited = resGaps.reference
+            // resGaps.refAnswered = resGaps.reference
+        }
+        console.clear()
+        // // console.log('metaData', metaData)
+        // console.log('resGapsAnswered', resGapsAnswered)
+        // console.log('resGapsValidated', resGapsValidated)
+        if (resGapsUnValidated instanceof Error || resGapsUnValidated === undefined) {
+            resData = {
+                ...resData,
+                success: false,
+                data: {},
+                error: new Error("res is undefined"),
+                message: "Opps, something went wrong, please try again."
+            }
+            return resData
+        }
+        resData = {
+            ...resData,
+            success: true,
+            data: {
+                reference: resGapsUnValidated?.data?.data ?? [],
+                refUnValidated: resGapsUnValidated?.data?.data ?? [],
+                refValidated: resGapsValidated?.data?.data ?? [],
+                refAnswered: resGapsAnswered?.data?.data ?? [],
+            },
+            error: null,
+            message: "",
+        }
+        return resData
+    },
+});

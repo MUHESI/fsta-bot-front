@@ -35,7 +35,7 @@ function Provinces() {
             // statusLoading={true}
           />
           <DialogCustom
-            btnText="Nouvelle province"
+            mainBtnOptions={{ btnText: "Nouvelle province", useBtn: true }}
             mainTitle="Création de la nouvelle province"
             width="sm"
           >

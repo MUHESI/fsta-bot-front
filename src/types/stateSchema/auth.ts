@@ -8,7 +8,7 @@ export interface ILogin {
 
 export interface IMetaData {
     permissions?: any[];
-    affectationSelected?: {
+    affectationSelected: {
         id: string
         organisation: IOrganization
     }[];

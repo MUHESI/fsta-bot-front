@@ -107,7 +107,7 @@ function ResetPassword() {
             full_name: data.data.full_name,
             id: data.data.id,
             token: data.token ? data.token : "",
-            metaData: { ...data_.metaData },
+            // metaData: { ...data_.metaData },
             profil: data?.data?.profil || "",
           });
           navigate("/");

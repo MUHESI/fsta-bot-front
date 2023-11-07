@@ -36,8 +36,8 @@ export const options: any = {
 const labels = [
   "pop. déplacées",
   "pop. rétournées",
-  "pop. moins eloignées",
-  "Autres",
+  "pop. eloignées",
+  "PIN",
   // "Autres adads",
   // "June",
   // "July",
@@ -60,36 +60,39 @@ export const dataInit = {
   ],
 };
 
-export function BarChart({ bgColor }: { bgColor?: string }) {
+export function BarChart({
+  dataAxis,
+}: {
+  dataAxis: {
+    pop_deplace: number;
+    pop_eloigne: number;
+    pop_retourne: number;
+    pin: number;
+  };
+}) {
   const [data, setData] = useState({ ...dataInit });
   const [showStatus, setShowStatus] = useState(false);
 
   useEffect(() => {
-    //  if (bgColor) {
-    //    let data_ = { ...data };
-    //    data_.labels = data.labels.slice(0, handleDate.currentMonth);
-    //    data_.datasets[0].data = dataAxis;
-    //    data_.datasets[0].label = legend;
-    //    setData(data_);
-    //  }
-    if (bgColor) {
-      let data_ = { ...data };
-      data_.datasets[0].backgroundColor = "rgba(54, 162, 235, 0.6)";
-      setData(data_);
-    }
-  }, []);
+    setShowStatus(false);
+    let data_ = { ...data };
+    data_.datasets[0].data[0] = dataAxis.pop_deplace;
+    data_.datasets[0].data[1] = dataAxis.pop_retourne;
+    data_.datasets[0].data[2] = dataAxis.pop_eloigne;
+    data_.datasets[0].data[3] = dataAxis.pin;
+    setData(data_);
+    setTimeout(() => {
+      setShowStatus(true);
+    }, 50);
+  }, [dataAxis]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setShowStatus(true);
-  //   }, 50);
-  // }, []);
+  useEffect(() => {}, [dataAxis]);
 
   return (
     <div style={{ width: "100%" }}>
-      <Bar width={"100%"} height={"250px"} options={options} data={data} />
-      {/* {showStatus && (
-      )} */}
+      {showStatus && (
+        <Bar width={"100%"} height={"250px"} options={options} data={data} />
+      )}
     </div>
   );
 }

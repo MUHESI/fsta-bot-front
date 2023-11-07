@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from "react";
 import { BiChevronRight } from "react-icons/bi";
-import { MdNotificationsActive } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 // TODO:MOVE THIS LATER
@@ -29,7 +28,7 @@ export function CardNumberItem({
       }}
     >
       <h6 className="text-sm inline text-gray-400">{`#${tag}`} </h6>
-      <div className="flex  items-end gap-1">
+      <div className="flex  items-end gap-1" style={{ height: "33px" }}>
         <div
           className=" text-main-color text-[0.6em]"
           style={{ transform: "translateY(-7px)" }}
@@ -37,7 +36,7 @@ export function CardNumberItem({
           {children}
         </div>
         <span className={` ${textBrightOrange} text-[0.80em] `}>
-          {numberItems}K{" "}
+          {numberItems || 0}
         </span>
       </div>
       <p

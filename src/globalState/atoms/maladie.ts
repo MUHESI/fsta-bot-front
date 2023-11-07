@@ -21,7 +21,8 @@ export const getMaladies = selector({
             }
             return resData
         }
-        const res = await getAPI<IFetchData<IMaladie[]> | undefined>(`maladie/list/${metaData?.affectationSelected[0]?.organisation.id}`, token);
+        // const res = await getAPI<IFetchData<IMaladie[]> | undefined>(`maladie/list/${metaData?.affectationSelected[0]?.organisation.id}`, token);
+        const res = await getAPI<IFetchData<IMaladie[]> | undefined>(`maladie/list`, token);
         if (res instanceof Error || res === undefined) {
             resData = {
                 ...resData,

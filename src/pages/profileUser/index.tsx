@@ -568,7 +568,7 @@ function ShowProfileUser() {
             <div className={commonClassSection}>
               <LastHeading title={"Permissions de l'utilisateur"} />
               <div className="px-5">
-                {user?.metaData.affectationSelected?.map(
+                {user?.metaData?.affectationSelected?.map(
                   (item_: any, key: number) => (
                     <div key={key}>
                       <h4 className="bordeer border-b pb-1">

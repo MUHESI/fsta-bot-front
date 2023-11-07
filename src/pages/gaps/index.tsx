@@ -38,7 +38,7 @@ function Gaps() {
 
   const setCurrentProvinceID = useSetRecoilState(currentProvinceIDState);
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
-
+  ``;
   return (
     <div className="px-5">
       {(resGaps.message || resProvinces.message) && (

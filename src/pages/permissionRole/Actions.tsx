@@ -19,9 +19,8 @@ import { styles } from "../gaps/columns";
 import DialogCustom from "@/components/core/DialogCustom";
 import CreateRole from "../createRole";
 
-function RoleActions({ role }: { role: any }) {
+function RoleActions() {
   const navigate = useNavigate();
-
   return (
     <div title="Actions">
       {/* <DropdownMenu>

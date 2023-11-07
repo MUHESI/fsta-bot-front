@@ -212,13 +212,13 @@ function CreateAlert() {
   useEffect(() => {
     let orgArray: IOrganization[] = [];
     if (user.metaData) {
-      user.metaData.permissions.map((item: any) =>
+      user?.metaData?.permissions?.map((item: any) =>
         orgArray.push(item.organisation)
       );
       setOrganizationsUser(orgArray);
     }
 
-    const affectationSelected = user.metaData.affectationSelected;
+    const affectationSelected = user?.metaData?.affectationSelected || [];
     if (affectationSelected[0].organisation) {
       setFormCreateAlert({
         ...formCreateAlert,
@@ -259,7 +259,10 @@ function CreateAlert() {
                   label="Organisation selectionnée"
                   type="string"
                   onChange={(e) => e}
-                  value={user.metaData.affectationSelected[0].organisation.name}
+                  value={
+                    user?.metaData?.affectationSelected[0].organisation.name ||
+                    ""
+                  }
                 />
               </div>
               <div className="flex flex-wrap justify-between px-5  gap-5">

@@ -25,31 +25,6 @@ function Filter() {
     <div>
       <div className="flex gap-2">
         <SelectField
-          data={[
-            { id: "NON VALIDEES", value: "NON VALIDEES" },
-            { id: "VALIDEES", value: "VALIDEES" },
-            { id: "REPONDUS", value: "REPONDUS" },
-          ]}
-          onChange={(value: string) => {
-            setFormFilter(
-              HandleFormObject.handleSecondLevel(
-                formFilter,
-                {
-                  fKey: "statusItem",
-                  lKey: "value",
-                },
-                value
-              )
-            );
-            console.clear();
-            console.log("formFilter", formFilter);
-          }}
-          label={"Status "}
-          tooltipTitle=" NON VALIDES ? VALIDES ? REPONDU ?"
-          keyObject="value"
-          value={"..."}
-        />
-        <SelectField
           data={resMaladies.data}
           onChange={(value: string) => {
             setFormFilter(
@@ -64,7 +39,8 @@ function Filter() {
             );
           }}
           includeALLItems={{
-            label: "Toutes les maladies",
+            // label: "Toutes les maladies",
+            label: "ALL",
             value: "ALL",
           }}
           label="Maladie"
@@ -72,8 +48,6 @@ function Filter() {
           keyObject="name"
           value={"..."}
         />
-      </div>
-      <div className="flex gap-2">
         <SelectField
           data={getYearsInInterval(2022, 2030)}
           onChange={(value: string) => {
@@ -84,15 +58,21 @@ function Filter() {
                   fKey: "epidemYear",
                   lKey: "value",
                 },
-                Number(value)
+                value
               )
             );
+          }}
+          includeALLItems={{
+            label: "ALL",
+            value: "ALL",
           }}
           label={"Année epid."}
           tooltipTitle="Filtrer par année epidemiologie"
           keyObject="value"
           value={"..."}
         />
+      </div>
+      <div className="flex gap-2">
         <SelectField
           data={getEpidemioLogicWeek()}
           label={"Semaine. epid."}
@@ -104,22 +84,26 @@ function Filter() {
                   fKey: "epidemWeek",
                   lKey: "value",
                 },
-                Number(value)
+                value
               )
             );
+          }}
+          includeALLItems={{
+            // label: "Toutes les maladies",
+            label: "ALL",
+            value: "ALL",
           }}
           tooltipTitle="Filtrer par la semaine epidemiologie"
           keyObject="value"
           value={"..."}
         />
-      </div>
-      <div className="flex gap-2">
         <SelectField
           data={resProvinces.data}
           label={"Province"}
           keyObject="name"
           includeALLItems={{
-            label: "Toutes les DPS",
+            // label: "Toutes les DPS",
+            label: "ALL",
             value: "ALL",
           }}
           value={"..."}
@@ -137,6 +121,8 @@ function Filter() {
             );
           }}
         />
+      </div>
+      <div className="flex gap-2">
         <SelectField
           data={resProvinces.data}
           label={"Territoire"}
@@ -154,14 +140,13 @@ function Filter() {
           }}
           keyObject="name"
           includeALLItems={{
-            label: "Toutes les DPS",
+            // label: "Toutes les DPS",
+            label: "ALL",
             value: "ALL",
           }}
           value={"..."}
           tooltipTitle="Filtrer par territoire"
         />
-      </div>
-      <div className="flex gap-2">
         <SelectField
           data={resProvinces.data}
           label={"Zone de santé"}
@@ -179,12 +164,15 @@ function Filter() {
           }}
           keyObject="name"
           includeALLItems={{
-            label: "Toutes les zones",
+            // label: "Toutes les zones",
+            label: "ALL",
             value: "ALL",
           }}
           value={"..."}
           tooltipTitle="Filtrer par zone de santé"
         />
+      </div>
+      <div className="flex gap-2">
         <SelectField
           data={resProvinces.data}
           label={"Aires de santé"}
@@ -202,14 +190,13 @@ function Filter() {
           }}
           keyObject="name"
           includeALLItems={{
-            label: "Toutes les Aires",
+            // label: "Toutes les Aires",
+            label: "ALL",
             value: "ALL",
           }}
           value={"..."}
           tooltipTitle="Filtrer par aire de santé"
         />
-      </div>
-      <div className="flex gap-2">
         <SelectField
           data={resProvinces.data}
           label={"Structure de santé"}
@@ -227,7 +214,8 @@ function Filter() {
           }}
           keyObject="name"
           includeALLItems={{
-            label: "Toutes les Zones",
+            // label: "Toutes les Zones",
+            label: "ALL",
             value: "ALL",
           }}
           value={"..."}

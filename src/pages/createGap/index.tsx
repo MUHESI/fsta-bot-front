@@ -530,11 +530,10 @@ function CreateGap() {
   const [organizationsUser, setOrganizationsUser] = useState<IOrganization[]>(
     []
   );
-  // const [orgSelected, setOrgSelected] = useState<string>("");
   useEffect(() => {
     let orgArray: IOrganization[] = [];
     if (user.metaData) {
-      user.metaData.permissions.map((item: any) =>
+      user?.metaData?.permissions?.map((item: any) =>
         orgArray.push(item.organisation)
       );
       setOrganizationsUser(orgArray);
@@ -625,12 +624,13 @@ function CreateGap() {
                         setFormGap({
                           ...formGap,
                           orgid:
-                            user.metaData.affectationSelected[0].organisation
-                              .id,
+                            user.metaData?.affectationSelected[0].organisation
+                              .id || "",
                         });
                       }}
                       value={
-                        user.metaData.affectationSelected[0].organisation.name
+                        user?.metaData?.affectationSelected[0]?.organisation
+                          .name || ""
                       }
                     />
                   </div>

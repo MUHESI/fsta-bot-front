@@ -75,6 +75,7 @@ function AddPermissions({ currentUser, setCloseDialog }: IProps) {
         type: StatusToast.DARK,
       });
     }
+    console.clear();
 
     try {
       let tabAffectationsId: string[] = [];
@@ -105,6 +106,7 @@ function AddPermissions({ currentUser, setCloseDialog }: IProps) {
         roleid: roleId,
         userid: userId,
       };
+      // console.log("affectationForm", affectationForm);
       let newAffectationId = null;
       if (org.length === 0) {
         const { data } = await postAPI<
@@ -129,11 +131,13 @@ function AddPermissions({ currentUser, setCloseDialog }: IProps) {
         IFetchData<IBaseData>,
         {
           affectationid: string;
+          orgid: string;
           permissionid: string[];
         }
       >(
         "permission/donnerPermission",
         {
+          orgid: orgId,
           affectationid: org.length === 0 ? newAffectationId : org[0].id,
           permissionid: tabAffectationsId,
         },
