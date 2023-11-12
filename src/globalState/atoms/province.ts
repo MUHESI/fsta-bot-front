@@ -23,6 +23,8 @@ export const getProvincesState = selector({
             }
             return resData
         }
+        // console.clear()
+        // console.log(' Prov>>', res?.data?.data)
         resData = {
             ...resData,
             success: true,

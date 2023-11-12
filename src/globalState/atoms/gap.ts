@@ -122,7 +122,6 @@ export const preProcessGap = (ItemGap: any) => {
     let datapartenaireid = []
     for (let index = 0; index < gap.datapartenaire.length; index++) {
         const allindicateur = gap.datapartenaire[index]?.partenaire?.allindicateur || []
-        console.log('allindicateur', allindicateur)
         datapartenaireid.push({
             ...gap.datapartenaire[index],
             email: gap.datapartenaire[index].contact_point_facal,
@@ -220,7 +219,6 @@ export const dashobard_getAllGaps = selector({
             // resGaps.refUnValited = resGaps.reference
             // resGaps.refAnswered = resGaps.reference
         }
-        console.clear()
         // // console.log('metaData', metaData)
         // console.log('resGapsAnswered', resGapsAnswered)
         // console.log('resGapsValidated', resGapsValidated)

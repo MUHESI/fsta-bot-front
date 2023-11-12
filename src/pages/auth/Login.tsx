@@ -249,11 +249,11 @@ function Login() {
           </>
         ) : (
           <>
-            <SellectOrganization
+            {/* <SellectOrganization
               resetAffectationsUsser={() => setAffectationsUsserLogged([])}
               selectOrg={selectOrg}
               affectationsUsser={affectationsUsserLogged}
-            />
+            /> */}
           </>
         )}
       </>

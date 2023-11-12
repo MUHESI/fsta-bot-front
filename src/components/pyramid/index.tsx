@@ -27,6 +27,7 @@ function ShowPyramid() {
   const setCurrentHalthAreaID = useSetRecoilState(currentHalthAreaIDState);
   const setCurrentZoneSanteID = useSetRecoilState(currentZoneSanteIDState);
   const setCurrentStructureID = useSetRecoilState(currentStructureIDState);
+  const currentTerritoryId = useRecoilValue(currentTerritoryIDState);
 
   const resProvinces = useRecoilValue(
     getProvincesState
@@ -46,6 +47,15 @@ function ShowPyramid() {
     getListStuctureHealthByAreas
   ) as unknown as IResRecoil<IStructureHealth[]>;
   const [alert, setAlert] = useState({ ...INIT_ALERT_MODEL, open: true });
+
+  useEffect(() => {
+    console.clear();
+    console.log("resProvinces", resProvinces.data);
+    console.log("resTerritoriesByProvince", resTerritoriesByProvince.data);
+    console.log("resZoneSante", resZoneSante.data);
+    console.log("resListHealthAreasByZone", resListHealthAreasByZone.data);
+    console.log("resListStructureHealth", resListStructureHealth.data);
+  }, [resProvinces, currentTerritoryId]);
 
   return (
     <div className="mb-2">

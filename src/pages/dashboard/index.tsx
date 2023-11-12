@@ -62,9 +62,6 @@ function Home() {
     refAnswered: any[];
   }>;
 
-  // const [formApplyFilter, setFormApplyFilter] =
-  //   useRecoilState(appyFilterDashboard);
-
   useEffect(() => {
     if (dashboard_resGaps.data) {
       const res = appyFilterDashboard({

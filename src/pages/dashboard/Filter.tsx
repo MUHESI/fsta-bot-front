@@ -140,7 +140,6 @@ function Filter() {
           }}
           keyObject="name"
           includeALLItems={{
-            // label: "Toutes les DPS",
             label: "ALL",
             value: "ALL",
           }}
