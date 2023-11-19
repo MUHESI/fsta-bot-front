@@ -1,1 +1,0 @@
-export { HandlePermission } from './checkPermissions'
