@@ -1,1 +1,0 @@
-export { createMapView } from '../arcGis-components/arcMapView/createMapView'

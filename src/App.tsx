@@ -1,9 +1,9 @@
 import React from "react";
-import Layout from "./components/navigation/Layout";
+// import Layout from "./components/navigation/Layout";
 import { ToastContainer } from "react-toastify";
 import RangerSlider from "@/components/core/RangerSlider";
 import { Grid } from "@mui/material";
-import SellectOrganization from "./pages/SelectOrganization";
+import SellectOrganization from "@/components/SelectOrganization";
 
 function App() {
   return (
