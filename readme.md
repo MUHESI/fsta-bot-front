@@ -7,9 +7,7 @@ the Université des
 Pays des Grands Lacs (ULPGL-GOMA)
 [ulpgl](https://ulpgl.net//)
 
-.
-
-## Available features 
+.## Available features 
 ### As a visitor you can
 - Ask  general questions about this universitey like 
 - Unversity adress
@@ -35,8 +33,11 @@ Pays des Grands Lacs (ULPGL-GOMA)
  - yarn run build
 
 ## Screenshots
+![image](https://github.com/MUHESI/fsta-bot-front/assets/55533063/8a544ed8-7359-4920-adbb-3a46de330be0)
 
+![image](https://github.com/MUHESI/fsta-bot-front/assets/55533063/90d765c4-6a9c-4e49-8ca4-69623485bd69)
 
+![image](https://github.com/MUHESI/fsta-bot-front/assets/55533063/8f9ecb69-3df6-48ce-9254-e3b1c7d2ccb9)
 
 ## Some important links
 
